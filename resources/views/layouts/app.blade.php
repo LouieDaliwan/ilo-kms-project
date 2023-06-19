@@ -8,6 +8,7 @@
 
         <!-- Fonts -->
         @vite('resources/css/app.css')
+        @livewireStyles
     </head>
     <body class="antialiased w-full">
         <div class="app">
@@ -17,5 +18,7 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        @livewireScripts
     </body>
 </html>
