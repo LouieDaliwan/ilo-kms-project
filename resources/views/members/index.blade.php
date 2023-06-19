@@ -1,33 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="m-[200px]" style="margin-top: 200px;">
-        <div class="flex align-middle justify-center w-full">
-            <table class="table-auto">
-                <thead>
-                  <tr>
-                    <th>Song</th>
-                    <th>Artist</th>
-                    <th>Year</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                    <td>Malcolm Lockyer</td>
-                    <td>1961</td>
-                  </tr>
-                  <tr>
-                    <td>Witchy Woman</td>
-                    <td>The Eagles</td>
-                    <td>1972</td>
-                  </tr>
-                  <tr>
-                    <td>Shining Star</td>
-                    <td>Earth, Wind, and Fire</td>
-                    <td>1975</td>
-                  </tr>
-                </tbody>
+    <div class="mt-20">
+        <div class="align-middle justify-center w-full ml-auto mr-auto">
+            <table class="shadow-lg bg-white border-collapse">
+                <tr>
+                  <th class="bg-blue-100 border text-left px-8 py-4">First Name</th>
+                  <th class="bg-blue-100 border text-left px-8 py-4">Email</th>
+                  {{-- <th class="bg-blue-100 border text-left px-8 py-4"></th> --}}
+                </tr>
+                @foreach($users as $user)
+                <tr class="hover:bg-gray-50">
+                  <td class="border px-8 py-4">{{ $user->first_name }}</td>
+                  <td class="border px-8 py-4">{{ $user->email }}</td>
+                  {{-- <td class="border px-8 py-4">Italy</td> --}}
+                </tr>
+                @endforeach
+
+
+                {!! $users->links('pagination::tailwind') !!}
               </table>
         </div>
     </div>
