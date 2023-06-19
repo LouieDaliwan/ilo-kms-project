@@ -13,8 +13,6 @@ class IndexMembersController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $users = User::paginate(10);
-
-        return view('members.index', compact('users'));
+        
     }
 }

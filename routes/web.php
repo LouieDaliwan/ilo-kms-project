@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\Users\AddMemberController;
-use App\Http\Controllers\Users\IndexMembersController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Users\MembersController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,5 +15,4 @@ Route::get('/', function () {
 //     return view('register');
 // });
 
-Route::get('/members', IndexMembersController::class)->name('members.index');
-Route::post('/add-members', AddMemberController::class);
+Route::resource('members', MembersController::class);

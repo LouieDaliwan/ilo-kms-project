@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AddMemberControllerTest extends TestCase
+class MembersControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -26,9 +26,18 @@ class AddMemberControllerTest extends TestCase
         ];
     }
 
+    /** @test */
+    function can_show_the_lists_of_members()
+    {
+        $this->get('/members')
+            ->assertStatus(200)
+            ->assertSee('Members')
+            ->assertSee('Name');
+    }
+
     protected function postAddMembers($arr = [])
     {
-        return $this->post('/add-members', array_merge($arr, $this->userDetails()));
+        return $this->post('/members', array_merge($arr, $this->userDetails()));
     }
 
     /** @test */
