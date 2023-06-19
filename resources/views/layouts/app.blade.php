@@ -10,6 +10,12 @@
         @vite('resources/css/app.css')
     </head>
     <body class="antialiased w-full">
-        @yield('content')
+        <div class="app">
+            @include('navbar.main')
+        </div>
+
+        <main class="py-4">
+            @yield('content')
+        </main>
     </body>
 </html>
