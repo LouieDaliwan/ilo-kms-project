@@ -35,7 +35,7 @@ class MembersControllerTest extends TestCase
             ->assertStatus(200)
             ->assertSee('Members')
             ->assertSee('Name')
-            ;
+            ->assertSee('Email');
     }
 
     protected function postAddMembers($arr = [])
