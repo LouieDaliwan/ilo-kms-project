@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeNewMember;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class MembersController extends Controller
@@ -33,6 +35,7 @@ class MembersController extends Controller
      */
     public function store(Request $request)
     {
+        $password = Str::password(12);
         $user = User::firstOrCreate([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
@@ -40,10 +43,11 @@ class MembersController extends Controller
             'username' => $request['username'],
             'gender' => $request['gender'],
             'metadata' => $request['metadata'],
+            'password' => Hash::make($password)
         ]);
 
         Mail::to($user->email)
-            ->send(new WelcomeNewMember($user));
+            ->send(new WelcomeNewMember($user, $password));
 
         return redirect('/members');
     }

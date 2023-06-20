@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('gender')->index()->nullable();
             $table->longText('metadata')->nullable();
             $table->longText('remarks')->nullable();
+            $table->integer('is_temporary_password')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->index()->nullable();
             $table->rememberToken();

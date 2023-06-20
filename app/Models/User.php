@@ -46,5 +46,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'metadata' => 'array',
+        'is_temporary_password' => 'boolean'
     ];
 }

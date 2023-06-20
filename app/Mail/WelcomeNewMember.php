@@ -18,10 +18,10 @@ class WelcomeNewMember extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public User $user)
-    {
-        //
-    }
+    public function __construct(
+        public User $user,
+        public string $password,
+    ){}
 
     /**
      * Get the message envelope.
@@ -39,9 +39,10 @@ class WelcomeNewMember extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.welcome-member',
+            view: 'emails.welcome-member',
             with: [
                 'name' => "{$this->user->first_name} {$this->user->last_name}",
+                'temp_password' => $this->password,
             ],
         );
     }

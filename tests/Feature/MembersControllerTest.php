@@ -80,4 +80,17 @@ class MembersControllerTest extends TestCase
             return $mail->hasTo($user->email);
         });
     }
+
+    /** @test */
+    function a_newly_member_will_generate_temporary_password()
+    {
+        Mail::fake();
+
+        $this->postAddMembers();
+
+        $user = User::first();
+
+        $this->assertTrue($user->is_temporary_password);
+        $this->assertNotEmpty($user->password);
+    }
 }
