@@ -3,13 +3,16 @@
 @section('content')
     <div class="mt-8">
         <div class="row">
-            <div class="col-md-8 my-5 ml-2 justify-center align-middle">
+            <div class="my-5 flex flex-none space-x-10 w-full justify-center align-middle">
                 <p class="font-weight-bold" style="font-size: 30px;">Members</p>
-            </div>
 
+                <a href="{{ route('members.create') }}" class="rounded-full bg-blue-300 justify-center align-center mx-auto text-white bold w-20 text-center pt-3">
+                    Add
+                </a>
+            </div>
         </div>
 
-        <a href="{{ route('members.create') }}" class="btn btn-primary float-right my-5 mr-2">Add Member</a>
+
         <div class="flex align-middle justify-center w-full">
 
             <table class="shadow-lg bg-white border-collapse table-bordered table-sm">
