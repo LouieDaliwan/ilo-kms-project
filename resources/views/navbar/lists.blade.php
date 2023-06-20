@@ -3,7 +3,7 @@
         <li>
             <a href="#" aria-current="page"
                 class="{{
-                    (request()->is(strtolower($list))) ? 'text-blue-300' : 'text-white dark:text-white'
+                    (request()->routeIs(strtolower($list.'*'))) ? 'text-blue-300' : 'text-white dark:text-white'
                 }}
                 block
                 py-2

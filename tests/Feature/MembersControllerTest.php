@@ -2,10 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Mail\WelcomeNewMember;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class MembersControllerTest extends TestCase
 {
@@ -32,7 +34,8 @@ class MembersControllerTest extends TestCase
         $this->get('/members')
             ->assertStatus(200)
             ->assertSee('Members')
-            ->assertSee('Name');
+            ->assertSee('Name')
+            ;
     }
 
     protected function postAddMembers($arr = [])
@@ -62,5 +65,19 @@ class MembersControllerTest extends TestCase
         $user = User::first();
 
         $this->assertEquals('For Placement', $user->status);
+    }
+
+    /** @test */
+    function a_newly_member_will_receive_email_notification()
+    {
+        Mail::fake();
+
+        $this->postAddMembers();
+
+        $user = User::first();
+
+        Mail::assertSent(WelcomeNewMember::class, function(WelcomeNewMember $mail) use ($user){
+            return $mail->hasTo($user->email);
+        });
     }
 }

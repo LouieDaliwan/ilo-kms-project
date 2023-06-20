@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Mail\WelcomeNewMember;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class MembersController extends Controller
 {
@@ -23,7 +25,7 @@ class MembersController extends Controller
      */
     public function create()
     {
-        //
+        return view('members.create');
     }
 
     /**
@@ -31,7 +33,7 @@ class MembersController extends Controller
      */
     public function store(Request $request)
     {
-        User::firstOrCreate([
+        $user = User::firstOrCreate([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],
             'email' => $request['email'],
@@ -39,6 +41,9 @@ class MembersController extends Controller
             'gender' => $request['gender'],
             'metadata' => $request['metadata'],
         ]);
+
+        Mail::to($user->email)
+            ->send(new WelcomeNewMember($user));
 
         return redirect('/members');
     }
