@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\WelcomeNewMember;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddMemberRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
@@ -33,9 +34,10 @@ class MembersController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AddMemberRequest $request)
     {
         $password = Str::password(12);
+
         $user = User::firstOrCreate([
             'first_name' => $request['first_name'],
             'last_name' => $request['last_name'],

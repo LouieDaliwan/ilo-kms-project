@@ -93,4 +93,16 @@ class MembersControllerTest extends TestCase
         $this->assertTrue($user->is_temporary_password);
         $this->assertNotEmpty($user->password);
     }
+
+    /** @test */
+    function it_validates_the_fields_before_store_the_details()
+    {
+        $this->post('/members', [])
+        ->assertSessionHasErrors([
+            'first_name',
+            'last_name',
+            'email',
+            'username'
+        ]);
+    }
 }
