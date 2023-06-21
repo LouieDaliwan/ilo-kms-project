@@ -48,8 +48,8 @@ class MembersController extends Controller
             'password' => Hash::make($password)
         ]);
 
-        // Mail::to($user->email)
-        //     ->send(new WelcomeNewMember($user, $password));
+        Mail::to($user->email)
+            ->send(new WelcomeNewMember($user, $password));
 
         return redirect("/members/{$user->id}");
     }
@@ -60,7 +60,7 @@ class MembersController extends Controller
     public function show($user)
     {
         $user = User::findOrFail($user);
-        
+
         return view('members.show', compact('user'));
     }
 
@@ -75,9 +75,28 @@ class MembersController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $user)
     {
-        //
+        $user = User::findOrFail($user);
+
+        $user->first_name = $request['first_name'];
+        $user->middle_name = $request['middle_name'];
+        $user->last_name = $request['last_name'];
+        $user->email = $request['email'];
+        $user->username = $request['username'];
+        $user->gender = $request['gender'];
+        $user->metadata = [
+            'phone_number' => $request['phone_number'] ?? null,
+            'age' => $request['age'] ?? null,
+            'address' => $request['address'] ?? null,
+            'company' => $request['company'] ?? null,
+            'source' => $request['source'] ?? null,
+            'social_media' => $request['social_media'] ?? null,
+        ];
+
+        $user->save();
+
+        return redirect("/members/{$user->id}");
     }
 
     /**

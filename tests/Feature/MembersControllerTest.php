@@ -105,4 +105,29 @@ class MembersControllerTest extends TestCase
             'username'
         ]);
     }
+
+    /** @test */
+    function can_update_the_details_of_members_or_users()
+    {
+        $user = User::factory()->create();
+
+        $this->put("/members/{$user->id}", [
+            'first_name' => 'John',
+            'middle_name' => '',
+            'last_name' => 'Doe',
+            'email' => 'johndoe@example.com',
+            'username' => 'johndoe',
+            'gender' => 'Male',
+            'metadata' => [
+                'phone_number' => '09012345678',
+                'age' => '21',
+                'address' => 'Test Address',
+                'source' => 'source',
+                'social_media' => 'soc med'
+            ],
+        ]);
+
+        $this->assertEquals('John', $user->fresh()->first_name);
+        $this->assertEquals('Doe', $user->fresh()->last_name);
+    }
 }

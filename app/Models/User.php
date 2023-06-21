@@ -16,6 +16,16 @@ class User extends Authenticatable
     {
         static::created(function (User $user) {
             $user->status = 'For Placement';
+            
+            $user->metadata = [
+                'phone_number' => '',
+                'age' => '',
+                'address' => '',
+                'company' => '',
+                'source' => '',
+                'social_media' => '',
+            ];
+
             $user->save();
         });
     }
