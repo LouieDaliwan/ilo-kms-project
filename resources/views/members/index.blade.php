@@ -5,7 +5,6 @@
         <div class="row">
             <div class="my-5 flex flex-none space-x-10 w-full justify-center align-middle">
                 <p class="font-weight-bold" style="font-size: 30px;">Members</p>
-
                 <a href="{{ route('members.create') }}" class="rounded-full bg-blue-300 justify-center align-center mx-auto text-white bold w-20 text-center pt-3">
                     Add
                 </a>
@@ -14,7 +13,6 @@
 
 
         <div class="flex align-middle justify-center w-full">
-
             <table class="shadow-lg bg-white border-collapse table-bordered table-sm">
                 <tr>
                     <th class="bg-blue-100 border text-left px-8 py-4">ID No.</th>
@@ -25,7 +23,7 @@
                 @foreach($users as $user)
                 <tr class="hover:bg-gray-50">
                     <td class="border px-8 py-4">
-                        <a class="" href="#">{{ $user->id }}</a>
+                        <a class="" href="/members/{{$user->id}}">{{ $user->id }}</a>
                     </td>
                     <td class="border px-8 py-4">{{ $user->first_name }}</td>
                     <td td class="border px-8 py-4">{{ $user->email }}</td>

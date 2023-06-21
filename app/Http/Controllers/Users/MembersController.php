@@ -48,18 +48,18 @@ class MembersController extends Controller
             'password' => Hash::make($password)
         ]);
 
-        Mail::to($user->email)
-            ->send(new WelcomeNewMember($user, $password));
+        // Mail::to($user->email)
+        //     ->send(new WelcomeNewMember($user, $password));
 
-        return redirect('/members');
+        return redirect("/members/{$user->id}");
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $id)
     {
-        //
+        return view('members.show', compact('id'));
     }
 
     /**
