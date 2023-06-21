@@ -3,20 +3,25 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Users\Remark;
+use App\Models\Users\UserAttributes;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens,
+    HasFactory,
+    Notifiable,
+    UserAttributes;
 
     protected static function booted(): void
     {
         static::created(function (User $user) {
             $user->status = 'For Placement';
-            
+
             $user->metadata = [
                 'phone_number' => '',
                 'age' => '',
@@ -58,4 +63,17 @@ class User extends Authenticatable
         'metadata' => 'array',
         'is_temporary_password' => 'boolean'
     ];
+
+    public function remarks()
+    {
+        return $this->hasMany(Remark::class, 'user_id');
+    }
+
+    public function saveRemarks(User $author, string $remarks)
+    {
+        return $this->remarks()->create([
+            'author_id' => $author->id,
+            'remarks' => $remarks
+        ]);
+    }
 }
