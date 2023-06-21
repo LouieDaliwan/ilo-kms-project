@@ -98,6 +98,6 @@
             </div>
         </div>
 
-        <livewire:members.remarks />
+        <livewire:member.remarks />
     </div>
 @endsection
