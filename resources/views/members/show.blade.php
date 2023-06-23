@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="grid md:grid-cols-2 mt-20 w-[100%] ml-auto mr-auto">
-        <div class="ml-20 flex justify-center content-center">
-            <form method="POST" action="/members/{{$user->id}}">
+    <div class="mt-20 w-[100%] ml-auto mr-auto">
+        <div class="flex flex-row space-x-10 justify-center content-center">
+            <form method="POST" action="/members/{{$user->id}}" class="w-[50%]">
                 @csrf
                 @method('PUT')
 
@@ -106,11 +106,11 @@
 
                 <button type="submit" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 mt-10">Update</button>
             </form>
-        </div>
 
-        <div class="w-full ml-auto mr-auto flex flex-col justify-center content-center  max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
-            <livewire:members.list-remarks :member="$user" />
-            <livewire:members.save-remark  :member="$user"/>
+            <div class="w-full ml-auto mr-auto flex flex-col justify-center content-center  max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <livewire:members.list-remarks :member="$user" />
+                <livewire:members.save-remark  :member="$user"/>
+            </div>
         </div>
     </div>
 @endsection

@@ -13,7 +13,6 @@ class ListRemarks extends Component
 
     public function render()
     {
-        $this->dispatchBrowserEvent('scrollDown');
         return view('livewire.members.list-remarks', [
            'remarks' => $this->member->remarks ?? null
         ]);
