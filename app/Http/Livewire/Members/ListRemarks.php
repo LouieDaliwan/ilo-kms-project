@@ -6,8 +6,16 @@ use Livewire\Component;
 
 class ListRemarks extends Component
 {
+    public $member;
+
+    protected $listeners = ['savedRemark' => 'render'];
+
+
     public function render()
     {
-        return view('livewire.members.list-remarks');
+        $this->dispatchBrowserEvent('scrollDown');
+        return view('livewire.members.list-remarks', [
+           'remarks' => $this->member->remarks ?? null
+        ]);
     }
 }
