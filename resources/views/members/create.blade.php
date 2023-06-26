@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="mb-5 mt-10">
+    <a href="/members" class="ml-[350px] mb-20 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> <- Back</a>
+</div>
 <div class="w-full mt-20 ml-auto mr-auto flex flex-col justify-center content-center  max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700">
     <h2 class="text-black bold mb-5">Create Member</h2>
     <div>
