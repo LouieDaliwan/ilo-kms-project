@@ -16,6 +16,7 @@ class User extends Authenticatable
     HasFactory,
     Notifiable,
     UserAttributes;
+    // HasRoles;
 
     protected static function booted(): void
     {
