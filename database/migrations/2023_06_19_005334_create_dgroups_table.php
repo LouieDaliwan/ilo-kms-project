@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('dgroups', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('leader_id')->index();
+            $table->string('day_group')->index();
+            $table->datetime('start_datetime')->index();
+            $table->datetime('end_datetime')->index();
+            $table->string('life_stage_type')->index();
+            $table->string('status')->index();
+            $table->string('accept_new_member')->index()->default(1);
+            $table->longText('comments')->nullable();
             $table->timestamps();
         });
     }

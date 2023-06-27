@@ -25,7 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'can-comment',
                 'can-remove'
             ],
-            'D-Group-Leader' => [
+            'DGroup-Leader' => [
                 'can-accept',
                 'can-comment',
                 'can-update',

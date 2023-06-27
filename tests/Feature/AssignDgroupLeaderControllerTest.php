@@ -12,28 +12,63 @@ class AssignDgroupLeaderControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function __setup() :void
+    protected function setUp() : void
     {
         parent::setUp();
 
         $this->seed(RolesAndPermissionsSeeder::class);
     }
 
-    protected function firstUser()
+    protected function member() : User
     {
-        return User::factory()->create();
+        $user = User::factory()->create();
+
+        $user->assignRole('Member');
+
+        return $user;
+    }
+
+
+    protected function dleader() : User
+    {
+        $user = User::factory()->create();
+
+        $user->assignRole('DGroup-Leader');
+
+        return $user;
     }
 
     /** @test */
-    function a_user_can_assign_a_dgroup_leader_for_a_new_member()
+    function a_dgroup_leader_can_endorse_a_member_to_be_a_dgroup_leader()
     {
         $this->markTestIncomplete();
-        //create a user
 
-        //call the dgroup leader user
+        $leader = $this->userAssignRole('DGroup-Leader');
 
-        //assert that a created user was a member of dgroup leader and it shows the name of his/her leader
+        $member = $this->member();
 
+        $this->put("/members/{$member->id}/endorse-to-be-leader");
+
+        $this->assertDatabaseHas('endorse_to_be_leaders', [
+            'endorse_by_id' => $leader->id,
+            'user_id' => $member->id,
+            'status' => 'Pending',
+            'approved_by' => null
+        ]);
     }
 
+    /** @test */
+    function a_authorized_can_assign_a_dgroup_leader()
+    {
+        $this->userAssignRole('Superadmin');
+
+        //create a member with no dgroup leader
+        $member = $this->member();
+
+        //asssign the member to be a dgroup leader role
+        $this->put("members/{$member->id}/assign-dgroup-leader");
+
+        //assert that a created user was a member of dgroup leader and it shows the name of his/her leader
+        $this->assertTrue($member->fresh()->hasRole('DGroup-Leader'));
+    }
 }
