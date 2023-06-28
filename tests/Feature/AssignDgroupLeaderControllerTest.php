@@ -58,17 +58,29 @@ class AssignDgroupLeaderControllerTest extends TestCase
     }
 
     /** @test */
-    function a_authorized_can_assign_a_dgroup_leader()
+    function a_authorized_can_assign_a_dgroup_leader_and_also_create_new_dgroup()
     {
         $this->userAssignRole('Superadmin');
 
-        //create a member with no dgroup leader
         $member = $this->member();
 
-        //asssign the member to be a dgroup leader role
         $this->put("members/{$member->id}/assign-dgroup-leader");
 
-        //assert that a created user was a member of dgroup leader and it shows the name of his/her leader
+
         $this->assertTrue($member->fresh()->hasRole('DGroup-Leader'));
+        $this->assertEquals(1, $member->fresh()->dgroup->count());
+    }
+
+    /** @test */
+    function a_authorized_user_can_only_access_to_promote_a_member()
+    {
+        $this->markTestIncomplete();
+
+        $this->userAssignRole('Member');
+
+        $member = $this->member();
+
+        $this->put("members/{$member->id}/assign-dgroup-leader")
+        ->assertUnauthorized();
     }
 }

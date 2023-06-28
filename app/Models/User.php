@@ -3,13 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Dgroup;
 use App\Models\Users\Remark;
-use App\Models\Users\UserAttributes;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Users\UserAttributes;
+use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -77,5 +78,10 @@ class User extends Authenticatable
             'author_id' => $author->id,
             'remarks' => $remarks
         ]);
+    }
+
+    public function dgroup()
+    {
+        return $this->hasOne(Dgroup::class, 'leader_id');
     }
 }

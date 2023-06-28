@@ -13,8 +13,10 @@ class AssignDgroupLeaderControlller extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(User $member)
+    public function __invoke(Request $request, User $member)
     {
         $member->assignRole('DGroup-Leader');
+
+        return ($this->saveDLeaderDetails)($member);
     }
 }

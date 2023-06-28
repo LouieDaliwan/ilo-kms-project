@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('dgroups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('leader_id')->index();
-            $table->string('day_group')->index();
-            $table->datetime('start_datetime')->index();
-            $table->datetime('end_datetime')->index();
-            $table->string('life_stage_type')->index();
-            $table->string('status')->index();
+            $table->string('day')->index()->nullable();
+            $table->datetime('start_date')->index()->nullable();
+            $table->datetime('deactivate_at')->index()->nullable();
+            $table->time('start_time')->index()->nullable();
+            $table->time('end_time')->index()->nullable();
+            $table->string('life_stage_type')->index()->nullable();
+            $table->string('status')->index()->nullable();
             $table->string('accept_new_member')->index()->default(1);
             $table->longText('comments')->nullable();
             $table->timestamps();
