@@ -11,15 +11,19 @@
         @livewireStyles
     </head>
     <body class="antialiased w-full">
-        <div class="app">
+        <div id="app"></div>
+        @vite('resources/js/app.js')
+
+        {{-- <div class="app" id="app">
             @include('navbar.main')
-        </div>
+        </div> --}}
 
-        <main class="py-4 mt-10 w-[100%]">
+
+        {{-- <main class="py-4 mt-10 w-[100%]">
             @yield('content')
-        </main>
+        </main> --}}
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
         @livewireScripts
     </body>
 </html>
