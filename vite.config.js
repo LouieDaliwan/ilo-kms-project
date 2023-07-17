@@ -14,9 +14,8 @@ export default defineConfig({
     ],
     resolve: {
         alias: [
-            { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+            { find: '@', replacement: fileURLToPath(new URL('./resources/js/src', import.meta.url)) },
+            { find: '@js', replacement: fileURLToPath(new URL('./resources/js', import.meta.url)) },
         ]
-            // '@/': `${path.resolve(__dirname, 'src')}/`
-        // }
     }
 });

@@ -2,8 +2,8 @@ import './bootstrap';
 import '../css/app.css';
 
 
-// import {createApp} from 'vue'
-import { createApp } from 'vue/dist/vue.esm-bundler';
+import {createApp} from 'vue'
+// import { createApp } from 'vue/dist/vue.esm-bundler';
 
 import App from './App.vue'
 
@@ -12,7 +12,7 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-import router from './router/routes';
+import router from '@/plugins/router.js';
 
 import { createPinia } from 'pinia'
 
@@ -23,9 +23,13 @@ const vuetify = createVuetify({
 
 const pinia = createPinia()
 
+// console.log(router);
+
 createApp(App)
 .use(vuetify)
 .use(router)
 .use(pinia)
 .mount("#app")
+
+
 
