@@ -21,7 +21,7 @@ Object.values(
     import.meta.glob('./error.js', { eager: true})
 ).forEach((module) =>
     _.forEach(module.default, function(route, key) {
-        routes.push(router)
+        routes.push(route)
     })
 )
 
