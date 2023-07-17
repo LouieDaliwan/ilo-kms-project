@@ -2,12 +2,11 @@ import { createRouter, createWebHistory }  from 'vue-router';
 
 const Home = { template: '<div>Home</div>' }
 const About = { template: '<div>About</div>' }
-const NotFound = {template: '<div>Not Found</div>'}
+
 
 const routes = [
     { path: '/', component: Home },
     { path: '/about', component: About },
-    { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ];
 
 Object.values(
@@ -17,6 +16,14 @@ Object.values(
         routes.push(route);
     }
 ));
+
+Object.value(
+    import.meta.glob('./error.js', { eager: true})
+).forEach((module) =>
+    _.forEach(module.default, function(route, key) {
+        routes.push(rouet)
+    })
+)
 
 const router = createRouter({
     // 4. Provide the history implementation to use. We are using the hash history for simplicity here.
