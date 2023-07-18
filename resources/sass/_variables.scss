@@ -1,0 +1,56 @@
+// Theme
+$primary:                   #167bc3;
+$secondary:                 #e56e37;
+$accent:                    #f39e2b;
+$light:                     #f8f9fa;
+$white:                     #ffffff;
+$link:                      #868e96;
+$separator:                 #dee2e6;
+
+// Contextual
+$success:                   #009688;
+$error:                     #e63757;
+$info:                      #39afd1;
+$warning:                   #f6c343;
+$muted:                     #95aac9;
+$field-light:               #d2ddec;
+
+$soft-success:              #ccf7e5;
+$soft-error:                #fad7dd;
+$soft-info:                 #d7eff6;
+$soft-warning:              #fdf3d9;
+
+// Components
+$sidebar-bg-dark:           #2b343a;
+$sidebar-border:            #e3ebf6;
+$workspace:                 #f9fbfd;
+$workspace-dark:            #212c32;
+$toolbar-bg-dark:           #1e262b;
+$card-border-color:         #edf2f9;
+$card-border-color-dark:    #212c32;
+$field-border-color:        #d2ddec;
+$button-border-color:       #dee2e6;
+
+// Body
+$text:                       #12263f;
+$body-bg:                   transparent !default;
+$body-color:                $text !default;
+
+// Fonts
+$font-family-sans-serif:    "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$font-family-monospace:     "Ubuntu Mono", SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
+$font-family-base:          $font-family-sans-serif !default;
+$font-base:                 16px;
+$font-size-base:            15px !default; // Assumes the browser default, typically `16px`
+$font-size-lg:              ($font-size-base * 1.25) !default;
+$font-size-sm:              14px !default;
+
+// Border
+$global-radius:             8px;
+
+// Margins & Paddings
+$padding-base:              20px;
+$margin-base:               20px;
+
+$breadcrumbs-padding:       0 0 !default;
+$full-height:               100vh;

@@ -1,23 +1,41 @@
 const routes = [
     {
-        path: '/members',
-        name: 'members',
-        component: () => import('../Index.vue'),
-        meta: { requiresAuth: false },
+        path: '/admin/members',
+        name: 'members.index',
+        component: () => import('@root/App.vue'),
+        meta: {
+            title: 'Members',
+            sort: 6,
+            requiresAuth: false,
+            icon: 'mdi-book-multiple-variant',
+        },
+        children: [
+            {
+                path: '/admin/members',
+                name: 'members.index',
+                component: () => import('../Index.vue'),
+                meta: {
+                  title: 'All Members',
+                  sort: 6,
+                  requiresAuth: false,
+                //   permission: 'customers.index',
+                  icon: 'mdi-book-multiple-variant',
+                },
+            },
+            {
+                path: '/admin/members-create',
+                name: 'members.create',
+                component: () => import('../Create.vue'),
+                meta: {
+                  title: 'Create Member',
+                  sort: 7,
+                  requiresAuth: false,
+                //   permission: 'customers.index',
+                  icon: 'mdi-book-multiple-variant',
+                },
+            },
+        ]
     },
-    {
-        path: '/members-create',
-        name: 'create-members',
-        component: () => import('../Create.vue'),
-        meta: { requiresAuth: false },
-    },
-    {
-        path: '/members/:id',
-        name: 'members-show',
-        component: () => import('../Show.vue'),
-        meta: { requiresAuth: false },
-    }
-
 ]
 
 

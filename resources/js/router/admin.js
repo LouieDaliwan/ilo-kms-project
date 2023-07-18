@@ -9,10 +9,10 @@ Object.values(
 ));
 
 export default {
-    path: '/dashboard',
-    name: 'dashboard',
-    // redirect: {name: 'dashboard'},
+    path: '/admin',
+    name: 'admin',
+    redirect: {name: 'dashboard'},
     component: () => import('@/Components/Layouts/Dashboard.vue') ,
-    meta: { requiresAuth: false },
+    meta: { title: 'Admin', requiresAuth: false },
     children: routes,
 };

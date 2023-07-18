@@ -1,0 +1,89 @@
+.theme--light {
+    // div[class^="v-"],
+    // div[class*=" v-"],
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: var(--text);
+    }
+  }
+
+  .theme--dark {
+    // div[class^="v-"],
+    // div[class*=" v-"],
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+      color: var(--white);
+    }
+  }
+
+  .text {
+    &--truncate {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 150px;
+    }
+
+    &--decoration {
+      &-none {
+        text-decoration: none;
+      }
+    }
+
+    &--ellipsis {
+      -webkit-box-orient: vertical;
+      -webkit-box-pack: center;
+      display: -webkit-box;
+      flex-direction: column;
+      justify-content: space-around;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      line-height: 1.4;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &--ellipsis-1 {
+      -webkit-box-orient: vertical;
+      -webkit-box-pack: center;
+      display: -webkit-box;
+      flex-direction: column;
+      justify-content: space-around;
+      -webkit-line-clamp: 1;
+      line-clamp: 1;
+      line-height: 1.4;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-red input {
+      color: $error !important;
+    }
+
+    &-green input {
+      color: $success !important;
+    }
+  }
+
+  .compulsory {
+    position: relative;
+
+    &::before {
+      color: $error;
+      content: "*";
+      left: 0;
+      position: absolute;
+    }
+  }
