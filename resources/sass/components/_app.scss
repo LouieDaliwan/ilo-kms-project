@@ -1,0 +1,15 @@
+.v-application {
+    font-family: var(--font-family-base);
+  }
+
+  .theme--light {
+    &.v-application {
+      background-color: var(--workspace-bg);
+    }
+  }
+
+  .theme--dark {
+    &.v-application {
+      background-color: var(--workspace-bg-dark);
+    }
+  }

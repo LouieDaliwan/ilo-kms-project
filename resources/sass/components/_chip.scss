@@ -1,0 +1,86 @@
+.dovetail-app {
+    // .theme--light {
+    //   .v-chip {
+        // &:not(.v-chip--active) {
+        //   background: var(--workspace-bg) !important;
+        // }
+    //   }
+    // }
+//   }
+
+  // .dt-chip {
+  //   align-items: center;
+  //   border-radius: 50%;
+  //   cursor: pointer;
+  //   display: inline-flex;
+  //   justify-content: center;
+  //   transition: all 0.1s ease-in-out;
+  // }
+
+  // @media only screen and (min-width: 576px) {
+  //   .dt-chip {
+  //     border: 2px solid var(--text-muted);
+  //     flex: 0 0 55px;
+  //     height: 55px;
+  //     width: 55px;
+  //   }
+  // }
+
+  // @media only screen and (max-width: 576px) {
+  //   .dt-chip {
+  //     border: 1px solid var(--text-muted);
+  //     flex: 0 0 35px;
+  //     height: 35px;
+  //     width: 35px;
+  //   }
+  // }
+
+  .dt-chip, .dt-chip2 {
+    -webkit-box-align: center;
+            align-items: center;
+    border-radius: 100%;
+    cursor: pointer;
+    display: -webkit-inline-box;
+    display: inline-flex;
+    -webkit-box-pack: center;
+            justify-content: center;
+    -webkit-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+  }
+
+  @media only screen and (min-width: 576px) {
+    .dt-chip {
+      border: 2px solid var(--text-muted);
+      -webkit-box-flex: 0;
+              flex: 0 0 55px;
+      height: 55px;
+      width: 55px;
+    }
+
+    .dt-chip2 {
+      border: 2px solid var(--text-muted);
+      -webkit-box-flex: 0;
+              flex: 0 0 55px;
+      height: 100px;
+      width: 100px;
+    }
+  }
+
+  @media only screen and (max-width: 576px) {
+    .dt-chip{
+      border: 1px solid var(--text-muted);
+      -webkit-box-flex: 0;
+              flex: 0 0 35px;
+      height: 35px;
+      width: 35px;
+    }
+
+    .dt-chip2{
+      border: 1px solid var(--text-muted);
+      -webkit-box-flex: 0;
+              flex: 0 0 35px;
+      height: 100px;
+      width: 100px;
+    }
+  }
+}

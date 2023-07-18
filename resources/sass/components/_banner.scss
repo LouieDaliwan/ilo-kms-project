@@ -1,0 +1,32 @@
+.theme--light,
+.theme--dark {
+  .criteria {
+    .dt-banner {
+      width: 100%;
+
+      .v-banner__text {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.theme--dark {
+  .criteria {
+    .dt-banner {
+      .v-banner__wrapper {
+        border-bottom: 1px solid var(--workspace-bg-dark);
+      }
+    }
+  }
+}
+
+.theme--light {
+  .criteria {
+    .dt-banner {
+      .v-banner__wrapper {
+        border-bottom: 1px solid var(--card-border-color);
+      }
+    }
+  }
+}

@@ -5,7 +5,9 @@ use App\Http\Controllers\DashboardPageController;
 use App\Http\Controllers\Users\MembersController;
 use App\Http\Controllers\AssignDgroupLeaderControlller;
 
-Route::get('/', [DashboardPageController::class, 'index']);
+Route::get('/', fn() => redirect('/admin/dashboard'));
+
+Route::get('/admin/dashboard', [DashboardPageController::class, 'index']);
 
 Route::any('/{any?}', [DashboardPageController::class, 'index'])->where('any', '.*');
 

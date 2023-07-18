@@ -1,0 +1,56 @@
+.dt-text-field {
+    &__search {
+      .v-input__slot {
+        box-shadow: inset var(--box-shadow);
+      }
+    }
+
+    &.v-input {
+      &--dense {
+        .v-icon {
+          font-size: var(--font-base);
+        }
+      }
+
+      &:not(.v-input--dense) {
+        .v-icon {
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
+      }
+    }
+  }
+
+  .v-text-field {
+    &:not(.v-text-field--rounded) {
+      .v-input__slot {
+        border-radius: var(--card-border-radius);
+      }
+    }
+  }
+
+  .v-input--dense {
+    .v-label {
+      font-size: var(--font-size-sm);
+    }
+
+    .v-text-field__slot {
+      input {
+        font-size: var(--font-size-sm);
+      }
+    }
+
+    .v-select__selection {
+      font-size: var(--font-size-sm);
+    }
+  }
+
+  .theme--light {
+    &.v-text-field--outlined {
+      &:not(.v-input--is-focused):not(.v-input--has-state) {
+        fieldset {
+          border-color: var(--field-light);
+        }
+      }
+    }
+  }

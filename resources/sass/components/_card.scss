@@ -1,0 +1,41 @@
+.dovetail-app {
+    .v-card {
+      &:not(.v-card--flat):not(.v-card--outlined) {
+        box-shadow: var(--box-shadow);
+      }
+
+      &--hover:hover,
+      &.v-card--hover:hover {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.13), 0 10px 10px rgba(0, 0, 0, 0.12);
+      }
+
+      &:not(.v-sheet--tile):not(.v-card--shaped) {
+        border-radius: var(--global-radius);
+      }
+
+      &__text,
+      &__title {
+        font-size: var(--font-size-base);
+        padding: var(--padding-base);
+        word-break: break-word;
+      }
+
+      &__title {
+        font-weight: 700;
+      }
+    }
+
+    &.theme--light {
+      .v-card {
+        color: var(--text);
+
+        &:not(.v-card--flat):not(.v-card--outlined) {
+          border: 1px solid var(--card-border-color);
+        }
+
+        .v-card__text {
+          color: var(--text);
+        }
+      }
+    }
+  }

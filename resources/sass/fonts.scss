@@ -1,0 +1,12 @@
+@import '~@mdi/font/scss/materialdesignicons';
+
+$mdi-font-path: "../fonts/vendor/@mdi" !default;
+
+.mdi-spin::before {
+  animation: mdi-spin 0.5s ease-in infinite;
+}
+
+@font-face {
+  font-family: 'Rubik';
+  src: url('~rubik-font/fonts/Rubik-Regular.ttf') format('truetype');
+}

@@ -7,7 +7,7 @@
         <title>{{ config('app.name') }}</title>
 
         <!-- Fonts -->
-        @vite('resources/css/app.css')
+        @vite('resources/sass/app.scss')
         @livewireStyles
     </head>
     <body class="antialiased w-full">

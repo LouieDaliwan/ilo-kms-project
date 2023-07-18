@@ -8,23 +8,16 @@ import { createApp } from 'vue/dist/vue.esm-bundler';
 
 import App from './App.vue'
 
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
-
 import router from '@/plugins/router.js';
+import vuetify from '@/plugins/vuetify.js';
+import i18n from '@/plugins/i18n.js';
 
 import { createPinia } from 'pinia'
-
-const vuetify = createVuetify({
-  components,
-  directives,
-})
 
 const pinia = createPinia()
 
 createApp(App)
+.use(i18n)
 .use(vuetify)
 .use(router)
 .use(pinia)

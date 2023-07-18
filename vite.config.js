@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from "url";
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import vue from '@vitejs/plugin-vue'
 
 
@@ -8,8 +9,11 @@ export default defineConfig({
     plugins: [
         vue(),
         laravel({
-            input: ['resources/css/app.sass', 'resources/js/app.js'],
+            input: ['resources/sass/app.scss', 'resources/js/app.js'],
             refresh: true,
+        }),
+        VueI18nPlugin({
+            include: [path.resolve(__dirname, './resources/js/src/lang/*.json')],
         }),
     ],
     resolve: {

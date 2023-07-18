@@ -1,0 +1,79 @@
+:root {
+    // Body
+    --body-bg: #{$body-bg};
+    --body-color: #{$body-color};
+
+    // Breadcrumbs
+    --breadcrumbs-padding: #{$breadcrumbs-padding};
+
+    // Global
+    --box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+
+    // Button
+    --button-border-color: #{$button-border-color};
+
+    // Border Radius
+    --global-radius: #{$global-radius};
+
+    // Card
+    --card-border-radius: 8px;
+    --card-border-color: #{$card-border-color};
+    --card-border-color-dark: #{$card-border-color-dark};
+    --card-border-width: 1px;
+    --card-box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.05), 0 0 0 0 rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(0, 0, 0, 0.1);
+
+    // Color
+    --text: #{$text};
+    --text-muted: #{$muted};
+    --white: #{$white};
+    --link: #{$link};
+    --field-light: #{$field-light};
+    --separator: #{$separator};
+
+    // Font
+    --font-family-base: #{$font-family-base};
+    --font-family-monospace: #{$font-family-monospace};
+    --font-family-primary: 'Rubik', #{$font-family-base};
+    --font-family-sans-serif: #{$font-family-sans-serif};
+    --font-size-base: #{$font-size-base};
+    --font-size-sm: #{$font-size-sm};
+    --font-base: #{$font-base};
+
+    // Field
+    --field-border-color: #{$field-border-color};
+
+    // Sidebar
+    --sidebar-bg-dark: #{$sidebar-bg-dark};
+    --sidebar-border: #{$sidebar-border};
+
+    // Toolbar
+    --toolbar-bg-dark: #{$toolbar-bg-dark};
+
+    // Workspace
+    --workspace-bg: #{$workspace};
+    --workspace-bg-dark: #{$workspace-dark};
+
+    // Theme
+    --primary: #{$primary};
+    --secondary: #{$secondary};
+
+    // Contextual Color
+    --error: #{$error};
+    --success: #{$success};
+    --info: #{$info};
+    --warning: #{$warning};
+    --accent: #{$accent};
+
+    // Contextual Background Color
+    --soft-error: #{$soft-error};
+    --soft-success: #{$soft-success};
+    --soft-info: #{$soft-info};
+    --soft-warning: #{$soft-warning};
+
+    // Spacing
+    --padding-base: #{$padding-base};
+    --margin-base: #{$margin-base};
+
+    // Height
+    --full-height: #{$full-height};
+  }

@@ -1,0 +1,17 @@
+.dt-badge {
+    border-radius: 0.275rem;
+    display: inline-block;
+    font-size: 0.703125rem;
+    line-height: 1;
+    text-align: center;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+    &.v-badge--tile,
+    &.v-badge--bordered {
+      .v-badge__badge {
+        border-radius: 0.42rem;
+      }
+    }
+  }
+  

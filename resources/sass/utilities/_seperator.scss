@@ -1,0 +1,21 @@
+.group-separator {
+    border-left: 2px dashed var(--separator);
+    content: "";
+    height: 97%;
+    left: 17px;
+    position: relative;
+    top: 0;
+    width: 1px;
+  }
+
+  .field-separator {
+    &::after {
+      border-left: 2px dashed var(--separator);
+      content: "";
+      height: 57%;
+      left: 32px;
+      position: absolute;
+      top: 32%;
+      width: 1px;
+    }
+  }

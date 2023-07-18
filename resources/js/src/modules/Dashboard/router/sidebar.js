@@ -12,7 +12,7 @@ export default [
     {
       name: 'divider:dashboard/index',
       meta: {
-        title: 'Content',
+        title: '',
         sort: 1,
         subheader: true,
         height: 2,
