@@ -10,7 +10,6 @@ const routes = [
         name: 'create-members',
         component: () => import('../Create.vue'),
         meta: { requiresAuth: false },
-
     },
     {
         path: '/members/:id',

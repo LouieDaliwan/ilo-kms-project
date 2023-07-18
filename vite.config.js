@@ -16,6 +16,8 @@ export default defineConfig({
         alias: [
             { find: '@', replacement: fileURLToPath(new URL('./resources/js/src', import.meta.url)) },
             { find: '@js', replacement: fileURLToPath(new URL('./resources/js', import.meta.url)) },
+            { find: '@modules', replacement: fileURLToPath(new URL('./resources/js/src/modules', import.meta.url)) },
+            { find: '@components', replacement: fileURLToPath(new URL('./resources/js/src/Components', import.meta.url)) },
         ]
     }
 });

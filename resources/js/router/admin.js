@@ -11,7 +11,7 @@ Object.values(
 export default {
     path: '/dashboard',
     name: 'dashboard',
-    redirect: {name: 'dashboard'},
+    // redirect: {name: 'dashboard'},
     component: () => import('@/Components/Layouts/Dashboard.vue') ,
     meta: { requiresAuth: false },
     children: routes,
