@@ -1,8 +1,9 @@
 import { fileURLToPath, URL } from "url";
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
-import vue from '@vitejs/plugin-vue'
+import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite';
+import vue from '@vitejs/plugin-vue';
+import path from 'path';
 
 
 export default defineConfig({
