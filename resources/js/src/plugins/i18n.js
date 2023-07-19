@@ -7,10 +7,10 @@ export const messages = {
 }
 
 const i18n = createI18n({
-  locale: localStorage.getItem('app:locale') || 'en',
+  locale: localStorage.getItem('app:locale') || null,
   fallbackLocale: 'en',
-  silentFallbackWarn: true,
-  silentTranslationWarn: true,
+  silentFallbackWarn: false,
+  silentTranslationWarn: false,
   messages
 })
 
