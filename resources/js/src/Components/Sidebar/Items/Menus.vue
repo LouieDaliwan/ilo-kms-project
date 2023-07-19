@@ -70,18 +70,18 @@
     </template>
 
     <!-- FAQ -->
-    <template>
-      <!-- <can code=""> -->
-      <v-list-item color="white" link exact :to="{ name: 'members.index' }">
+    <!-- <template> -->
+    <!-- <can code=""> -->
+    <!-- <v-list-item color="white" link exact :to="{ name: 'members.index' }">
         <v-list-img>
           <v-icon size="small" :icon="'mdi-frequently-asked-questions'"></v-icon>
         </v-list-img>
         <v-list-item>
           <v-list-item-title class="font-weight-bold">FAQs</v-list-item-title>
         </v-list-item>
-      </v-list-item>
-      <!-- </can> -->
-    </template>
+      </v-list-item> -->
+    <!-- </can> -->
+    <!-- </template> -->
     <!-- FAQ -->
   </v-list>
 </template>

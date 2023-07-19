@@ -12,9 +12,6 @@
 
     <!-- Sidebar Footer -->
     <template v-slot:append>
-      <!-- <div class="ma-4"> -->
-      <!-- <language-button></language-button> -->
-      <!-- </div> -->
       <div class="px-4 py-2 d-flex justify-space-between align-center">
         <div class="white--text">
           <small>
@@ -22,14 +19,6 @@
             <div>Louie Daliwan &copy; 2023</div>
           </small>
         </div>
-        <!-- <v-btn icon @click="$store.dispatch('theme/toggle', {vm: vuetify, dark: !dark})"> -->
-        <!-- <v-btn
-                icon
-                @click="$store.dispatch('theme/toggle', { vm: vuetify, dark: !dark })"
-                >
-                <v-icon color="white">mdi-invert-colors</v-icon>
-                </v-btn> -->
-        <!-- <theme-changer></theme-changer> -->
       </div>
     </template>
   </v-navigation-drawer>
@@ -43,7 +32,7 @@ export default {
   name: "Sidebar",
   components: {
     Brand,
-    Menus
+    Menus,
   },
   data() {
     return {
