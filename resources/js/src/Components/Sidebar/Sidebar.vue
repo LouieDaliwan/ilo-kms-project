@@ -4,7 +4,7 @@
     app
     fixed
     v-model="sidebarModel"
-    class="dt-sidebar secondary workspace-x"
+    class="dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
   >
     <brand></brand>
 

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-slide-y-transition>
-      <app-bar>
+    <v-slide-y-transition mode="out-in">
+      <appbar>
         <slot name="appbar"></slot>
-      </app-bar>
+      </appbar>
     </v-slide-y-transition>
 
-    <v-content style="min-height: 100vh">
+    <v-main style="min-height: 100vh">
       <div class="mb-12">
         <v-container>
           <slot>
@@ -17,12 +17,12 @@
         </v-container>
       </div>
       <!-- <v-footer absolute paddless color="workspace">
-        <shortkey></shortkey>
-        <v-container>
-          <breadcrumbs></breadcrumbs>
-        </v-container>
-      </v-footer> -->
-    </v-content>
+            <shortkey></shortkey>
+            <v-container>
+            <breadcrumbs></breadcrumbs>
+            </v-container>
+        </v-footer> -->
+    </v-main>
   </div>
 </template>
 

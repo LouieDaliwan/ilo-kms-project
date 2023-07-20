@@ -1,6 +1,6 @@
 <template>
   <admin>
-
+    <h1 color="white">Test</h1>
   </admin>
 </template>
 
