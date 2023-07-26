@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-
-use Illuminate\Http\Request;
 use Domain\Dgroup\Actions\SaveDLeaderDetails;
+use Illuminate\Http\Request;
 
 class AssignDgroupLeaderControlller extends Controller
 {
-    public function __construct(protected SaveDLeaderDetails $saveDLeaderDetails,){}
+    public function __construct(protected SaveDLeaderDetails $saveDLeaderDetails)
+    {
+    }
+
     /**
      * Handle the incoming request.
      */
