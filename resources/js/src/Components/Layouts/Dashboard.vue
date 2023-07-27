@@ -1,17 +1,18 @@
 <template>
-  <v-layout class="rounded dovetail-app" v-cloak>
-    <v-app title="Application bar"></v-app>
+  <v-layout
+    class="dovetail-app v-application--is-ltr theme--light v-application"
+    id="app"
+    v-cloak
+  >
     <sidebar></sidebar>
 
-    <router-view>
-      <v-slide-y-transition
-        mode="out-in"
-        class="d-flex align-center justify-center"
-        style="min-height: 300px"
-      >
-      </v-slide-y-transition>
-    </router-view>
-
+    <v-slide-y-transition
+      mode="out-in"
+      class="d-flex align-center justify-center"
+      style="min-height: 300px"
+    >
+      <router-view></router-view>
+    </v-slide-y-transition>
     <!-- <v-main >
       Main Content
     </v-main> -->
