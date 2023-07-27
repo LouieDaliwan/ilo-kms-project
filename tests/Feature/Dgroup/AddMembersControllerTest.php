@@ -2,19 +2,13 @@
 
 namespace Tests\Feature\Dgroup;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AddMembersControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    /** @test */
+    public function a_authorized_user_can_add_a_member()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        $this->markTestIncomplete();
     }
 }

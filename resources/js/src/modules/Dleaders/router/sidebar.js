@@ -4,7 +4,7 @@ export default [
         name: 'dleaders',
         meta: {
             title: 'Dgroup Leaders',
-            icon: 'mdi-briefcase-outline',
+            icon: 'mdi-domain',
             requiresAuth: false,
             sort: 5,
             children: ['dleaders.index', 'dleaders.create'],
