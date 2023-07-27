@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Domain\Dgroup\Actions\SaveDLeaderDetails;
+use Exception;
 use Illuminate\Http\Request;
 
-class AssignDgroupLeaderControlller extends Controller
+class AssignDGroupLeaderController extends Controller
 {
     public function __construct(protected SaveDLeaderDetails $saveDLeaderDetails)
     {
@@ -19,6 +20,10 @@ class AssignDgroupLeaderControlller extends Controller
     {
         $member->assignRole('DGroup-Leader');
 
-        return ($this->saveDLeaderDetails)($member);
+        try {
+            return ($this->saveDLeaderDetails)($member);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

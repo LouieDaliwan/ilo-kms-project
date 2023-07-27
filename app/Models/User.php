@@ -3,40 +3,23 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Dgroup;
 use App\Models\Users\Remark;
-use Laravel\Sanctum\HasApiTokens;
 use App\Models\Users\UserAttributes;
-use Spatie\Permission\Traits\HasRoles;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens,
-    HasFactory,
-    Notifiable,
-    UserAttributes,
-    HasRoles;
-
-    protected static function booted(): void
-    {
-        static::created(function (User $user) {
-            $user->status = 'For Placement';
-
-            $user->metadata = [
-                'phone_number' => '',
-                'age' => '',
-                'address' => '',
-                'company' => '',
-                'source' => '',
-                'social_media' => '',
-            ];
-
-            $user->save();
-        });
-    }
+        HasFactory,
+        Notifiable,
+        UserAttributes,
+        HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -64,23 +47,42 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'metadata' => 'array',
-        'is_temporary_password' => 'boolean'
+        'is_temporary_password' => 'boolean',
     ];
 
-    public function remarks()
+    protected static function booted(): void
     {
-        return $this->hasMany(Remark::class, 'user_id');
+        static::created(function (User $user) {
+
+            $user->status = 'For Placement';
+
+            $user->metadata = [
+                'phone_number' => '',
+                'age' => '',
+                'address' => '',
+                'company' => '',
+                'source' => '',
+                'social_media' => '',
+            ];
+
+            $user->save();
+        });
     }
 
     public function saveRemarks(User $author, string $remarks)
     {
         return $this->remarks()->create([
             'author_id' => $author->id,
-            'remarks' => $remarks
+            'remarks' => $remarks,
         ]);
     }
 
-    public function dgroup()
+    public function remarks(): HasMany
+    {
+        return $this->hasMany(Remark::class, 'user_id');
+    }
+
+    public function dgroup(): HasOne
     {
         return $this->hasOne(Dgroup::class, 'leader_id');
     }

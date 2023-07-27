@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Models\User;
-use Illuminate\Support\Str;
-use Illuminate\Http\Request;
-use App\Mail\WelcomeNewMember;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddMemberRequest;
+use App\Mail\WelcomeNewMember;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class MembersController extends Controller
 {
@@ -36,6 +36,7 @@ class MembersController extends Controller
      */
     public function store(AddMemberRequest $request)
     {
+
         $password = Str::password(12);
 
         $user = User::firstOrCreate([
@@ -45,7 +46,7 @@ class MembersController extends Controller
             'username' => $request['username'],
             'gender' => $request['gender'],
             'metadata' => $request['metadata'],
-            'password' => Hash::make($password)
+            'password' => Hash::make($password),
         ]);
 
         Mail::to($user->email)
