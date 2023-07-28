@@ -1,7 +1,7 @@
 <script>
 import Admin from "@/Components/Layouts/Admin.vue";
 import PageHeader from "@/Components/Headers/PageHeader.vue";
-import Metatag from "@/Components/Metatag/Metatag.vue";
+import MetaTag from "@/Components/Metatag/Metatag.vue";
 import { useDisplay } from "vuetify";
 import { ref } from "vue";
 
@@ -11,7 +11,7 @@ export default {
     components: {
         Admin,
         PageHeader,
-        Metatag,
+        MetaTag,
     },
 
     setup() {
@@ -23,7 +23,7 @@ export default {
 
 <template>
     <admin>
-        <metatag :title="'Dashboard'">Ds</metatag>
+        <meta-tag :title="'Dashboard'"></meta-tag>
 
         <page-header>
             <template v-slot:action>
