@@ -1,0 +1,41 @@
+const routes = [
+    {
+        path: "/admin/users",
+        name: "users.index",
+        component: () => import("@root/App.vue"),
+        meta: {
+            title: "Users",
+            sort: 6,
+            requiresAuth: false,
+            icon: "mdi-book-multiple-variant",
+        },
+        children: [
+            {
+                path: "/admin/users",
+                name: "users.index",
+                component: () => import("../Index.vue"),
+                meta: {
+                    title: "All Users",
+                    sort: 6,
+                    requiresAuth: false,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "/admin/user-create",
+                name: "users.create",
+                component: () => import("../Create.vue"),
+                meta: {
+                    title: "Create Member",
+                    sort: 7,
+                    requiresAuth: false,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+        ],
+    },
+];
+
+export default routes;
