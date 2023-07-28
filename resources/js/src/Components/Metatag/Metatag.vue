@@ -12,9 +12,18 @@ export default {
                 title: val,
             });
 
+            console.log("test metatag");
             document.title = val;
         },
-        description(val) {},
+        description(val) {
+            defineStore("metatag/set", {
+                description: val,
+            });
+
+            document
+                .querySelector('head meta[name="description"]')
+                .setAttribute("content", val);
+        },
     },
 };
 </script>
