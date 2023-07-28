@@ -37,7 +37,7 @@ export default {
                     <v-icon left small
                         >mdi-file-document-box-search-outline
                     </v-icon>
-                    {{ $t("All Members") }}
+                    {{ "All Members" }}
                 </v-btn>
             </template>
         </page-header>
