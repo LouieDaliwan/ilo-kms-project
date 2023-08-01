@@ -1,5 +1,10 @@
 <script>
 import { useToolbarStore } from "./store/toolbar.js";
+import { useDialogStore } from "@components/Dialog/store/dialog.js";
+import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
+import EmptyIcon from "@/Components/Icons/EmptyIcon.vue";
+import ProjectManager from "@/Components/Icons/ProjectManager.vue";
+import ManIcon from "@/Components/Icons/ManThrowingAwayPaperIcon.vue";
 
 export default {
     name: "ToolbarMenu",
@@ -42,11 +47,182 @@ export default {
 
     setup() {
         const toolbar = useToolbarStore();
-        return { toolbar };
+        const dialogStore = useDialogStore();
+        const snackbar = useSnackbarStore();
+        return { toolbar, dialogStore, snackbar };
     },
+    watch: {
+        "items.toggleBulkEdit": function (val) {
+            if (!val) {
+                this.trashButtonIsLoading = false;
+            }
+        },
+    },
+
     methods: {
         emitRestoreButtonClicked() {
             this.$emit("update:restore");
+        },
+
+        emitTrashButtonClicked() {
+            this.$emit("update:trash");
+        },
+
+        emitDeleteButtonClicked() {
+            this.$emit("update:delete");
+        },
+
+        toggleLoadingStateOnClick() {
+            this.trashButtonIsLoading = !this.trashButtonIsLoading;
+        },
+
+        toggleView() {
+            this.toolbar.updateToolbar({
+                toggleview: !this.toolbar.toggleview,
+            });
+        },
+
+        askUserToBulkRestoreResources() {
+            if (this.items.bulkCount) {
+                this.dialogStore.prompt({
+                    show: true,
+                    width: 420,
+                    illustration: this.items.bulkCount
+                        ? ProjectManager
+                        : EmptyIcon,
+                    illustrationWidth: 240,
+                    illustrationHeight: 240,
+                    loading: this.trashButtonIsLoading,
+                    color: "warning",
+                    title:
+                        "Move the selected item to trash " +
+                        this.items.bulkCount,
+                    text:
+                        "Are you sure you want to move the selected item to trash?" +
+                        this.items.bulkCount,
+                    buttons: {
+                        cancel: { show: this.items.bulkCount, color: "link" },
+                        action: {
+                            color: this.items.bulkCount ? "warning" : null,
+                            text: this.items.bulkCount
+                                ? "Move to Trash"
+                                : "Okay",
+                            callback: () => {
+                                this.dialogStore.loading = true;
+                                if (!this.items.bulkCount) {
+                                    this.dialogStore.loading = false;
+                                    this.dialogStore.close();
+                                } else {
+                                    this.emitRestoreButtonClicked();
+                                }
+                            },
+                        },
+                    },
+                });
+            } else {
+                this.snackbar.show({
+                    text: `Select an item
+                           from the list first`,
+                    button: {
+                        text: "Okay",
+                    },
+                });
+            }
+        },
+        askUserToBulkDestroyResources() {
+            if (this.items.bulkCount) {
+                this.dialogStore.prompt({
+                    show: true,
+                    width: 420,
+                    illustration: this.items.bulkCount ? ManIcon : EmptyIcon,
+                    illustrationWidth: 240,
+                    illustrationHeight: 240,
+                    loading: this.trashButtonIsLoading,
+                    color: "warning",
+                    title:
+                        "Move the selected item to trash " +
+                        this.items.bulkCount,
+                    text:
+                        "Are you sure you want to move the selected item to trash?" +
+                        this.items.bulkCount,
+                    buttons: {
+                        cancel: { show: this.items.bulkCount, color: "link" },
+                        action: {
+                            color: this.items.bulkCount ? "warning" : null,
+                            text: this.items.bulkCount
+                                ? "Move to Trash"
+                                : "Okay",
+                            callback: () => {
+                                this.dialogStore.loading = true;
+                                if (!this.items.bulkCount) {
+                                    this.dialogStore.loading = false;
+                                    this.dialogStore.close();
+                                } else {
+                                    this.emitTrashButtonClicked();
+                                }
+                            },
+                        },
+                    },
+                });
+            } else {
+                this.snackbar.show({
+                    text:
+                        `Select an item
+                         from the list first ` + this.items.bulkCount,
+                    button: {
+                        text: "Okay",
+                    },
+                });
+            }
+        },
+        askUserToBulkPermanentlyDeleteResources() {
+            if (this.items.bulkCount) {
+                this.dialogStore.prompt({
+                    show: true,
+                    width: 420,
+                    illustration: this.items.bulkCount ? ManIcon : EmptyIcon,
+                    illustrationWidth: 240,
+                    illustrationHeight: 240,
+                    loading: this.deleteButtonIsLoading,
+                    color: "error",
+                    title: trans_choice(
+                        "Permanently delete the selected item",
+                        this.items.bulkCount,
+                    ),
+                    text: trans_choice(
+                        "Are you sure you want to permanently delete the selected item?",
+                        this.items.bulkCount,
+                    ),
+                    buttons: {
+                        cancel: { show: this.items.bulkCount, color: "link" },
+                        action: {
+                            color: this.items.bulkCount ? "error" : null,
+                            text: this.items.bulkCount
+                                ? "Permanently delete"
+                                : "Okay",
+                            callback: () => {
+                                this.dialogStore.loading = true;
+                                if (!this.items.bulkCount) {
+                                    this.dialog.loading = false;
+                                    this.dialog.close();
+                                } else {
+                                    this.emitDeleteButtonClicked();
+                                }
+                            },
+                        },
+                    },
+                });
+            } else {
+                this.snackbar.show({
+                    text: trans_choice(
+                        "Select an item from the list first",
+                        this.items.bulkCount,
+                    ),
+                    button: {
+                        text: trans("Okay"),
+                    },
+                });
+            }
         },
     },
 };
@@ -54,7 +230,7 @@ export default {
 <template>
     <div class="sticky sheet">
         <v-toolbar flat height="auto">
-            <v-row align="center" justify="space-betwen">
+            <v-row align="center" justify="space-between">
                 <v-col cols="12" sm="4">
                     <slot name="search">
                         <v-badge
@@ -70,6 +246,7 @@ export default {
                             transition="fade-transition"
                         >
                             <!--
+                                //todo Integrate
                                 //comment key events
                                 v-shortkey="['ctrl', '/']"
                                 @keydown.native="search"
