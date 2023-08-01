@@ -11,7 +11,7 @@ export const useMetatagStore = defineStore("metatag", {
     },
     getters: {
         getMetatag: (state) => state.metatag,
-        gettitle: (state) => state.metatag.title,
+        getTitle: (state) => state.metatag.title,
         geDescription: (state) => state.metatag.description,
     },
     actions: {
