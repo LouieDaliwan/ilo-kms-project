@@ -1,5 +1,5 @@
 <template>
-    <v-layout
+    <v-app
         v-cloak
         id="app"
         class="dovetail-app v-application--is-ltr theme--light v-application"
@@ -20,11 +20,7 @@
                 </template>
             </v-slide-y-reverse-transition>
         </router-view>
-
-        <!-- <v-main >
-          Main Content
-        </v-main> -->
-    </v-layout>
+    </v-app>
 </template>
 
 <script>

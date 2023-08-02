@@ -60,6 +60,13 @@ export default {
     },
 
     methods: {
+        focus() {
+            this.$refs["tablesearch"].focus();
+        },
+        search(val) {
+            this.items.isSearching = true;
+            this.$emit("update:search", val);
+        },
         emitRestoreButtonClicked() {
             this.$emit("update:restore");
         },
@@ -185,14 +192,8 @@ export default {
                     illustrationHeight: 240,
                     loading: this.deleteButtonIsLoading,
                     color: "error",
-                    title: trans_choice(
-                        "Permanently delete the selected item",
-                        this.items.bulkCount,
-                    ),
-                    text: trans_choice(
-                        "Are you sure you want to permanently delete the selected item?",
-                        this.items.bulkCount,
-                    ),
+                    title: `Permanently delete the selected item ${this.items.bulkCount}`,
+                    text: `Are you sure you want to permanently delete the selected item? ${this.items.bulkCount}`,
                     buttons: {
                         cancel: { show: this.items.bulkCount, color: "link" },
                         action: {
@@ -214,12 +215,10 @@ export default {
                 });
             } else {
                 this.snackbar.show({
-                    text: trans_choice(
-                        "Select an item from the list first",
-                        this.items.bulkCount,
-                    ),
+                    text: `Select an item
+                           from the list first ${this.items.bulkCount}`,
                     button: {
-                        text: trans("Okay"),
+                        text: "Okay",
                     },
                 });
             }
@@ -229,7 +228,7 @@ export default {
 </script>
 <template>
     <div class="sticky sheet">
-        <v-toolbar flat height="auto">
+        <v-toolbar :flat="true" :floating="true" dense height="auto">
             <v-row align="center" justify="space-between">
                 <v-col cols="12" sm="4">
                     <slot name="search">
@@ -284,13 +283,12 @@ export default {
                     >
                         <v-slide-x-reverse-transition>
                             <div v-if="items.bulkCount" class="px-2">
-                                {{
-                                    // $tc(
-                                    ("{number} item selected",
-                                    items.bulkCount,
-                                    { number: items.bulkCount })
-                                    // )
-                                }}
+                                {{ items.bulkCount + " item selected" }}
+                                <!--                                    // $tc(-->
+                                <!--                                    -->
+                                <!--                                  /*      items.bulkCount,-->
+                                <!--                                  */          {number: items.bulkCount})-->
+                                <!--                                    // )-->
                             </div>
                         </v-slide-x-reverse-transition>
                         <v-slide-x-reverse-transition>
@@ -317,9 +315,7 @@ export default {
                                             <v-icon small>mdi-download</v-icon>
                                         </v-btn>
                                     </template>
-                                    <span>{{
-                                        trans("Export selected items")
-                                    }}</span>
+                                    <span>Export selected items</span>
                                 </v-tooltip>
                             </span>
                         </v-scale-transition>
@@ -340,9 +336,7 @@ export default {
                                             <v-icon small>mdi-restore</v-icon>
                                         </v-btn>
                                     </template>
-                                    <span>{{
-                                        trans("Restore selected items")
-                                    }}</span>
+                                    <span>Restore selected items</span>
                                 </v-tooltip>
                             </span>
                         </v-scale-transition>
@@ -421,15 +415,15 @@ export default {
                                         dense
                                         rounded
                                     >
+                                        <!--                                       v-shortkey="['ctrl', 'shift', 'a']"-->
+                                        <!--                                        @shortkey="-->
+                                        <!--                                        items.toggleBulkEdit =-->
+                                        <!--                                        !items.toggleBulkEdit-->
+                                        <!--                                        "-->
                                         <v-btn
-                                            v-shortkey="['ctrl', 'shift', 'a']"
                                             :value="true"
                                             color="primary"
                                             icon
-                                            @shortkey="
-                                                items.toggleBulkEdit =
-                                                    !items.toggleBulkEdit
-                                            "
                                             v-on="on"
                                         >
                                             <v-icon
@@ -444,9 +438,7 @@ export default {
                                         </v-btn>
                                     </v-btn-toggle>
                                 </template>
-                                <span>{{
-                                    trans("Toggle multiple selection")
-                                }}</span>
+                                <span> Toggle multiple selection</span>
                             </v-tooltip>
                         </v-badge>
 

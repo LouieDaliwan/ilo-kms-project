@@ -30,6 +30,16 @@ export default [
                     children: ["users.create"],
                 },
             },
+            {
+                code: "users.trashed",
+                name: "users.trashed",
+                meta: {
+                    title: "Users Trashed",
+                    requiresAuth: false,
+                    sort: 6,
+                    children: ["users.trashed"],
+                },
+            },
         ],
     },
 ];

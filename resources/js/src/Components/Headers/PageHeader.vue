@@ -1,6 +1,5 @@
 <script>
 import { useDisplay } from "vuetify";
-import { ref } from "vue";
 import page from "@/mixins/page.js";
 
 export default {
@@ -15,8 +14,8 @@ export default {
     },
 
     setup() {
-        const display = ref(useDisplay());
-        return { display };
+        const { smAndUp } = useDisplay();
+        return { smAndUp };
     },
 };
 </script>
@@ -37,7 +36,7 @@ export default {
                                     <v-icon class="mb-1" small
                                         >mdi mdi-chevron-left
                                     </v-icon>
-                                    <span v-text="trans('Back')"></span>
+                                    <span v-text="'Back'"></span>
                                 </router-link>
                             </div>
                         </template>
@@ -59,8 +58,9 @@ export default {
                     </slot>
 
                     <h2
+                        :class="smAndUp ? '' : 'title font-weight-bold'"
                         :title="page.title"
-                        class="d.sm-nd-up ? '' : 'title font-weight-bold' mb-1"
+                        class="mb-1"
                     >
                         <slot name="title">
                             {{ page.title }}

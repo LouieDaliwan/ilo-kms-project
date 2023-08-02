@@ -34,6 +34,30 @@ const routes = [
                     icon: "mdi-book-multiple-variant",
                 },
             },
+            {
+                path: "/admin/users/:id",
+                name: "users.show",
+                component: () => import("../Show.vue"),
+                meta: {
+                    title: "Show Member",
+                    sort: 8,
+                    requiresAuth: false,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "/admin/users/trashed",
+                name: "users.trashed",
+                component: () => import("../Trashed.vue"),
+                meta: {
+                    title: "Show Trashed",
+                    sort: 9,
+                    requiresAuth: false,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
         ],
     },
 ];

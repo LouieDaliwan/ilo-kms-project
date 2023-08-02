@@ -1,8 +1,6 @@
 import { defineStore } from "pinia";
 import _ from "lodash";
 
-const useDialogS = useDialogStore();
-
 export const initials = {
     // Toggle
     show: false,
@@ -36,7 +34,7 @@ export const initials = {
             color: "primary",
             text: "Okay",
             callback: () => {
-                useDialogS.close();
+                this.close();
             },
         },
 
@@ -45,7 +43,7 @@ export const initials = {
             color: "dark",
             text: "Cancel",
             callback: () => {
-                useDialogS.close();
+                this.close();
             },
         },
     },
@@ -91,6 +89,7 @@ export const useDialogStore = defineStore("dialog", {
         },
         error(payload) {
             this.reset();
+            this.prompt_error(payload);
         },
         prompt_error(payload) {
             this.dialog = _.merge(
