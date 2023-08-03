@@ -1,45 +1,35 @@
 export default [
     {
-        code: 'dleaders',
-        name: 'dleaders',
+        code: "dleaders",
+        name: "dleaders",
         meta: {
-            title: 'Dgroup Leaders',
-            icon: 'mdi-domain',
+            title: "Dgroup Leaders",
+            icon: "mdi-domain",
             requiresAuth: false,
             sort: 5,
-            children: ['dleaders.index', 'dleaders.create'],
+            children: ["dleaders.all", "dleaders.create"],
         },
         children: [
             {
-                code: 'dleaders.index',
-                name: 'dleaders.index',
+                code: "dleaders.all",
+                name: "dleaders.all",
                 meta: {
-                  title: 'All Dgroup Leaders',
-                  requiresAuth: false,
-                  sort: 5,
-                  children: ['dleaders.index', 'dleaders.create'],
+                    title: "All Dgroup Leaders",
+                    requiresAuth: false,
+                    sort: 6,
+                    children: ["dleaders.all"],
                 },
             },
             {
-                code: 'dleaders.create',
-                name: 'dleaders.create',
+                code: "dleaders.create",
+                name: "dleaders.create",
                 meta: {
-                  title: 'DLeader Create',
-                  requiresAuth: false,
-                  sort: 6,
-                  children: ['dleaders.create'],
+                    title: "DLeader Create",
+                    requiresAuth: false,
+                    sort: 7,
+                    children: ["dleaders.create"],
                 },
             },
-            //   {
-            //     code: 'members.show',
-            //     name: 'members.show',
-            //     meta: {
-            //       title: 'Members Show',
-            //       authenticatable: false,
-            //       sort: 7,
-            //       children: ['members.show'],
-            //     },
-            //   },
-        ]
-    }
-]
+        ],
+    },
+];

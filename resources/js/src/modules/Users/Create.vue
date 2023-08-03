@@ -1,2 +1,4 @@
 <script></script>
-<template></template>
+<template>
+    <h1>Test Create</h1>
+</template>

@@ -1,9 +1,40 @@
+<script>
+import { ref } from "vue";
+import menus from "@/config/sidebar";
+
+export default {
+    name: "Menus",
+
+    data() {
+        return {
+            open: ref([]),
+        };
+    },
+
+    computed: {
+        menus() {
+            return menus;
+        },
+    },
+
+    methods: {
+        inactive(path) {
+            return !this.active(path);
+        },
+
+        active(path) {
+            return window._.includes(path.meta.children, this.$route.name);
+        },
+    },
+};
+</script>
+
 <template>
     <v-list
         v-model:opened="open"
+        :nav="true"
         class="secondary workspace-x py-6"
         dark
-        nav
         @update:opened="open = $event.slice(-1)"
     >
         <template v-for="(parent, i) in menus">
@@ -21,7 +52,7 @@
                 <v-list-group
                     :key="i"
                     :prepend-icon="parent.meta.icon"
-                    :value="active(parent)"
+                    :value="parent.name"
                     color="white"
                     no-action
                 >
@@ -53,7 +84,6 @@
                                     "
                                     :title="submenu.meta.title"
                                     :to="{ name: submenu.name }"
-                                    :value="submenu.meta.title"
                                     class="font-weight-bold white--text"
                                     color="white"
                                 ></v-list-item>
@@ -91,34 +121,3 @@
         <!-- FAQ -->
     </v-list>
 </template>
-
-<script>
-import { ref } from "vue";
-import menus from "@/config/sidebar";
-
-export default {
-    name: "Menus",
-
-    data() {
-        return {
-            open: ref([]),
-        };
-    },
-
-    computed: {
-        menus() {
-            return menus;
-        },
-    },
-
-    methods: {
-        inactive(path) {
-            return !this.active(path);
-        },
-
-        active(path) {
-            return path.meta.title;
-        },
-    },
-};
-</script>

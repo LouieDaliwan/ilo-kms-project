@@ -101,10 +101,6 @@ export default {
 
     computed: {
         resourcesIsEmpty() {
-            console.log(
-                window._.isEmpty(this.resources.data) &&
-                    !this.resources.loading,
-            );
             return (
                 window._.isEmpty(this.resources.data) && !this.resources.loading
             );

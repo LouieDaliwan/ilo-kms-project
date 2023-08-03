@@ -28,7 +28,7 @@ export default {
             <template v-slot:action>
                 <v-btn
                     :block="!!smAndDown"
-                    :to="{ name: 'members.index' }"
+                    :to="{ name: 'users.all' }"
                     color="primary"
                     large
                     rounded
@@ -36,7 +36,7 @@ export default {
                     <v-icon left small
                         >mdi-file-document-box-search-outline
                     </v-icon>
-                    {{ "All Members" }}
+                    {{ "All Users" }}
                 </v-btn>
             </template>
         </page-header>

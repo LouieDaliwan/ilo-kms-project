@@ -7,17 +7,17 @@ export default [
             icon: "mdi-briefcase-outline",
             requiresAuth: false,
             sort: 5,
-            children: ["users.index", "users.create"],
+            children: ["users.all", "users.create", "users.trashed"],
         },
         children: [
             {
-                code: "users.index",
-                name: "users.index",
+                code: "users.all",
+                name: "users.all",
                 meta: {
                     title: "All Users",
                     requiresAuth: false,
-                    sort: 5,
-                    children: ["users.index", "users.create"],
+                    sort: 6,
+                    children: ["users.all"],
                 },
             },
             {
@@ -26,7 +26,7 @@ export default [
                 meta: {
                     title: "User Create",
                     requiresAuth: false,
-                    sort: 6,
+                    sort: 7,
                     children: ["users.create"],
                 },
             },
@@ -36,7 +36,7 @@ export default [
                 meta: {
                     title: "Users Trashed",
                     requiresAuth: false,
-                    sort: 6,
+                    sort: 8,
                     children: ["users.trashed"],
                 },
             },

@@ -11,31 +11,29 @@ const routes = [
         },
         children: [
             {
-                path: "/admin/users",
-                name: "users.index",
+                path: "all",
+                name: "users.all",
                 component: () => import("../Index.vue"),
                 meta: {
                     title: "All Users",
                     sort: 6,
-                    requiresAuth: false,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },
             },
             {
-                path: "/admin/user-create",
+                path: "create",
                 name: "users.create",
                 component: () => import("../Create.vue"),
                 meta: {
                     title: "Create Member",
                     sort: 7,
-                    requiresAuth: false,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },
             },
             {
-                path: "/admin/users/:id",
+                path: ":id",
                 name: "users.show",
                 component: () => import("../Show.vue"),
                 meta: {
@@ -47,7 +45,7 @@ const routes = [
                 },
             },
             {
-                path: "/admin/users/trashed",
+                path: "trashed",
                 name: "users.trashed",
                 component: () => import("../Trashed.vue"),
                 meta: {
