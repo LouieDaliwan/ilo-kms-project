@@ -10,7 +10,6 @@ import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { VDataTable } from "vuetify/labs/VDataTable";
-
 import { useDisplay } from "vuetify";
 
 export default {
@@ -42,8 +41,8 @@ export default {
             api: $api,
 
             resources: {
-                loading: true,
-                search: null,
+                loading: false,
+                search: "",
                 options: {
                     page: 1,
                     pageCount: 0,
@@ -63,16 +62,19 @@ export default {
                         align: "left",
                         value: "displayname",
                         class: "text-no-wrap",
+                        key: "displayname",
                     },
                     {
                         text: "Role",
                         value: "role",
                         class: "text-no-wrap",
+                        key: "role",
                     },
                     {
                         text: "Last Modified",
                         value: "updated_at",
                         class: "text-no-wrap",
+                        key: "updated_at",
                     },
                     {
                         text: "Actions",
@@ -80,6 +82,7 @@ export default {
                         value: "action",
                         sortable: false,
                         class: "muted--text text-no-wrap",
+                        key: "action",
                     },
                 ],
                 data: [],
@@ -87,7 +90,7 @@ export default {
             tabletoolbar: {
                 bulkCount: 0,
                 isSearching: false,
-                search: null,
+                search: "",
                 listGridView: false,
                 toggleBulkEdit: false,
                 toggleTrash: false,
@@ -98,6 +101,10 @@ export default {
 
     computed: {
         resourcesIsEmpty() {
+            console.log(
+                window._.isEmpty(this.resources.data) &&
+                    !this.resources.loading,
+            );
             return (
                 window._.isEmpty(this.resources.data) && !this.resources.loading
             );
@@ -204,7 +211,7 @@ export default {
             };
         },
 
-        search: _.debounce(function (event) {
+        search: window._.debounce(function (event) {
             this.resource.search = event.srcElement.value || "";
             this.tabletoolbar.isSearch = false;
             if (this.resources.searching) {
@@ -300,7 +307,6 @@ export default {
                     :block="!!smAndDown"
                     :to="{ name: 'users.create' }"
                     color="primary"
-                    exact
                     large
                     rounded
                 >
@@ -310,7 +316,7 @@ export default {
             </template>
         </page-header>
 
-        <div v-show="resourcesIsNotEmpty">
+        <div v-if="resourcesIsNotEmpty">
             <v-card>
                 <toolbar-menu
                     :items.sync="tabletoolbar"
@@ -398,15 +404,23 @@ export default {
 
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on }">
-                                        <span class="mt-1" v-on="on"
-                                            ><router-link
-                                                :to="goToShowUserPage(item)"
-                                                class="text-no-wrap text--decoration-none"
-                                                exact
-                                                tag="a"
-                                                v-text="item.displayname"
-                                            ></router-link
-                                        ></span>
+                                        <router-link
+                                            v-slot="{ navigate }"
+                                            :to="goToShowUserPage(item)"
+                                            class="text-no-wrap text--decoration-none"
+                                            exact
+                                            tag="a"
+                                        >
+                                            <span
+                                                class="mt-1"
+                                                role="link"
+                                                @click="navigate"
+                                                v-on="on"
+                                                @keypress.enter="navigate"
+                                            >
+                                                {{ item.displayname }}</span
+                                            >
+                                        </router-link>
                                     </template>
                                     <span>View Details</span>
                                 </v-tooltip>
