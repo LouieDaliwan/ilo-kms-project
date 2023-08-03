@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -21,18 +20,8 @@ class RolesAndPermissionsSeeder extends Seeder
                 'can-edit',
                 'can-delete',
                 'can-assign',
-                'can-approve',
-                'can-comment',
                 'can-remove',
-                'can-remove'
             ],
-            'DGroup-Leader' => [
-                'can-accept',
-                'can-comment',
-                'can-update',
-                'can-remove'
-            ],
-            'Member' => []
         ];
 
         foreach ($roles as $role => $permissions) {

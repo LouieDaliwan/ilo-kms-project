@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('is_temporary_password')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->index()->nullable();
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });
