@@ -2,6 +2,8 @@ import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import * as labsComponents from "vuetify/labs/components";
+
 import "@mdi/font/css/materialdesignicons.css";
 
 import theme from "@root/theme.json";
@@ -10,6 +12,7 @@ export default createVuetify({
     ssr: true,
     components,
     directives,
+    labsComponents,
     rtl: false,
     icons: {
         defaultSet: "mdi",
@@ -26,5 +29,6 @@ export default createVuetify({
             light: theme.colors.light,
             dark: theme.colors.dark,
         },
+        defaultTheme: "light",
     },
 });

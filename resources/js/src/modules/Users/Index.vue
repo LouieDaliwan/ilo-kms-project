@@ -326,7 +326,7 @@ export default {
                         v-model="resources.selected"
                         :headers="resources.headers"
                         :items="resources.data"
-                        :items-length="resources.meta.total"
+                        :items-per-page="resources.meta.total"
                         :loading="resources.loading"
                         :mobile-breakpoint="NaN"
                         :options.sync="resources.options"
@@ -475,12 +475,7 @@ export default {
             </toolbar-menu>
             <empty-state>
                 <template v-slot:actions>
-                    <v-btn
-                        :to="{ name: 'users.create' }"
-                        color="primary"
-                        exact
-                        large
-                    >
+                    <v-btn :to="{ name: 'users.create' }" color="primary" large>
                         <v-icon left small>mdi-account-plus-outline</v-icon>
                         Add user
                     </v-btn>

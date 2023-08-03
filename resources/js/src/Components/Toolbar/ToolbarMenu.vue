@@ -419,12 +419,12 @@ export default {
                                         <!--                                        @shortkey="-->
                                         <!--                                        items.toggleBulkEdit =-->
                                         <!--                                        !items.toggleBulkEdit-->
+                                        <!--                                        v-on="on"-->
                                         <!--                                        "-->
                                         <v-btn
                                             :value="true"
                                             color="primary"
                                             icon
-                                            v-on="on"
                                         >
                                             <v-icon
                                                 v-if="items.toggleBulkEdit"
