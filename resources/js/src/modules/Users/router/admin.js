@@ -15,7 +15,7 @@ const routes = [
                 name: "users.all",
                 component: () => import("../Index.vue"),
                 meta: {
-                    title: "All Users",
+                    title: "List Users",
                     sort: 6,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",

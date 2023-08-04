@@ -14,7 +14,7 @@ export default [
                 code: "users.all",
                 name: "users.all",
                 meta: {
-                    title: "All Users",
+                    title: "List Users",
                     requiresAuth: false,
                     sort: 6,
                     children: ["users.all"],
@@ -24,7 +24,7 @@ export default [
                 code: "users.create",
                 name: "users.create",
                 meta: {
-                    title: "User Create",
+                    title: "Add User",
                     requiresAuth: false,
                     sort: 7,
                     children: ["users.create"],
@@ -34,7 +34,7 @@ export default [
                 code: "users.trashed",
                 name: "users.trashed",
                 meta: {
-                    title: "Users Trashed",
+                    title: "Trashed",
                     requiresAuth: false,
                     sort: 8,
                     children: ["users.trashed"],
