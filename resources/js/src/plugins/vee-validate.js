@@ -1,22 +1,24 @@
 import { defineRule } from "vee-validate";
-import { confirmed, email, min, required } from "@vee-validate/rules";
+import { confirmed, email, min } from "@vee-validate/rules";
 
-defineRule("required", {
-    ...required,
-    message: "The {_field_} field is required",
+defineRule("required", (value) => {
+    console.log(value);
 });
+defineRule("email", email);
+defineRule("min", min);
+defineRule("confirmed", confirmed);
 
-defineRule("email", {
-    ...email,
-    message: "The {_field_} field is not valid",
-});
-
-defineRule("min", {
-    ...min,
-    message: "The {_field_} field must have at least {length} characters long",
-});
-
-defineRule("confirmed", {
-    ...confirmed,
-    message: "The {_field_} must match with the {target} field",
+defineRule("minMax", (value, [min, max]) => {
+    // The field is empty so it should pass
+    if (!value || !value.length) {
+        return true;
+    }
+    const numericValue = Number(value);
+    if (numericValue < min) {
+        return `This field must be greater than ${min}`;
+    }
+    if (numericValue > max) {
+        return `This field must be less than ${max}`;
+    }
+    return true;
 });

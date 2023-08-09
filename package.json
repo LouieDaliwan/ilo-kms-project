@@ -37,6 +37,7 @@
         "vue-loader": "^17.0.1",
         "vue-router": "^4.2.4",
         "vue-scrollto": "^2.20.0",
-        "vuetify": "^3.3.8"
+        "vuetify": "^3.3.8",
+        "yup": "^1.2.0"
     }
 }

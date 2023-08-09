@@ -8,8 +8,11 @@ import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
+import "@/plugins/vee-validate.js";
 import User from "./Models/User.js";
 import { useDisplay } from "vuetify";
+import { ErrorMessage, Field, useForm } from "vee-validate";
+import { userSchema } from "./Schema/uservalidation.js";
 
 export default {
     components: {
@@ -17,6 +20,8 @@ export default {
         Metatag,
         PageHeader,
         AlertBox,
+        ErrorMessage,
+        Field,
     },
 
     data() {
@@ -32,12 +37,50 @@ export default {
         const alertBox = useAlertBoxStore();
         const successBox = useSuccessBoxStore();
 
+        const { defineComponentBinds, handleSubmit, resetForm } = useForm({
+            validationSchema: userSchema,
+        });
+
+        const vuetifyConfig = (state) => ({
+            props: {
+                "error-messages": state.errors,
+            },
+        });
+
+        const firstname = defineComponentBinds("firstname", vuetifyConfig);
+        const lastname = defineComponentBinds("lastname", vuetifyConfig);
+        const suffix = defineComponentBinds("suffix", vuetifyConfig);
+        const email = defineComponentBinds("email", vuetifyConfig);
+        const password = defineComponentBinds("password", vuetifyConfig);
+        const mobile = defineComponentBinds("mobile", vuetifyConfig);
+        const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
+        const confirm_password = defineComponentBinds(
+            "confirm_password",
+            vuetifyConfig,
+        );
+
+        const onSubmit = handleSubmit((value) => {
+            console.log(value);
+        });
+
         return {
             snackbar,
             dialog,
             mdAndUp,
             alertBox,
             successBox,
+            handleSubmit,
+            resetForm,
+            defineComponentBinds,
+            firstname,
+            lastname,
+            suffix,
+            email,
+            password,
+            confirm_password,
+            homeAddress,
+            mobile,
+            onSubmit,
         };
     },
 
@@ -70,10 +113,6 @@ export default {
         },
         isNotFormPrestine() {
             return !this.isFormPrestine;
-        },
-
-        form() {
-            return this.$refs["addform"];
         },
     },
 
@@ -115,13 +154,6 @@ export default {
             return data;
         },
 
-        parseErrors(errors) {
-            this.form.setErrors(errors);
-            errors = Object.values(errors).flat();
-            this.resource.hasErrors = errors.length;
-            return errors;
-        },
-
         submitForm() {
             if (this.isNotFormDisabled) {
                 this.$refs["submit-button"].click();
@@ -137,6 +169,9 @@ export default {
             this.load();
             e.preventDefault();
             this.alertBox.hide();
+            console.log("proceed");
+            this.load(false);
+            return;
 
             axios
                 .post(
@@ -249,7 +284,7 @@ export default {
         "resource.data": {
             handler(val) {
                 this.resource.isPrestine = false;
-                this.resource.hasErrors = this.$refs.addform.flags.invalid;
+                // this.resource.hasErrors = this.$refs.addform.flags.invalid;
                 if (!this.resource.hasErrors) {
                     this.alertBox.hide();
                 }
@@ -325,30 +360,157 @@ export default {
             </v-container>
         </template>
 
-        <validation-observer
-            ref="addform"
-            v-slot="{ handleSubmit, errors, invalid, passed }"
+        <v-form
+            ref="addform-form"
+            :disabled="isLoading"
+            autocomplete="false"
+            enctype="multipart/form-data"
+            @submit.prevent="onSubmit"
         >
-            <v-form
-                ref="addform-form"
-                :disabled="isLoading"
-                autocomplete="false"
-                enctype="multipart/form-data"
-                v-on:submit.prevent="handleSubmit(submit($event))"
-            >
-                <button
-                    ref="submit-button"
-                    class="d-none"
-                    type="submit"
-                ></button>
-                <page-header
-                    :back="{ to: { name: 'users.all' }, text: 'Users' }"
-                >
-                    <template v-slot:title>Add User</template>
-                </page-header>
+            <button ref="submit-button" class="d-none" type="submit"></button>
+            <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
+                <template v-slot:title>Add User</template>
+            </page-header>
 
-                <alert-box></alert-box>
-            </v-form>
-        </validation-observer>
+            <alert-box></alert-box>
+
+            <v-row>
+                <v-col cols="12" md="9">
+                    <v-card class="mb-3">
+                        <v-card-title>Account Information</v-card-title>
+                        <v-card-text>
+                            <v-row justify="space-between">
+                                <v-col cols="6" md="2">
+                                    <!--                                    append-icon="mdi-chevron-down"-->
+                                    <v-select
+                                        v-model="resource.data.prefixname"
+                                        :disabled="isLoading"
+                                        :items="['Mr.', 'Ms.', 'Mrs.']"
+                                        background-color="selects"
+                                        class="dt-text-field"
+                                        dense
+                                        hide-details
+                                        label="Prefix"
+                                        name="prefixname"
+                                        outlined
+                                    ></v-select>
+                                </v-col>
+                                <v-col cols="6" md="2">
+                                    <v-text-field
+                                        v-model="resource.data.suffixname"
+                                        :disabled="isLoading"
+                                        class="dt-text-field"
+                                        dense
+                                        hide-details
+                                        label="Suffix"
+                                        outlined
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model="resource.data.firstname"
+                                        :disabled="isLoading"
+                                        class="dt-text-field"
+                                        dense
+                                        label="First Name"
+                                        outlined
+                                        v-bind="firstname"
+                                    ></v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <v-text-field
+                                        v-model="resource.data.middlename"
+                                        :disabled="isLoading"
+                                        class="dt-text-field"
+                                        dense
+                                        hide-details
+                                        label="Middle Name"
+                                        name="middlename"
+                                        outlined
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                                <v-col cols="12" md="4">
+                                    <!--                                    :dense="isDense"-->
+                                    <v-text-field
+                                        v-model="resource.data.lastname"
+                                        :disabled="isLoading"
+                                        class="dt-text-field"
+                                        label="Last name"
+                                        name="lastname"
+                                        outlined
+                                        v-bind="lastname"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row align="center">
+                                <v-col cols="12">
+                                    <v-text-field
+                                        v-model="
+                                            resource.data.details[
+                                                'Mobile Phone'
+                                            ].value
+                                        "
+                                        :disabled="isLoading"
+                                        class="dt-text-field"
+                                        dense
+                                        label="Mobile Phone"
+                                        name="mobile_phone"
+                                        outlined
+                                        v-bind="mobile"
+                                    ></v-text-field>
+                                </v-col>
+                            </v-row>
+                            <v-row>
+                                <v-col cols="12">
+                                    <v-text-field
+                                        v-model="
+                                            resource.data.details[
+                                                'Home Address'
+                                            ].value
+                                        "
+                                        :disabled="isLoading"
+                                        class="dt-text-field"
+                                        cols="12"
+                                        label="Home Address"
+                                        v-bind="homeAddress"
+                                    >
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-card-text>
+                    </v-card>
+
+                    <v-card>
+                        <v-card-title>Change Password</v-card-title>
+                        <v-card-text>Work on Progress Content</v-card-text>
+                    </v-card>
+
+                    <v-card>
+                        <v-card-title class="pb-0">
+                            Additional Background Details
+                        </v-card-title>
+                        <v-card-text> Work on Progress Content</v-card-text>
+                    </v-card>
+                </v-col>
+                <v-col cols="12" md="3">
+                    <v-card class="mb-3">
+                        <v-card-title class="pb-0"> Photo</v-card-title>
+                        <v-card-text>
+                            Work Progress Content (avatar component)
+                        </v-card-text>
+                    </v-card>
+
+                    <v-card>
+                        <v-card-title>Roles</v-card-title>
+                        <v-card-text>
+                            Work Progress Content (roles component)
+                        </v-card-text>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-form>
     </admin>
 </template>

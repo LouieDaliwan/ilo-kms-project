@@ -24,8 +24,8 @@ export const useSuccessBoxStore = defineStore("successBox", {
         },
     }),
     getters: {
-        successbox: (state) => state.successbox,
-        show: (state) => state.successbox.show,
+        successBoxStore: (state) => state.successbox,
+        showSuccessBox: (state) => state.successbox.show,
     },
     actions: {
         set(payload) {
@@ -38,7 +38,7 @@ export const useSuccessBoxStore = defineStore("successBox", {
                 show: true,
             });
         },
-        hide(payload) {
+        hide(payload = {}) {
             this.reset();
             this.successbox = Object.assign({}, this.successbox, payload, {
                 show: false,

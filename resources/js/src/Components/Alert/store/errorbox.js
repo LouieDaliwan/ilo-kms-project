@@ -17,8 +17,8 @@ export const useErrorBoxStore = defineStore("errorBox", {
         },
     }),
     getters: {
-        errorbox: (state) => state.errorbox,
-        show: (state) => state.errorbox.show,
+        errorBoxStore: (state) => state.errorbox,
+        showErrorBox: (state) => state.errorbox.show,
     },
     actions: {
         set(payload) {
@@ -31,7 +31,7 @@ export const useErrorBoxStore = defineStore("errorBox", {
                 show: true,
             });
         },
-        hide(payload) {
+        hide(payload = {}) {
             this.reset();
             this.errorbox = Object.assign({}, this.errorbox, payload, {
                 show: false,

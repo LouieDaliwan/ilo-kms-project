@@ -53,7 +53,6 @@ export default {
                     :key="i"
                     :prepend-icon="parent.meta.icon"
                     :value="parent.name"
-                    color="white"
                     no-action
                 >
                     <template v-slot:activator="{ props }">
@@ -85,7 +84,6 @@ export default {
                                     :title="submenu.meta.title"
                                     :to="{ name: submenu.name }"
                                     class="font-weight-bold white--text"
-                                    color="white"
                                 ></v-list-item>
                             </template>
                         </template>
@@ -99,8 +97,7 @@ export default {
                     :prepend-icon="parent.meta.icon"
                     :title="parent.meta.title"
                     :to="{ name: parent.name }"
-                    class="font-weight-bold white--text"
-                    color="white"
+                    class="font-weight-bold"
                 ></v-list-item>
             </template>
         </template>

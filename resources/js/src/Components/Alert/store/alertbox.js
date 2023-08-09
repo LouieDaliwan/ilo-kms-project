@@ -7,7 +7,7 @@ const errorBoxStore = useErrorBoxStore();
 
 export const useAlertBoxStore = defineStore("alertBox", {
     state: () => ({
-        alertbox: {
+        alertBox: {
             border: "left",
             color: null,
             dense: true,
@@ -21,20 +21,19 @@ export const useAlertBoxStore = defineStore("alertBox", {
             type: "success",
         },
     }),
-    getters: {},
     actions: {
         set(payload) {
-            this.alertbox = Object.assign({}, this.alertbox, payload);
+            this.alertBox = Object.assign({}, this.alertBox, payload);
         },
-        show() {
-            this.alertbox = Object.assign({}, this.alertbox, payload, {
+        show(payload) {
+            this.alertBox = Object.assign({}, this.alertBox, payload, {
                 show: true,
             });
         },
-        hide() {
-            this.successbox.hide();
-            this.errorbox.hide();
-            this.alertbox = Object.assign({}, this.alertbox, payload, {
+        hide(payload = {}) {
+            successBoxStore.hide();
+            errorBoxStore.hide();
+            this.alertBox = Object.assign({}, this.alertBox, payload, {
                 show: false,
             });
         },
