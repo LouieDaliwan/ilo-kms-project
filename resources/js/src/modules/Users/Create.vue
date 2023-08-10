@@ -5,6 +5,7 @@ import PageHeader from "@components/Headers/PageHeader.vue";
 import AlertBox from "@components/Alert/AlertBox.vue";
 import Repeater from "@components/Repeater/Repeater.vue";
 import UploadAvatar from "@components/Avatar/UploadAvatar.vue";
+import RolePicker from "@components/Fields/RolePicker.vue";
 import $api from "./routes/api.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
@@ -18,6 +19,7 @@ import { userSchema } from "./Schema/uservalidation.js";
 
 export default {
     components: {
+        RolePicker,
         Admin,
         Metatag,
         PageHeader,
@@ -523,12 +525,14 @@ export default {
                         </v-card-text>
                     </v-card>
 
-                    <v-card>
-                        <v-card-title>Roles</v-card-title>
-                        <v-card-text>
-                            Work Progress Content (roles component)
-                        </v-card-text>
-                    </v-card>
+                    <!--                  :disabled="isLoading"-->
+                    <role-picker
+                        v-model="resource.data.roles"
+                        :dense="settings.fieldIsDense"
+                        :lazyLoad="false"
+                        :multiple="false"
+                        class="mb-3"
+                    ></role-picker>
                 </v-col>
             </v-row>
         </v-form>

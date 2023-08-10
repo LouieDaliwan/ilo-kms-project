@@ -85,8 +85,6 @@ export default {
             this.focusOnAdd(focus);
         },
         remove(i) {
-            console.log("remove");
-            console.log(i);
             this.repeaters.splice(i, 1);
             this.repeaters = Object.assign({}, this.repeaters);
 
