@@ -4,6 +4,7 @@ import Metatag from "@components/Metatag/Metatag.vue";
 import PageHeader from "@components/Headers/PageHeader.vue";
 import AlertBox from "@components/Alert/AlertBox.vue";
 import Repeater from "@components/Repeater/Repeater.vue";
+import UploadAvatar from "@components/Avatar/UploadAvatar.vue";
 import $api from "./routes/api.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
@@ -24,6 +25,7 @@ export default {
         ErrorMessage,
         Field,
         Repeater,
+        UploadAvatar,
     },
 
     data() {
@@ -50,6 +52,7 @@ export default {
             },
         });
 
+        // TODO fix this @author Louie Daliwan
         const firstname = defineComponentBinds("firstname", vuetifyConfig);
         const lastname = defineComponentBinds("lastname", vuetifyConfig);
         const suffix = defineComponentBinds("suffix", vuetifyConfig);
@@ -512,7 +515,11 @@ export default {
                     <v-card class="mb-3">
                         <v-card-title class="pb-0"> Photo</v-card-title>
                         <v-card-text>
-                            Work Progress Content (avatar component)
+                            <upload-avatar
+                                v-model="resource.data.avatar"
+                                name="photo"
+                            >
+                            </upload-avatar>
                         </v-card-text>
                     </v-card>
 
