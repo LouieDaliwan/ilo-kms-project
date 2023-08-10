@@ -3,12 +3,13 @@ import Admin from "@components/Layouts/Admin.vue";
 import Metatag from "@components/Metatag/Metatag.vue";
 import PageHeader from "@components/Headers/PageHeader.vue";
 import AlertBox from "@components/Alert/AlertBox.vue";
+import Repeater from "@components/Repeater/Repeater.vue";
 import $api from "./routes/api.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
-import "@/plugins/vee-validate.js";
+import { useSettingsStore } from "@/stores/global/settings.js";
 import User from "./Models/User.js";
 import { useDisplay } from "vuetify";
 import { ErrorMessage, Field, useForm } from "vee-validate";
@@ -22,6 +23,7 @@ export default {
         AlertBox,
         ErrorMessage,
         Field,
+        Repeater,
     },
 
     data() {
@@ -36,6 +38,7 @@ export default {
         const { mdAndUp } = useDisplay();
         const alertBox = useAlertBoxStore();
         const successBox = useSuccessBoxStore();
+        const settings = useSettingsStore();
 
         const { defineComponentBinds, handleSubmit, resetForm } = useForm({
             validationSchema: userSchema,
@@ -81,6 +84,7 @@ export default {
             homeAddress,
             mobile,
             onSubmit,
+            settings,
         };
     },
 
@@ -336,8 +340,8 @@ export default {
                                 transition="fade-transition"
                             >
                                 <!--                                v-shortkey.once="['ctrl', 's']"
-                                                        @shortkey="submitForm"
-                                -->
+@shortkey="submitForm"
+-->
                                 <v-btn
                                     ref="submit-button-main"
                                     :disabled="isFormDisabled"
@@ -411,9 +415,9 @@ export default {
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model="resource.data.firstname"
+                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
-                                        dense
                                         label="First Name"
                                         outlined
                                         v-bind="firstname"
@@ -422,9 +426,9 @@ export default {
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model="resource.data.middlename"
+                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
-                                        dense
                                         hide-details
                                         label="Middle Name"
                                         name="middlename"
@@ -436,6 +440,7 @@ export default {
                                     <!--                                    :dense="isDense"-->
                                     <v-text-field
                                         v-model="resource.data.lastname"
+                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         label="Last name"
@@ -453,6 +458,7 @@ export default {
                                                 'Mobile Phone'
                                             ].value
                                         "
+                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         dense
@@ -471,6 +477,7 @@ export default {
                                                 'Home Address'
                                             ].value
                                         "
+                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         cols="12"
@@ -492,7 +499,13 @@ export default {
                         <v-card-title class="pb-0">
                             Additional Background Details
                         </v-card-title>
-                        <v-card-text> Work on Progress Content</v-card-text>
+                        <v-card-text>
+                            <!--                            :disabled="true"-->
+                            <repeater
+                                v-model="resource.data.details.others"
+                                :dense="settings.fieldIsDense"
+                            ></repeater>
+                        </v-card-text>
                     </v-card>
                 </v-col>
                 <v-col cols="12" md="3">
