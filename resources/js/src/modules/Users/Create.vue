@@ -7,15 +7,10 @@ import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
 import { useSettingsStore } from "@/stores/global/settings.js";
 import User from "./Models/User.js";
 import { useDisplay } from "vuetify";
-import { ErrorMessage, Field, useForm } from "vee-validate";
+import { useForm } from "vee-validate";
 import { userSchema } from "./Schema/uservalidation.js";
 
 export default {
-    components: {
-        ErrorMessage,
-        Field,
-    },
-
     data() {
         return {
             resource: new User(),
@@ -481,10 +476,10 @@ export default {
                         </v-card-text>
                     </v-card>
 
-                    <v-card>
-                        <v-card-title>Change Password</v-card-title>
-                        <v-card-text>Work on Progress Content</v-card-text>
-                    </v-card>
+                    <!--                    <v-card>-->
+                    <!--                        <v-card-title>Change Password</v-card-title>-->
+                    <!--                        <v-card-text>Work on Progress Content</v-card-text>-->
+                    <!--                    </v-card>-->
 
                     <v-card>
                         <v-card-title class="pb-0">

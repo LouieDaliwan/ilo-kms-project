@@ -8,6 +8,7 @@ export const userSchema = yup.object({
     mobile: yup.number().required().min(11).max(11).label("Mobile Number"),
     homeAddress: yup.string().required().label("Home Address"),
     password: yup.string().min(6).required(),
+    roles: yup.string().required().max(10).label("Roles"),
     confirm_password: yup
         .string()
         .required()

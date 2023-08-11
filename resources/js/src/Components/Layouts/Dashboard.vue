@@ -24,14 +24,7 @@
 </template>
 
 <script>
-import Sidebar from "@components/Sidebar/Sidebar.vue";
-
 export default {
     name: "Blank",
-    components: {
-        Sidebar,
-    },
 };
-
-Sidebar;
 </script>

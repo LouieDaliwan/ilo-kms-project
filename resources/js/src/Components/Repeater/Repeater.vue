@@ -1,15 +1,10 @@
 <script>
 import { useRepeaterStore } from "./store/repeater.js";
-import EmptyIcon from "@components/Icons/EmptyIcon.vue";
-import ContextPrompt from "@components/ContextPrompt/ContextPrompt.vue";
 
 export default {
     name: "Repeater",
     emits: ["update:modelValue"],
-    components: {
-        EmptyIcon,
-        ContextPrompt,
-    },
+
     props: {
         modelValue: {
             type: [Array, Object],
@@ -87,8 +82,6 @@ export default {
         remove(i) {
             this.repeaters.splice(i, 1);
             this.repeaters = Object.assign({}, this.repeaters);
-
-            console.log(this.repeaters);
         },
         addUserDefinedDefault() {
             let fields = parseInt(this.fields);

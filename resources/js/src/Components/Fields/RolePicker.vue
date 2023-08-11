@@ -1,10 +1,16 @@
 <script>
-import ShieldWithCheckMarkIcon from "@components/Icons/ShieldWithCheckMarkIcon.vue";
+import { ErrorMessage, Field, useForm } from "vee-validate";
+import { userSchema } from "@modules/Users/Schema/uservalidation.js";
 
 export default {
     name: "RolePicker",
     emits: ["update:modelValue"],
-    components: { ShieldWithCheckMarkIcon },
+
+    components: {
+        ErrorMessage,
+        Field,
+    },
+
     props: {
         modelValue: {
             type: [Array, Object, String, Number],
@@ -21,6 +27,22 @@ export default {
         lazyLoad: {
             type: Boolean,
         },
+    },
+
+    setup() {
+        const { defineComponentBinds } = useForm({
+            validationSchema: userSchema,
+        });
+
+        const vuetifyConfig = (state) => ({
+            props: {
+                "error-messages": state.errors,
+            },
+        });
+
+        const rolesValidation = defineComponentBinds("roles", vuetifyConfig);
+
+        return { rolesValidation };
     },
 
     data() {
@@ -78,7 +100,6 @@ export default {
                 ref="roles"
                 v-model="role"
                 :dense="dense"
-                :hide-details="true"
                 :items="roles"
                 :label="`Select role ${multiple ? 2 : 1})`"
                 :multiple="multiple"
@@ -90,6 +111,7 @@ export default {
                 name="roles"
                 outlined
                 persistent-hint
+                v-bind="rolesValidation"
                 @focus="getRolesData"
             >
             </v-select>
