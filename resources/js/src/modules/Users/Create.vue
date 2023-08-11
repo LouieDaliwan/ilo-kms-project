@@ -1,11 +1,4 @@
 <script>
-import Admin from "@components/Layouts/Admin.vue";
-import Metatag from "@components/Metatag/Metatag.vue";
-import PageHeader from "@components/Headers/PageHeader.vue";
-import AlertBox from "@components/Alert/AlertBox.vue";
-import Repeater from "@components/Repeater/Repeater.vue";
-import UploadAvatar from "@components/Avatar/UploadAvatar.vue";
-import RolePicker from "@components/Fields/RolePicker.vue";
 import $api from "./routes/api.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
@@ -19,15 +12,8 @@ import { userSchema } from "./Schema/uservalidation.js";
 
 export default {
     components: {
-        RolePicker,
-        Admin,
-        Metatag,
-        PageHeader,
-        AlertBox,
         ErrorMessage,
         Field,
-        Repeater,
-        UploadAvatar,
     },
 
     data() {

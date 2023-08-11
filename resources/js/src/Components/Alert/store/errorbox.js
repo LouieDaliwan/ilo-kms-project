@@ -1,21 +1,23 @@
 import { defineStore } from "pinia";
 
 export const useErrorBoxStore = defineStore("errorBox", {
-    state: () => ({
-        errorbox: {
-            border: "top",
-            color: null,
-            dense: true,
-            dismissible: true,
-            icon: null,
-            errors: [],
-            outlined: true,
-            prominent: true,
-            show: false,
-            text: "An error occured.",
-            type: "error",
-        },
-    }),
+    state: () => {
+        return {
+            errorbox: {
+                border: "top",
+                color: null,
+                dense: true,
+                dismissible: true,
+                icon: null,
+                errors: [],
+                outlined: true,
+                prominent: true,
+                show: false,
+                text: "An error occured.",
+                type: "error",
+            },
+        };
+    },
     getters: {
         errorBoxStore: (state) => state.errorbox,
         showErrorBox: (state) => state.errorbox.show,
