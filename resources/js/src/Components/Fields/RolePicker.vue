@@ -3,9 +3,25 @@ import ShieldWithCheckMarkIcon from "@components/Icons/ShieldWithCheckMarkIcon.v
 
 export default {
     name: "RolePicker",
-    emits: ["update:value"],
+    emits: ["update:modelValue"],
     components: { ShieldWithCheckMarkIcon },
-    props: ["value", "errors", "dense", "multiple", "lazyLoad"],
+    props: {
+        modelValue: {
+            type: [Array, Object, String, Number],
+        },
+        dense: {
+            type: Boolean,
+        },
+        multiple: {
+            type: [Boolean, Number],
+        },
+        errors: {
+            type: [Array, Object],
+        },
+        lazyLoad: {
+            type: Boolean,
+        },
+    },
 
     data() {
         return {
@@ -15,20 +31,17 @@ export default {
     computed: {
         role: {
             get() {
-                return !window._.isEmpty(this.value)
-                    ? this.value[0]
-                    : this.value;
+                return this.modelValue[0];
             },
             set(value) {
-                this.$emit("update:value", value);
+                this.$emit("update:modelValue", [value]);
             },
         },
-
         roles() {
             return this.items.map(function (role) {
                 return {
-                    text: role.name,
-                    value: role.id,
+                    name: role.name,
+                    id: role.id,
                 };
             });
         },
@@ -36,7 +49,10 @@ export default {
     methods: {
         getRolesData() {
             if (window._.isEmpty(this.items)) {
-                this.items = [];
+                this.items = [
+                    { id: 1, name: "Admin" },
+                    { id: 2, name: "User" },
+                ];
             }
         },
     },
@@ -63,18 +79,20 @@ export default {
                 v-model="role"
                 :dense="dense"
                 :hide-details="true"
-                :items="['Superadmin', 'Admin']"
+                :items="roles"
                 :label="`Select role ${multiple ? 2 : 1})`"
                 :multiple="multiple"
                 background-color="selects"
                 class="dt-text-field"
-                menu-props
+                hint="Select Role"
+                item-title="name"
+                item-value="id"
                 name="roles"
                 outlined
+                persistent-hint
                 @focus="getRolesData"
             >
             </v-select>
-            <input v-model="role" name="roles[]" type="hidden" />
         </v-card-text>
     </v-card>
 </template>
