@@ -18,7 +18,7 @@ export default defineConfig({
                 path.resolve(__dirname, "./resources/js/src/lang/*.json"),
             ],
         }),
-        sass(),
+        sass,
     ],
     resolve: {
         alias: [
