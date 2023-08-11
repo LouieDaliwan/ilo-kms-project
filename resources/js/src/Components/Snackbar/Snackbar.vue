@@ -1,5 +1,8 @@
 <script>
-import { VSlideYReverseTransition, VSlideYTransition } from "vuetify/lib";
+import {
+    VSlideYReverseTransition,
+    VSlideYTransition,
+} from "vuetify/components";
 import { useSnackbarStore } from "./store/snackbar.js";
 
 export default {
@@ -53,9 +56,9 @@ export default {
             :top="snackbar.y === 'top'"
             :vertical="snackbar.mode === 'vertical'"
         >
-            <v-icon v-if="snackbar.icon" class="mr-3" dark small>{{
-                snackbar.icon
-            }}</v-icon>
+            <v-icon v-if="snackbar.icon" class="mr-3" dark small
+                >{{ snackbar.icon }}
+            </v-icon>
             &nbsp;
             {{ snackbar.text }}
 
@@ -66,9 +69,9 @@ export default {
                 text
                 @click="snackbarCallback()"
             >
-                <v-icon v-if="snackbar.button.icon" small>{{
-                    snackbar.button.icon
-                }}</v-icon>
+                <v-icon v-if="snackbar.button.icon" small
+                    >{{ snackbar.button.icon }}
+                </v-icon>
                 <template v-else>{{ snackbar.button.text }}</template>
             </v-btn>
         </v-snackbar>
