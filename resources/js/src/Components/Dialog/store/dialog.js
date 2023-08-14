@@ -68,6 +68,7 @@ export const useDialogStore = defineStore("dialog", {
         },
 
         prompt(payload) {
+            console.log(payload);
             this.dialog = _.merge({}, this.dialog, payload, {
                 loading: false,
             });
@@ -79,6 +80,7 @@ export const useDialogStore = defineStore("dialog", {
 
         show(payload) {
             this.reset();
+            console.log("show");
             this.prompt(Object.assign(payload, { show: true }));
         },
         hide() {
