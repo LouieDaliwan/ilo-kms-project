@@ -1,11 +1,4 @@
 <script>
-import Admin from "@components/Layouts/Admin.vue";
-import Metatag from "@components/Metatag/Metatag.vue";
-import Man from "@/components/Icons/ManThrowingAwayPaperIcon.vue";
-import PageHeader from "@components/Headers/Pageheader.vue";
-import ToolbarMenu from "@components/Toolbar/ToolbarMenu.vue";
-import EmptyState from "@components/Empty/EmptyState.vue";
-import SkeletonAvatarTable from "@components/SkeletonLoader/SkeletonAvatarTable.vue";
 import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
@@ -14,13 +7,6 @@ import { useDisplay } from "vuetify";
 
 export default {
     components: {
-        Admin,
-        Metatag,
-        Man,
-        PageHeader,
-        ToolbarMenu,
-        EmptyState,
-        SkeletonAvatarTable,
         VDataTable,
     },
 
