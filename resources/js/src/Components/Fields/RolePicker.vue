@@ -1,6 +1,5 @@
 <script>
-import { ErrorMessage, Field, useForm } from "vee-validate";
-import { userSchema } from "@modules/Users/Schema/uservalidation.js";
+import { ErrorMessage, Field } from "vee-validate";
 
 export default {
     name: "RolePicker",
@@ -18,6 +17,9 @@ export default {
         dense: {
             type: Boolean,
         },
+        roleValidation: {
+            type: [Array, Object],
+        },
         multiple: {
             type: [Boolean, Number],
         },
@@ -27,22 +29,6 @@ export default {
         lazyLoad: {
             type: Boolean,
         },
-    },
-
-    setup() {
-        const { defineComponentBinds } = useForm({
-            validationSchema: userSchema,
-        });
-
-        const vuetifyConfig = (state) => ({
-            props: {
-                "error-messages": state.errors,
-            },
-        });
-
-        const rolesValidation = defineComponentBinds("roles", vuetifyConfig);
-
-        return { rolesValidation };
     },
 
     data() {
@@ -94,8 +80,6 @@ export default {
             </div>
         </slot>
         <v-card-text>
-            <!--          :error-messages="errors"-->
-            <!--          menu-props="offsetY"-->
             <v-select
                 ref="roles"
                 v-model="role"
@@ -111,7 +95,7 @@ export default {
                 name="roles"
                 outlined
                 persistent-hint
-                v-bind="rolesValidation"
+                v-bind="roleValidation"
                 @focus="getRolesData"
             >
             </v-select>

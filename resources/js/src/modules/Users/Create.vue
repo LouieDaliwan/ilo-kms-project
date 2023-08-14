@@ -43,6 +43,7 @@ export default {
         const password = defineComponentBinds("password", vuetifyConfig);
         const mobile = defineComponentBinds("mobile", vuetifyConfig);
         const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
+        const roleValidation = defineComponentBinds("roles", vuetifyConfig);
         const confirm_password = defineComponentBinds(
             "confirm_password",
             vuetifyConfig,
@@ -70,6 +71,7 @@ export default {
             homeAddress,
             mobile,
             onSubmit,
+            roleValidation,
             settings,
         };
     },
@@ -512,6 +514,7 @@ export default {
                         :dense="settings.fieldIsDense"
                         :lazyLoad="false"
                         :multiple="false"
+                        :roleValidation="roleValidation"
                         class="mb-3"
                     ></role-picker>
                 </v-col>
