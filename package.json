@@ -31,6 +31,7 @@
         "moment": "^2.29.4",
         "pinia": "^2.1.4",
         "rubik-font": "^0.0.3",
+        "sweetalert2": "^11.7.27",
         "vee-validate": "^4.11.1",
         "vue": "^3.2.36",
         "vue-i18n": "^9.2.2",

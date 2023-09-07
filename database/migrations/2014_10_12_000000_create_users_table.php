@@ -18,8 +18,11 @@ return new class extends Migration
             $table->string('last_name')->index();
             $table->string('email')->unique()->index();
             $table->string('username')->unique()->index();
+            $table->string('prefixname')->index()->nullable();
+            $table->string('suffixname')->index()->nullable();
             $table->string('status')->index()->nullable();
             $table->string('gender')->index()->nullable();
+            $table->string('photo')->index()->nullable();
             $table->longText('metadata')->nullable();
             $table->integer('is_temporary_password')->default(1);
             $table->timestamp('email_verified_at')->nullable();

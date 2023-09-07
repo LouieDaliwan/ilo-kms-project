@@ -7,6 +7,7 @@ import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
 import { useSettingsStore } from "@/stores/global/settings.js";
 import User from "./Models/User.js";
+import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useForm } from "vee-validate";
 import { userSchema } from "./Schema/uservalidation.js";
@@ -14,7 +15,7 @@ import { userSchema } from "./Schema/uservalidation.js";
 export default {
     data() {
         return {
-            resource: new User(),
+            // resource: new User(),
         };
     },
 
@@ -23,6 +24,8 @@ export default {
     },
 
     setup() {
+        const resource = ref(new User());
+
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
         const { mdAndUp, xlAndUp } = useDisplay();
@@ -30,9 +33,10 @@ export default {
         const successBox = useSuccessBoxStore();
         const settings = useSettingsStore();
 
-        const { defineComponentBinds, handleSubmit, resetForm } = useForm({
-            validationSchema: userSchema,
-        });
+        const { defineComponentBinds, handleSubmit, resetForm, setErrors } =
+            useForm({
+                validationSchema: userSchema,
+            });
 
         const vuetifyConfig = (state) => ({
             props: {
@@ -43,9 +47,10 @@ export default {
         // TODO fix this @author Louie Daliwan
         const firstname = defineComponentBinds("firstname", vuetifyConfig);
         const lastname = defineComponentBinds("lastname", vuetifyConfig);
-        const suffix = defineComponentBinds("suffix", vuetifyConfig);
         const email = defineComponentBinds("email", vuetifyConfig);
         const password = defineComponentBinds("password", vuetifyConfig);
+        const suffix = defineComponentBinds("suffix", vuetifyConfig);
+        const prefix = defineComponentBinds("prefix", vuetifyConfig);
         const mobile = defineComponentBinds("mobile", vuetifyConfig);
         const username = defineComponentBinds("username", vuetifyConfig);
         const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
@@ -54,9 +59,62 @@ export default {
             "confirm_password",
             vuetifyConfig,
         );
+        const backgroundDetails = defineComponentBinds(
+            "backgroundDetails",
+            vuetifyConfig,
+        );
 
-        const onSubmit = handleSubmit((value) => {
-            console.log(value);
+        const onSubmit = handleSubmit((values) => {
+            axios
+                .post($api.store(), resource.value, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                })
+                .then((response) => {
+                    console.log("test");
+                    // this.resource.isPrestine = true;
+
+                    // this.snackbar.show({
+                    //     text: "User created successfully",
+                    // });
+
+                    // this.$router.push({
+                    //     name: "users.edit",
+                    //     params: {
+                    //         id: response.data.data.id,
+                    //     },
+                    //     query: {
+                    //         success: true,
+                    //     },
+                    // });
+
+                    // this.successBox.show({
+                    //     text: `Updated User ${response.data.data.displayname}`,
+                    //     buttons: {
+                    //         show: {
+                    //             code: "users.show",
+                    //             to: {
+                    //                 name: "users.show",
+                    //                 params: { id: response.data.data.id },
+                    //             },
+                    //             icon: "mdi-account-search-outline",
+                    //             text: "View Details",
+                    //         },
+                    //         create: {
+                    //             code: "users.create",
+                    //             to: { name: "users.create" },
+                    //             icon: "mdi-account-plus-outline",
+                    //             text: "Add New User",
+                    //         },
+                    //     },
+                    // });
+                })
+                .catch((err) => {
+                    setErrors(err.response.data.errors);
+                    // this.form.setErrors(err.response.data.errors);
+                })
+                .finally(() => {
+                    // this.load(false);
+                });
         });
 
         return {
@@ -68,12 +126,14 @@ export default {
             successBox,
             handleSubmit,
             resetForm,
-            defineComponentBinds,
             firstname,
             username,
             lastname,
             suffix,
+            prefix,
+            backgroundDetails,
             email,
+            resource,
             password,
             confirm_password,
             homeAddress,
@@ -173,60 +233,6 @@ export default {
             this.alertBox.hide();
             console.log("proceed");
             this.load(false);
-            return;
-
-            axios
-                .post(
-                    $api.store(),
-                    this.parseResourceData(this.resource.data),
-                    {
-                        headers: { "Content-Type": "multipart/form-data" },
-                    },
-                )
-                .then((response) => {
-                    this.resource.isPrestine = true;
-
-                    this.snackbar.show({
-                        text: "User created successfully",
-                    });
-
-                    this.$router.push({
-                        name: "users.edit",
-                        params: {
-                            id: response.data.data.id,
-                        },
-                        query: {
-                            success: true,
-                        },
-                    });
-
-                    this.successBox.show({
-                        text: `Updated User ${response.data.data.displayname}`,
-                        buttons: {
-                            show: {
-                                code: "users.show",
-                                to: {
-                                    name: "users.show",
-                                    params: { id: response.data.data.id },
-                                },
-                                icon: "mdi-account-search-outline",
-                                text: "View Details",
-                            },
-                            create: {
-                                code: "users.create",
-                                to: { name: "users.create" },
-                                icon: "mdi-account-plus-outline",
-                                text: "Add New User",
-                            },
-                        },
-                    });
-                })
-                .catch((err) => {
-                    this.form.setErrors(err.response.data.errors);
-                })
-                .finally(() => {
-                    this.load(false);
-                });
         },
 
         askUserBeforeNavigatingAway(next) {
@@ -394,6 +400,7 @@ export default {
                                         label="Prefix"
                                         name="prefixname"
                                         outlined
+                                        v-bind="prefix"
                                     ></v-select>
                                 </v-col>
                                 <v-col cols="6" md="2">
@@ -404,7 +411,9 @@ export default {
                                         dense
                                         hide-details
                                         label="Suffix"
+                                        name="suffixname"
                                         outlined
+                                        v-bind="suffix"
                                     ></v-text-field>
                                 </v-col>
                             </v-row>
@@ -504,6 +513,7 @@ export default {
                             <!--                            :disabled="true"-->
                             <repeater
                                 v-model="resource.data.details.others"
+                                :background-details="backgroundDetails"
                                 :dense="settings.fieldIsDense"
                             ></repeater>
                         </v-card-text>

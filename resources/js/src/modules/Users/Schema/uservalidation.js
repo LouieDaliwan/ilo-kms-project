@@ -3,10 +3,19 @@ import * as yup from "yup";
 export const userSchema = yup.object({
     firstname: yup.string().required().label("First Name"),
     lastname: yup.string().required().label("Last Name"),
-    suffix: yup.string().required().label("Suffix"),
     email: yup.string().email().required().label("Email"),
+    suffix: yup.string().label("Suffix"),
+    prefix: yup.string().label("Prefix"),
+    avatar: yup.object().label("Avatar"),
+    backgroundDetails: yup.array().label("Background Details"),
     username: yup.string().required().label("Username"),
-    mobile: yup.number().required().min(11).max(11).label("Mobile Number"),
+    mobile: yup
+        .string()
+        .required()
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(10)
+        .max(11)
+        .label("Mobile Number"),
     homeAddress: yup.string().required().label("Home Address"),
     password: yup.string().min(6).required().label("Password"),
     roles: yup.string().required().max(10).label("Roles"),

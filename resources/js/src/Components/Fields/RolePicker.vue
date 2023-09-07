@@ -91,7 +91,7 @@ export default {
                 class="dt-text-field"
                 hint="Select Role"
                 item-title="name"
-                item-value="id"
+                item-value="name"
                 name="roles"
                 outlined
                 persistent-hint

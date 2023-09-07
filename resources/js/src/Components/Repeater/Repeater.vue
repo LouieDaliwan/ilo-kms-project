@@ -9,6 +9,11 @@ export default {
         modelValue: {
             type: [Array, Object],
         },
+
+        backgroundDetails: {
+            type: [String, Boolean, Object, Array],
+        },
+
         addButtonText: {
             type: String,
             default: "Add Item",
