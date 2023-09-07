@@ -1,5 +1,6 @@
 <script>
 import $api from "./routes/api.js";
+import AccountDetails from "./cards/AccountDetails.vue";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
@@ -17,10 +18,14 @@ export default {
         };
     },
 
+    components: {
+        AccountDetails,
+    },
+
     setup() {
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
-        const { mdAndUp } = useDisplay();
+        const { mdAndUp, xlAndUp } = useDisplay();
         const alertBox = useAlertBoxStore();
         const successBox = useSuccessBoxStore();
         const settings = useSettingsStore();
@@ -42,6 +47,7 @@ export default {
         const email = defineComponentBinds("email", vuetifyConfig);
         const password = defineComponentBinds("password", vuetifyConfig);
         const mobile = defineComponentBinds("mobile", vuetifyConfig);
+        const username = defineComponentBinds("username", vuetifyConfig);
         const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
         const roleValidation = defineComponentBinds("roles", vuetifyConfig);
         const confirm_password = defineComponentBinds(
@@ -57,12 +63,14 @@ export default {
             snackbar,
             dialog,
             mdAndUp,
+            xlAndUp,
             alertBox,
             successBox,
             handleSubmit,
             resetForm,
             defineComponentBinds,
             firstname,
+            username,
             lastname,
             suffix,
             email,
@@ -76,15 +84,15 @@ export default {
         };
     },
 
-    beforeRouteLeave(to, from, next) {
-        if (this.isFormPrestine) {
-            next();
-            console.log("test");
-        } else {
-            console.log("test2");
-            this.askUserBeforeNavigatingAway(next);
-        }
-    },
+    // beforeRouteLeave(to, from, next) {
+    //     if (this.isFormPrestine) {
+    //         next();
+    //         console.log("test");
+    //     } else {
+    //         console.log("test2");
+    //         this.askUserBeforeNavigatingAway(next);
+    //     }
+    // },
 
     computed: {
         isDesktop() {
@@ -291,7 +299,6 @@ export default {
 <template>
     <admin>
         <metatag :title="'Add User'"></metatag>
-
         <template v-slot:appbar>
             <v-container class="py-0 px-0">
                 <v-row align="center" justify="space-between">
@@ -480,10 +487,14 @@ export default {
                         </v-card-text>
                     </v-card>
 
-                    <!--                    <v-card>-->
-                    <!--                        <v-card-title>Change Password</v-card-title>-->
-                    <!--                        <v-card-text>Work on Progress Content</v-card-text>-->
-                    <!--                    </v-card>-->
+                    <account-details
+                        v-model="resource"
+                        :confirm_password="confirm_password"
+                        :email="email"
+                        :password="password"
+                        :username="username"
+                        :xlAndUp="xlAndUp"
+                    ></account-details>
 
                     <v-card>
                         <v-card-title class="pb-0">
@@ -500,7 +511,7 @@ export default {
                 </v-col>
                 <v-col cols="12" md="3">
                     <v-card class="mb-3">
-                        <v-card-title class="pb-0"> Photo</v-card-title>
+                        <v-card-title class="pb-0">Photo</v-card-title>
                         <v-card-text>
                             <upload-avatar
                                 v-model="resource.data.avatar"
