@@ -1,271 +1,238 @@
-<script>
+<script setup>
 import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { VDataTable } from "vuetify/labs/VDataTable";
 import { useDisplay } from "vuetify";
+import { computed, onMounted, reactive } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-export default {
-    components: {
-        VDataTable,
+const dialogStore = useDialogStore();
+const snackbarStore = useSnackbarStore();
+const { smAndDown } = useDisplay();
+
+const router = useRouter();
+const route = useRoute();
+
+const resources = reactive({
+    loading: false,
+    search: "",
+    options: {
+        page: 1,
+        pageCount: 0,
+        itemsPerPage: 10,
+        sortDesc: [],
+        sortBy: [],
+        // rowsPerPage: [5, 10, 15, 20, 50, 100],
     },
-
-    setup() {
-        const dialogStore = useDialogStore();
-        const snackbarStore = useSnackbarStore();
-        const { smAndDown } = useDisplay();
-
-        return {
-            dialogStore,
-            snackbarStore,
-            smAndDown,
-        };
+    meta: {},
+    modes: {
+        bulkedit: false,
     },
-
-    data() {
-        return {
-            api: $api,
-
-            resources: {
-                loading: false,
-                search: "",
-                options: {
-                    page: 1,
-                    pageCount: 0,
-                    itemsPerPage: 10,
-                    sortDesc: [],
-                    sortBy: [],
-                    // rowsPerPage: [5, 10, 15, 20, 50, 100],
-                },
-                meta: {},
-                modes: {
-                    bulkedit: false,
-                },
-                selected: [],
-                headers: [
-                    {
-                        text: "Account Name",
-                        align: "left",
-                        value: "displayname",
-                        class: "text-no-wrap",
-                        key: "displayname",
-                    },
-                    {
-                        text: "Role",
-                        value: "role",
-                        class: "text-no-wrap",
-                        key: "role",
-                    },
-                    {
-                        text: "Last Modified",
-                        value: "updated_at",
-                        class: "text-no-wrap",
-                        key: "updated_at",
-                    },
-                    {
-                        text: "Actions",
-                        align: "center",
-                        value: "action",
-                        sortable: false,
-                        class: "muted--text text-no-wrap",
-                        key: "action",
-                    },
-                ],
-                data: [],
-            },
-            tabletoolbar: {
-                bulkCount: 0,
-                isSearching: false,
-                search: "",
-                listGridView: false,
-                toggleBulkEdit: false,
-                toggleTrash: false,
-                verticaldiv: false,
-            },
-        };
-    },
-
-    computed: {
-        resourcesIsEmpty() {
-            return (
-                window._.isEmpty(this.resources.data) && !this.resources.loading
-            );
+    selected: [],
+    headers: [
+        {
+            text: "Account Name",
+            align: "left",
+            value: "displayname",
+            class: "text-no-wrap",
+            key: "displayname",
         },
-
-        resourcesIsNotEmpty() {
-            return !this.resourcesIsEmpty;
+        {
+            text: "Role",
+            value: "role",
+            class: "text-no-wrap",
+            key: "role",
         },
-
-        options: function () {
-            return {
-                per_page: this.resources.options.itemsPerPage,
-                page: this.resources.options.page,
-                sort: this.resources.options.sortBy[0] || undefined,
-                order:
-                    this.resources.options.sortDesc[0] || false
-                        ? "desc"
-                        : "asc",
-            };
+        {
+            text: "Last Modified",
+            value: "modified_at",
+            class: "text-no-wrap",
+            key: "updated_at",
         },
-
-        selected: function () {
-            return this.resources.selected.map((item) => item.id);
+        {
+            text: "Actions",
+            align: "center",
+            value: "action",
+            sortable: false,
+            class: "muted--text text-no-wrap",
+            key: "action",
         },
-    },
+    ],
+    data: [],
+});
 
-    mounted() {
-        this.changeOptionsFromRouterQueries();
-    },
+const tabletoolbar = reactive({
+    bulkCount: 0,
+    isSearching: false,
+    search: "",
+    listGridView: false,
+    toggleBulkEdit: false,
+    toggleTrash: false,
+    verticaldiv: false,
+});
 
-    watch: {
-        "resources.search": function (val) {
-            this.resources.searching = true;
-        },
+const api = $api;
 
-        "resources.selected": function (val) {
-            this.tabletoolbar.bulkCount = val.length;
-        },
-
-        "tabletoolbar.toggleBulkEdit": function (val) {
-            if (!val) {
-                this.resources.selected = [];
-            }
-        },
-    },
-
-    methods: {
-        changeOptionsFromRouterQueries() {
-            this.options.per_page = this.$route.query.per_page;
-            this.options.page = parseInt(this.$route.query.page);
-            this.options.search = this.$route.query.search;
-            this.resources.search = this.options.search;
-            this.tabletoolbar.search = this.options.search;
-        },
-
-        optionsChanged(options) {
-            this.getPaginatedData(this.options);
-        },
-
-        getPaginatedData(params = null, caller = null) {
-            params = Object.assign(params ? params : this.$route.query, {
-                search: this.resources.search,
-            });
-            this.resources.loading = true;
-            axios
-                .get(this.api.list(), { params })
-                .then((response) => {
-                    this.resources = Object.assign(
-                        {},
-                        this.resources,
-                        response.data,
-                    );
-                    this.resources.options = Object.assign(
-                        this.resources.options,
-                        response.data.meta,
-                        params,
-                    );
-                    this.resources.loading = false;
-                    this.$router
-                        .push({
-                            query: Object.assign({}, this.$route.query, params),
-                        })
-                        .catch((err) => {});
-                })
-                .catch((err) => {
-                    this.dialogStore.error({
-                        width: 400,
-                        buttons: { cancel: { show: false } },
-                        title: "Whoops! An error occured",
-                        text: err.response.data.message,
-                    });
-                })
-                .finally(() => {
-                    this.resources.data.map(function (data) {
-                        return Object.assign(data, { loading: false });
-                    });
-                });
-        },
-
-        goToShowUserPage(user) {
-            return {
-                name: "users.show",
-                params: { id: user.id, slug: user.username },
-            };
-        },
-
-        search: window._.debounce(function (event) {
-            this.resource.search = event.srcElement.value || "";
-            this.tabletoolbar.isSearch = false;
-            if (this.resources.searching) {
-                this.getPaginatedData(this.options, "search");
-                this.resources.search = false;
-            }
-        }, 200),
-
-        focusSearchBar() {
-            this.$refs["tablesearch"].focus();
-        },
-
-        bulkTrashResource() {
-            let selected = this.selected;
-            axios
-                .delete($api.destroy(null), { data: { id: selected } })
-                .then(({ data }) => {
-                    this.getPaginatedData(null, "bulkTrashResource");
-                    this.tabletoolbar.toggleTrash = false;
-                    this.tabletoolbar.toggleBulkEdit = false;
-                    this.dialogStore.hide();
-                    this.snackbarStore.show({
-                        text: `User successfully deactivated ${this.tabletoolbar.bulkCount}`,
-                    });
-                })
-                .catch((err) => {
-                    this.dialogStore.error({
-                        width: 400,
-                        buttons: { cancel: { show: false } },
-                        title: "Whoops! An error occured",
-                        text: err.response.data.message,
-                    });
-                });
-        },
-        askUserToDestroyUser(item) {
-            this.dialogStore.show({
-                color: "warning",
-                illustration: Man,
-                illustrationWidth: 200,
-                illustrationHeight: 160,
-                width: "420",
-                title: "You are about to move to trash the selected user.",
-                text: [
-                    "The user will be signed out from the app. Some data related to the account like comments and files will still remain.",
-                    `Are you sure you want to move ${item.displayname} to Trash?`,
-                ],
-                buttons: {
-                    cancel: { show: true, color: "link" },
-                    action: {
-                        text: "Move to Trash",
-                        color: "warning",
-                        callback: (dialog) => {
-                            this.dialogStore.loading(true);
-                            this.destroyResource(item);
-                        },
-                    },
-                },
-            });
-        },
-        destroyResource(item) {
-            item.loading = true;
-            axios.delete($api.destroy(item.id)).then(({ data }) => {
-                item.active = false;
-                this.getPaginatedData(null, "destroyResource");
-                this.snackbarStore.show({
-                    text: `User successfully deactivated`,
-                });
-                this.dialogStore.hide();
-            });
-        },
-    },
+const changeOptionsFromRouterQueries = () => {
+    options.per_page = route.query.per_page;
+    options.page = parseInt(route.query.page);
+    options.search = route.query.search;
+    resources.search = options.search;
+    tabletoolbar.search = options.search;
 };
+
+const getPaginatedData = (params = null, caller = null) => {
+    console.log("test");
+
+    params = Object.assign(params ? params : route.query, {
+        search: resources.search,
+    });
+
+    resources.loading = true;
+
+    axios
+        .get(api.list(), { params })
+        .then((response) => {
+            let responseData = response.data;
+            resources.data = responseData.data;
+            resources.meta = responseData.meta;
+
+            resources.options = Object.assign(
+                resources.options,
+                response.data.meta,
+                params,
+            );
+
+            resources.loading = false;
+            router
+                .push({
+                    query: Object.assign({}, route.query, params),
+                })
+                .catch((err) => {});
+        })
+        .catch((err) => {
+            dialogStore.error({
+                width: 400,
+                buttons: { cancel: { show: false } },
+                title: "Whoops! An error occured",
+                text: err.response.data.message,
+            });
+        })
+        .finally(() => {
+            resources.data.map(function (data) {
+                return Object.assign(data, { loading: false });
+            });
+        });
+};
+
+onMounted(() => {
+    changeOptionsFromRouterQueries();
+    getPaginatedData(options);
+});
+
+const resourcesIsEmpty = computed(() => {
+    return window._.isEmpty(resources.data) && !resources.loading;
+});
+
+const resourcesIsNotEmpty = computed(() => {
+    return !resourcesIsEmpty.value;
+});
+
+const options = computed(() => {
+    return {
+        per_page: resources.options.itemsPerPage,
+        page: resources.options.page,
+        sort: resources.options.sortBy[0] || undefined,
+        order: resources.options.sortDesc[0] || false ? "desc" : "asc",
+    };
+});
+
+const selected = computed(() => {
+    return resources.selected.map((item) => item.id);
+});
+
+const goToShowUserPage = (user) => {
+    return {
+        name: "users.show",
+        // params: { id: user.id, slug: user.username },
+        params: { id: "1", slug: "test" },
+    };
+};
+
+const optionsChanged = (options) => {
+    getPaginatedData(this.options);
+};
+
+// },
+
+// mounted() {
+//     this.changeOptionsFromRouterQueries();
+//     this.getPaginatedData(this.options);
+// },
+
+// watch: {
+//     "resources.search": function (val) {
+//         this.resources.searching = true;
+//     },
+//
+//     "resources.selected": function (val) {
+//         this.tabletoolbar.bulkCount = val.length;
+//     },
+//
+//     "tabletoolbar.toggleBulkEdit": function (val) {
+//         if (!val) {
+//             this.resources.selected = [];
+//         }
+//     },
+// },
+
+// methods: {
+//
+//
+//
+//
+//
+//
+//
+//     search: window._.debounce(function (event) {
+//         this.resource.search = event.srcElement.value || "";
+//         this.tabletoolbar.isSearch = false;
+//         if (this.resources.searching) {
+//             this.getPaginatedData(this.options, "search");
+//             this.resources.search = false;
+//         }
+//     }, 200),
+//
+//     focusSearchBar() {
+//         this.$refs["tablesearch"].focus();
+//     },
+//
+//     bulkTrashResource() {
+//         let selected = this.selected;
+//         axios
+//             .delete($api.destroy(null), { data: { id: selected } })
+//             .then(({ data }) => {
+//                 this.getPaginatedData(null, "bulkTrashResource");
+//                 this.tabletoolbar.toggleTrash = false;
+//                 this.tabletoolbar.toggleBulkEdit = false;
+//                 this.dialogStore.hide();
+//                 this.snackbarStore.show({
+//                     text: `User successfully deactivated ${this.tabletoolbar.bulkCount}`,
+//                 });
+//             })
+//             .catch((err) => {
+//                 this.dialogStore.error({
+//                     width: 400,
+//                     buttons: { cancel: { show: false } },
+//                     title: "Whoops! An error occured",
+//                     text: err.response.data.message,
+//                 });
+//             });
+//     },
+//
+//
+// }
 </script>
 <template>
     <admin>
@@ -342,7 +309,7 @@ export default {
                         <!-- Avatar and Displayname -->
                         <template v-slot:item.displayname="{ item }">
                             <div class="d-flex align-items-center">
-                                <v-tooltip v-if="auth.id == item.id" bottom>
+                                <v-tooltip v-if="1 == item.id" bottom>
                                     <!--                                <v-tooltip v-if="auth.id == item.id" bottom>-->
                                     <template v-slot:activator="{ on }">
                                         <v-badge
@@ -415,7 +382,7 @@ export default {
                             <span
                                 :title="item.updated_at"
                                 class="text-no-wrap"
-                                >{{ trans(item.modified) }}</span
+                                >{{ item.modified_at }}</span
                             >
                         </template>
                         <!-- Modified -->
@@ -429,7 +396,7 @@ export default {
                                         <v-btn
                                             :to="{
                                                 name: 'users.show',
-                                                params: { id: item.id },
+                                                params: { id: 1 },
                                             }"
                                             icon
                                             v-on="on"
