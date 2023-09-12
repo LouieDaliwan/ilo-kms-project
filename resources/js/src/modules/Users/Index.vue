@@ -2,10 +2,10 @@
 import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
-import { VDataTable } from "vuetify/labs/VDataTable";
 import { useDisplay } from "vuetify";
 import { computed, onBeforeMount, onMounted, reactive, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { VDataTable } from "vuetify/labs/VDataTable";
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -79,8 +79,6 @@ const changeOptionsFromRouterQueries = () => {
 };
 
 const getPaginatedData = (params = null, caller = null) => {
-    console.log("test");
-
     params = Object.assign(params ? params : route.query, {
         search: resources.search,
     });
@@ -147,44 +145,49 @@ const options = computed(() => {
     };
 });
 
+const optionsChanged = (options) => {
+    getPaginatedData(options);
+};
+
 const selected = computed(() => {
     return resources.selected.map((item) => item.id);
 });
 
+const askUserToDestroyUser = (item) => {};
+
 const goToShowUserPage = (user) => {
     return {
         name: "users.show",
-        // params: { id: user.id, slug: user.username },
-        params: { id: "1", slug: "test" },
+        // params: { id: user.id },
+        params: { id: "1" },
     };
 };
 
 watch(
     () => resources.data,
+    (newValue) => {},
+);
+
+watch(
+    () => resources.search,
     (newValue) => {
-        console.log(newValue);
+        resources.searching = true;
     },
 );
 
-const optionsChanged = (options) => {
-    getPaginatedData(options);
-};
+watch(
+    () => resources.selected,
+    (newValue) => {
+        tabletoolbar.bulkCount = newValue.length;
+    },
+);
 
-// watch: {
-//     "resources.search": function (val) {
-//         this.resources.searching = true;
-//     },
-//
-//     "resources.selected": function (val) {
-//         this.tabletoolbar.bulkCount = val.length;
-//     },
-//
-//     "tabletoolbar.toggleBulkEdit": function (val) {
-//         if (!val) {
-//             this.resources.selected = [];
-//         }
-//     },
-// },
+watch(
+    () => tabletoolbar.toggleBulkEdit,
+    (newValue) => {
+        resources.selected = [];
+    },
+);
 
 const search = window._.debounce(function (event) {
     resources.search = event.srcElement.value || "";
@@ -228,17 +231,17 @@ const bulkTrashResource = () => {
         <metatag :title="'Users'"></metatag>
 
         <page-header>
-            <!--            <template v-slot:utilities>-->
-            <!--                <router-link-->
-            <!--                    :to="{ name: 'users.trashed' }"-->
-            <!--                    class="dt-link text&#45;&#45;decoration-none mr-4"-->
-            <!--                    exact-->
-            <!--                    tag="a"-->
-            <!--                >-->
-            <!--                    <v-icon left small>mdi-account-off-outline</v-icon>-->
-            <!--                    Deactivated Users-->
-            <!--                </router-link>-->
-            <!--            </template>-->
+            <template v-slot:utilities>
+                <router-link
+                    :to="{ name: 'users.trashed' }"
+                    class="dt-link text--decoration-none mr-4"
+                    exact
+                    tag="a"
+                >
+                    <v-icon left small>mdi-account-off-outline</v-icon>
+                    Deactivated Users
+                </router-link>
+            </template>
 
             <template v-slot:action>
                 <v-btn
@@ -268,156 +271,16 @@ const bulkTrashResource = () => {
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table
                         v-model="resources.selected"
+                        v-model:items-per-page="resources.meta.total"
                         :headers="resources.headers"
                         :items="resources.data"
-                        :items-per-page="resources.meta.total"
                         :loading="resources.loading"
-                        :mobile-breakpoint="NaN"
                         :options.sync="resources.options"
                         :show-select="tabletoolbar.toggleBulkEdit"
-                        color="primary"
-                        item-key="id"
+                        class="elevation-1"
+                        item-value="name"
                         @update:options="optionsChanged"
-                    >
-                        <template v-slot:progress><span></span></template>
-
-                        <template v-slot:loading>
-                            <v-slide-y-transition mode="out-in">
-                                <div>
-                                    <div
-                                        v-for="(j, i) in resources.options
-                                            .itemsPerPage"
-                                        :key="i"
-                                    >
-                                        <skeleton-avatar-table></skeleton-avatar-table>
-                                    </div>
-                                </div>
-                            </v-slide-y-transition>
-                        </template>
-
-                        <!-- Avatar and Displayname -->
-                        <template v-slot:item.displayname="{ item }">
-                            <div class="d-flex align-items-center">
-                                <v-tooltip bottom>
-                                    <!--                                <v-tooltip v-if="auth.id == item.id" bottom>-->
-                                    <template v-slot:activator="{ on }">
-                                        <v-badge
-                                            avatar
-                                            bordered
-                                            color="muted"
-                                            offset-x="35"
-                                            offset-y="15"
-                                            overlap
-                                        >
-                                            <template v-slot:badge>
-                                                <v-avatar>
-                                                    <i
-                                                        class="small mdi mdi-home-account"
-                                                        style="font-size: 12px"
-                                                    ></i>
-                                                </v-avatar>
-                                            </template>
-                                            <v-avatar
-                                                class="mr-6"
-                                                color="workspace"
-                                                size="32"
-                                                v-on="on"
-                                            >
-                                                <v-img
-                                                    :src="item.avatar"
-                                                ></v-img>
-                                            </v-avatar>
-                                        </v-badge>
-                                    </template>
-                                    <span> This is your account </span>
-                                </v-tooltip>
-                                <!--                                <v-avatar-->
-                                <!--                                    v-else-->
-                                <!--                                    class="mr-6"-->
-                                <!--                                    color="workspace"-->
-                                <!--                                    size="32"-->
-                                <!--                                >-->
-                                <!--                                    <v-img :src="item.avatar"></v-img>-->
-                                <!--                                </v-avatar>-->
-
-                                <v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-                                        <router-link
-                                            v-slot="{ navigate }"
-                                            :to="goToShowUserPage(item)"
-                                            class="text-no-wrap text--decoration-none"
-                                            exact
-                                            tag="a"
-                                        >
-                                            <span
-                                                class="mt-1"
-                                                role="link"
-                                                @click="navigate"
-                                                v-on="on"
-                                                @keypress.enter="navigate"
-                                            >
-                                                {{ item.displayname }}</span
-                                            >
-                                        </router-link>
-                                    </template>
-                                    <span>View Details</span>
-                                </v-tooltip>
-                            </div>
-                        </template>
-                        <!-- Avatar and Displayname -->
-
-                        <!-- Modified -->
-                        <template v-slot:item.updated_at="{ item }">
-                            <span
-                                :title="item.updated_at"
-                                class="text-no-wrap"
-                                >{{ item.modified_at }}</span
-                            >
-                        </template>
-                        <!-- Modified -->
-
-                        <!-- Action buttons -->
-                        <template v-slot:item.action="{ item }">
-                            <div class="text-no-wrap">
-                                <!-- Edit -->
-                                <v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            :to="{
-                                                name: 'users.show',
-                                                params: { id: 1 },
-                                            }"
-                                            icon
-                                            v-on="on"
-                                        >
-                                            <v-icon small
-                                                >mdi-pencil-outline
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Edit this user</span>
-                                </v-tooltip>
-                                <!-- Edit -->
-                                <!-- Move to Trash -->
-                                <v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            @click="askUserToDestroyUser(item)"
-                                            v-on="on"
-                                        >
-                                            <v-icon small
-                                                >mdi-delete-outline
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Deactivate user</span>
-                                </v-tooltip>
-                                <!-- Move to Trash -->
-                            </div>
-                        </template>
-                        <!-- Action buttons -->
-                    </v-data-table>
+                    ></v-data-table>
                 </v-slide-y-reverse-transition>
             </v-card>
         </div>
