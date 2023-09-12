@@ -4,7 +4,7 @@ import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { VDataTable } from "vuetify/labs/VDataTable";
 import { useDisplay } from "vuetify";
-import { computed, onMounted, reactive } from "vue";
+import { computed, onBeforeMount, onMounted, reactive, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const dialogStore = useDialogStore();
@@ -34,26 +34,22 @@ const resources = reactive({
         {
             text: "Account Name",
             align: "left",
-            value: "displayname",
             class: "text-no-wrap",
             key: "displayname",
         },
         {
             text: "Role",
-            value: "role",
             class: "text-no-wrap",
             key: "role",
         },
         {
             text: "Last Modified",
-            value: "modified_at",
             class: "text-no-wrap",
-            key: "updated_at",
+            key: "modified_at",
         },
         {
             text: "Actions",
             align: "center",
-            value: "action",
             sortable: false,
             class: "muted--text text-no-wrap",
             key: "action",
@@ -126,9 +122,12 @@ const getPaginatedData = (params = null, caller = null) => {
         });
 };
 
+onBeforeMount(() => {
+    getPaginatedData();
+});
+
 onMounted(() => {
     changeOptionsFromRouterQueries();
-    getPaginatedData(options);
 });
 
 const resourcesIsEmpty = computed(() => {
@@ -160,16 +159,16 @@ const goToShowUserPage = (user) => {
     };
 };
 
+watch(
+    () => resources.data,
+    (newValue) => {
+        console.log(newValue);
+    },
+);
+
 const optionsChanged = (options) => {
-    getPaginatedData(this.options);
+    getPaginatedData(options);
 };
-
-// },
-
-// mounted() {
-//     this.changeOptionsFromRouterQueries();
-//     this.getPaginatedData(this.options);
-// },
 
 // watch: {
 //     "resources.search": function (val) {
@@ -187,53 +186,43 @@ const optionsChanged = (options) => {
 //     },
 // },
 
-// methods: {
-//
-//
-//
-//
-//
-//
-//
-//     search: window._.debounce(function (event) {
-//         this.resource.search = event.srcElement.value || "";
-//         this.tabletoolbar.isSearch = false;
-//         if (this.resources.searching) {
-//             this.getPaginatedData(this.options, "search");
-//             this.resources.search = false;
-//         }
-//     }, 200),
-//
-//     focusSearchBar() {
-//         this.$refs["tablesearch"].focus();
-//     },
-//
-//     bulkTrashResource() {
-//         let selected = this.selected;
-//         axios
-//             .delete($api.destroy(null), { data: { id: selected } })
-//             .then(({ data }) => {
-//                 this.getPaginatedData(null, "bulkTrashResource");
-//                 this.tabletoolbar.toggleTrash = false;
-//                 this.tabletoolbar.toggleBulkEdit = false;
-//                 this.dialogStore.hide();
-//                 this.snackbarStore.show({
-//                     text: `User successfully deactivated ${this.tabletoolbar.bulkCount}`,
-//                 });
-//             })
-//             .catch((err) => {
-//                 this.dialogStore.error({
-//                     width: 400,
-//                     buttons: { cancel: { show: false } },
-//                     title: "Whoops! An error occured",
-//                     text: err.response.data.message,
-//                 });
-//             });
-//     },
-//
-//
-// }
+const search = window._.debounce(function (event) {
+    resources.search = event.srcElement.value || "";
+    tabletoolbar.isSearch = false;
+    if (resources.searching) {
+        getPaginatedData(options, "search");
+        resources.search = false;
+    }
+}, 200);
+
+const focusSearchBar = () => {
+    this.$refs["tablesearch"].focus();
+};
+
+const bulkTrashResource = () => {
+    let selected = selected;
+    axios
+        .delete($api.destroy(null), { data: { id: selected } })
+        .then(({ data }) => {
+            getPaginatedData(null, "bulkTrashResource");
+            tabletoolbar.toggleTrash = false;
+            tabletoolbar.toggleBulkEdit = false;
+            dialogStore.hide();
+            snackbarStore.show({
+                text: `User successfully deactivated ${tabletoolbar.bulkCount}`,
+            });
+        })
+        .catch((err) => {
+            dialogStore.error({
+                width: 400,
+                buttons: { cancel: { show: false } },
+                title: "Whoops! An error occured",
+                text: err.response.data.message,
+            });
+        });
+};
 </script>
+
 <template>
     <admin>
         <metatag :title="'Users'"></metatag>
@@ -309,7 +298,7 @@ const optionsChanged = (options) => {
                         <!-- Avatar and Displayname -->
                         <template v-slot:item.displayname="{ item }">
                             <div class="d-flex align-items-center">
-                                <v-tooltip v-if="1 == item.id" bottom>
+                                <v-tooltip bottom>
                                     <!--                                <v-tooltip v-if="auth.id == item.id" bottom>-->
                                     <template v-slot:activator="{ on }">
                                         <v-badge
@@ -342,14 +331,14 @@ const optionsChanged = (options) => {
                                     </template>
                                     <span> This is your account </span>
                                 </v-tooltip>
-                                <v-avatar
-                                    v-else
-                                    class="mr-6"
-                                    color="workspace"
-                                    size="32"
-                                >
-                                    <v-img :src="item.avatar"></v-img>
-                                </v-avatar>
+                                <!--                                <v-avatar-->
+                                <!--                                    v-else-->
+                                <!--                                    class="mr-6"-->
+                                <!--                                    color="workspace"-->
+                                <!--                                    size="32"-->
+                                <!--                                >-->
+                                <!--                                    <v-img :src="item.avatar"></v-img>-->
+                                <!--                                </v-avatar>-->
 
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on }">
@@ -434,7 +423,10 @@ const optionsChanged = (options) => {
         </div>
 
         <div v-if="resourcesIsEmpty">
-            <toolbar-menu :items.sync="tabletoolbar" @update:search="search">
+            <toolbar-menu
+                :items.sync="tabletoolbar"
+                @update:search="resources.search"
+            >
             </toolbar-menu>
             <empty-state>
                 <template v-slot:actions>

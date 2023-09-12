@@ -129,7 +129,7 @@ export default {
             } else {
                 this.snackbar.show({
                     text: `Select an item
-                           from the list first`,
+                 from the list first`,
                     button: {
                         text: "Okay",
                     },
@@ -175,7 +175,7 @@ export default {
                 this.snackbar.show({
                     text:
                         `Select an item
-                         from the list first ` + this.items.bulkCount,
+               from the list first ` + this.items.bulkCount,
                     button: {
                         text: "Okay",
                     },
@@ -216,7 +216,7 @@ export default {
             } else {
                 this.snackbar.show({
                     text: `Select an item
-                           from the list first ${this.items.bulkCount}`,
+                 from the list first ${this.items.bulkCount}`,
                     button: {
                         text: "Okay",
                     },
@@ -245,12 +245,12 @@ export default {
                             transition="fade-transition"
                         >
                             <!--
-                                //todo Integrate
-                                //comment key events
-                                v-shortkey="['ctrl', '/']"
-                                @keydown.native="search"
-                                @shortkey.native="focus"
-                            -->
+                  //todo Integrate
+                  //comment key events
+                  v-shortkey="['ctrl', '/']"
+                  @keydown.native="search"
+                  @shortkey.native="focus"
+              -->
                             <v-text-field
                                 ref="tablesearch"
                                 v-model="items.search"
@@ -359,9 +359,7 @@ export default {
                                             >
                                         </v-btn>
                                     </template>
-                                    <span>{{
-                                        trans("Move selected items to trash")
-                                    }}</span>
+                                    <span> Move selected items to trash </span>
                                 </v-tooltip>
                             </span>
                         </v-scale-transition>
