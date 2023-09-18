@@ -8,35 +8,30 @@ import ManIcon from "@/Components/Icons/ManThrowingAwayPaperIcon.vue";
 
 export default {
     name: "ToolbarMenu",
+    emits: [
+        "update:searchInput",
+        "update:restore",
+        "update:trash",
+        "update:delete",
+    ],
 
-    props: {
-        items: [Object, Array],
-        default: () => {
-            return {};
-        },
-        bulk: {
-            type: [Boolean],
-        },
-        downloadable: {
-            type: [Boolean],
-        },
-        trashable: {
-            type: [Boolean],
-        },
-        restorable: {
-            type: [Boolean],
-        },
-        deletable: {
-            type: [Boolean],
-        },
-    },
+    props: [
+        "items",
+        "isSearch",
+        "searchInput",
+        "bulkCount",
+        "downloadable",
+        "trashable",
+        "restorable",
+        "deletable",
+    ],
 
     data() {
         return {
             dataset: {},
             trashButtonIsLoading: false,
             deleteButtonIsLoading: false,
-            isSearching: false,
+            isSearching: this.isSearch,
             ctrlIsPressed: false,
         };
     },
@@ -63,9 +58,12 @@ export default {
         focus() {
             this.$refs["tablesearch"].focus();
         },
+        input(event) {
+            this.$emit("update:searchInput", event.target.value);
+        },
         search(val) {
-            this.items.isSearching = true;
-            this.$emit("update:search", val);
+            this.isSearching = true;
+            this.$emit("update:searchInput", val);
         },
         emitRestoreButtonClicked() {
             this.$emit("update:restore");
@@ -90,33 +88,27 @@ export default {
         },
 
         askUserToBulkRestoreResources() {
-            if (this.items.bulkCount) {
+            if (this.bulkCount) {
                 this.dialogStore.prompt({
                     show: true,
                     width: 420,
-                    illustration: this.items.bulkCount
-                        ? ProjectManager
-                        : EmptyIcon,
+                    illustration: this.bulkCount ? ProjectManager : EmptyIcon,
                     illustrationWidth: 240,
                     illustrationHeight: 240,
                     loading: this.trashButtonIsLoading,
                     color: "warning",
-                    title:
-                        "Move the selected item to trash " +
-                        this.items.bulkCount,
+                    title: "Move the selected item to trash " + this.bulkCount,
                     text:
                         "Are you sure you want to move the selected item to trash?" +
-                        this.items.bulkCount,
+                        this.bulkCount,
                     buttons: {
-                        cancel: { show: this.items.bulkCount, color: "link" },
+                        cancel: { show: this.bulkCount, color: "link" },
                         action: {
-                            color: this.items.bulkCount ? "warning" : null,
-                            text: this.items.bulkCount
-                                ? "Move to Trash"
-                                : "Okay",
+                            color: this.bulkCount ? "warning" : null,
+                            text: this.bulkCount ? "Move to Trash" : "Okay",
                             callback: () => {
                                 this.dialogStore.loading = true;
-                                if (!this.items.bulkCount) {
+                                if (!this.bulkCount) {
                                     this.dialogStore.loading = false;
                                     this.dialogStore.close();
                                 } else {
@@ -137,23 +129,21 @@ export default {
             }
         },
         askUserToBulkDestroyResources() {
-            if (this.items.bulkCount) {
+            if (this.bulkCount) {
                 this.dialogStore.prompt({
                     show: true,
                     width: 420,
-                    illustration: this.items.bulkCount ? ManIcon : EmptyIcon,
+                    illustration: this.bulkCount ? ManIcon : EmptyIcon,
                     illustrationWidth: 240,
                     illustrationHeight: 240,
                     loading: this.trashButtonIsLoading,
                     color: "warning",
-                    title:
-                        "Move the selected item to trash " +
-                        this.items.bulkCount,
+                    title: "Move the selected item to trash " + this.bulkCount,
                     text:
                         "Are you sure you want to move the selected item to trash?" +
-                        this.items.bulkCount,
+                        this.bulkCount,
                     buttons: {
-                        cancel: { show: this.items.bulkCount, color: "link" },
+                        cancel: { show: this.bulkCount, color: "link" },
                         action: {
                             color: this.items.bulkCount ? "warning" : null,
                             text: this.items.bulkCount
@@ -161,7 +151,7 @@ export default {
                                 : "Okay",
                             callback: () => {
                                 this.dialogStore.loading = true;
-                                if (!this.items.bulkCount) {
+                                if (!this.bulkCount) {
                                     this.dialogStore.loading = false;
                                     this.dialogStore.close();
                                 } else {
@@ -175,7 +165,7 @@ export default {
                 this.snackbar.show({
                     text:
                         `Select an item
-               from the list first ` + this.items.bulkCount,
+               from the list first ` + this.bulkCount,
                     button: {
                         text: "Okay",
                     },
@@ -216,7 +206,7 @@ export default {
             } else {
                 this.snackbar.show({
                     text: `Select an item
-                 from the list first ${this.items.bulkCount}`,
+                 from the list first ${this.bulkCount}`,
                     button: {
                         text: "Okay",
                     },
@@ -233,7 +223,7 @@ export default {
                 <v-col cols="12" sm="4">
                     <slot name="search">
                         <v-badge
-                            v-model="items.isSearching"
+                            v-model="isSearching"
                             :bordered="true"
                             bottom
                             class="dt-badge d-block"
@@ -244,18 +234,10 @@ export default {
                             tile
                             transition="fade-transition"
                         >
-                            <!--
-                  //todo Integrate
-                  //comment key events
-                  v-shortkey="['ctrl', '/']"
-                  @keydown.native="search"
-                  @shortkey.native="focus"
-              -->
                             <v-text-field
                                 ref="tablesearch"
-                                v-model="items.search"
                                 :prepend-inner-icon="
-                                    items.isSearching
+                                    isSearching
                                         ? 'mdi-spin mdi-loading'
                                         : 'mdi-magnify'
                                 "
@@ -271,7 +253,8 @@ export default {
                                 placeholder="Search..."
                                 single-line
                                 solo
-                                @click:clear="search"
+                                @input="input($event)"
+                                @click:clear="searchInput"
                             >
                             </v-text-field>
                         </v-badge>
@@ -407,7 +390,7 @@ export default {
                             <v-tooltip bottom>
                                 <template v-slot:activator="{ on }">
                                     <v-btn-toggle
-                                        v-if="bulk"
+                                        v-if="bulkCount"
                                         v-model="items.toggleBulkEdit"
                                         color="primary"
                                         dense

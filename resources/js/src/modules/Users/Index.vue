@@ -61,7 +61,7 @@ const resources = reactive({
 const tabletoolbar = reactive({
     bulkCount: 0,
     isSearching: false,
-    search: "",
+    searchInput: "",
     listGridView: false,
     toggleBulkEdit: false,
     toggleTrash: false,
@@ -92,11 +92,15 @@ const getPaginatedData = (params = null, caller = null) => {
             resources.data = responseData.data;
             resources.meta = responseData.meta;
 
+            console.log(responseData);
+
             resources.options = Object.assign(
                 resources.options,
                 response.data.meta,
                 params,
             );
+
+            resources.options.itemsPerPage = responseData.meta.per_page;
 
             resources.loading = false;
             router
@@ -106,11 +110,14 @@ const getPaginatedData = (params = null, caller = null) => {
                 .catch((err) => {});
         })
         .catch((err) => {
+            console.log("test");
+            tabletoolbar.isSearching = false;
+            resources.loading = false;
             dialogStore.error({
                 width: 400,
                 buttons: { cancel: { show: false } },
                 title: "Whoops! An error occured",
-                text: err.response.data.message,
+                text: "Error",
             });
         })
         .finally(() => {
@@ -121,6 +128,7 @@ const getPaginatedData = (params = null, caller = null) => {
 };
 
 onBeforeMount(() => {
+    // changeOptionsFromRouterQueries();
     getPaginatedData();
 });
 
@@ -136,13 +144,11 @@ const resourcesIsNotEmpty = computed(() => {
     return !resourcesIsEmpty.value;
 });
 
-const options = computed(() => {
-    return {
-        per_page: resources.options.itemsPerPage,
-        page: resources.options.page,
-        sort: resources.options.sortBy[0] || undefined,
-        order: resources.options.sortDesc[0] || false ? "desc" : "asc",
-    };
+const options = reactive({
+    per_page: resources.options.itemsPerPage,
+    page: resources.options.page,
+    sort: resources.options.sortBy[0] || undefined,
+    order: resources.options.sortDesc[0] || false ? "desc" : "asc",
 });
 
 const optionsChanged = (options) => {
@@ -158,15 +164,9 @@ const askUserToDestroyUser = (item) => {};
 const goToShowUserPage = (user) => {
     return {
         name: "users.show",
-        // params: { id: user.id },
-        params: { id: "1" },
+        params: { id: user.id },
     };
 };
-
-watch(
-    () => resources.data,
-    (newValue) => {},
-);
 
 watch(
     () => resources.search,
@@ -189,8 +189,8 @@ watch(
     },
 );
 
-const search = window._.debounce(function (event) {
-    resources.search = event.srcElement.value || "";
+const search = window._.debounce(function (value) {
+    resources.search = value || "";
     tabletoolbar.isSearch = false;
     if (resources.searching) {
         getPaginatedData(options, "search");
@@ -260,18 +260,21 @@ const bulkTrashResource = () => {
         <div v-if="resourcesIsNotEmpty">
             <v-card>
                 <toolbar-menu
-                    :items.sync="tabletoolbar"
+                    :bulkCount="tabletoolbar.bulkCount"
+                    :isSearch="tabletoolbar.isSearching"
+                    :items="tabletoolbar"
+                    :search="tabletoolbar.searchInput"
                     bulk
                     downloadable
                     trashable
-                    @update:search="search"
+                    @update:searchInput="search"
                     @update:trash="bulkTrashResource"
                 >
                 </toolbar-menu>
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table
                         v-model="resources.selected"
-                        v-model:items-per-page="resources.meta.total"
+                        v-model:items-per-page="resources.meta.per_page"
                         :headers="resources.headers"
                         :items="resources.data"
                         :loading="resources.loading"
