@@ -3,24 +3,74 @@
 namespace Domain\Users\Actions;
 
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class UsersListActions
 {
+    protected string $model = User::class;
+
     public function __invoke($args = [])
     {
-        $model = User::query();
+        $model = QueryBuilder::for($this->model)
+            ->allowedFilters(['first_name', 'last_name', 'email'])
+            ->paginate($this->getPerPage())
+            ->appends(request()->query());
 
-        if (request()->has('search')) {
-            $model = $model->where('first_name', 'like', '%'.request()->get('search').'%')
-                ->where('middle_name', 'like', '%'.request()->get('search').'%')
-                ->where('last_name', 'like', '%'.request()->get('search').'%');
-        }
+        $sorted = $this->sortAndOrder($model);
 
-        return $model->paginate(request()->get('itemPerPage'));
+        return new LengthAwarePaginator($sorted, $model->total(), $model->perPage());
     }
 
-    public function havePagination()
+    /**
+     * Retrieve the items per page value.
+     *
+     * @return mixed
+     */
+    protected function getPerPage(): ?int
     {
+        $perPage = request()->get('itemsPerPage') == '-1' ? 'all' : request()->get('itemsPerPage');
 
+        return strtolower($perPage) === 'all'
+            ? count($this->model->get())
+            : (int) $perPage;
+    }
+
+    public function sortAndOrder($model = null)
+    {
+        if ($this->isFilteredOrderKeyAscending()) {
+            $sorted = $model->sortBy($this->getFilteredSortKey());
+        } else {
+            $sorted = $model->sortByDesc($this->getFilteredSortKey());
+        }
+
+        return $sorted;
+    }
+
+    /**
+     * Check if the filted sort key is ascending.
+     */
+    protected function isFilteredOrderKeyAscending(): bool
+    {
+        return $this->getFilteredOrderKey() == 'asc';
+    }
+
+    /**
+     * Retrieve the order key from url.
+     */
+    protected function getFilteredOrderKey(): string
+    {
+        return request()->get('order') ?? 'asc';
+    }
+
+    /**
+     * Retrieve the sort key from url parameter
+     * and check if it exists as attribute or column.
+     *
+     * @param  string|null  $default
+     */
+    protected function getFilteredSortKey($default = 'id'): string
+    {
+        return request()->get('sort') ?? $default;
     }
 }

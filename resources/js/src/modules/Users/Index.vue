@@ -3,9 +3,9 @@ import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDisplay } from "vuetify";
-import { computed, onBeforeMount, onMounted, reactive, watch } from "vue";
+import { computed, onBeforeMount, reactive, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { VDataTable } from "vuetify/labs/VDataTable";
+import { VDataTableServer } from "vuetify/labs/components";
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -20,7 +20,7 @@ const resources = reactive({
     options: {
         page: 1,
         pageCount: 0,
-        itemsPerPage: 10,
+        itemsPerPage: 5,
         sortDesc: [],
         sortBy: [],
         // rowsPerPage: [5, 10, 15, 20, 50, 100],
@@ -76,6 +76,8 @@ const changeOptionsFromRouterQueries = () => {
     options.search = route.query.search;
     resources.search = options.search;
     tabletoolbar.search = options.search;
+
+    getPaginatedData();
 };
 
 const getPaginatedData = (params = null, caller = null) => {
@@ -92,15 +94,13 @@ const getPaginatedData = (params = null, caller = null) => {
             resources.data = responseData.data;
             resources.meta = responseData.meta;
 
-            console.log(responseData);
-
             resources.options = Object.assign(
                 resources.options,
                 response.data.meta,
                 params,
             );
 
-            resources.options.itemsPerPage = responseData.meta.per_page;
+            console.log(resources);
 
             resources.loading = false;
             router
@@ -110,7 +110,6 @@ const getPaginatedData = (params = null, caller = null) => {
                 .catch((err) => {});
         })
         .catch((err) => {
-            console.log("test");
             tabletoolbar.isSearching = false;
             resources.loading = false;
             dialogStore.error({
@@ -128,11 +127,6 @@ const getPaginatedData = (params = null, caller = null) => {
 };
 
 onBeforeMount(() => {
-    // changeOptionsFromRouterQueries();
-    getPaginatedData();
-});
-
-onMounted(() => {
     changeOptionsFromRouterQueries();
 });
 
@@ -272,18 +266,18 @@ const bulkTrashResource = () => {
                 >
                 </toolbar-menu>
                 <v-slide-y-reverse-transition mode="out-in">
-                    <v-data-table
-                        v-model="resources.selected"
-                        v-model:items-per-page="resources.meta.per_page"
+                    <v-data-table-server
+                        v-model:items-per-page="resources.options.itemsPerPage"
                         :headers="resources.headers"
                         :items="resources.data"
+                        :items-length="resources.meta.total"
                         :loading="resources.loading"
                         :options.sync="resources.options"
                         :show-select="tabletoolbar.toggleBulkEdit"
                         class="elevation-1"
                         item-value="name"
                         @update:options="optionsChanged"
-                    ></v-data-table>
+                    ></v-data-table-server>
                 </v-slide-y-reverse-transition>
             </v-card>
         </div>
