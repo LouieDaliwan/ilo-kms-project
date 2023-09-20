@@ -1,3 +1,7 @@
+<script setup>
+import { VSkeletonLoader } from "vuetify/labs/VSkeletonLoader";
+</script>
+
 <template>
     <div class="d-flex">
         <v-skeleton-loader

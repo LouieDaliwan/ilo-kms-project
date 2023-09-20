@@ -32,23 +32,29 @@ const resources = reactive({
     selected: [],
     headers: [
         {
-            text: "Account Name",
+            id: "ID No.",
+            align: "left",
+            class: "text-no-wrap",
+            key: "id",
+        },
+        {
+            title: "Account Name",
             align: "left",
             class: "text-no-wrap",
             key: "displayname",
         },
         {
-            text: "Role",
+            title: "Role",
             class: "text-no-wrap",
             key: "role",
         },
         {
-            text: "Last Modified",
+            title: "Last Modified",
             class: "text-no-wrap",
             key: "modified_at",
         },
         {
-            text: "Actions",
+            title: "Actions",
             align: "center",
             sortable: false,
             class: "muted--text text-no-wrap",
@@ -100,9 +106,8 @@ const getPaginatedData = (params = null, caller = null) => {
                 params,
             );
 
-            console.log(resources);
-
             resources.loading = false;
+
             router
                 .push({
                     query: Object.assign({}, route.query, params),
@@ -153,13 +158,15 @@ const selected = computed(() => {
     return resources.selected.map((item) => item.id);
 });
 
+const askUserToDestroyCompany = () => {};
+
 const askUserToDestroyUser = (item) => {};
 
-const goToShowUserPage = (user) => {
-    return {
+const goToShowUserPage = (item) => {
+    router.push({
         name: "users.show",
-        params: { id: user.id },
-    };
+        params: { id: item.columns.id },
+    });
 };
 
 watch(
@@ -275,9 +282,53 @@ const bulkTrashResource = () => {
                         :options.sync="resources.options"
                         :show-select="tabletoolbar.toggleBulkEdit"
                         class="elevation-1"
-                        item-value="name"
+                        item-value="displayname"
                         @update:options="optionsChanged"
-                    ></v-data-table-server>
+                    >
+                        <template v-slot:progress><span></span></template>
+
+                        <template v-slot:loading>
+                            <v-slide-y-transition mode="out-in">
+                                <div>
+                                    <div
+                                        v-for="(j, i) in resources.options
+                                            .itemsPerPage"
+                                        :key="i"
+                                    >
+                                        <skeleton-table></skeleton-table>
+                                    </div>
+                                </div>
+                            </v-slide-y-transition>
+                        </template>
+
+                        <template v-slot:item.updated_at="{ item }">
+                            <span
+                                :title="item.updated_at"
+                                class="text-no-wrap"
+                                >{{ item.modified_at }}</span
+                            >
+                        </template>
+
+                        <template v-slot:item.action="{ item }">
+                            <div class="text-no-wrap">
+                                <!-- Edit User -->
+                                <!--                                <v-tooltip bottom>-->
+                                <v-btn @click.prevent="goToShowUserPage(item)">
+                                    <v-icon small>mdi-pencil-outline</v-icon>
+                                </v-btn>
+                                <!-- Edit User -->
+
+                                <!-- Move to Trash -->
+                                <v-btn
+                                    icon
+                                    @click="askUserToDestroyCompany(item)"
+                                >
+                                    <v-icon small>mdi-delete-outline </v-icon>
+                                </v-btn>
+                                <!-- Move to Trash -->
+                            </div>
+                        </template>
+                    </v-data-table-server>
                 </v-slide-y-reverse-transition>
             </v-card>
         </div>

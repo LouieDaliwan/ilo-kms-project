@@ -38,13 +38,7 @@ class UsersListActions
 
     public function sortAndOrder($model = null)
     {
-        if ($this->isFilteredOrderKeyAscending()) {
-            $sorted = $model->sortBy($this->getFilteredSortKey());
-        } else {
-            $sorted = $model->sortByDesc($this->getFilteredSortKey());
-        }
-
-        return $sorted;
+        return $this->isFilteredOrderKeyAscending() ? $model->sortBy($this->getFilteredSortKey()) : $model->sortByDesc($this->getFilteredSortKey());
     }
 
     /**
