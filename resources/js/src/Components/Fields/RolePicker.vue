@@ -58,7 +58,7 @@ export default {
         getRolesData() {
             if (window._.isEmpty(this.items)) {
                 this.items = [
-                    { id: 1, name: "Admin" },
+                    { id: 1, name: "Superadmin" },
                     { id: 2, name: "User" },
                 ];
             }
