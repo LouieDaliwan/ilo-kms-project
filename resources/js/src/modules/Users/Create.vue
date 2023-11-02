@@ -143,15 +143,15 @@ export default {
         };
     },
 
-    // beforeRouteLeave(to, from, next) {
-    //     if (this.isFormPrestine) {
-    //         next();
-    //         console.log("test");
-    //     } else {
-    //         console.log("test2");
-    //         this.askUserBeforeNavigatingAway(next);
-    //     }
-    // },
+    beforeRouteLeave(to, from, next) {
+        if (this.isFormPrestine) {
+            next();
+            console.log("test");
+        } else {
+            console.log("test2");
+            this.askUserBeforeNavigatingAway(next);
+        }
+    },
 
     computed: {
         isDesktop() {

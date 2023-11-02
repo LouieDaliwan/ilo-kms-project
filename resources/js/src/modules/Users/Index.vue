@@ -20,7 +20,7 @@ const resources = reactive({
     options: {
         page: 1,
         pageCount: 0,
-        itemsPerPage: 5,
+        itemsPerPage: 10,
         sortDesc: [],
         sortBy: [],
         // rowsPerPage: [5, 10, 15, 20, 50, 100],
@@ -323,7 +323,7 @@ const bulkTrashResource = () => {
                                     icon
                                     @click="askUserToDestroyCompany(item)"
                                 >
-                                    <v-icon small>mdi-delete-outline </v-icon>
+                                    <v-icon small>mdi-delete-outline</v-icon>
                                 </v-btn>
                                 <!-- Move to Trash -->
                             </div>

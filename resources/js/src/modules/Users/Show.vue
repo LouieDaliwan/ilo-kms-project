@@ -148,9 +148,11 @@ export default {
             axios
                 .get($api.show(id))
                 .then(({ data }) => {
-                    console.log(data);
                     this.resource.data = data.data;
                     this.resource.loading = false;
+
+                    console.log(data);
+                    console.log(this.resource);
                 })
                 .catch((err) => {
                     this.resource.loading = false;
@@ -213,7 +215,6 @@ export default {
             this.load();
             e.preventDefault();
             this.alertBox.hide();
-            console.log("proceed");
             this.load(false);
         },
 
@@ -437,8 +438,8 @@ export default {
                                 <v-col cols="12">
                                     <v-text-field
                                         v-model="
-                                            resource.data.details[
-                                                'Mobile Phone'
+                                            resource.data.metadata[
+                                                'Phone_Number'
                                             ].value
                                         "
                                         :dense="settings.fieldIsDense"

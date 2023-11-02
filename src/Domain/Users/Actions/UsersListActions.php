@@ -32,7 +32,7 @@ class UsersListActions
         $perPage = request()->get('itemsPerPage') == '-1' ? 'all' : request()->get('itemsPerPage');
 
         return strtolower($perPage) === 'all'
-            ? count($this->model->get())
+            ? count(User::get())
             : (int) $perPage;
     }
 
