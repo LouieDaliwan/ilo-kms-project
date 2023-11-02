@@ -15,7 +15,7 @@ export default {
     name: "admin",
     redirect: { name: "dashboard" },
     component: () => import("@/Components/Layouts/Dashboard.vue"),
-    meta: { title: "Admin", requiresAuth: false },
+    meta: { title: "Admin", requiresAuth: true },
     children: routes,
     beforeEnter: multiguard([]),
 };
