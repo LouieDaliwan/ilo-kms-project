@@ -50,7 +50,7 @@
                 {{ $t("Sign In") }}
                 <template v-slot:loader>
                     <v-slide-x-transition>
-                        <v-icon class="mdi-spin mr-3" dark>mdi-loading </v-icon>
+                        <v-icon class="mdi-spin mr-3" dark>mdi-loading</v-icon>
                     </v-slide-x-transition>
                     <span>{{ $t("Signing in...") }}</span>
                 </template>
@@ -94,7 +94,7 @@ export default {
                 .then(() => {
                     this.$router.push({ name: "dashboard" });
                     this.$store.dispatch("snackbar/show", {
-                        text: $t("Welcome back, ") + $auth.getUser().firstname,
+                        text: "Welcome back, " + $auth.getUser().firstname,
                     });
                 })
                 .catch((err) => {
