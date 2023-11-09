@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class DashboardPageController extends Controller
+class ShowAppPage extends Controller
 {
     public function index()
     {

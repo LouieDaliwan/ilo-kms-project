@@ -1,24 +1,27 @@
 <?php
 
-use App\Http\Controllers\DashboardPageController;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\ShowAppPage;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-use Laravel\Fortify\RoutePath;
 
-Route::get('/', fn () => redirect('/admin/dashboard'));
-Route::get('/admin/dashboard', [DashboardPageController::class, 'index']);
-Route::any('/{any?}', [DashboardPageController::class, 'index'])->where('any', '.*');
+//use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+//use Laravel\Fortify\RoutePath;
 
-$enableViews = config('fortify.views', false);
-$limiter = config('fortify.limiters.login');
+Route::get('/', [RedirectController::class, 'dashboard']);
+Route::get('home', [RedirectController::class, 'dashboard'])->name('home');
 
-// Authentication...
+Route::get('dashboard', [ShowAppPage::class, 'index'])->name('home');
+Route::any('/{any?}', [ShowAppPage::class, 'index'])->where('any', '.*');
 
-Route::post(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'store'])
-    ->middleware(array_filter([
-        'guest:'.config('fortify.guard'),
-        $limiter ? 'throttle:'.$limiter : null,
-    ]));
-
-Route::post(RoutePath::for('logout', '/logout'), [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
+//$enableViews = config('fortify.views', false);
+//$limiter = config('fortify.limiters.login');
+//
+//// Authentication...
+//Route::post(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'store'])
+//    ->middleware(array_filter([
+//        'guest:'.config('fortify.guard'),
+//        $limiter ? 'throttle:'.$limiter : null,
+//    ]));
+//
+//Route::post(RoutePath::for('logout', '/logout'), [AuthenticatedSessionController::class, 'destroy'])
+//    ->name('logout');
