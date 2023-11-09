@@ -9,7 +9,7 @@ import sass from "sass";
 
 export default defineConfig({
     plugins: [
-        vitePluginRequire(),
+        vitePluginRequire,
         vue(),
         laravel({
             input: ["resources/sass/app.scss", "resources/js/app.js"],
