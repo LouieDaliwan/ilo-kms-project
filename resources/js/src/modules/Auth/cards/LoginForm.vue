@@ -2,12 +2,12 @@
     <!--  :error-messages="errors"-->
     <v-form :disabled="loading" v-on:submit.prevent="submit">
         <v-text-field
-            v-model="auth.username"
+            v-model="auth.email"
             autofocus
             class="mb-3"
             clear-icon="mdi mdi-close-circle-outline"
             clearable
-            label="Username"
+            label="Email"
             outlined
         ></v-text-field>
 
@@ -54,7 +54,7 @@ export default {
 
     data: () => ({
         auth: {
-            username: "",
+            email: "",
             password: "",
         },
         loading: false,
@@ -77,30 +77,41 @@ export default {
         },
 
         submit(e) {
-            const { username, password } = this.auth;
+            const { email, password } = this.auth;
 
             this.load();
-            // this.$store
-            //     .dispatch("auth/login", { username, password })
-            //     .then(() => {
-            //         this.$router.push({ name: "dashboard" });
-            //         this.$store.dispatch("snackbar/show", {
-            //             text: "Welcome back, " + $auth.getUser().firstname,
-            //         });
-            //     })
-            //     .catch((err) => {
-            //         if (err.response) {
-            //             this.$refs["signin-form"].setErrors(
-            //                 err.response.data.errors,
-            //             );
-            //         }
-            //     })
-            //     .finally(() => {
-            //         this.load(false);
-            //     });
+            axios
+                .post("/login", { email, password })
+                .then(({ data }) => {
+                    console.log(data);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                .finally(() => {
+                    this.load(false);
+                });
 
             e.preventDefault();
         },
+        // this.$store
+        //     .dispatch("auth/login", { username, password })
+        //     .then(() => {
+        //         this.$router.push({ name: "dashboard" });
+        //         this.$store.dispatch("snackbar/show", {
+        //             text: "Welcome back, " + $auth.getUser().firstname,
+        //         });
+        //     })
+        //     .catch((err) => {
+        //         if (err.response) {
+        //             this.$refs["signin-form"].setErrors(
+        //                 err.response.data.errors,
+        //             );
+        //         }
+        //     })
+        //     .finally(() => {
+        //         this.load(false);
+        //     });
     },
 };
 </script>

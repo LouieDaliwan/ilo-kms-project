@@ -10,18 +10,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [RedirectController::class, 'dashboard']);
 Route::get('home', [RedirectController::class, 'dashboard'])->name('home');
 
-Route::get('dashboard', [ShowAppPage::class, 'index'])->name('home');
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [ShowAppPage::class, 'index'])->name('dashboard');
+});
+
 Route::any('/{any?}', [ShowAppPage::class, 'index'])->where('any', '.*');
 
-//$enableViews = config('fortify.views', false);
-//$limiter = config('fortify.limiters.login');
-//
+$enableViews = config('fortify.views', false);
+$limiter = config('fortify.limiters.login');
+
 //// Authentication...
 //Route::post(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'store'])
 //    ->middleware(array_filter([
 //        'guest:'.config('fortify.guard'),
 //        $limiter ? 'throttle:'.$limiter : null,
 //    ]));
-//
+////
+
 //Route::post(RoutePath::for('logout', '/logout'), [AuthenticatedSessionController::class, 'destroy'])
 //    ->name('logout');
