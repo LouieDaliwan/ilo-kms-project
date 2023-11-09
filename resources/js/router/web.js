@@ -9,7 +9,7 @@ Object.values(
 );
 
 export default {
-    path: "/:lang?/",
+    path: "/",
     name: "web",
     component: () => import("@/Components/Layouts/Public.vue"),
     meta: { title: "Admin", requiresAuth: false },

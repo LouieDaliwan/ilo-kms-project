@@ -23,7 +23,7 @@ const { smAndDown } = useDisplay();
                     <v-col cols="12" md="7">
                         <v-card-text>
                             <div class="text-center">
-                                <brand></brand>
+                                <!--                                <brand></brand>-->
                             </div>
 
                             <v-fade-transition mode="out-in">

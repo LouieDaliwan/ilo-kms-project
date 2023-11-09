@@ -1,13 +1,13 @@
 export default [
     {
-        path: "/login",
-        name: "login",
+        path: "/auth",
+        name: "auth",
         redirect: { name: "login" },
         component: () => import("@/components/Layouts/Auth.vue"),
         meta: {
             title: "Login",
             sort: 0,
-            authenticatable: false,
+            requiresAuth: false,
             icon: "mdi-account-key",
         },
         children: [
@@ -18,6 +18,7 @@ export default [
                 meta: {
                     title: "Sign In",
                     sort: 0,
+                    requiresAuth: false,
                     icon: "mdi-account-key",
                 },
                 // beforeEnter: (to, from, next) => {
