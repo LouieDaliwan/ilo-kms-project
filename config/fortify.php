@@ -81,9 +81,9 @@ return [
     | Fortify Routes Prefix / Subdomain
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which prefix Fortify will assign to all the routes
+    | Here you may specify which prefix Fortify will assign to all the router
     | that it registers with the application. If necessary, you may change
-    | subdomain under which all of the Fortify routes will be available.
+    | subdomain under which all of the Fortify router will be available.
     |
     */
 
@@ -96,7 +96,7 @@ return [
     | Fortify Routes Middleware
     |--------------------------------------------------------------------------
     |
-    | Here you may specify which middleware Fortify will assign to the routes
+    | Here you may specify which middleware Fortify will assign to the router
     | that it registers with the application. If necessary, you may change
     | these middleware but typically this provided default is preferred.
     |
@@ -125,13 +125,13 @@ return [
     | Register View Routes
     |--------------------------------------------------------------------------
     |
-    | Here you may specify if the routes returning views should be disabled as
+    | Here you may specify if the router returning views should be disabled as
     | you may not need them when building your own application. This may be
     | especially true if you're writing a custom single-page application.
     |
     */
 
-    'views' => true,
+    'views' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -147,7 +147,7 @@ return [
     'features' => [
         Features::registration(),
         Features::resetPasswords(),
-        // Features::emailVerification(),
+        Features::emailVerification(),
         Features::updateProfileInformation(),
         Features::updatePasswords(),
         Features::twoFactorAuthentication([

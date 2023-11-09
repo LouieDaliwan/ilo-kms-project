@@ -9,9 +9,9 @@ Object.values(
 );
 
 export default {
-    path: "/:lang?",
+    path: "/:lang?/",
     name: "web",
-    component: () => import("@/Components/Layouts/Dashboard.vue"),
+    component: () => import("@/Components/Layouts/Public.vue"),
     meta: { title: "Admin", requiresAuth: false },
     children: routes,
 };

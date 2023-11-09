@@ -2,12 +2,14 @@ import { fileURLToPath, URL } from "url";
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
+import vitePluginRequire from "vite-plugin-require";
 import vue from "@vitejs/plugin-vue";
 import path from "path";
 import sass from "sass";
 
 export default defineConfig({
     plugins: [
+        vitePluginRequire(),
         vue(),
         laravel({
             input: ["resources/sass/app.scss", "resources/js/app.js"],

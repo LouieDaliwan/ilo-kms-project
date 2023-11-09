@@ -1,22 +1,24 @@
 <?php
 
-use App\Http\Controllers\AssignDGroupLeaderController;
 use App\Http\Controllers\DashboardPageController;
-use App\Http\Controllers\Users\MembersController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
+use Laravel\Fortify\RoutePath;
 
 Route::get('/', fn () => redirect('/admin/dashboard'));
 Route::get('/admin/dashboard', [DashboardPageController::class, 'index']);
-
-Route::resource('members', MembersController::class);
-Route::put('/members/{member}/assign-dgroup-leader', AssignDgroupLeaderController::class);
-
 Route::any('/{any?}', [DashboardPageController::class, 'index'])->where('any', '.*');
 
-// Route::get('/login', function(){
-//     return view('login');
-// });
+$enableViews = config('fortify.views', false);
+$limiter = config('fortify.limiters.login');
 
-// Route::get('/register', function(){
-//     return view('register');
-// });
+// Authentication...
+
+Route::post(RoutePath::for('login', '/login'), [AuthenticatedSessionController::class, 'store'])
+    ->middleware(array_filter([
+        'guest:'.config('fortify.guard'),
+        $limiter ? 'throttle:'.$limiter : null,
+    ]));
+
+Route::post(RoutePath::for('logout', '/logout'), [AuthenticatedSessionController::class, 'destroy'])
+    ->name('logout');
