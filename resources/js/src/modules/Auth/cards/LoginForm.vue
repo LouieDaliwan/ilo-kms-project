@@ -7,7 +7,7 @@
             class="mb-3"
             clear-icon="mdi mdi-close-circle-outline"
             clearable
-            label="Email"
+            label="Email or Username"
             outlined
         ></v-text-field>
 
@@ -83,7 +83,10 @@ export default {
             axios
                 .post("/login", { email, password })
                 .then(({ data }) => {
-                    console.log(data);
+                    localStorage.setItem("auth", data.auth);
+                    localStorage.setItem("two_factor", data.two_factor);
+
+                    this.$router.push({ name: "dashboard" });
                 })
                 .catch((err) => {
                     console.log(err);

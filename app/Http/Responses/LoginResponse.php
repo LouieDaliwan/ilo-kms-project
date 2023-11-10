@@ -8,9 +8,6 @@ use Laravel\Fortify\Fortify;
 
 class LoginResponse implements LoginResponseContract
 {
-    /**
-     * {@inheritDoc}
-     */
     public function toResponse($request)
     {
         /**
@@ -19,8 +16,7 @@ class LoginResponse implements LoginResponseContract
         $user = $request->user();
 
         return $request->wantsJson()
-            ? response()->json(
-                ['two_factor' => false, 'user' => $user])
+            ? response()->json(['two_factor' => false, 'auth' => $user])
             : redirect()->intended(Fortify::redirects('login'));
     }
 }
