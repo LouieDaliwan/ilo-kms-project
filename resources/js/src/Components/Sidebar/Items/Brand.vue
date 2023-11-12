@@ -1,15 +1,25 @@
 <template>
     <!-- Brand -->
-    <v-list class="px-3 py-0 workspace" style="border-radius: 0">
-        <v-list-item>
-            <v-list-img class="my-0" size="60" tile>
-                <!-- <img :src="app.logo" :lazy-src="app.logo" /> -->
-            </v-list-img>
+    <v-list class="px-2 py-0 workspace" style="border-radius: 0">
+        <v-list-item
+            nav
+            prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
+            title="John Leider"
+        >
             <v-list-item-action>
                 <v-list-item-title class="text--text font-weight-bold title">
-                    <span class="mb-2">SSA GROUP</span> <br />
+                    <span class="mb-2">SSA GROUP</span>
                 </v-list-item-title>
             </v-list-item-action>
+
+            <template v-if="!railActive" v-slot:append>
+                <v-btn
+                    :v-ripple="false"
+                    icon="mdi-chevron-left"
+                    variant="text"
+                    @click.stop="$emit('toggleRail', true)"
+                ></v-btn>
+            </template>
         </v-list-item>
     </v-list>
     <!-- Brand -->
@@ -17,6 +27,7 @@
 
 <script>
 export default {
+    props: ["railActive"],
     name: "Brand",
 };
 </script>
