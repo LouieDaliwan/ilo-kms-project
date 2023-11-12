@@ -80,10 +80,11 @@ export default {
             const { email, password } = this.auth;
 
             this.load();
+
             axios
                 .post("/login", { email, password })
                 .then(({ data }) => {
-                    localStorage.setItem("auth", data.auth);
+                    localStorage.setItem("auth", Object.entries(data.auth));
                     localStorage.setItem("two_factor", data.two_factor);
 
                     this.$router.push({ name: "dashboard" });

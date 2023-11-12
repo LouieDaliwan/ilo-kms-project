@@ -21,27 +21,33 @@ export default [
                     requiresAuth: false,
                     icon: "mdi-account-key",
                 },
-                // beforeEnter: (to, from, next) => {
-                //     const isAuthenticated =
-                //         store.getters["auth/isAuthenticated"];
-                //     console.log("isAuthenticated", isAuthenticated);
-                //     if (isAuthenticated) {
-                //         let from = to.query.from || { name: "dashboard" };
-                //         return next(from);
-                //     } else {
-                //         return next();
-                //     }
-                // },
+                beforeEnter: (to, from, next) => {
+                    const isAuthenticated = localStorage.getItem("auth");
+                    // store.getters["auth/isAuthenticated"];
+                    if (isAuthenticated) {
+                        let from = to.query.from || { name: "dashboard" };
+                        return next(from);
+                    } else {
+                        return next();
+                    }
+                },
             },
             {
                 path: "/logout",
                 name: "logout",
-                // beforeEnter: (to, from, next) => {
-                //     store.dispatch("auth/logout").then((response) => {
-                //         // next({name: 'login'})
-                //         window.location.reload();
-                //     });
-                // },
+                beforeEnter: (to, from, next) => {
+                    axios
+                        .post("/logout")
+                        .then(({ data }) => {
+                            localStorage.removeItem("auth");
+                            localStorage.removeItem("two_factor");
+                            next({ name: "login" });
+                            // window.location.reload();
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                },
             },
         ],
     },
