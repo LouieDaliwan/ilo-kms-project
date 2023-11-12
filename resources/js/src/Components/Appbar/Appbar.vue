@@ -34,32 +34,34 @@ export default {
                 transition="slide-y-transition"
             >
                 <template v-slot:activator="{ props }">
-                    <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on: tooltip }">
+                            <div
+                                role="button"
+                                v-bind="{ ...tooltip, ...props }"
+                            >
+                                <div
+                                    class="d-flex justify-space-between align-center"
+                                >
+                                    <v-avatar class="mr-3" size="32"
+                                        ><img :src="''" width="40px"
+                                    /></v-avatar>
+                                    <div class="d-none d-md-block">
+                                        <p
+                                            class="body-1 mb-0 text--truncate"
+                                            v-text="'test'"
+                                        ></p>
+                                        <div
+                                            class="muted--text overline"
+                                            v-text="'superadmin'"
+                                        ></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <span v-text="'test'"></span>
+                    </v-tooltip>
                 </template>
-                <!--                    <v-tooltip bottom>-->
-                <!--                        <template v-slot:activator="{ on: tooltip }">-->
-                <!--                            <div role="button" v-on="{ ...tooltip, ...menu }">-->
-                <!--                                <div-->
-                <!--                                    class="d-flex justify-space-between align-center"-->
-                <!--                                >-->
-                <!--                                    &lt;!&ndash;                                    <v-avatar class="mr-3" size="32"&ndash;&gt;-->
-                <!--                                    &lt;!&ndash;                                        ><img :src="user.avatar" width="40px"&ndash;&gt;-->
-                <!--                                    &lt;!&ndash;                                    /></v-avatar>&ndash;&gt;-->
-                <!--                                    <div class="d-none d-md-block">-->
-                <!--                                        &lt;!&ndash;                                        <p&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                            class="body-1 mb-0 text&#45;&#45;truncate"&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                            v-text="user.displayname"&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                        ></p>&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                        <div&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                            class="muted&#45;&#45;text overline"&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                            v-text="user.role"&ndash;&gt;-->
-                <!--                                        &lt;!&ndash;                                        ></div>&ndash;&gt;-->
-                <!--                                    </div>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                        </template>-->
-                <!--                        &lt;!&ndash;                        <span v-text="user.displayname"></span>&ndash;&gt;-->
-                <!--                    </v-tooltip>-->
 
                 <v-list>
                     <v-list-item>
