@@ -45,6 +45,10 @@ const onSubmit = handleSubmit((values) => {
     axios
         .post("/login", { email, password })
         .then(({ data }) => {
+            const isTemporaryPassword = localStorage.setItem(
+                "isTemporaryPassword",
+                data.auth.is_temporary_password,
+            );
             localStorage.setItem("auth", Object.entries(data.auth));
             localStorage.setItem("two_factor", data.two_factor);
 

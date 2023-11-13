@@ -18,6 +18,7 @@ class AdminCredentialsSeeder extends Seeder
             'username' => 'superadmin',
             'email' => 'superadmin@superadmin.com',
             'password' => bcrypt('superadmin'),
+            'is_temporary_password' => 0,
         ]);
     }
 }
