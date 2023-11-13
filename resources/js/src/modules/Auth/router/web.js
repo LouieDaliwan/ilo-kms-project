@@ -41,8 +41,8 @@ export default [
                         .then(({ data }) => {
                             localStorage.removeItem("auth");
                             localStorage.removeItem("two_factor");
+                            localStorage.removeItem("rail");
                             next({ name: "login" });
-                            // window.location.reload();
                         })
                         .catch((err) => {
                             console.log(err);

@@ -2,7 +2,6 @@
 
 <template>
     <v-app v-cloak class="dovetail-app" footer toolbar>
-        <h1>test</h1>
         <!-- Main Content -->
         <router-view v-slot="{ Component, route }">
             <v-slide-y-reverse-transition

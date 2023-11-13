@@ -1,6 +1,67 @@
+<script setup>
+import { useDisplay } from "vuetify";
+import { computed, ref } from "vue";
+import { useForm } from "vee-validate";
+import { loginSchema } from "../Schema/loginvalidation.js";
+import { useRouter } from "vue-router";
+
+const auth = ref({
+    email: "",
+    password: "",
+});
+
+const loading = ref(false);
+const showPassword = ref(false);
+const { smAndDown } = useDisplay();
+const router = useRouter();
+
+const load = (state = true) => {
+    loading.value = state;
+};
+
+const isMobile = computed({
+    get: () => !!smAndDown,
+    set: (val) => !!smAndDown,
+});
+
+const { defineComponentBinds, handleSubmit, resetForm, setErrors } = useForm({
+    validationSchema: loginSchema,
+});
+
+const vuetifyConfig = (state) => ({
+    props: {
+        "error-messages": state.errors,
+    },
+});
+
+const email = defineComponentBinds("email", vuetifyConfig);
+const password = defineComponentBinds("password", vuetifyConfig);
+
+const onSubmit = handleSubmit((values) => {
+    const { email, password } = auth.value;
+
+    load();
+
+    axios
+        .post("/login", { email, password })
+        .then(({ data }) => {
+            localStorage.setItem("auth", Object.entries(data.auth));
+            localStorage.setItem("two_factor", data.two_factor);
+
+            router.push({ name: "dashboard" });
+        })
+        .catch((err) => {
+            setErrors(err.response.data.errors);
+        })
+        .finally(() => {
+            load(false);
+        });
+});
+</script>
+
 <template>
     <!--  :error-messages="errors"-->
-    <v-form :disabled="loading" v-on:submit.prevent="submit">
+    <v-form :disabled="loading" @submit.prevent="onSubmit">
         <v-text-field
             v-model="auth.email"
             autofocus
@@ -9,6 +70,7 @@
             clearable
             label="Email or Username"
             outlined
+            v-bind="email"
         ></v-text-field>
 
         <!--            :error-messages="errors"-->
@@ -22,6 +84,7 @@
             label="Password"
             outlined
             password
+            v-bind="password"
             @click:append="showPassword = !showPassword"
         ></v-text-field>
 
@@ -44,78 +107,3 @@
         </v-btn>
     </v-form>
 </template>
-
-<script>
-import { useDisplay } from "vuetify";
-import { computed } from "vue";
-
-export default {
-    name: "Login",
-
-    data: () => ({
-        auth: {
-            email: "",
-            password: "",
-        },
-        loading: false,
-        showPassword: false,
-    }),
-
-    setup() {
-        const { smAndDown } = useDisplay();
-
-        const isMobile = computed({
-            get: () => !!smAndDown,
-            set: (val) => !!smAndDown,
-        });
-        return { smAndDown, isMobile };
-    },
-
-    methods: {
-        load(val = true) {
-            this.loading = val;
-        },
-
-        submit(e) {
-            const { email, password } = this.auth;
-
-            this.load();
-
-            axios
-                .post("/login", { email, password })
-                .then(({ data }) => {
-                    localStorage.setItem("auth", Object.entries(data.auth));
-                    localStorage.setItem("two_factor", data.two_factor);
-
-                    this.$router.push({ name: "dashboard" });
-                })
-                .catch((err) => {
-                    console.log(err);
-                })
-                .finally(() => {
-                    this.load(false);
-                });
-
-            e.preventDefault();
-        },
-        // this.$store
-        //     .dispatch("auth/login", { username, password })
-        //     .then(() => {
-        //         this.$router.push({ name: "dashboard" });
-        //         this.$store.dispatch("snackbar/show", {
-        //             text: "Welcome back, " + $auth.getUser().firstname,
-        //         });
-        //     })
-        //     .catch((err) => {
-        //         if (err.response) {
-        //             this.$refs["signin-form"].setErrors(
-        //                 err.response.data.errors,
-        //             );
-        //         }
-        //     })
-        //     .finally(() => {
-        //         this.load(false);
-        //     });
-    },
-};
-</script>
