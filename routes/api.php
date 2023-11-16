@@ -4,26 +4,19 @@ use App\Http\Controllers\Users\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API router for your application. These
-| router are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-Route::middleware('auth:sanctum')->get('/auth/user', function (Request $request) {
-    return auth()->user();
-});
-
-Route::prefix('v1')->group(function () {
-    Route::resource('users', UsersController::class);
-});
-
 Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], function () {
+    Route::get('/auth/user', function (Request $request) {
+        $user = auth()->user();
+        return json_encode([
+            'auth' => $user,
+            'token' => $user->createToken('auth_token')->plainTextToken,
+        ]);
+    });
+
+    Route::prefix('v1')->group(function () {
+        Route::resource('users', UsersController::class);
+    });
+
     $enableViews = config('fortify.views', false);
     $twoFactorLimiter = config('fortify.limiters.two-factor');
     $verificationLimiter = config('fortify.limiters.verification', '6,1');

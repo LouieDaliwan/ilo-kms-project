@@ -46,16 +46,29 @@ const onSubmit = handleSubmit((values) => {
         axios
             .post("/login", { email, password })
             .then(({ data }) => {
+                // const isTemporaryPassword = data.auth.is_temporary_password;
+                const isTemporaryPassword = "true";
                 localStorage.setItem(
                     "isTemporaryPassword",
-                    data.auth.is_temporary_password,
+                    isTemporaryPassword,
                 );
                 localStorage.setItem("auth", Object.entries(data.auth));
                 localStorage.setItem("two_factor", data.two_factor);
+                localStorage.setItem("auth_token", data.token);
 
+                if (isTemporaryPassword === "true") {
+                    router.push({ name: "change-password" });
+                    return;
+                }
                 router.push({ name: "dashboard" });
+
+                return "true";
             })
-            .catch((err) => {})
+            .catch((err) => {
+                console.log(err);
+                if (err.response.status !== 422) return;
+                setErrors(err.response.data.errors);
+            })
             .finally(() => {
                 load(false);
             });

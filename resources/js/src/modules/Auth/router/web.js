@@ -53,6 +53,8 @@ export default [
                             localStorage.removeItem("auth");
                             localStorage.removeItem("two_factor");
                             localStorage.removeItem("rail");
+                            localStorage.removeItem("isTemporaryPassword");
+                            localStorage.removeItem("auth_token");
                             next({ name: "login" });
                         })
                         .catch((err) => {

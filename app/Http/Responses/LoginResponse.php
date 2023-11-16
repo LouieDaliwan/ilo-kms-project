@@ -16,7 +16,11 @@ class LoginResponse implements LoginResponseContract
         $user = $request->user();
 
         return $request->wantsJson()
-            ? response()->json(['two_factor' => false, 'auth' => $user])
+            ? response()->json([
+                'two_factor' => false,
+                'auth' => $user,
+                'token' => $user->createToken('authToken', ['access-token'])->plainTextToken,
+            ])
             : redirect()->intended(Fortify::redirects('login'));
     }
 }

@@ -2,18 +2,18 @@ export default [
     {
         path: "/",
         name: "authenticated",
-        redirect: { name: "set-new-password" },
-        component: () => import("@/components/Layouts/Auth.vue"),
+        redirect: { name: "change-password" },
+        component: () => import("@/components/Layouts/Admin.vue"),
         meta: {
-            title: "Set New Password",
+            title: "Change Password",
             sort: 0,
             requiresAuth: false,
             icon: "mdi-account-key",
         },
         children: [
             {
-                path: "/set-new-password",
-                name: "set-new-password",
+                path: "/change-password",
+                name: "change-password",
                 component: () => import("../SetNewPassword.vue"),
                 meta: {
                     title: "Set New Password",
