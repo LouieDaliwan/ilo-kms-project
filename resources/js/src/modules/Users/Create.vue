@@ -11,6 +11,7 @@ import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useForm } from "vee-validate";
 import { userSchema } from "./Schema/uservalidation.js";
+import { useRouter } from "vue-router";
 
 export default {
     data() {
@@ -26,6 +27,7 @@ export default {
     setup() {
         const resource = ref(new User());
 
+        const router = useRouter();
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
         const { mdAndUp, xlAndUp } = useDisplay();
@@ -69,17 +71,17 @@ export default {
                 .post($api.store(), resource.value, {
                     headers: { "Content-Type": "multipart/form-data" },
                 })
-                .then((response) => {
+                .then(({ data }) => {
                     this.resource.isPrestine = true;
 
                     // this.snackbar.show({
                     //     text: "User created successfully",
                     // });
 
-                    this.$router.push({
+                    router.push({
                         name: "users.show",
                         params: {
-                            id: response.data.data.id,
+                            id: data.data.id,
                         },
                         query: {
                             success: true,
@@ -109,7 +111,6 @@ export default {
                 })
                 .catch((err) => {
                     setErrors(err.response.data.errors);
-                    // this.form.setErrors(err.response.data.errors);
                 })
                 .finally(() => {
                     // this.load(false);
@@ -146,13 +147,10 @@ export default {
     beforeRouteLeave(to, from, next) {
         if (this.isFormPrestine) {
             next();
-            console.log("test");
         } else {
-            console.log("test2");
             this.askUserBeforeNavigatingAway(next);
         }
     },
-
     computed: {
         isDesktop() {
             return this.mdAndUp;
@@ -230,7 +228,6 @@ export default {
             this.load();
             e.preventDefault();
             this.alertBox.hide();
-            console.log("proceed");
             this.load(false);
         },
 
@@ -304,6 +301,7 @@ export default {
 <template>
     <admin>
         <metatag :title="'Add User'"></metatag>
+
         <template v-slot:appbar>
             <v-container class="py-0 px-0">
                 <v-row align="center" justify="space-between">
@@ -329,7 +327,6 @@ export default {
                                 @click="askUserToDiscardUnsavedChanges"
                                 >Discard
                             </v-btn>
-                            <!--                            v-model="shortkeyCtrlIsPressed"-->
                             <v-badge
                                 bordered
                                 bottom
@@ -341,9 +338,6 @@ export default {
                                 tile
                                 transition="fade-transition"
                             >
-                                <!--                                v-shortkey.once="['ctrl', 's']"
-@shortkey="submitForm"
--->
                                 <v-btn
                                     ref="submit-button-main"
                                     :disabled="isFormDisabled"

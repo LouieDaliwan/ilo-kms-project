@@ -42,24 +42,24 @@ const onSubmit = handleSubmit((values) => {
 
     load();
 
-    axios
-        .post("/login", { email, password })
-        .then(({ data }) => {
-            const isTemporaryPassword = localStorage.setItem(
-                "isTemporaryPassword",
-                data.auth.is_temporary_password,
-            );
-            localStorage.setItem("auth", Object.entries(data.auth));
-            localStorage.setItem("two_factor", data.two_factor);
+    axios.get("/sanctum/csrf-cookie ").then((response) => {
+        axios
+            .post("/login", { email, password })
+            .then(({ data }) => {
+                localStorage.setItem(
+                    "isTemporaryPassword",
+                    data.auth.is_temporary_password,
+                );
+                localStorage.setItem("auth", Object.entries(data.auth));
+                localStorage.setItem("two_factor", data.two_factor);
 
-            router.push({ name: "dashboard" });
-        })
-        .catch((err) => {
-            setErrors(err.response.data.errors);
-        })
-        .finally(() => {
-            load(false);
-        });
+                router.push({ name: "dashboard" });
+            })
+            .catch((err) => {})
+            .finally(() => {
+                load(false);
+            });
+    });
 });
 </script>
 
@@ -76,8 +76,6 @@ const onSubmit = handleSubmit((values) => {
             outlined
             v-bind="email"
         ></v-text-field>
-
-        <!--            :error-messages="errors"-->
         <v-text-field
             v-model="auth.password"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"

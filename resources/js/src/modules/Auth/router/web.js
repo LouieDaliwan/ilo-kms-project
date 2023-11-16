@@ -23,9 +23,20 @@ export default [
                 },
                 beforeEnter: (to, from, next) => {
                     const isAuthenticated = localStorage.getItem("auth");
-                    // store.getters["auth/isAuthenticated"];
-                    if (isAuthenticated) {
-                        let from = to.query.from || { name: "dashboard" };
+                    const isTemporaryPassword = localStorage.getItem(
+                        "isTemporaryPassword",
+                    );
+
+                    if (isAuthenticated && isTemporaryPassword !== "false") {
+                        let from = to.query.from || {
+                            name: "dashboard",
+                        };
+                        return next(from);
+                    } else if (
+                        isAuthenticated &&
+                        isTemporaryPassword === "true"
+                    ) {
+                        let from = { name: "dashboard" };
                         return next(from);
                     } else {
                         return next();
