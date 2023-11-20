@@ -39,8 +39,6 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
         ->name('password.confirm');
 
 
-
-
     Route::prefix('v1')->group(function () {
         Route::resource('users', UsersController::class);
     });

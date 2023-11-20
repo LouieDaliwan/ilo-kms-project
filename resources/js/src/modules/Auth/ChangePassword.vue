@@ -2,7 +2,7 @@
 import { useDisplay } from "vuetify";
 import { computed, ref } from "vue";
 import { useForm } from "vee-validate";
-import { loginSchema } from "./Schema/loginvalidation.js";
+import { changePasswordValidation } from "./Schema/changePasswordValidation.js";
 import { useRouter } from "vue-router";
 import $api from "./routes/api.js";
 
@@ -27,7 +27,7 @@ const isMobile = computed({
 });
 
 const { defineComponentBinds, handleSubmit, resetForm, setErrors } = useForm({
-    validationSchema: loginSchema,
+    validationSchema: changePasswordValidation,
 });
 
 const vuetifyConfig = (state) => ({
@@ -41,8 +41,8 @@ const current_password = defineComponentBinds(
     "current_password",
     vuetifyConfig,
 );
-const confirm_password = defineComponentBinds(
-    "confirm_password",
+const password_confirmation = defineComponentBinds(
+    "password_confirmation",
     vuetifyConfig,
 );
 
@@ -58,12 +58,7 @@ const onSubmit = handleSubmit((values) => {
             password_confirmation,
         })
         .then(({ data }) => {
-            const isTemporaryPassword = localStorage.setItem(
-                "isTemporaryPassword",
-                data.auth.is_temporary_password,
-            );
-            localStorage.setItem("auth", Object.entries(data.auth));
-            localStorage.setItem("two_factor", data.two_factor);
+            localStorage.setItem("isTemporaryPassword", "false");
 
             router.push({ name: "dashboard" });
         })
@@ -114,10 +109,10 @@ const onSubmit = handleSubmit((values) => {
                 class="mb-3"
                 clear-icon="mdi mdi-close-circle-outline"
                 clearable
-                label="Confirm Password"
+                label="Confirm New Password"
                 outlined
                 password
-                v-bind="confirm_password"
+                v-bind="password_confirmation"
                 @click:append="showPassword = !showPassword"
             ></v-text-field>
 
