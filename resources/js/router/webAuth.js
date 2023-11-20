@@ -9,9 +9,9 @@ Object.values(
 );
 
 export default {
-    path: "/",
-    name: "web",
+    path: "/auth",
+    name: "webAuth",
     component: () => import("@/Components/Layouts/Admin.vue"),
-    meta: { title: "Admin", requiresAuth: false },
+    meta: { title: "Auth", requiresAuth: true },
     children: routes,
 };

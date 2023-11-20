@@ -56,16 +56,14 @@ const onSubmit = handleSubmit((values) => {
                 localStorage.setItem("two_factor", data.two_factor);
                 localStorage.setItem("auth_token", data.token);
 
-                if (isTemporaryPassword === "true") {
-                    router.push({ name: "change-password" });
-                    return;
-                }
-                router.push({ name: "dashboard" });
+                let queryParam =
+                    isTemporaryPassword === "true"
+                        ? "change-password"
+                        : "dashboard";
 
-                return "true";
+                router.push({ name: queryParam });
             })
             .catch((err) => {
-                console.log(err);
                 if (err.response.status !== 422) return;
                 setErrors(err.response.data.errors);
             })

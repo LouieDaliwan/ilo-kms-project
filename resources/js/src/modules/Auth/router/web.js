@@ -36,11 +36,43 @@ export default [
                         isAuthenticated &&
                         isTemporaryPassword === "true"
                     ) {
-                        let from = { name: "dashboard" };
+                        let from = { name: "change-password" };
                         return next(from);
                     } else {
                         return next();
                     }
+                },
+            },
+            {
+                path: "change-password",
+                name: "change-password",
+                component: () => import("../ChangePassword.vue"),
+                meta: {
+                    title: "Change Password",
+                    sort: 6,
+                    requiresAuth: true,
+                    icon: "mdi-book-multiple-variant",
+                },
+                beforeEnter: (to, from, next) => {
+                    const isAuthenticated = localStorage.getItem("auth");
+                    const token = localStorage.getItem("auth_token");
+                    const isTemporaryPassword = localStorage.getItem(
+                        "isTemporaryPassword",
+                    );
+
+                    if (isAuthenticated === null && token === null) {
+                        return next({ name: "login" });
+                    }
+
+                    if (
+                        isAuthenticated &&
+                        isTemporaryPassword !== "true" &&
+                        token !== null
+                    ) {
+                        return next({ name: "dashboard" });
+                    }
+
+                    return next();
                 },
             },
             {

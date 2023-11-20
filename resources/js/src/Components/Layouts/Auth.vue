@@ -1,7 +1,6 @@
 <template>
     <v-app v-cloak footer toolbar>
         <!-- Main Content -->
-
         <v-main>
             <router-view v-slot="{ Component, route }">
                 <v-slide-y-reverse-transition
@@ -19,8 +18,6 @@
             </router-view>
         </v-main>
         <!-- Main Content -->
-
-        <!-- <progressbar></progressbar> -->
     </v-app>
 </template>
 

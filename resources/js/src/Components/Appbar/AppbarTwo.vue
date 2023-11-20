@@ -1,3 +1,4 @@
+`
 <script setup>
 import { useDisplay } from "vuetify";
 
@@ -6,18 +7,18 @@ const { mdAndUp } = useDisplay();
 
 <template>
     <v-app-bar
-        :clipped-left="true"
+        v-if="true"
         :elevation="2"
-        :height="mdAndUp ? 83 : null"
+        :height="mdAndUp ? 83 : 30"
         :hide-on-scroll="mdAndUp"
         app
         flat
     >
         <v-spacer></v-spacer>
 
-        <user-is-logged-in>
+        <user-is-new-password>
             <v-menu
-                class="justify-end d-flex"
+                class="d-flex"
                 min-width="200px"
                 transition="slide-y-transition"
             >
@@ -52,21 +53,6 @@ const { mdAndUp } = useDisplay();
                 </template>
 
                 <v-list>
-                    <v-list-item>
-                        <v-list-item-action>
-                            <v-icon class="text--muted" small
-                                >mdi-account-outline
-                            </v-icon>
-                        </v-list-item-action>
-                        <v-list-item>
-                            <v-list-item-title
-                                v-text="'My Profile'"
-                            ></v-list-item-title>
-                        </v-list-item>
-                    </v-list-item>
-
-                    <v-divider></v-divider>
-
                     <v-list-item :to="{ name: 'logout' }" exact>
                         <v-list-item-action>
                             <v-icon class="text--muted" small>mdi-power</v-icon>
@@ -79,7 +65,7 @@ const { mdAndUp } = useDisplay();
                     </v-list-item>
                 </v-list>
             </v-menu>
-        </user-is-logged-in>
+        </user-is-new-password>
 
         <slot></slot>
     </v-app-bar>

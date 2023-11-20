@@ -3,6 +3,10 @@
 use App\Http\Controllers\Users\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Laravel\Fortify\Features;
+use Laravel\Fortify\Http\Controllers\ConfirmablePasswordController;
+use Laravel\Fortify\Http\Controllers\PasswordController;
+use Laravel\Fortify\RoutePath;
 
 Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], function () {
     Route::get('/auth/user', function (Request $request) {
@@ -12,6 +16,30 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
             'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
     });
+
+    // Profile Information...
+//        if (Features::enabled(Features::updateProfileInformation())) {
+//            Route::put(RoutePath::for('user-profile-information.update', '/user/profile-information'), [ProfileInformationController::class, 'update'])
+//                ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
+//                ->name('user-profile-information.update');
+//        }
+
+
+    // Passwords...
+    if (Features::enabled(Features::updatePasswords())) {
+        Route::put(RoutePath::for('user-password.update', '/user/password'), [PasswordController::class, 'update'])
+            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
+            ->name('user-password.update');
+    }
+
+
+    // Password Confirmation...
+    Route::post(RoutePath::for('password.confirm', '/user/confirm-password'), [ConfirmablePasswordController::class, 'store'])
+        ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
+        ->name('password.confirm');
+
+
+
 
     Route::prefix('v1')->group(function () {
         Route::resource('users', UsersController::class);
@@ -71,34 +99,10 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
     //            ->name('verification.send');
     //    }
 
-    // Profile Information...
-    //    if (Features::enabled(Features::updateProfileInformation())) {
-    //        Route::put(RoutePath::for('user-profile-information.update', '/user/profile-information'), [ProfileInformationController::class, 'update'])
-    //            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
-    //            ->name('user-profile-information.update');
-    //    }
 
-    // Passwords...
-    //    if (Features::enabled(Features::updatePasswords())) {
-    //        Route::put(RoutePath::for('user-password.update', '/user/password'), [PasswordController::class, 'update'])
-    //            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
-    //            ->name('user-password.update');
-    //    }
 
-    // Password Confirmation...
-    //    if ($enableViews) {
-    //        Route::get(RoutePath::for('password.confirm', '/user/confirm-password'), [ConfirmablePasswordController::class, 'show'])
-    //            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')]);
-    //    }
 
-    //    Route::get(RoutePath::for('password.confirmation', '/user/confirmed-password-status'), [ConfirmedPasswordStatusController::class, 'show'])
-    //        ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
-    //        ->name('password.confirmation');
-    //
-    //    Route::post(RoutePath::for('password.confirm', '/user/confirm-password'), [ConfirmablePasswordController::class, 'store'])
-    //        ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
-    //        ->name('password.confirm');
-    //
+
     //    // Two Factor Authentication...
     //    if (Features::enabled(Features::twoFactorAuthentication())) {
     //        if ($enableViews) {
