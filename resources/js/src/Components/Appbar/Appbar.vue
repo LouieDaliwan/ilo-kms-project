@@ -1,17 +1,24 @@
 <script setup>
 import { useDisplay } from "vuetify";
+import { ref } from "vue";
 
 const { mdAndUp } = useDisplay();
+
+const appbar = ref({
+    model: true,
+});
 </script>
 
 <template>
     <v-app-bar
-        :clipped-left="true"
+        v-if="appbar.model"
         :elevation="2"
+        :flat="true"
         :height="mdAndUp ? 83 : null"
-        :hide-on-scroll="mdAndUp"
+        :model-value="appbar.model"
+        :scroll-behavior="'hide'"
         app
-        flat
+        scroll-threshold="50"
     >
         <v-spacer></v-spacer>
 
@@ -52,7 +59,7 @@ const { mdAndUp } = useDisplay();
                 </template>
 
                 <v-list>
-                    <v-list-item>
+                    <v-list-item :to="{ name: 'auth-profile' }" exact>
                         <v-list-item-action>
                             <v-icon class="text--muted" small
                                 >mdi-account-outline

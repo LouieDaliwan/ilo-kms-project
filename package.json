@@ -32,6 +32,7 @@
     "object-hash": "^3.0.0",
     "pinia": "^2.1.4",
     "rubik-font": "^0.0.3",
+    "slugify": "^1.6.6",
     "sweetalert2": "^11.7.27",
     "vee-validate": "^4.11.1",
     "vite-plugin-require": "^1.1.11",

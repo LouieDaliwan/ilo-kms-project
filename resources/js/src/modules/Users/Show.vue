@@ -5,7 +5,7 @@ import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
-import { useSettingsStore } from "@/stores/global/settings.js";
+import { useSettingsStore } from "@/store/globals/settings.js";
 import User from "./Models/User.js";
 import { ref } from "vue";
 import { useDisplay } from "vuetify";

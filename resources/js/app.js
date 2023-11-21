@@ -1,9 +1,8 @@
 import "./bootstrap";
-// import Vue from 'vue'
+
 import { createApp } from "vue/dist/vue.esm-bundler";
 
 import App from "./App.vue";
-
 import router from "@/plugins/router.js";
 import vuetify from "@/plugins/vuetify.js";
 import "@/plugins/vee-validate.js";
@@ -15,6 +14,7 @@ const app = createApp(App)
     .use(i18n)
     .use(vuetify)
     .use(router)
+    // .use(store)
     .use(createPinia())
     .use(globalComponents)
     .mount("#app");

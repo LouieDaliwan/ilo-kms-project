@@ -1,3 +1,5 @@
+// import * as _h from '@/core/helpers'
+
 const modules = {};
 const requireModules = {};
 
