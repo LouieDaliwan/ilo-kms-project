@@ -1,22 +1,12 @@
-// import * as _h from '@/core/helpers'
-
 const modules = {};
-const requireModules = {};
+const requireModules = [];
 
-Object.values(
-    import.meta.glob("/(modules|components)/w+/store/w+.js/", { eager: true }),
-).forEach((module) =>
-    _.forEach(module.default, function (route, key) {
-        requireModules.push(route);
-    }),
-);
+const modulesFiles = import.meta.glob("../(modules|Components)/*/store/*.js");
 
-console.log(requireModules);
-
-// requireModules.keys().forEach((filename) => {
-//     const namespace = _h.strip_extension(_h.basename(filename, "/"));
-//     modules[namespace] =
-//         requireModules(filename).default || requireModules(filename);
-// });
+Object.keys(modulesFiles).forEach((modulePath) => {
+    const moduleName = modulePath.replace(/^.*[\\\/]/, "").split(".")[0];
+    requireModules.push(moduleName);
+    modules[moduleName] = modulesFiles[modulePath];
+});
 
 export default modules;

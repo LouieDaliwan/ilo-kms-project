@@ -1,11 +1,8 @@
-import { use } from "vue";
 import Vuex from "vuex";
 import app from "@/store/globals/app";
 import theme from "@/store/globals/theme";
 import settings from "@/store/globals/settings";
 import modules from "@/store/modules";
-
-use(Vuex);
 
 const store = new Vuex.Store({
     modules,
