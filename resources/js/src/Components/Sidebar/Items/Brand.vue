@@ -11,15 +11,6 @@
                     <span class="mb-2">SSA GROUP</span>
                 </v-list-item-title>
             </v-list-item-action>
-
-            <template v-if="!railActive" v-slot:append>
-                <v-btn
-                    :v-ripple="false"
-                    icon="mdi-chevron-left"
-                    variant="text"
-                    @click.stop="$emit('toggleRail', true)"
-                ></v-btn>
-            </template>
         </v-list-item>
     </v-list>
     <!-- Brand -->
@@ -27,7 +18,6 @@
 
 <script>
 export default {
-    props: ["railActive"],
     name: "Brand",
 };
 </script>

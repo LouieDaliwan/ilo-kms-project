@@ -1,18 +1,15 @@
 <script>
 import app from "@/config/app";
 import { useDisplay } from "vuetify";
+import { mapActions, mapState } from "pinia";
+import { useSidebarStore } from "./store/sidebar.js";
 
 export default {
     name: "Sidebar",
     data() {
         return {
             drawer: true,
-            rail: false,
         };
-    },
-
-    mounted() {
-        this.checkRail();
     },
 
     setup() {
@@ -25,37 +22,47 @@ export default {
             return app;
         },
 
-        isRail() {
-            return this.mdAndUp ? this.rail : false;
+        ...mapState(
+            useSidebarStore,
+            ["sidebar"],
+            // dark: "theme/dark",
+            // lang: "app/locale",
+        ),
+
+        sidebarModel: {
+            set(value) {
+                this.toggle({ model: value });
+            },
+            get() {
+                return this.sidebar.model;
+            },
         },
     },
 
     methods: {
-        toggleRail(val) {
-            localStorage.setItem("rail", val);
-            this.rail = val;
-        },
-
-        checkRail: function () {
-            this.rail =
-                localStorage.getItem("rail") !== null
-                    ? localStorage.getItem("rail") === "true"
-                    : localStorage.setItem("rail", false);
-        },
+        ...mapActions(useSidebarStore, [
+            "toggle",
+            "clip",
+            "hide",
+            "update",
+            "show",
+        ]),
     },
 };
 </script>
 
 <template>
     <v-navigation-drawer
-        v-model="drawer"
+        v-model="sidebarModel"
+        :expand-on-hover="sidebar.mini"
         :permanent="true"
-        :rail="mdAndUp ? rail : true"
         app
         class="dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
+        fixed
+        location="left"
         @click="toggleRail(false)"
     >
-        <brand :railActive="rail" class="my-3" @toggleRail="toggleRail"></brand>
+        <brand class="my-3"></brand>
 
         <menus></menus>
 

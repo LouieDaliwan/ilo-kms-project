@@ -74,7 +74,6 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-    <!--  :error-messages="errors"-->
     <v-form :disabled="loading" @submit.prevent="onSubmit">
         <v-text-field
             v-model="auth.email"

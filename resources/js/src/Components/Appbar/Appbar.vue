@@ -1,8 +1,19 @@
 <script setup>
 import { useDisplay } from "vuetify";
 import { ref } from "vue";
+import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
 
 const { mdAndUp } = useDisplay();
+
+const sidebar = useSidebarStore();
+
+const sideBarToggle = () => {
+    sidebar.$patch((state) => {
+        state.sideBarData.model = !state.sideBarData.model;
+    });
+
+    sidebar.toggle({ model: !sidebar.sideBarData.model });
+};
 
 const appbar = ref({
     model: true,
@@ -20,6 +31,21 @@ const appbar = ref({
         app
         scroll-threshold="50"
     >
+        <v-badge
+            bottom
+            class="dt-badge"
+            color="white"
+            offset-x="20"
+            offset-y="20"
+            tile
+            transition="fade-transition"
+        >
+            <v-app-bar-nav-icon
+                color="muted"
+                @click="sideBarToggle()"
+            ></v-app-bar-nav-icon>
+        </v-badge>
+
         <v-spacer></v-spacer>
 
         <user-is-logged-in>
