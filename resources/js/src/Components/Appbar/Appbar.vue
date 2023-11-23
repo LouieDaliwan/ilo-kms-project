@@ -12,7 +12,7 @@ const sideBarToggle = () => {
         state.sideBarData.model = !state.sideBarData.model;
     });
 
-    sidebar.toggle({ model: !sidebar.sideBarData.model });
+    sidebar.toggle({ model: sidebar.sideBarData.model });
 };
 
 const appbar = ref({
@@ -25,11 +25,11 @@ const appbar = ref({
         v-if="appbar.model"
         :elevation="2"
         :flat="true"
-        :height="mdAndUp ? 83 : null"
+        :height="mdAndUp ? 83 : 64"
         :model-value="appbar.model"
         :scroll-behavior="'hide'"
         app
-        scroll-threshold="50"
+        scroll-threshold="30"
     >
         <v-badge
             bottom
