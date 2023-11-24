@@ -1,4 +1,29 @@
-.theme--light {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Overpass", sans-serif;
+}
+
+h1 {
+  line-height: 1.2;
+  font-size: 38px;
+}
+
+h2 {
+  line-height: 1.3;
+  font-size: 28px;
+}
+
+h3 {
+  line-height: 1.3;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.v-theme--light {
     // div[class^="v-"],
     // div[class*=" v-"],
     h1,
@@ -12,7 +37,7 @@
     }
   }
 
-  .theme--dark {
+.theme--dark {
     // div[class^="v-"],
     // div[class*=" v-"],
     h1,
@@ -22,68 +47,68 @@
     h5,
     h6,
     p {
-      color: var(--white);
+        color: var(--white);
     }
-  }
+}
 
-  .text {
+.text {
     &--truncate {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 150px;
     }
 
     &--decoration {
-      &-none {
+        &-none {
         text-decoration: none;
-      }
+        }
     }
 
     &--ellipsis {
-      -webkit-box-orient: vertical;
-      -webkit-box-pack: center;
-      display: -webkit-box;
-      flex-direction: column;
-      justify-content: space-around;
-      -webkit-line-clamp: 3;
-      line-clamp: 3;
-      line-height: 1.4;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-box-pack: center;
+        display: -webkit-box;
+        flex-direction: column;
+        justify-content: space-around;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        line-height: 1.4;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &--ellipsis-1 {
-      -webkit-box-orient: vertical;
-      -webkit-box-pack: center;
-      display: -webkit-box;
-      flex-direction: column;
-      justify-content: space-around;
-      -webkit-line-clamp: 1;
-      line-clamp: 1;
-      line-height: 1.4;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        -webkit-box-orient: vertical;
+        -webkit-box-pack: center;
+        display: -webkit-box;
+        flex-direction: column;
+        justify-content: space-around;
+        -webkit-line-clamp: 1;
+        line-clamp: 1;
+        line-height: 1.4;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &-red input {
-      color: $error !important;
+        color: $error !important;
     }
 
     &-green input {
-      color: $success !important;
+        color: $success !important;
     }
-  }
+}
 
-  .compulsory {
+.compulsory {
     position: relative;
 
     &::before {
-      color: $error;
-      content: "*";
-      left: 0;
-      position: absolute;
+        color: $error;
+        content: "*";
+        left: 0;
+        position: absolute;
     }
-  }
+}

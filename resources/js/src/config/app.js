@@ -1,5 +1,5 @@
 const app = {
-    title: "Default Title",
+    title: "ILO",
     tagline: "Default Tagline",
     copyright: "Default Copyright",
     email: "Default Email",
