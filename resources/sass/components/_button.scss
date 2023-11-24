@@ -1,16 +1,21 @@
 .dovetail-app {
     .v-btn {
-      font-size: var(--font-size-base);
-      letter-spacing: 0;
-      text-transform: capitalize;
-
-      // &.primary {
-      //   color: var(--text);
-      // }
-
-      &__content {
         font-size: var(--font-size-base);
-      }
+        letter-spacing: 0;
+        text-transform: capitalize;
+        height: 52px !important;
+
+        // &.primary {
+        //   color: var(--text);
+        // }
+
+        &__content {
+        font-size: var(--font-size-base);
+        }
+
+        &:hover {
+            background-color: #230050 !important;
+        }
     }
 
     .dt-link {

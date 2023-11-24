@@ -1,5 +1,5 @@
 <template>
-    <section class="text-center mb-3">
+    <section class="text-center mb-5 mt-5">
         <v-row align="center" justify="center">
             <v-img
                 :lazy-src="app.logo"
@@ -8,7 +8,8 @@
                 class="mb-3"
             ></v-img>
         </v-row>
-        <h3 class="my-6" v-text="app.title"></h3>
+        <h1>Log in to {{ app.title }}</h1>
+        <!-- <h3 class="my-6" v-text="app.title"></h3> -->
         <!-- <p class="muted--text" v-text="app.tagline"></p> -->
     </section>
 </template>
