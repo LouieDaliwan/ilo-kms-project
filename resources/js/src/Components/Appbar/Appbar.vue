@@ -50,6 +50,7 @@ const appbar = ref({
 
         <user-is-logged-in>
             <v-menu
+                v-if="$route.name === 'dashboard'"
                 class="justify-end d-flex"
                 min-width="200px"
                 transition="slide-y-transition"
