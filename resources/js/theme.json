@@ -1,65 +1,64 @@
 {
-    "name": "Dgroup Themes",
-    "code": "Dgroup",
-    "version": "v3.0.1",
-    "description": "Single-Page Application. Semantic, slick, and modern. Dgroup theme, everyone.",
-    "preview": {
-      "img": "preview.png",
-      "credit": ""
+  "name": "Dovetail Themes",
+  "code": "Dovetail",
+  "version": "v3.0.1",
+  "description": "Single-Page Application. Semantic, slick, and modern. Dovetail theme, everyone.",
+  "preview": {
+    "img": "preview.png",
+    "credit": ""
+  },
+  "spa": true,
+  "author": {
+    "name": "Louie Angelo Daliwan",
+    "email": "louieangelodaliwan@gmail.com"
+  },
+  "colors": {
+    "light": {
+      "primary": "#107e7d",
+      "secondary": "#044b7f",
+      "accent": "#f48b3c",
+      "success": "#009688",
+      "info": "#00b8d6",
+      "warning": "#F6C343",
+      "error": "#f44336",
+      "light": "#f8f9fa",
+      "dark": "#1e262b",
+      "text": "#12263f",
+      "card": "#ffffff",
+      "sidebar": "#f7f7f7",
+      "workspace": "#f9fbfd",
+      "muted": "#95aac9",
+      "link": "#868e96",
+      "soft-success": "#ccf7e5",
+      "soft-error": "#fad7dd",
+      "soft-info": "#d7eff6",
+      "soft-warning": "#fdf3d9",
+      "selects": "#edf2f9",
+      "field": "#d2ddec",
+      "sheet": "ffffff"
     },
-    "spa": true,
-    "author": {
-      "name": "Louie Angelo Daliwan",
-      "email": "louieangelodaliwan@gmail.com"
-    },
-    "colors": {
-      "light": {
-        "primary": "#107e7d",
-        "secondary": "#044b7f",
-        "accent": "#f48b3c",
-        "success": "#009688",
-        "info": "#00b8d6",
-        "warning": "#F6C343",
-        "error": "#f44336",
-        "light": "#f8f9fa",
-        "dark": "#1e262b",
-        "text": "#12263f",
-        "card": "#ffffff",
-        "sidebar": "#f7f7f7",
-        "workspace": "#f9fbfd",
-        "muted": "#95aac9",
-        "link": "#868e96",
-        "soft-success": "#ccf7e5",
-        "soft-error": "#fad7dd",
-        "soft-info": "#d7eff6",
-        "soft-warning": "#fdf3d9",
-        "selects": "#edf2f9",
-        "field": "#d2ddec",
-        "sheet": "ffffff"
-
-      },
-      "dark": {
-        "primary": "#107e7d",
-        "secondary": "#044b7f",
-        "accent": "#610345",
-        "success": "#009688",
-        "info": "#00b8d6",
-        "warning": "#ffda3e",
-        "error": "#f44336",
-        "light": "#f8f9fa",
-        "dark": "#1e262b",
-        "text": "#ffffff",
-        "card": "#ffffff",
-        "sidebar": "#2b343a",
-        "workspace": "#212c32",
-        "muted": "#95aac9",
-        "link": "#868e96",
-        "soft-success": "#ccf7e5",
-        "soft-error": "#fad7dd",
-        "soft-info": "#d7eff6",
-        "soft-warning": "#fdf3d9",
-        "selects": "#212c32",
-        "sheet": "2b343a"
-      }
+    "dark": {
+      "primary": "#107e7d",
+      "secondary": "#044b7f",
+      "accent": "#610345",
+      "success": "#009688",
+      "info": "#00b8d6",
+      "warning": "#ffda3e",
+      "error": "#f44336",
+      "light": "#f8f9fa",
+      "dark": "#1e262b",
+      "text": "#ffffff",
+      "card": "#ffffff",
+      "sidebar": "#2b343a",
+      "workspace": "#212c32",
+      "muted": "#95aac9",
+      "link": "#868e96",
+      "soft-success": "#ccf7e5",
+      "soft-error": "#fad7dd",
+      "soft-info": "#d7eff6",
+      "soft-warning": "#fdf3d9",
+      "selects": "#212c32",
+      "sheet": "2b343a"
     }
   }
+}

@@ -5,7 +5,7 @@ import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
-import { useSettingsStore } from "@/stores/global/settings.js";
+// import { useSettingsStore } from "@/store/globals/settings.js";
 import User from "./Models/User.js";
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
@@ -14,12 +14,6 @@ import { userSchema } from "./Schema/uservalidation.js";
 import { useRouter } from "vue-router";
 
 export default {
-    data() {
-        return {
-            // resource: new User(),
-        };
-    },
-
     components: {
         AccountDetails,
     },
@@ -33,7 +27,7 @@ export default {
         const { mdAndUp, xlAndUp } = useDisplay();
         const alertBox = useAlertBoxStore();
         const successBox = useSuccessBoxStore();
-        const settings = useSettingsStore();
+        // const settings = useSettingsStore();
 
         const { defineComponentBinds, handleSubmit, resetForm, setErrors } =
             useForm({
@@ -140,7 +134,7 @@ export default {
             mobile,
             onSubmit,
             roleValidation,
-            settings,
+            // settings,
         };
     },
 
@@ -412,9 +406,9 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12" md="4">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.firstname"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         label="First Name"
@@ -423,9 +417,9 @@ export default {
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="4">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.middlename"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         hide-details
@@ -437,9 +431,9 @@ export default {
                                 </v-col>
                                 <v-col cols="12" md="4">
                                     <!--                                    :dense="isDense"-->
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.lastname"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         label="Last name"
@@ -451,13 +445,13 @@ export default {
                             </v-row>
                             <v-row align="center">
                                 <v-col cols="12">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="
                                             resource.data.details[
                                                 'Mobile Phone'
                                             ].value
                                         "
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         dense
@@ -470,13 +464,13 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="
                                             resource.data.details[
                                                 'Home Address'
                                             ].value
                                         "
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         cols="12"
@@ -504,10 +498,10 @@ export default {
                         </v-card-title>
                         <v-card-text>
                             <!--                            :disabled="true"-->
+                            <!--                                :dense="settings.fieldIsDense"-->
                             <repeater
                                 v-model="resource.data.details.others"
                                 :background-details="backgroundDetails"
-                                :dense="settings.fieldIsDense"
                             ></repeater>
                         </v-card-text>
                     </v-card>
@@ -525,9 +519,9 @@ export default {
                     </v-card>
 
                     <!--                  :disabled="isLoading"-->
+                    <!--                        :dense="settings.fieldIsDense"-->
                     <role-picker
                         v-model="resource.data.roles"
-                        :dense="settings.fieldIsDense"
                         :lazyLoad="false"
                         :multiple="false"
                         :roleValidation="roleValidation"

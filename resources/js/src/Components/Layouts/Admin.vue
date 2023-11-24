@@ -28,11 +28,11 @@
                 </v-container>
             </div>
             <!-- <v-footer absolute paddless color="workspace">
-                  <shortkey></shortkey>
-                  <v-container>
-                  <breadcrumbs></breadcrumbs>
-                  </v-container>
-              </v-footer> -->
+            <shortkey></shortkey>
+            <v-container>
+            <breadcrumbs></breadcrumbs>
+            </v-container>
+        </v-footer> -->
         </v-main>
     </div>
 </template>

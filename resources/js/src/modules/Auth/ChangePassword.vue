@@ -59,7 +59,6 @@ const onSubmit = handleSubmit((values) => {
         })
         .then(({ data }) => {
             localStorage.setItem("isTemporaryPassword", "false");
-
             router.push({ name: "dashboard" });
         })
         .catch((err) => {
