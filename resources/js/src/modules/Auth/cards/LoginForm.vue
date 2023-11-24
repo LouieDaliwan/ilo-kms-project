@@ -71,6 +71,19 @@ const onSubmit = handleSubmit((values) => {
             });
     });
 });
+
+// v-field--variant-filled
+// document.addEventListener("DOMContentLoaded", function() {
+
+    // document.getElementById("MyID").className =
+    //   document.getElementById("MyID").className
+    //     .replace(new RegExp('(?:^|\\s)'+ 'v-field--variant-filled' + '(?:\\s|$)'), ' ');
+    // document.getElementById("MyID").classList.remove("v-field--variant-filled");
+
+// });
+
+
+
 </script>
 
 <template>
@@ -78,7 +91,7 @@ const onSubmit = handleSubmit((values) => {
         <v-text-field
             v-model="auth.email"
             autofocus
-            class="mb-3"
+            class="mb-3 login-email"
             clear-icon="mdi mdi-close-circle-outline"
             clearable
             label="Email or Username"
@@ -89,7 +102,7 @@ const onSubmit = handleSubmit((values) => {
             v-model="auth.password"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             :type="showPassword ? 'text' : 'password'"
-            class="mb-3"
+            class="mb-3 login-pass"
             clear-icon="mdi mdi-close-circle-outline"
             clearable
             label="Password"
@@ -99,16 +112,22 @@ const onSubmit = handleSubmit((values) => {
             @click:append="showPassword = !showPassword"
         ></v-text-field>
 
-        <v-divider class="my-4"></v-divider>
-
+      <!-- Forgot Password -->
+      <a href="javascript:void(0)">
+        <div class="text-end my-4 mb-3">
+          I forgot my password
+        </div>
+      </a>
+      <!-- Forgot Password -->
         <v-btn
             :disabled="loading"
             :loading="loading"
             block
+            color="primary"
             type="submit"
             x-large
         >
-            Sign In
+            Log In
             <template v-slot:loader>
                 <v-slide-x-transition>
                     <v-icon class="mdi-spin mr-3" dark>mdi-loading</v-icon>
