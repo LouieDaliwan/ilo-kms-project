@@ -31,20 +31,10 @@ const appbar = ref({
         app
         scroll-threshold="30"
     >
-        <v-badge
-            bottom
-            class="dt-badge"
-            color="white"
-            offset-x="20"
-            offset-y="20"
-            tile
-            transition="fade-transition"
-        >
-            <v-app-bar-nav-icon
-                color="muted"
-                @click="sideBarToggle()"
-            ></v-app-bar-nav-icon>
-        </v-badge>
+        <v-app-bar-nav-icon
+            color="muted"
+            @click="sideBarToggle()"
+        ></v-app-bar-nav-icon>
 
         <v-spacer></v-spacer>
 
