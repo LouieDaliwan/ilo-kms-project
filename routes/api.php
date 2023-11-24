@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Users\AuthProfileController;
 use App\Http\Controllers\Users\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,9 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
             'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
     });
+
+    Route::get('/auth-profile', [AuthProfileController::class]);
+
 
     // Profile Information...
 //        if (Features::enabled(Features::updateProfileInformation())) {

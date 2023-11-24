@@ -1,10 +1,9 @@
 <script setup>
 import { useDisplay } from "vuetify";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
 
 const { mdAndUp } = useDisplay();
-
 const sidebar = useSidebarStore();
 
 const sideBarToggle = () => {
@@ -14,6 +13,10 @@ const sideBarToggle = () => {
 
     sidebar.toggle({ model: sidebar.sideBarData.model });
 };
+
+const showMenu = computed(() => {
+    return this.$route.name === "dashboard";
+});
 
 const appbar = ref({
     model: true,
