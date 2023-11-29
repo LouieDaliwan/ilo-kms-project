@@ -1,9 +1,9 @@
 <script setup>
-import Information from "./cards/Information.vue";
+import ProfileInformation from "./cards/Information.vue";
 </script>
 <template>
     <admin>
-        <metatag :title="'Add User'"></metatag>
-        <information />
+        <metatag :title="'User Profile'"></metatag>
+        <ProfileInformation />
     </admin>
 </template>

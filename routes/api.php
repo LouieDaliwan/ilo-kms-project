@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Http\Controllers\ConfirmablePasswordController;
 use Laravel\Fortify\Http\Controllers\PasswordController;
+use Laravel\Fortify\Http\Controllers\ProfileInformationController;
 use Laravel\Fortify\RoutePath;
 
 Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], function () {
@@ -18,15 +19,14 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
         ]);
     });
 
-    Route::get('/auth-profile', [AuthProfileController::class]);
-
+    Route::get('/auth-profile', AuthProfileController::class);
 
     // Profile Information...
-//        if (Features::enabled(Features::updateProfileInformation())) {
-//            Route::put(RoutePath::for('user-profile-information.update', '/user/profile-information'), [ProfileInformationController::class, 'update'])
-//                ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
-//                ->name('user-profile-information.update');
-//        }
+    if (Features::enabled(Features::updateProfileInformation())) {
+        Route::put(RoutePath::for('user-profile-information.update', '/user/profile-information'), [ProfileInformationController::class, 'update'])
+            ->middleware([config('fortify.auth_middleware', 'auth').':'.config('fortify.guard')])
+            ->name('user-profile-information.update');
+    }
 
 
     // Passwords...
@@ -72,17 +72,6 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
     //            ->name('password.update');
     //    }
 
-    // Registration...
-    //    if (Features::enabled(Features::registration())) {
-    //        if ($enableViews) {
-    //            Route::get(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'create'])
-    //                ->middleware(['guest:'.config('fortify.guard')])
-    //                ->name('register');
-    //        }
-    //
-    //        Route::post(RoutePath::for('register', '/register'), [RegisteredUserController::class, 'store'])
-    //            ->middleware(['guest:'.config('fortify.guard')]);
-    //    }
 
     // Email Verification...
     //    if (Features::enabled(Features::emailVerification())) {

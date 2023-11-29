@@ -1,6 +1,6 @@
 const routes = [
     {
-        path: "/admin/user-profile",
+        path: "/admin/user",
         name: "auth-profile",
         redirect: { name: "user-profile" },
         component: () => import("@root/App.vue"),
@@ -12,7 +12,7 @@ const routes = [
         },
         children: [
             {
-                path: "user-profile",
+                path: "profile",
                 name: "user-profile",
                 component: () => import("../Profile.vue"),
                 meta: {

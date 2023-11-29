@@ -1,9 +1,8 @@
 export default {
     get() {
-        return "/auth/profile";
+        return "/api/auth-profile";
     },
     updatePassword(user = null) {
         return "/user/password";
     },
-
 };

@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useSettingsStore = defineStore("settings", {
     state: () => ({
-        settings: {
+        settingsData: {
             fields: {
                 isDense: false,
             },
@@ -14,7 +14,7 @@ export const useSettingsStore = defineStore("settings", {
         },
     },
     getters: {
-        settings: (state) => state.settings,
+        settings: (state) => state.settingsData,
         fields: (state) => state.settings.fields,
         fieldIsDense: (state) => state.settings.fields.isDense,
     },

@@ -15,11 +15,12 @@ class AuthResources extends JsonResource
     public function toArray(Request $request): array
     {
         return array_merge(parent::toArray($request), [
-            'firstname' => $this->firstname,
-            'middlename' => $this->middlename,
-            'lastname' => $this->lastname,
+            'firstname' => $this->first_name,
+            'middlename' => $this->middle_name,
+            'lastname' => $this->last_name,
             'displayname' => $this->fullname,
             'email' => $this->email,
+            'details' => $this->metadata,
             //'roles' => $this->roles,
             //'permissions' => $this->roles()->permissions,
             'username' => $this->username,

@@ -1,5 +1,5 @@
 <script>
-import $api from "./routes/api.js";
+import $api from "../routes/api.js";
 import AccountDetails from "@modules/Users/cards/AccountDetails.vue";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
@@ -149,13 +149,9 @@ export default {
                 .then(({ data }) => {
                     this.resource.data = data.data;
                     this.resource.loading = false;
-
-                    console.log(data);
-                    console.log(this.resource);
                 })
                 .catch((err) => {
                     this.resource.loading = false;
-                    console.log(err);
                 })
                 .finally(() => {
                     this.resource.loading = false;
@@ -285,58 +281,6 @@ export default {
 };
 </script>
 <template>
-    <template v-slot:appbar>
-        <v-container class="py-0 px-0">
-            <v-row align="center" justify="space-between">
-                <v-fade-transition>
-                    <v-col v-if="isNotFormPrestine" class="py-0" cols="auto">
-                        <v-toolbar-title class="muted--text">
-                            Unsaved changes
-                        </v-toolbar-title>
-                    </v-col>
-                </v-fade-transition>
-                <v-spacer></v-spacer>
-                <v-col class="py-0" cols="auto">
-                    <div class="d-flex justify-end">
-                        <v-spacer></v-spacer>
-                        <v-btn
-                            class="ml-3 mr-0"
-                            large
-                            text
-                            @click="askUserToDiscardUnsavedChanges"
-                            >Discard
-                        </v-btn>
-                        <v-badge
-                            bordered
-                            bottom
-                            class="dt-badge"
-                            color="dark"
-                            content="s"
-                            offset-x="20"
-                            offset-y="20"
-                            tile
-                            transition="fade-transition"
-                        >
-                            <v-btn
-                                ref="submit-button-main"
-                                :disabled="isFormDisabled"
-                                :loading="isLoading"
-                                class="ml-3 mr-0"
-                                color="primary"
-                                large
-                                type="submit"
-                                @click.prevent="submitForm"
-                            >
-                                <v-icon left>mdi-content-save-outline </v-icon>
-                                Save
-                            </v-btn>
-                        </v-badge>
-                    </div>
-                </v-col>
-            </v-row>
-        </v-container>
-    </template>
-
     <v-form
         ref="editAuth-form"
         :disabled="isLoading"
@@ -346,23 +290,23 @@ export default {
     >
         <button ref="submit-button" class="d-none" type="submit"></button>
         <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
-            <template v-slot:title>Users List</template>
+            <template v-slot:title>My Profile</template>
         </page-header>
 
         <alert-box></alert-box>
 
         <v-row>
-            <v-col cols="12" md="9">
+            <v-col cols="12" md="12">
                 <v-card class="mb-3">
                     <v-card-title>Account Information</v-card-title>
                     <v-card-text>
                         <v-row justify="space-between">
                             <v-col cols="6" md="2">
-                                <!--                                    append-icon="mdi-chevron-down"-->
                                 <v-select
                                     v-model="resource.data.prefixname"
                                     :disabled="isLoading"
                                     :items="['Mr.', 'Ms.', 'Mrs.']"
+                                    :model-value="resource.data.prefixname"
                                     background-color="selects"
                                     class="dt-text-field"
                                     dense
@@ -377,6 +321,7 @@ export default {
                                 <v-text-field
                                     v-model="resource.data.suffixname"
                                     :disabled="isLoading"
+                                    :model-value="resource.data.suffixname"
                                     class="dt-text-field"
                                     dense
                                     hide-details
@@ -393,6 +338,7 @@ export default {
                                     v-model="resource.data.firstname"
                                     :dense="settings.fieldIsDense"
                                     :disabled="isLoading"
+                                    :model-value="resource.data.firstname"
                                     class="dt-text-field"
                                     label="First Name"
                                     outlined
@@ -404,6 +350,7 @@ export default {
                                     v-model="resource.data.middlename"
                                     :dense="settings.fieldIsDense"
                                     :disabled="isLoading"
+                                    :model-value="resource.data.middlename"
                                     class="dt-text-field"
                                     hide-details
                                     label="Middle Name"
@@ -417,6 +364,7 @@ export default {
                                     v-model="resource.data.lastname"
                                     :dense="settings.fieldIsDense"
                                     :disabled="isLoading"
+                                    :model-value="resource.data.lastname"
                                     class="dt-text-field"
                                     label="Last name"
                                     name="lastname"
@@ -429,11 +377,15 @@ export default {
                             <v-col cols="12">
                                 <v-text-field
                                     v-model="
-                                        resource.data.metadata['Phone_Number']
+                                        resource.data.details['Mobile Phone']
                                             .value
                                     "
                                     :dense="settings.fieldIsDense"
                                     :disabled="isLoading"
+                                    :model-value="
+                                        resource.data.details['Mobile Phone']
+                                            .value
+                                    "
                                     class="dt-text-field"
                                     dense
                                     label="Mobile Phone"
@@ -452,6 +404,10 @@ export default {
                                     "
                                     :dense="settings.fieldIsDense"
                                     :disabled="isLoading"
+                                    :model-value="
+                                        resource.data.details['Home Address']
+                                            .value
+                                    "
                                     class="dt-text-field"
                                     cols="12"
                                     label="Home Address"
@@ -472,42 +428,32 @@ export default {
                     :xlAndUp="xlAndUp"
                 ></account-details>
 
-                <v-card>
-                    <v-card-title class="pb-0">
-                        Additional Background Details
-                    </v-card-title>
-                    <v-card-text>
-                        <!--                            :disabled="true"-->
-                        <repeater
-                            v-model="resource.data.details.others"
-                            :background-details="backgroundDetails"
-                            :dense="settings.fieldIsDense"
-                        ></repeater>
-                    </v-card-text>
-                </v-card>
+                <!--                <v-card>-->
+                <!--                    <v-card-title class="pb-0">-->
+                <!--                        Additional Background Details-->
+                <!--                    </v-card-title>-->
+                <!--                    <v-card-text>-->
+                <!--                        &lt;!&ndash;                            :disabled="true"&ndash;&gt;-->
+                <!--                        <repeater-->
+                <!--                            v-model="resource.data.details.others"-->
+                <!--                            :background-details="backgroundDetails"-->
+                <!--                            :dense="settings.fieldIsDense"-->
+                <!--                        ></repeater>-->
+                <!--                    </v-card-text>-->
+                <!--                </v-card>-->
             </v-col>
-            <v-col cols="12" md="3">
-                <v-card class="mb-3">
-                    <v-card-title class="pb-0">Photo</v-card-title>
-                    <v-card-text>
-                        <upload-avatar
-                            v-model="resource.data.avatar"
-                            name="photo"
-                        >
-                        </upload-avatar>
-                    </v-card-text>
-                </v-card>
-
-                <!--                  :disabled="isLoading"-->
-                <role-picker
-                    v-model="resource.data.roles"
-                    :dense="settings.fieldIsDense"
-                    :lazyLoad="false"
-                    :multiple="false"
-                    :roleValidation="roleValidation"
-                    class="mb-3"
-                ></role-picker>
-            </v-col>
+            <!--            <v-col cols="12" md="3">-->
+            <!--                <v-card class="mb-3">-->
+            <!--                    <v-card-title class="pb-0">Photo</v-card-title>-->
+            <!--                    <v-card-text>-->
+            <!--                        <upload-avatar-->
+            <!--                            v-model="resource.data.avatar"-->
+            <!--                            name="photo"-->
+            <!--                        >-->
+            <!--                        </upload-avatar>-->
+            <!--                    </v-card-text>-->
+            <!--                </v-card>-->
+            <!--            </v-col>-->
         </v-row>
     </v-form>
 </template>
