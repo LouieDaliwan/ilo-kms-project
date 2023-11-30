@@ -71,67 +71,65 @@ const onSubmit = handleSubmit((values) => {
 </script>
 
 <template>
-    <auth-security>
-        <v-form :disabled="loading" @submit.prevent="onSubmit">
-            <v-text-field
-                v-model="auth.current_password"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                class="mb-3"
-                clear-icon="mdi mdi-close-circle-outline"
-                clearable
-                label="Current Password"
-                outlined
-                password
-                v-bind="current_password"
-                @click:append="showPassword = !showPassword"
-            ></v-text-field>
+    <v-form :disabled="loading" @submit.prevent="onSubmit">
+        <v-text-field
+            v-model="auth.current_password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            class="mb-3"
+            clear-icon="mdi mdi-close-circle-outline"
+            clearable
+            label="Current Password"
+            outlined
+            password
+            v-bind="current_password"
+            @click:append="showPassword = !showPassword"
+        ></v-text-field>
 
-            <v-text-field
-                v-model="auth.password"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                class="mb-3"
-                clear-icon="mdi mdi-close-circle-outline"
-                clearable
-                label="Password"
-                outlined
-                password
-                v-bind="password"
-                @click:append="showPassword = !showPassword"
-            ></v-text-field>
+        <v-text-field
+            v-model="auth.password"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            class="mb-3"
+            clear-icon="mdi mdi-close-circle-outline"
+            clearable
+            label="Password"
+            outlined
+            password
+            v-bind="password"
+            @click:append="showPassword = !showPassword"
+        ></v-text-field>
 
-            <v-text-field
-                v-model="auth.password_confirmation"
-                :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :type="showPassword ? 'text' : 'password'"
-                class="mb-3"
-                clear-icon="mdi mdi-close-circle-outline"
-                clearable
-                label="Confirm New Password"
-                outlined
-                password
-                v-bind="password_confirmation"
-                @click:append="showPassword = !showPassword"
-            ></v-text-field>
+        <v-text-field
+            v-model="auth.password_confirmation"
+            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="showPassword ? 'text' : 'password'"
+            class="mb-3"
+            clear-icon="mdi mdi-close-circle-outline"
+            clearable
+            label="Confirm New Password"
+            outlined
+            password
+            v-bind="password_confirmation"
+            @click:append="showPassword = !showPassword"
+        ></v-text-field>
 
-            <v-divider class="my-4"></v-divider>
+        <v-divider class="my-4"></v-divider>
 
-            <v-btn
-                :disabled="loading"
-                :loading="loading"
-                block
-                type="submit"
-                x-large
-            >
-                Update
-                <template v-slot:loader>
-                    <v-slide-x-transition>
-                        <v-icon class="mdi-spin mr-3" dark>mdi-loading</v-icon>
-                    </v-slide-x-transition>
-                    <span>Updating...</span>
-                </template>
-            </v-btn>
-        </v-form>
-    </auth-security>
+        <v-btn
+            :disabled="loading"
+            :loading="loading"
+            block
+            type="submit"
+            x-large
+        >
+            Update
+            <template v-slot:loader>
+                <v-slide-x-transition>
+                    <v-icon class="mdi-spin mr-3" dark>mdi-loading</v-icon>
+                </v-slide-x-transition>
+                <span>Updating...</span>
+            </template>
+        </v-btn>
+    </v-form>
 </template>
