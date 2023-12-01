@@ -19,35 +19,8 @@ const { smAndDown } = useDisplay();
                             <v-fade-transition mode="out-in">
                                 <login-form></login-form>
                             </v-fade-transition>
-                            <!-- divider -->
-                            <div class="d-flex">
-                                <v-divider class="my-9"></v-divider>
-                                <span class="mt-6 px-3 link--text">Or</span>
-                                <v-divider class="my-9"></v-divider>
-                            </div>
-                            <!-- divider -->
                         </v-card-text>
-                         <!-- Social Log in -->
-                        <div class="text-center">
-                        <h4 class="mb-5">Log In with Another Account:</h4>
-                        <div>
-                            <v-btn x-large class="mr-4">
-                            <img
-                                height="20"
-                                :src="'/images/google_logo.svg'"
-                                alt=""
-                            />
-                            </v-btn>
 
-                            <v-btn x-large class="mr-4">
-                            <img
-                                height="20"
-                                :src="'/images/facebook_logo.svg'"
-                                alt=""
-                            />
-                            </v-btn>
-                        </div>
-                        </div>
                         <p class="text-center muted--text mt-5">
                         <small>
                             By logging in, you agree to our
