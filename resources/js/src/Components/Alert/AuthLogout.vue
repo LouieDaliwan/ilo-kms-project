@@ -38,8 +38,8 @@ export default {
     },
     methods: {
         setTimers: function () {
-            this.warningTimer = setTimeout(this.warningMessage, 4 * 1000); // 14 minutes - 14 * 60 * 1000
-            this.logoutTimer = setTimeout(this.logoutUser, 15 * 1000); // 15 minutes - 15 * 60 * 1000
+            this.warningTimer = setTimeout(this.warningMessage, 4 * 10000); // 14 minutes - 14 * 60 * 1000
+            this.logoutTimer = setTimeout(this.logoutUser, 15 * 10000); // 15 minutes - 15 * 60 * 1000
             this.warningZone = false;
         },
         warningMessage: function () {

@@ -32,9 +32,13 @@ const { mdAndUp } = useDisplay();
                                 <div
                                     class="d-flex justify-space-between align-center"
                                 >
-                                    <v-avatar class="mr-3" size="32"
-                                        ><img :src="''" width="40px"
-                                    /></v-avatar>
+                                    <v-avatar
+                                        class="mr-3"
+                                        color="brown"
+                                        size="32"
+                                    >
+                                        <span class="text-h5">Lou</span>
+                                    </v-avatar>
                                     <div class="d-none d-md-block">
                                         <p
                                             class="body-1 mb-0 text--truncate"

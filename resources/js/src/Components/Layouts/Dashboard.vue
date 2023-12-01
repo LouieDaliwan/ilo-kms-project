@@ -1,3 +1,9 @@
+<script>
+export default {
+    name: "Blank",
+};
+</script>
+
 <template>
     <v-app
         v-cloak
@@ -22,11 +28,6 @@
         </router-view>
 
         <auth-logout></auth-logout>
+        <dialog-box></dialog-box>
     </v-app>
 </template>
-
-<script>
-export default {
-    name: "Blank",
-};
-</script>
