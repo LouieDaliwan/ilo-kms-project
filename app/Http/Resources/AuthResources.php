@@ -23,6 +23,7 @@ class AuthResources extends JsonResource
             'details' => $this->metadata,
             'mobile_number' => $this->metadata['Mobile Phone'],
             'home_address' => $this->metadata['Home Address'],
+            'isTemporaryPassword' => $this->is_temporary_password,
             //'roles' => $this->roles,
             //'permissions' => $this->roles()->permissions,
             'username' => $this->username,
