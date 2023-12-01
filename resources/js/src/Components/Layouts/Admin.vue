@@ -33,6 +33,7 @@
             <breadcrumbs></breadcrumbs>
             </v-container>
         </v-footer> -->
+            <auth-logout></auth-logout>
         </v-main>
     </div>
 </template>
