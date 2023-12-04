@@ -59,12 +59,10 @@ class User extends Authenticatable
             $user->status = 'For Placement';
 
             $user->metadata = [
-                'phone_number' => '',
-                'age' => '',
-                'address' => '',
-                'company' => '',
-                'source' => '',
-                'social_media' => '',
+                'Mobile Phone' => '',
+                'Age' => '',
+                'Home Address' => '',
+                'Company' => '',
             ];
 
             $user->save();

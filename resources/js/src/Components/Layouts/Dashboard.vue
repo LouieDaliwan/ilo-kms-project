@@ -20,6 +20,8 @@
                 </template>
             </v-slide-y-reverse-transition>
         </router-view>
+
+        <auth-logout></auth-logout>
     </v-app>
 </template>
 

@@ -1,10 +1,9 @@
 <script setup>
 import { useDisplay } from "vuetify";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
 
 const { mdAndUp } = useDisplay();
-
 const sidebar = useSidebarStore();
 
 const sideBarToggle = () => {
@@ -14,6 +13,10 @@ const sideBarToggle = () => {
 
     sidebar.toggle({ model: sidebar.sideBarData.model });
 };
+
+const showMenu = computed(() => {
+    return this.$route.name === "dashboard";
+});
 
 const appbar = ref({
     model: true,
@@ -31,20 +34,10 @@ const appbar = ref({
         app
         scroll-threshold="30"
     >
-        <v-badge
-            bottom
-            class="dt-badge"
-            color="white"
-            offset-x="20"
-            offset-y="20"
-            tile
-            transition="fade-transition"
-        >
-            <v-app-bar-nav-icon
-                color="muted"
-                @click="sideBarToggle()"
-            ></v-app-bar-nav-icon>
-        </v-badge>
+        <v-app-bar-nav-icon
+            color="muted"
+            @click="sideBarToggle()"
+        ></v-app-bar-nav-icon>
 
         <v-spacer></v-spacer>
 

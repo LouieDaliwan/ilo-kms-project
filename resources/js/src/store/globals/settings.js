@@ -1,33 +1,21 @@
-export const state = () => ({
-    settings: {
-        fields: {
-            isDense: false,
+import { defineStore } from "pinia";
+
+export const useSettingsStore = defineStore("settings", {
+    state: () => ({
+        settingsData: {
+            fields: {
+                isDense: false,
+            },
+        },
+    }),
+    actions: {
+        set(payload) {
+            this.settings = window._.merge({}, this.settings, payload);
         },
     },
+    getters: {
+        settings: (state) => state.settingsData,
+        fields: (state) => state.settings.fields,
+        fieldIsDense: (state) => state.settings.fields.isDense,
+    },
 });
-
-export const getters = {
-    settings: (state) => state.settings,
-    fields: (state) => state.settings.fields,
-    fieldIsDense: (state) => state.settings.fields.isDense,
-};
-
-export const mutations = {
-    SET_SETTINGS(state, payload) {
-        state.settings = window._.merge({}, state.settings, payload);
-    },
-};
-
-export const actions = {
-    set: ({ commit }, payload) => {
-        commit("SET_SETTINGS", payload);
-    },
-};
-
-export default {
-    namespaced: true,
-    state,
-    getters,
-    mutations,
-    actions,
-};

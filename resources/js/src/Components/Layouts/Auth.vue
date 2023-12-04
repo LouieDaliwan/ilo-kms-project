@@ -18,6 +18,7 @@
             </router-view>
         </v-main>
         <!-- Main Content -->
+        <auth-logout></auth-logout>
     </v-app>
 </template>
 
