@@ -9,7 +9,7 @@ export const userSchema = yup.object({
     avatar: yup.object().label("Avatar"),
     backgroundDetails: yup.array().label("Background Details"),
     username: yup.string().required().label("Username"),
-    mobile: yup
+    mobile_phone: yup
         .string()
         .required()
         .matches(/^[0-9]+$/, "Must be only digits")

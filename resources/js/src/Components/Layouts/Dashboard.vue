@@ -28,6 +28,6 @@ export default {
         </router-view>
 
         <auth-logout></auth-logout>
-        <dialog-box></dialog-box>
+        <!--        <dialog-box></dialog-box>-->
     </v-app>
 </template>

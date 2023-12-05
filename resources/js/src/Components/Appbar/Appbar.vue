@@ -44,7 +44,7 @@ const appbar = ref({
         <user-is-logged-in>
             <v-menu
                 v-if="$route.name === 'dashboard'"
-                class="justify-end d-flex"
+                class="justify-end d-flex ml-6"
                 min-width="200px"
                 transition="slide-y-transition"
             >
@@ -56,12 +56,12 @@ const appbar = ref({
                                 v-bind="{ ...tooltip, ...props }"
                             >
                                 <div
-                                    class="d-flex justify-space-between align-center"
+                                    class="d-flex justify-space-between align-center ml-10"
                                 >
                                     <v-avatar color="brown" size="large">
                                         <span class="text-h5">Lou</span>
                                     </v-avatar>
-                                    <div class="d-none d-md-block">
+                                    <div class="d-none d-md-block ml-5">
                                         <p
                                             class="body-1 mb-0 text--truncate"
                                             v-text="'test'"
