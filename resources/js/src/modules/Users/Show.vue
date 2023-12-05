@@ -437,11 +437,7 @@ export default {
                             <v-row align="center">
                                 <v-col cols="12">
                                     <v-text-field
-                                        v-model="
-                                            resource.data.metadata[
-                                                'Phone_Number'
-                                            ].value
-                                        "
+                                        v-model="resource.data.mobile_number"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
@@ -456,11 +452,7 @@ export default {
                             <v-row>
                                 <v-col cols="12">
                                     <v-text-field
-                                        v-model="
-                                            resource.data.details[
-                                                'Home Address'
-                                            ].value
-                                        "
+                                        v-model="resource.data.home_address"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
@@ -483,31 +475,31 @@ export default {
                         :xlAndUp="xlAndUp"
                     ></account-details>
 
-                    <v-card>
-                        <v-card-title class="pb-0">
-                            Additional Background Details
-                        </v-card-title>
-                        <v-card-text>
-                            <!--                            :disabled="true"-->
-                            <repeater
-                                v-model="resource.data.details.others"
-                                :background-details="backgroundDetails"
-                                :dense="settings.fieldIsDense"
-                            ></repeater>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card>-->
+                    <!--                        <v-card-title class="pb-0">-->
+                    <!--                            Additional Background Details-->
+                    <!--                        </v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                                                        :disabled="true"-->
+                    <!--                            <repeater-->
+                    <!--                                v-model="resource.data.details.others"-->
+                    <!--                                :background-details="backgroundDetails"-->
+                    <!--                                :dense="settings.fieldIsDense"-->
+                    <!--                            ></repeater>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-card class="mb-3">
-                        <v-card-title class="pb-0">Photo</v-card-title>
-                        <v-card-text>
-                            <upload-avatar
-                                v-model="resource.data.avatar"
-                                name="photo"
-                            >
-                            </upload-avatar>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card class="mb-3">-->
+                    <!--                        <v-card-title class="pb-0">Photo</v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                            <upload-avatar-->
+                    <!--                                v-model="resource.data.avatar"-->
+                    <!--                                name="photo"-->
+                    <!--                            >-->
+                    <!--                            </upload-avatar>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
 
                     <!--                  :disabled="isLoading"-->
                     <role-picker
