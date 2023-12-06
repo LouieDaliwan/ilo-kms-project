@@ -44,7 +44,7 @@ const appbar = ref({
         <user-is-logged-in>
             <v-menu
                 v-if="$route.name === 'dashboard'"
-                class="justify-end d-flex ml-6"
+                class="d-flex justify-end ml-10"
                 min-width="200px"
                 transition="slide-y-transition"
             >
@@ -58,7 +58,7 @@ const appbar = ref({
                                 <div
                                     class="d-flex justify-space-between align-center ml-10"
                                 >
-                                    <v-avatar color="brown" size="large">
+                                    <v-avatar color="brown" size="default">
                                         <span class="text-h5">Lou</span>
                                     </v-avatar>
                                     <div class="d-none d-md-block ml-5">

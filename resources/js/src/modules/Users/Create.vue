@@ -153,13 +153,13 @@ export default {
             return this.mdAndUp;
         },
         isInvalid() {
-            return this.resource.isPrestine || this.resource.loading;
+            return this.isPrestine || this.resource.loading;
         },
         isLoading() {
             return this.resource.loading;
         },
         isFormDisabled() {
-            return this.isInvalid || this.resource.isPrestine;
+            return this.isInvalid || this.isPrestine;
         },
         isNotFormDisabled() {
             return !this.isFormDisabled;

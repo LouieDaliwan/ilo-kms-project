@@ -19,7 +19,7 @@ export default {
 
     setup() {
         const resource = ref(new User());
-
+        const isPrestine = ref(false);
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
         const { mdAndUp, xlAndUp } = useDisplay();
@@ -27,10 +27,15 @@ export default {
         const successBox = useSuccessBoxStore();
         const settings = useSettingsStore();
 
-        const { defineComponentBinds, handleSubmit, resetForm, setErrors } =
-            useForm({
-                validationSchema: userSchema,
-            });
+        const {
+            defineComponentBinds,
+            handleSubmit,
+            resetForm,
+            setValues,
+            setErrors,
+        } = useForm({
+            validationSchema: userSchema,
+        });
 
         const vuetifyConfig = (state) => ({
             props: {
@@ -43,11 +48,11 @@ export default {
         const lastname = defineComponentBinds("lastname", vuetifyConfig);
         const email = defineComponentBinds("email", vuetifyConfig);
         const password = defineComponentBinds("password", vuetifyConfig);
-        const suffix = defineComponentBinds("suffix", vuetifyConfig);
-        const prefix = defineComponentBinds("prefix", vuetifyConfig);
-        const mobile = defineComponentBinds("mobile", vuetifyConfig);
+        const suffix = defineComponentBinds("suffixname", vuetifyConfig);
+        const prefix = defineComponentBinds("prefixname", vuetifyConfig);
+        const mobile = defineComponentBinds("mobile_number", vuetifyConfig);
         const username = defineComponentBinds("username", vuetifyConfig);
-        const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
+        const homeAddress = defineComponentBinds("home_address", vuetifyConfig);
         const roleValidation = defineComponentBinds("roles", vuetifyConfig);
         const confirm_password = defineComponentBinds(
             "confirm_password",
@@ -59,8 +64,10 @@ export default {
         );
 
         const onSubmit = handleSubmit((values) => {
+            isPrestine.value = false;
+
             axios
-                .post($api.update(), resource.value, {
+                .post($api.update(), parseResourceData(values), {
                     headers: { "Content-Type": "multipart/form-data" },
                 })
                 .then((response) => {
@@ -74,6 +81,21 @@ export default {
                     // this.load(false);
                 });
         });
+
+        const parseResourceData = (values) => {
+            let data = new FormData();
+            data.append("_method", "PUT");
+            data.append("firstname", values.firstname);
+            data.append("middlename", values.middlename);
+            data.append("lastname", values.lastname);
+            data.append("email", values.email);
+            data.append("suffixname", values.suffixname);
+            data.append("prefixname", values.prefixname);
+            data.append("mobile_number", values.mobile_number);
+            data.append("username", values.username);
+            data.append("home_address", values.home_address);
+            return data;
+        };
 
         return {
             snackbar,
@@ -98,19 +120,23 @@ export default {
             mobile,
             onSubmit,
             roleValidation,
+            isPrestine,
             settings,
+            setValues,
         };
     },
 
-    // beforeRouteLeave(to, from, next) {
-    //     if (this.isFormPrestine) {
-    //         next();
-    //         console.log("test");
-    //     } else {
-    //         console.log("test2");
-    //         this.askUserBeforeNavigatingAway(next);
-    //     }
-    // },
+    beforeRouteLeave(to, from, next) {
+        console.log(this.isPrestine);
+        // if (this.isFormPrestine) {
+        //     next();
+        //     console.log("test");
+        // } else {
+        //     console.log("test2");
+        //     this.askUserBeforeNavigatingAway(next);
+        // }
+        next();
+    },
 
     computed: {
         isDesktop() {
@@ -149,10 +175,8 @@ export default {
                 .get($api.show(id))
                 .then(({ data }) => {
                     this.resource.data = data.data;
+                    this.setValues(data.data);
                     this.resource.loading = false;
-
-                    console.log(data);
-                    console.log(this.resource);
                 })
                 .catch((err) => {
                     this.resource.loading = false;
@@ -287,20 +311,20 @@ export default {
 </script>
 <template>
     <admin>
-        <metatag :title="'Add User'"></metatag>
+        <metatag :title="'Show User'"></metatag>
         <template v-slot:appbar>
             <v-container class="py-0 px-0">
                 <v-row align="center" justify="space-between">
                     <v-fade-transition>
-                        <v-col
-                            v-if="isNotFormPrestine"
-                            class="py-0"
-                            cols="auto"
-                        >
-                            <v-toolbar-title class="muted--text">
-                                Unsaved changes
-                            </v-toolbar-title>
-                        </v-col>
+                        <!--                        <v-col-->
+                        <!--                            v-if="isNotFormPrestine"-->
+                        <!--                            class="py-0"-->
+                        <!--                            cols="auto"-->
+                        <!--                        >-->
+                        <!--                            <v-toolbar-title class="muted&#45;&#45;text">-->
+                        <!--                                Unsaved changes-->
+                        <!--                            </v-toolbar-title>-->
+                        <!--                        </v-col>-->
                     </v-fade-transition>
                     <v-spacer></v-spacer>
                     <v-col class="py-0" cols="auto">
@@ -355,7 +379,7 @@ export default {
         >
             <button ref="submit-button" class="d-none" type="submit"></button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
-                <template v-slot:title>Users List</template>
+                <template v-slot:title>User Information</template>
             </page-header>
 
             <alert-box></alert-box>

@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use Domain\Users\Actions\UserCreateActions;
 use Domain\Users\Actions\UserFindActions;
 use Domain\Users\Actions\UsersListActions;
+use Domain\Users\Actions\UserUpdateActions;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,7 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
+        return new UserResource((new UserUpdateActions)($id, $request->get('data')));
     }
 
     public function destroy($id)
