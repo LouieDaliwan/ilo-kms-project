@@ -1,5 +1,4 @@
 import "./bootstrap";
-import "./override";
 
 import { createApp } from "vue/dist/vue.esm-bundler";
 

@@ -29,7 +29,7 @@ export default createVuetify({
                 // dark: false,
                 colors: {
                     "primary": "#1E2DBE",
-                    "secondary": "#FA3C4B",
+                    "secondary": "#1E2DBE",
                     "accent": "#05D2D2",
                     "success": "#86d067",
                     "info": "#00b8d6",

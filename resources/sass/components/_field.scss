@@ -63,10 +63,6 @@
 
 .login-pass {
 
-    // .v-input__control {
-    //     width: 24.719rem;
-    // }
-
     .v-input__append {
         margin-inline-start: -2.4rem !important;
     }
@@ -100,6 +96,10 @@
     .v-input__append {
         margin-inline-start: -2.4rem !important;
     }
+
+    .v-field__clearable {
+        margin-inline-end: 27px;
+    }
 }
 
 .v-field--focused:focus-within {
@@ -116,14 +116,7 @@
  color: white;
 }
 
-
-// v-field v-field--appended v-field--center-affix v-field--error v-field--variant-filled v-theme--light v-locale--is-ltr
 .v-field--error {
     border: 2px solid #F44336;
     caret-color: red;
 }
-
-// .v-field--variant-filled.v-field--focused .v-field__overlay {
-//     border: 1px solid blue;
-// }
-
