@@ -72,17 +72,6 @@ const onSubmit = handleSubmit((values) => {
     });
 });
 
-// v-field--variant-filled
-// document.addEventListener("DOMContentLoaded", function() {
-
-    // document.getElementById("MyID").className =
-    //   document.getElementById("MyID").className
-    //     .replace(new RegExp('(?:^|\\s)'+ 'v-field--variant-filled' + '(?:\\s|$)'), ' ');
-    // document.getElementById("MyID").classList.remove("v-field--variant-filled");
-
-// });
-
-
 
 </script>
 
@@ -113,7 +102,7 @@ const onSubmit = handleSubmit((values) => {
         ></v-text-field>
 
       <!-- Forgot Password -->
-      <a href="javascript:void(0)">
+      <a class="text-decoration-none" href="javascript:void(0)">
         <div class="text-end my-4 mb-3">
           I forgot my password
         </div>

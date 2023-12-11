@@ -29,11 +29,11 @@ export default {
                             <div class="mb-2">
                                 <router-link
                                     :to="$route.query.from"
-                                    class="text--decoration-none body-1 dt-link"
+                                    class="text--decoration-none body-1 dt-link text-secondary"
                                     exact
                                     tag="a"
                                 >
-                                    <v-icon class="mb-1" small
+                                    <v-icon class="mb-1 text-secondary" small
                                         >mdi mdi-chevron-left
                                     </v-icon>
                                     <span v-text="'Back'"></span>
@@ -44,11 +44,11 @@ export default {
                             <div v-if="back" class="mb-2">
                                 <router-link
                                     :to="back.to"
-                                    class="text--decoration-none body-1 dt-link"
+                                    class="text--decoration-none body-1 dt-link text-secondary"
                                     exact
                                     tag="a"
                                 >
-                                    <v-icon class="mb-1" small
+                                    <v-icon class="mb-1 text-secondary" small
                                         >mdi mdi-chevron-left
                                     </v-icon>
                                     <span v-text="back.text"></span>
@@ -60,7 +60,7 @@ export default {
                     <h2
                         :class="smAndUp ? '' : 'title font-weight-bold'"
                         :title="page.title"
-                        class="mb-1"
+                        class="mb-1 text-secondary"
                     >
                         <slot name="title">
                             {{ page.title }}

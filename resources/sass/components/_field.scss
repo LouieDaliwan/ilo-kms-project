@@ -57,18 +57,14 @@
     // }
 
     .v-field--variant-filled .v-field__overlay {
-        background-color: transparent !important;
+        background-color: transparent;
     }
   }
 
 .login-pass {
 
-    .v-input__control {
-        width: 24.719rem;
-    }
-
     .v-input__append {
-        margin-right: 0.7rem;
+        margin-inline-start: -2.4rem !important;
     }
 
     .v-field__clearable {
@@ -88,23 +84,39 @@
 .login-email {
     .v-field__outline {
         border: 1px solid #D2DDEC;
+
     }
 }
-// .v-field--focused:focus {
-//     border: 2px solid #1E2DBE !important;
-//     border-bottom-color: unset !important;
 
-// }
+.change-pass {
+    .v-field__outline {
+        border: 1px solid #D2DDEC;
 
-// .v-field--variant-filled {
-//     color: #1E2DBE;
-// }
+    }
+    .v-input__append {
+        margin-inline-start: -2.4rem !important;
+    }
 
-// v-field v-field--appended v-field--center-affix v-field--error v-field--variant-filled v-theme--light v-locale--is-ltr
-.v-field--error {
-    border: 2px solid #F44336;
+    .v-field__clearable {
+        margin-inline-end: 27px;
+    }
 }
 
-.v-field__loader {
-    display: none !important;
+.v-field--focused:focus-within {
+    border: 2px solid #1E2DBE;
+    caret-color: #1E2DBE;
+}
+
+.v-field--variant-filled .v-field__outline::before, .v-field--variant-filled .v-field__outline::before, .v-field--variant-underlined .v-field__outline::before {
+ color: white;
+ caret-color: red;
+}
+
+.v-field--variant-filled .v-field__outline::after, .v-field--variant-filled .v-field__outline::after, .v-field--variant-underlined .v-field__outline::after {
+ color: white;
+}
+
+.v-field--error {
+    border: 2px solid #F44336;
+    caret-color: red;
 }

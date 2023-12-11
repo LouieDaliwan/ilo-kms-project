@@ -229,7 +229,7 @@ export default {
         enctype="multipart/form-data"
         @submit.prevent="onSubmit"
     >
-        <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
+        <page-header :back="{ to: { name: 'users.all' }, text: 'Users', }">
             <template v-slot:title>My Profile</template>
         </page-header>
 
