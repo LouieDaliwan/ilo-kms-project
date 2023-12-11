@@ -38,6 +38,7 @@ class UpdateInformationRequest extends FormRequest
                 'max:255',
                 Rule::unique('users')->ignore(auth()->user()->id),
             ],
+            'roles' => ['string', 'max:255'],
         ];
     }
 }

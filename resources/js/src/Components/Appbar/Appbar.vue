@@ -22,17 +22,16 @@ const appbar = ref({
     model: true,
 });
 </script>
-
+2
 <template>
     <v-app-bar
         v-if="appbar.model"
         :elevation="2"
-        :flat="true"
-        :height="mdAndUp ? 83 : 64"
+        :height="mdAndUp ? 83 : null"
         :model-value="appbar.model"
-        :scroll-behavior="'hide'"
         app
-        scroll-threshold="30"
+        scroll-behavior="hide"
+        scroll-threshold="10"
     >
         <v-app-bar-nav-icon
             color="muted"

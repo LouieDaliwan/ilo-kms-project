@@ -118,7 +118,6 @@ export default {
             xlAndUp,
             alertBox,
             successBox,
-            handleSubmit,
             resetForm,
             firstname,
             username,
@@ -173,43 +172,6 @@ export default {
     },
 
     methods: {
-        parseResourceData(item) {
-            let data = _.clone(item);
-
-            let formData = new FormData(this.$refs["addform-form"].$el);
-
-            data.details = Object.assign(
-                {},
-                data.details,
-                data.details.others || {},
-            );
-            delete data.details.others;
-
-            formData.append("username", data.username);
-            formData.append("email", data.email);
-
-            for (let i in data.details) {
-                let c = data.details[i],
-                    key = c.key,
-                    icon = c.icon,
-                    value =
-                        c.value === undefined ||
-                        c.value === "undefined" ||
-                        c.value === "null" ||
-                        c.value == null
-                            ? ""
-                            : c.value;
-
-                formData.append(`details[${c.key}][key]`, key);
-                formData.append(`details[${c.key}][icon]`, icon);
-                formData.append(`details[${c.key}][value]`, value);
-            }
-
-            data = formData;
-
-            return data;
-        },
-
         submitForm() {
             if (this.isNotFormDisabled) {
                 this.$refs["submit-button"].click();
@@ -219,13 +181,6 @@ export default {
                     behavior: "smooth",
                 });
             }
-        },
-
-        submit(e) {
-            this.load();
-            e.preventDefault();
-            this.alertBox.hide();
-            this.load(false);
         },
 
         askUserBeforeNavigatingAway(next) {

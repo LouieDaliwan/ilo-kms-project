@@ -23,10 +23,10 @@ class UserResource extends JsonResource
             'displayname' => $this->fullname,
             'email' => $this->email,
             'details' => $this->metadata,
-            'mobile_number' => $this->metadata['Mobile Phone']['value'],
-            'home_address' => $this->metadata['Home Address']['value'],
+            'mobile_number' => $this->metadata['Mobile Phone']['value'] ?? null,
+            'home_address' => $this->metadata['Home Address']['value'] ??  null,
             'isTemporaryPassword' => $this->is_temporary_password,
-            'roles' => $this->roles->pluck('name'),
+            'roles' => $this->roles->pluck('name')->toArray()[0] ?? null,
             'username' => $this->username,
             'avatar' => $this->avatar
         ]))->toArray();

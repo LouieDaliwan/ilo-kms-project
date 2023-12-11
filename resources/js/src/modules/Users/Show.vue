@@ -64,6 +64,7 @@ export default {
         );
 
         const onSubmit = handleSubmit((values) => {
+            console.log(values);
             isPrestine.value = false;
 
             axios
@@ -71,7 +72,7 @@ export default {
                     headers: { "Content-Type": "multipart/form-data" },
                 })
                 .then((response) => {
-                    this.resource.isPrestine = true;
+                    isPrestine.value = true;
                 })
                 .catch((err) => {
                     setErrors(err.response.data.errors);
@@ -143,7 +144,7 @@ export default {
             return this.mdAndUp;
         },
         isInvalid() {
-            return this.resource.isPrestine || this.resource.loading;
+            return this.isPrestine || this.resource.loading;
         },
         isLoading() {
             return this.resource.loading;
@@ -187,59 +188,16 @@ export default {
                 });
         },
 
-        parseResourceData(item) {
-            let data = _.clone(item);
-
-            let formData = new FormData(this.$refs["editform-form"].$el);
-
-            data.details = Object.assign(
-                {},
-                data.details,
-                data.details.others || {},
-            );
-            delete data.details.others;
-
-            formData.append("username", data.username);
-            formData.append("email", data.email);
-
-            for (let i in data.details) {
-                let c = data.details[i],
-                    key = c.key,
-                    icon = c.icon,
-                    value =
-                        c.value === undefined ||
-                        c.value === "undefined" ||
-                        c.value === "null" ||
-                        c.value == null
-                            ? ""
-                            : c.value;
-
-                formData.append(`details[${c.key}][key]`, key);
-                formData.append(`details[${c.key}][icon]`, icon);
-                formData.append(`details[${c.key}][value]`, value);
-            }
-
-            data = formData;
-
-            return data;
-        },
-
         submitForm() {
             if (this.isNotFormDisabled) {
-                this.$refs["submit-button"].click();
+                console.log(this.$refs["edit-submit-button"].click());
+                this.$refs["edit-submit-button"].click();
                 window.scrollTo({
                     top: 0,
                     left: 0,
                     behavior: "smooth",
                 });
             }
-        },
-
-        submit(e) {
-            this.load();
-            e.preventDefault();
-            this.alertBox.hide();
-            this.load(false);
         },
 
         askUserBeforeNavigatingAway(next) {
@@ -313,7 +271,7 @@ export default {
     <admin>
         <metatag :title="'Show User'"></metatag>
         <template v-slot:appbar>
-            <v-container class="py-0 px-0">
+            <v-container class="py-0 px-0 mr-10">
                 <v-row align="center" justify="space-between">
                     <v-fade-transition>
                         <!--                        <v-col-->
@@ -337,33 +295,19 @@ export default {
                                 @click="askUserToDiscardUnsavedChanges"
                                 >Discard
                             </v-btn>
-                            <v-badge
-                                bordered
-                                bottom
-                                class="dt-badge"
-                                color="dark"
-                                content="s"
-                                offset-x="20"
-                                offset-y="20"
-                                tile
-                                transition="fade-transition"
+                            <v-btn
+                                ref="submit-button-main"
+                                :disabled="isFormDisabled"
+                                :loading="isLoading"
+                                class="ml-3 mr-0"
+                                color="primary"
+                                large
+                                type="submit"
+                                @click.prevent="submitForm"
                             >
-                                <v-btn
-                                    ref="submit-button-main"
-                                    :disabled="isFormDisabled"
-                                    :loading="isLoading"
-                                    class="ml-3 mr-0"
-                                    color="primary"
-                                    large
-                                    type="submit"
-                                    @click.prevent="submitForm"
-                                >
-                                    <v-icon left
-                                        >mdi-content-save-outline
-                                    </v-icon>
-                                    Save
-                                </v-btn>
-                            </v-badge>
+                                <v-icon left>mdi-content-save-outline</v-icon>
+                                Save
+                            </v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -377,7 +321,11 @@ export default {
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
         >
-            <button ref="submit-button" class="d-none" type="submit"></button>
+            <button
+                ref="edit-submit-button"
+                class="d-none"
+                type="submit"
+            ></button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
                 <template v-slot:title>User Information</template>
             </page-header>
@@ -391,7 +339,6 @@ export default {
                         <v-card-text>
                             <v-row justify="space-between">
                                 <v-col cols="6" md="2">
-                                    <!--                                    append-icon="mdi-chevron-down"-->
                                     <v-select
                                         v-model="resource.data.prefixname"
                                         :disabled="isLoading"

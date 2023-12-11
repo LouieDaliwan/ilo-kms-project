@@ -7,7 +7,7 @@ export const userSchema = yup.object({
     suffixname: yup.string().label("Suffix"),
     prefixname: yup.string().label("Prefix"),
     avatar: yup.object().label("Avatar"),
-    backgroundDetails: yup.array().label("Background Details"),
+    backgroundDetails: yup.array().nullable().label("Background Details"),
     username: yup.string().required().label("Username"),
     mobile_number: yup
         .string()
@@ -17,11 +17,11 @@ export const userSchema = yup.object({
         .max(11)
         .label("Mobile Number"),
     home_address: yup.string().required().label("Home Address"),
-    password: yup.string().min(6).required().label("Password"),
+    password: yup.string().min(6).nullable().label("Password"),
     roles: yup.string().required().max(10).label("Roles"),
     confirm_password: yup
         .string()
-        .required()
+        .nullable()
         .oneOf([yup.ref("password")], "Password do not match")
         .label("Confirm Password"),
 });
