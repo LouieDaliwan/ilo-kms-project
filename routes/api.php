@@ -6,6 +6,7 @@ use App\Http\Controllers\Users\UsersController;
 use App\Http\Resources\AuthResources;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Role;
 
 Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], function () {
     Route::get('/auth-check', fn () => auth()->check() ?
@@ -25,5 +26,9 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
 
     Route::prefix('v1')->group(function () {
         Route::resource('users', UsersController::class);
+    });
+
+    Route::get('/roles', function() {
+        return Role::get(['id', 'name']);
     });
 });

@@ -38,12 +38,13 @@ export default {
     },
     methods: {
         setTimers: function () {
-            this.warningTimer = setTimeout(this.warningMessage, 4 * 1000); // 14 minutes - 14 * 60 * 1000
-            this.logoutTimer = setTimeout(this.logoutUser, 15 * 1000); // 15 minutes - 15 * 60 * 1000
+            this.warningTimer = setTimeout(this.warningMessage, 7140000); // 14 minutes - 14 * 60 * 1000
+            this.logoutTimer = setTimeout(this.logoutUser, 2 * 60 * 60 * 1000); // 2hrs
             this.warningZone = false;
         },
         warningMessage: function () {
-            this.warningZone = true;
+            // this.warningZone = true;
+            window.alert("You will be logged out automatically in 1 minute");
         },
         logoutUser: function () {
             // Laravel

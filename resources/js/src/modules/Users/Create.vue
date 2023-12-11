@@ -20,7 +20,7 @@ export default {
 
     setup() {
         const resource = ref(new User());
-
+        const isPrestine = ref(false);
         const router = useRouter();
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
@@ -47,7 +47,7 @@ export default {
         const password = defineComponentBinds("password", vuetifyConfig);
         const suffix = defineComponentBinds("suffix", vuetifyConfig);
         const prefix = defineComponentBinds("prefix", vuetifyConfig);
-        const mobile = defineComponentBinds("mobile", vuetifyConfig);
+        const mobile = defineComponentBinds("mobile_phone", vuetifyConfig);
         const username = defineComponentBinds("username", vuetifyConfig);
         const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
         const roleValidation = defineComponentBinds("roles", vuetifyConfig);
@@ -66,7 +66,7 @@ export default {
                     headers: { "Content-Type": "multipart/form-data" },
                 })
                 .then(({ data }) => {
-                    this.resource.isPrestine = true;
+                    isPrestine.value = true;
 
                     // this.snackbar.show({
                     //     text: "User created successfully",
@@ -75,7 +75,7 @@ export default {
                     router.push({
                         name: "users.show",
                         params: {
-                            id: data.data.id,
+                            id: data.id,
                         },
                         query: {
                             success: true,
@@ -118,7 +118,6 @@ export default {
             xlAndUp,
             alertBox,
             successBox,
-            handleSubmit,
             resetForm,
             firstname,
             username,
@@ -134,29 +133,32 @@ export default {
             mobile,
             onSubmit,
             roleValidation,
+            isPrestine,
             // settings,
         };
     },
 
     beforeRouteLeave(to, from, next) {
-        if (this.isFormPrestine) {
-            next();
-        } else {
-            this.askUserBeforeNavigatingAway(next);
-        }
+        console.log(this.isPrestine.value);
+        // if (resource.isPrestine) {
+        //     next();
+        // } else {
+        //     this.askUserBeforeNavigatingAway(next);
+        // }
+        next();
     },
     computed: {
         isDesktop() {
             return this.mdAndUp;
         },
         isInvalid() {
-            return this.resource.isPrestine || this.resource.loading;
+            return this.isPrestine || this.resource.loading;
         },
         isLoading() {
             return this.resource.loading;
         },
         isFormDisabled() {
-            return this.isInvalid || this.resource.isPrestine;
+            return this.isInvalid || this.isPrestine;
         },
         isNotFormDisabled() {
             return !this.isFormDisabled;
@@ -170,43 +172,6 @@ export default {
     },
 
     methods: {
-        parseResourceData(item) {
-            let data = _.clone(item);
-
-            let formData = new FormData(this.$refs["addform-form"].$el);
-
-            data.details = Object.assign(
-                {},
-                data.details,
-                data.details.others || {},
-            );
-            delete data.details.others;
-
-            formData.append("username", data.username);
-            formData.append("email", data.email);
-
-            for (let i in data.details) {
-                let c = data.details[i],
-                    key = c.key,
-                    icon = c.icon,
-                    value =
-                        c.value === undefined ||
-                        c.value === "undefined" ||
-                        c.value === "null" ||
-                        c.value == null
-                            ? ""
-                            : c.value;
-
-                formData.append(`details[${c.key}][key]`, key);
-                formData.append(`details[${c.key}][icon]`, icon);
-                formData.append(`details[${c.key}][value]`, value);
-            }
-
-            data = formData;
-
-            return data;
-        },
-
         submitForm() {
             if (this.isNotFormDisabled) {
                 this.$refs["submit-button"].click();
@@ -216,13 +181,6 @@ export default {
                     behavior: "smooth",
                 });
             }
-        },
-
-        submit(e) {
-            this.load();
-            e.preventDefault();
-            this.alertBox.hide();
-            this.load(false);
         },
 
         askUserBeforeNavigatingAway(next) {
@@ -312,7 +270,7 @@ export default {
                     </v-fade-transition>
                     <v-spacer></v-spacer>
                     <v-col class="py-0" cols="auto">
-                        <div class="d-flex justify-end">
+                        <div class="d-flex justify-end mr-6">
                             <v-spacer></v-spacer>
                             <v-btn
                                 class="ml-3 mr-0"
@@ -321,33 +279,20 @@ export default {
                                 @click="askUserToDiscardUnsavedChanges"
                                 >Discard
                             </v-btn>
-                            <v-badge
-                                bordered
-                                bottom
-                                class="dt-badge"
-                                color="dark"
-                                content="s"
-                                offset-x="20"
-                                offset-y="20"
-                                tile
-                                transition="fade-transition"
+
+                            <v-btn
+                                ref="submit-button-main"
+                                :disabled="isFormDisabled"
+                                :loading="isLoading"
+                                class="ml-3 mr-0"
+                                color="primary"
+                                large
+                                type="submit"
+                                @click.prevent="submitForm"
                             >
-                                <v-btn
-                                    ref="submit-button-main"
-                                    :disabled="isFormDisabled"
-                                    :loading="isLoading"
-                                    class="ml-3 mr-0"
-                                    color="primary"
-                                    large
-                                    type="submit"
-                                    @click.prevent="submitForm"
-                                >
-                                    <v-icon left
-                                        >mdi-content-save-outline
-                                    </v-icon>
-                                    Save
-                                </v-btn>
-                            </v-badge>
+                                <v-icon left>mdi-content-save-outline</v-icon>
+                                Save
+                            </v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -447,11 +392,7 @@ export default {
                                 <v-col cols="12">
                                     <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
-                                        v-model="
-                                            resource.data.details[
-                                                'Mobile Phone'
-                                            ].value
-                                        "
+                                        v-model="resource.data.mobile_phone"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         dense
@@ -464,13 +405,9 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12">
-                                    <!--                                        :dense="settings.fieldIsDense"-->
+                                    <!--                                  :dense="settings.fieldIsDense"-->
                                     <v-text-field
-                                        v-model="
-                                            resource.data.details[
-                                                'Home Address'
-                                            ].value
-                                        "
+                                        v-model="resource.data.home_address"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         cols="12"
@@ -492,31 +429,31 @@ export default {
                         :xlAndUp="xlAndUp"
                     ></account-details>
 
-                    <v-card>
-                        <v-card-title class="pb-0">
-                            Additional Background Details
-                        </v-card-title>
-                        <v-card-text>
-                            <!--                            :disabled="true"-->
-                            <!--                                :dense="settings.fieldIsDense"-->
-                            <repeater
-                                v-model="resource.data.details.others"
-                                :background-details="backgroundDetails"
-                            ></repeater>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card>-->
+                    <!--                        <v-card-title class="pb-0">-->
+                    <!--                            Additional Background Details-->
+                    <!--                        </v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                            &lt;!&ndash;                          :dense="settings.fieldIsDense"&ndash;&gt;-->
+                    <!--                            <repeater-->
+                    <!--                                v-model="resource.data.details.others"-->
+                    <!--                                :background-details="backgroundDetails"-->
+                    <!--                                :disabled="true"-->
+                    <!--                            ></repeater>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-card class="mb-3">
-                        <v-card-title class="pb-0">Photo</v-card-title>
-                        <v-card-text>
-                            <upload-avatar
-                                v-model="resource.data.avatar"
-                                name="photo"
-                            >
-                            </upload-avatar>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card class="mb-3">-->
+                    <!--                        <v-card-title class="pb-0">Photo</v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                            <upload-avatar-->
+                    <!--                                v-model="resource.data.avatar"-->
+                    <!--                                name="photo"-->
+                    <!--                            >-->
+                    <!--                            </upload-avatar>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
 
                     <!--                  :disabled="isLoading"-->
                     <!--                        :dense="settings.fieldIsDense"-->

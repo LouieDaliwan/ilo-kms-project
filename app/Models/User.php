@@ -51,24 +51,7 @@ class User extends Authenticatable
         'metadata' => 'array',
         'is_temporary_password' => 'boolean',
     ];
-
-    protected static function booted(): void
-    {
-        static::created(function (User $user) {
-
-            $user->status = 'For Placement';
-
-            $user->metadata = [
-                'Mobile Phone' => '',
-                'Age' => '',
-                'Home Address' => '',
-                'Company' => '',
-            ];
-
-            $user->save();
-        });
-    }
-
+    
     public function saveRemarks(User $author, string $remarks)
     {
         return $this->remarks()->create([

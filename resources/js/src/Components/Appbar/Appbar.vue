@@ -22,17 +22,16 @@ const appbar = ref({
     model: true,
 });
 </script>
-
+2
 <template>
     <v-app-bar
         v-if="appbar.model"
         :elevation="2"
-        :flat="true"
-        :height="mdAndUp ? 83 : 64"
+        :height="mdAndUp ? 83 : null"
         :model-value="appbar.model"
-        :scroll-behavior="'hide'"
         app
-        scroll-threshold="30"
+        scroll-behavior="hide"
+        scroll-threshold="10"
     >
         <v-app-bar-nav-icon
             color="muted"
@@ -44,7 +43,7 @@ const appbar = ref({
         <user-is-logged-in>
             <v-menu
                 v-if="$route.name === 'dashboard'"
-                class="justify-end d-flex"
+                class="d-flex justify-end ml-10"
                 min-width="200px"
                 transition="slide-y-transition"
             >
@@ -56,12 +55,12 @@ const appbar = ref({
                                 v-bind="{ ...tooltip, ...props }"
                             >
                                 <div
-                                    class="d-flex justify-space-between align-center"
+                                    class="d-flex justify-space-between align-center ml-10"
                                 >
-                                    <v-avatar class="mr-3" size="32"
-                                        ><img :src="''" width="40px"
-                                    /></v-avatar>
-                                    <div class="d-none d-md-block">
+                                    <v-avatar color="brown" size="default">
+                                        <span class="text-h5">Lou</span>
+                                    </v-avatar>
+                                    <div class="d-none d-md-block ml-5">
                                         <p
                                             class="body-1 mb-0 text--truncate"
                                             v-text="'test'"

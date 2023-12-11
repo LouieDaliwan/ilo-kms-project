@@ -9,6 +9,9 @@ class UserCreateActions
 {
     public function __invoke($attributes)
     {
+       $attributes['details']['Mobile Phone']['value'] = $attributes['mobile_phone'] ?? null;
+       $attributes['details']['Home Address']['value'] = $attributes['home_address'] ?? null;
+       
         try {
             $user = User::firstOrCreate([
                 'first_name' => $attributes['firstname'],
