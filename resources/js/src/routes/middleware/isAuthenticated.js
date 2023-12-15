@@ -11,26 +11,43 @@ export default function isAuthenticated(to, from, next) {
                 if (isAuthenticated && isTemporaryPassword !== "true") {
                     return next();
                 } else if (isAuthenticated && isTemporaryPassword === "true") {
-                    return next({
-                        name: "change-password",
-                        query: { from: window.location.pathname },
-                    });
+                    nextChangePassword();
                 } else {
+                    nextLogin();
+                }
+            })
+            .catch((error) => {
+                if (error.response.status === 401) nextLogout();
+                else {
                     return next({
                         name: "login",
                         query: { from: window.location.pathname },
                     });
                 }
-            })
-            .catch((error) => {
-                if (error.response.status === 401)
-                    return next({
-                        name: "logout",
-                        query: { from: window.location.pathname },
-                    });
             });
 
         return data;
+    };
+
+    const nextLogout = async () => {
+        return next({
+            name: "logout",
+            query: { from: window.location.pathname },
+        });
+    };
+
+    const nextLogin = async () => {
+        return next({
+            name: "login",
+            query: { from: window.location.pathname },
+        });
+    };
+
+    const nextChangePassword = async () => {
+        return next({
+            name: "change-password",
+            query: { from: window.location.pathname },
+        });
     };
 
     getAuthCheck();

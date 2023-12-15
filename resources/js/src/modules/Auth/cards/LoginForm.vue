@@ -71,8 +71,6 @@ const onSubmit = handleSubmit((values) => {
             });
     });
 });
-
-
 </script>
 
 <template>
@@ -101,13 +99,11 @@ const onSubmit = handleSubmit((values) => {
             @click:append="showPassword = !showPassword"
         ></v-text-field>
 
-      <!-- Forgot Password -->
-      <a class="text-decoration-none" href="javascript:void(0)">
-        <div class="text-end my-4 mb-3">
-          I forgot my password
-        </div>
-      </a>
-      <!-- Forgot Password -->
+        <!-- Forgot Password -->
+        <a class="text-decoration-none" href="javascript:void(0)">
+            <div class="text-end my-4 mb-3">I forgot my password</div>
+        </a>
+        <!-- Forgot Password -->
         <v-btn
             :disabled="loading"
             :loading="loading"
