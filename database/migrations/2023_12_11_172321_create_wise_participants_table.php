@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('first_name')->index();
             $table->string('middle_name')->index()->nullable();
             $table->string('last_name')->index();
+            $table->string('suffix')->index()->nullable();
             $table->string('email')->index()->unique()->nullable();
+            $table->string('nickname')->index()->nullable();
             $table->string('gender')->index()->nullable();
             $table->integer('age')->index()->nullable();
             $table->string('phone_number')->index()->nullable();
@@ -27,6 +29,9 @@ return new class extends Migration
             $table->string('registered_to')->index()->nullable();
             $table->integer('beneficiary_of_gov_project')->index()->default(0);
             $table->string('government_agency')->index()->nullable();
+            $table->string('member_of')->index()->nullable();
+            $table->longText('home_address')->nullable();
+            $table->date('ilo_timestamp')->index()->nullable();
             $table->timestamps();
         });
     }
