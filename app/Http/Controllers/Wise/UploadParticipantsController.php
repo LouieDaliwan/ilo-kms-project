@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UploadWiseParticipantsRequest;
 use App\Imports\WiseParticipantImport;
 use Exception;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\Excel\Importer;
+
+//use App\Http\Requests\UploadWiseParticipantsRequest;
 
 class UploadParticipantsController extends Controller
 {
@@ -16,11 +18,12 @@ class UploadParticipantsController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(UploadWiseParticipantsRequest $request)
+    public function __invoke(Request $request)
     {
-//        $request->file('file')
+//      $request->file('file')
+
         try {
-            $this->importer->import(new WiseParticipantImport, Storage::get('sample-wise.xlsx'));
+            Excel::import(new WiseParticipantImport, storage_path('app/sample-wise.xlsx'));
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

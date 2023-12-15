@@ -9,7 +9,7 @@ Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], f
     Route::prefix('v1')->group(function () {
         Route::resource('users', UsersController::class);
 
-        Route::post('upload-wise-participanzts', UploadParticipantsController::class)
+        Route::post('upload-wise-participants', UploadParticipantsController::class)
             ->name('upload-wise-participants');
     });
 });

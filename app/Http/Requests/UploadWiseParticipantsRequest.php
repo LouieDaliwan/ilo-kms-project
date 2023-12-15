@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\File;
 
 class UploadWiseParticipantsRequest extends FormRequest
 {
@@ -24,10 +23,11 @@ class UploadWiseParticipantsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'file' => [
-                'required',
-                File::types(['csv', 'xlsx', 'xls'])
-            ],
+//            'file' => [
+//                'required',
+//                File::types(['csv', 'xlsx', 'xls'])
+//            ],
+                'file' => null
         ];
     }
 }

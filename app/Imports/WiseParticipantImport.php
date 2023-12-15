@@ -15,7 +15,7 @@ class WiseParticipantImport implements ToModel
     */
     public function model(array $row)
     {
-        dd($row);
+        dd($row['Timestamp']);
         return new Participant([
             'first_name' => $row[0],
             'middle_name' => $row[1],
