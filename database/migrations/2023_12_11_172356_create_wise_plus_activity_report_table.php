@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('wise_plus_activity_report', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('wise_plus_activity_id')->index()->nullable();
+            $table->unsignedBigInteger('wise_participant_id')->index()->nullable();
             $table->string('company_name')->index();
             $table->string('representation')->index();
             $table->string('venue')->index();
@@ -24,6 +24,8 @@ return new class extends Migration
             $table->longText('action_item_2')->nullable();
             $table->longText('action_item_3')->nullable();
             $table->longText('link_pictures')->nullable();
+            $table->datetime('date_of_training')->nullable()->index();
+            $table->date('ilo_timestamp')->nullable()->index();
             $table->timestamps();
         });
     }

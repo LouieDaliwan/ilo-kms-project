@@ -20,7 +20,7 @@ export default {
         const onSubmit = () => {
             axios
                 .post(
-                    $api.uploadParticipants(),
+                    $api.uploadActivityPlus(),
                     {},
                     {
                         headers: {
