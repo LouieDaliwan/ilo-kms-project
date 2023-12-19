@@ -24,6 +24,7 @@
     "@mdi/font": "^7.2.96",
     "@vee-validate/rules": "^4.11.1",
     "alpinejs": "^3.12.3",
+    "chart.js": "^4.4.1",
     "collect.js": "^4.36.1",
     "flowbite": "^1.6.6",
     "lodash": "^4.17.21",

@@ -312,14 +312,15 @@ const bulkTrashResource = () => {
                         <template v-slot:item.action="{ item }">
                             <div class="text-no-wrap">
                                 <!-- Edit User -->
-                                <!--                                <v-tooltip bottom>-->
-                                <v-btn @click.prevent="goToShowUserPage(item)">
+                                                               <!-- <v-tooltip bottom>-->
+                                <v-btn class="me-0 btn-actions" @click.prevent="goToShowUserPage(item)">
                                     <v-icon small>mdi-pencil-outline</v-icon>
                                 </v-btn>
                                 <!-- Edit User -->
 
                                 <!-- Move to Trash -->
                                 <v-btn
+                                    class="btn-actions"
                                     icon
                                     @click="askUserToDestroyCompany(item)"
                                 >
