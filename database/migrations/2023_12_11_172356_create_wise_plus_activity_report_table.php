@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('wise_plus_activity_report', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('wise_participant_id')->index()->nullable();
-            $table->string('company_name')->index();
-            $table->string('representation')->index();
-            $table->string('venue')->index();
-            $table->string('action_checklist_type')->index();
+            $table->string('company_name')->index()->nullable();
+            $table->string('representation')->index()->nullable();
+            $table->string('venue')->index()->nullable();
+            $table->string('action_checklist_type')->index()->nullable();
             $table->longText('good_points_identified')->nullable();
             $table->longText('points_to_be_improved')->nullable();
             $table->longText('action_item_1')->nullable();

@@ -2,9 +2,9 @@
 
 namespace App\Imports;
 
-use App\Models\Wise\Participant;
 use App\Models\Wise\PlusActivityReport;
 use Carbon\Carbon;
+use Domain\Wise\Actions\FindParticipants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -19,48 +19,42 @@ class WiseActivityPlusImport implements ToCollection
     public function collection(Collection $rows)
     {
         unset($rows[0]);
-        $rows->each(function($row) {
-            $user = $this->findParticipant($row);
 
-            dd($row);
-             PlusActivityReport::create([
+        $data = $rows->toArray();
+
+        foreach($data as $key => $row) {
+            $user = FindParticipants::find($row);
+
+            PlusActivityReport::create([
                 'ilo_timestamp' => Carbon::parse($row[0])->format('Y-m-d H:i:s'),
-                'wise_participant_id' => !is_null($user) ? $user->id : null,
-                'company_name' => $row[5],
-                 'representation' => $row[2],
-                 'date_of_training' => Carbon::parse($row[8])->format('Y-m-d'),
-                 'venue' => $row[9],
-                 'action_checklist_type' => $row[10],
-                 'good_points_identified' => $row[11],
-                 'points_to_be_improved' => $row[12],
+                'wise_participant_id' => !is_null($user) ? $user->id :
+                    null,
+                'company_name' => $row[5] ?? null,
+                 'representation' => $row[2] ?? null,
+                 'date_of_training' => Carbon::parse($row[8])->format('Y-m-d') ?? null,
+                 'venue' => $row[9] ?? null,
+                 'action_checklist_type' => $row[10] ?? null,
+                 'good_points_identified' => $row[11] ?? null,
+                 'points_to_be_improved' => $row[12] ?? null,
                  'action_item_1' => [
-                     'question' => $row[13],
-                     'what' => $row[14],
-                     'who' => $row[15],
-                     'when' => $row[16],
+                     'question' => $row[13] ?? null,
+                     'what' => $row[14] ?? null,
+                     'who' => $row[15] ?? null,
+                     'when' => $row[16] ?? null,
                  ],
                  'action_item_2' => [
-                     'question' => $row[17],
-                     'what' => $row[18],
-                     'who' => $row[19],
-                     'when' => $row[20],
+                     'question' => $row[17] ?? null,
+                     'what' => $row[18] ?? null,
+                     'who' => $row[19] ?? null,
+                     'when' => $row[20] ?? null,
                  ],
                  'action_item_3' => [
-                     'question' => $row[21],
-                     'what' => $row[22],
-                     'who' => $row[23],
-                     'when' => $row[24],
+                     'question' => $row[21] ?? null,
+                     'what' => $row[22] ?? null,
+                     'who' => $row[23] ?? null,
+                     'when' => $row[24] ?? null,
                  ],
              ]);
-        });
-    }
-
-    protected function findParticipant($row)
-    {
-        return Participant::where('last_name', $row[1])
-            ->where('first_name', $row[2])
-            ->where('middle_name', $row[3])
-            ->where('suffix', $row[4])
-            ->first();
+        }
     }
 }

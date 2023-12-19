@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('wise_participants_evaluation', function (Blueprint $table) {
             $table->id();
+            $table->datetime('ilo_timestamp')->nullable()->index();
+            $table->string('first_name')->nullable()->index();
+            $table->string('middle_name')->nullable()->index();
+            $table->string('last_name')->nullable()->index();
+            $table->string('suffix')->nullable()->index();
+            $table->unsignedBigInteger('wise_participant_id')->index()->nullable();
+            $table->longText('location')->nullable();
+            $table->datetime('date_of_training')->nullable()->index();
+            $table->longText('evaluation_answers')->nullable();
+            $table->longText('comments');
             $table->timestamps();
         });
     }
