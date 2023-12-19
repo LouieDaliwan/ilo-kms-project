@@ -349,6 +349,6 @@ export default {
                 </v-card>
             </v-col>
         </v-row>
-        <v-btn block class="mt-2" type="submit">Submit</v-btn>
+        <v-btn block class="mt-2" color="primary" type="submit">Submit</v-btn>
     </v-form>
 </template>

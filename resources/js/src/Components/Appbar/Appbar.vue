@@ -1,6 +1,7 @@
 <script setup>
+import $api from "../../modules/Auth/routes/api";
 import { useDisplay } from "vuetify";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
 
 const { mdAndUp } = useDisplay();
@@ -21,6 +22,18 @@ const showMenu = computed(() => {
 const appbar = ref({
     model: true,
 });
+
+
+const userData = ref(null)
+
+onMounted(async () => {
+  await axios
+    .get($api.get())
+    .then(response => {
+      userData.value = response.data.data.displayname
+    //   console.log(response.data.data)
+    })
+})
 </script>
 2
 <template>
@@ -58,17 +71,19 @@ const appbar = ref({
                                     class="d-flex justify-space-between align-center ml-10"
                                 >
                                     <v-avatar color="brown" size="default">
-                                        <span class="text-h5">Lou</span>
+                                        <span class="text-h6">Lou</span>
                                     </v-avatar>
-                                    <div class="d-none d-md-block ml-5">
-                                        <p
+                                    <div class="d-none d-md-block ms-3 me-5 pe-5 ">
+                                        <!-- <p
                                             class="body-1 mb-0 text--truncate"
                                             v-text="'test'"
-                                        ></p>
-                                        <div
+                                        ></p> -->
+                                        <!-- <div
                                             class="muted--text overline"
                                             v-text="'superadmin'"
-                                        ></div>
+                                        ></div> -->
+                                        <p class="dp-name"
+                                        >{{ userData }}</p>
                                     </div>
                                 </div>
                             </div>

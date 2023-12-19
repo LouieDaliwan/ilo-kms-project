@@ -104,3 +104,29 @@ html {
 .text-secondary-color {
     color: #1e2dbe;
 }
+
+.dp-name {
+    font-size: 1rem !important;
+    font-weight: 400;
+    // letter-spacing: 0.03125em !important;
+    letter-spacing: 0.07em !important;
+    line-height: 1.5rem;
+    font-family: "Roboto", sans-serif !important;
+}
+
+// .v-list-item {
+//     background-color: #DFE1F5 !important;
+// }
+
+
+// .v-list-item:focus-visible {
+//     opacity: calc(0.15 * var(--v-theme-overlay-multiplier));
+//     background: red !important;
+// }
+// v-list-item v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text font-weight-bold
+
+
+// v-list-item v-list-item--active v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text v-list-group__header
+
+// v-list-item v-list-item--active v-list-item--link v-list-item--nav v-list-item--prepend v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text font-weight-bold white--text
+
