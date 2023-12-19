@@ -1,46 +1,127 @@
+<script setup>
+import $api from "../../modules/Auth/routes/api";
+import { useDisplay } from "vuetify";
+import { computed, ref, onMounted } from "vue";
+import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
+
+const { mdAndUp } = useDisplay();
+const sidebar = useSidebarStore();
+
+const sideBarToggle = () => {
+    sidebar.$patch((state) => {
+        state.sideBarData.model = !state.sideBarData.model;
+    });
+
+    sidebar.toggle({ model: sidebar.sideBarData.model });
+};
+
+const showMenu = computed(() => {
+    return this.$route.name === "dashboard";
+});
+
+const appbar = ref({
+    model: true,
+});
+
+
+const userData = ref(null)
+
+onMounted(async () => {
+  await axios
+    .get($api.get())
+    .then(response => {
+      userData.value = response.data.data.displayname
+    //   console.log(response.data.data)
+    })
+})
+</script>
+2
 <template>
     <v-app-bar
-        :clipped-left="false"
-        :height="83"
+        v-if="appbar.model"
+        :elevation="2"
+        :height="mdAndUp ? 83 : null"
+        :model-value="appbar.model"
         app
-        flat
-        hide-on-scroll="d.md-and-up"
+        scroll-behavior="hide"
+        scroll-threshold="10"
     >
-        <template v-slot:prepend>
-            <v-badge
-                bordered
-                bottom
-                class="dt-badge"
-                color="dark"
-                offset-x="20"
-                offset-y="20"
-                tile
-                transition="fade-transition"
-            >
-                <v-app-bar-nav-icon></v-app-bar-nav-icon>
-            </v-badge>
-        </template>
+        <v-app-bar-nav-icon
+            color="muted"
+            @click="sideBarToggle()"
+        ></v-app-bar-nav-icon>
 
         <v-spacer></v-spacer>
+
+        <user-is-logged-in>
+            <v-menu
+                v-if="$route.name === 'dashboard'"
+                class="d-flex justify-end ml-10"
+                min-width="200px"
+                transition="slide-y-transition"
+            >
+                <template v-slot:activator="{ props }">
+                    <v-tooltip bottom>
+                        <template v-slot:activator="{ on: tooltip }">
+                            <div
+                                role="button"
+                                v-bind="{ ...tooltip, ...props }"
+                            >
+                                <div
+                                    class="d-flex justify-space-between align-center ml-10"
+                                >
+                                    <v-avatar color="brown" size="default">
+                                        <span class="text-h6">Lou</span>
+                                    </v-avatar>
+                                    <div class="d-none d-md-block ms-3 me-5 pe-5 ">
+                                        <!-- <p
+                                            class="body-1 mb-0 text--truncate"
+                                            v-text="'test'"
+                                        ></p> -->
+                                        <!-- <div
+                                            class="muted--text overline"
+                                            v-text="'superadmin'"
+                                        ></div> -->
+                                        <p class="dp-name"
+                                        >{{ userData }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <span v-text="'test'"></span>
+                    </v-tooltip>
+                </template>
+
+                <v-list>
+                    <v-list-item :to="{ name: 'auth-profile' }" exact>
+                        <v-list-item-action>
+                            <v-icon class="text--muted" small
+                                >mdi-account-outline
+                            </v-icon>
+                        </v-list-item-action>
+                        <v-list-item>
+                            <v-list-item-title
+                                v-text="'My Profile'"
+                            ></v-list-item-title>
+                        </v-list-item>
+                    </v-list-item>
+
+                    <v-divider></v-divider>
+
+                    <v-list-item :to="{ name: 'logout' }" exact>
+                        <v-list-item-action>
+                            <v-icon class="text--muted" small>mdi-power</v-icon>
+                        </v-list-item-action>
+                        <v-list-item>
+                            <v-list-item-title
+                                v-text="'Logout'"
+                            ></v-list-item-title>
+                        </v-list-item>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+        </user-is-logged-in>
 
         <slot></slot>
     </v-app-bar>
 </template>
-
-<script>
-import { ref } from "vue";
-import { useDisplay } from "vuetify";
-
-export default {
-    name: "Appbar",
-
-    data() {
-        return {};
-    },
-
-    setup() {
-        const display = ref(useDisplay());
-        return { display };
-    },
-};
-</script>

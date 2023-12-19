@@ -6,7 +6,7 @@ const routes = [
         meta: {
             title: "Users",
             sort: 6,
-            requiresAuth: false,
+            requiresAuth: true,
             icon: "mdi-book-multiple-variant",
         },
         children: [
@@ -17,6 +17,7 @@ const routes = [
                 meta: {
                     title: "List Users",
                     sort: 6,
+                    requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },
@@ -28,6 +29,7 @@ const routes = [
                 meta: {
                     title: "Create Member",
                     sort: 7,
+                    requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },
@@ -39,7 +41,7 @@ const routes = [
                 meta: {
                     title: "Show Member",
                     sort: 8,
-                    requiresAuth: false,
+                    requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },
@@ -51,7 +53,7 @@ const routes = [
                 meta: {
                     title: "Show Trashed",
                     sort: 9,
-                    requiresAuth: false,
+                    requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },

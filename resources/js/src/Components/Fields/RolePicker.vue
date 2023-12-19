@@ -56,18 +56,28 @@ export default {
     },
     methods: {
         getRolesData() {
-            if (window._.isEmpty(this.items)) {
-                this.items = [
-                    { id: 1, name: "Superadmin" },
-                    { id: 2, name: "User" },
-                ];
+            if (!this.lazyLoad) {
+                axios
+                    .get("/api/roles")
+                    .then(({ data }) => {
+                        this.items = data;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                    .finally(() => {
+                        if (window._.isEmpty(this.items)) {
+                            this.items = [
+                                { id: 1, name: "Superadmin" },
+                                { id: 2, name: "User" },
+                            ];
+                        }
+                    });
             }
         },
     },
     mounted() {
-        if (!this.lazyLoad) {
-            this.getRolesData();
-        }
+        this.getRolesData();
     },
 };
 </script>

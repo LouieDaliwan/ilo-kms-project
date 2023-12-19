@@ -25,6 +25,7 @@
     &:not(.v-text-field--rounded) {
       .v-input__slot {
         border-radius: var(--card-border-radius);
+        opacity: 10;
       }
     }
   }
@@ -45,12 +46,77 @@
     }
   }
 
-  .theme--light {
-    &.v-text-field--outlined {
-      &:not(.v-input--is-focused):not(.v-input--has-state) {
-        fieldset {
-          border-color: var(--field-light);
-        }
-      }
+  .v-theme--light {
+    // &.v-text-field--outlined {
+    //   &:not(.v-input--is-focused):not(.v-input--has-state) {
+    //     fieldset {
+    //     //   border-color: var(--field-light);
+    //       border-color: yellowgreen !important;
+    //     }
+    //   }
+    // }
+
+    .v-field--variant-filled .v-field__overlay {
+        background-color: transparent;
     }
   }
+
+.login-pass {
+
+    .v-input__append {
+        margin-inline-start: -2.4rem !important;
+    }
+
+    .v-field__clearable {
+        margin-inline-end: 27px;
+    }
+
+    .v-field__outline {
+        border: 1px solid #D2DDEC;
+    }
+
+    .v-field__loader {
+        display: none !important;
+    }
+}
+
+
+.login-email {
+    .v-field__outline {
+        border: 1px solid #D2DDEC;
+
+    }
+}
+
+.change-pass {
+    .v-field__outline {
+        border: 1px solid #D2DDEC;
+
+    }
+    .v-input__append {
+        margin-inline-start: -2.4rem !important;
+    }
+
+    .v-field__clearable {
+        margin-inline-end: 27px;
+    }
+}
+
+.v-field--focused:focus-within {
+    border: 2px solid #1E2DBE;
+    caret-color: #1E2DBE;
+}
+
+.v-field--variant-filled .v-field__outline::before, .v-field--variant-filled .v-field__outline::before, .v-field--variant-underlined .v-field__outline::before {
+ color: white;
+ caret-color: red;
+}
+
+.v-field--variant-filled .v-field__outline::after, .v-field--variant-filled .v-field__outline::after, .v-field--variant-underlined .v-field__outline::after {
+ color: white;
+}
+
+.v-field--error {
+    border: 2px solid #F44336;
+    caret-color: red;
+}

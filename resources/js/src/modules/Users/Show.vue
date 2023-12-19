@@ -5,7 +5,7 @@ import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
-import { useSettingsStore } from "@/stores/global/settings.js";
+import { useSettingsStore } from "@/store/globals/settings.js";
 import User from "./Models/User.js";
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
@@ -19,7 +19,7 @@ export default {
 
     setup() {
         const resource = ref(new User());
-
+        const isPrestine = ref(false);
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
         const { mdAndUp, xlAndUp } = useDisplay();
@@ -27,10 +27,15 @@ export default {
         const successBox = useSuccessBoxStore();
         const settings = useSettingsStore();
 
-        const { defineComponentBinds, handleSubmit, resetForm, setErrors } =
-            useForm({
-                validationSchema: userSchema,
-            });
+        const {
+            defineComponentBinds,
+            handleSubmit,
+            resetForm,
+            setValues,
+            setErrors,
+        } = useForm({
+            validationSchema: userSchema,
+        });
 
         const vuetifyConfig = (state) => ({
             props: {
@@ -43,11 +48,11 @@ export default {
         const lastname = defineComponentBinds("lastname", vuetifyConfig);
         const email = defineComponentBinds("email", vuetifyConfig);
         const password = defineComponentBinds("password", vuetifyConfig);
-        const suffix = defineComponentBinds("suffix", vuetifyConfig);
-        const prefix = defineComponentBinds("prefix", vuetifyConfig);
-        const mobile = defineComponentBinds("mobile", vuetifyConfig);
+        const suffix = defineComponentBinds("suffixname", vuetifyConfig);
+        const prefix = defineComponentBinds("prefixname", vuetifyConfig);
+        const mobile = defineComponentBinds("mobile_number", vuetifyConfig);
         const username = defineComponentBinds("username", vuetifyConfig);
-        const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
+        const homeAddress = defineComponentBinds("home_address", vuetifyConfig);
         const roleValidation = defineComponentBinds("roles", vuetifyConfig);
         const confirm_password = defineComponentBinds(
             "confirm_password",
@@ -59,12 +64,15 @@ export default {
         );
 
         const onSubmit = handleSubmit((values) => {
+            console.log(values);
+            isPrestine.value = false;
+
             axios
-                .post($api.update(), resource.value, {
+                .post($api.update(), parseResourceData(values), {
                     headers: { "Content-Type": "multipart/form-data" },
                 })
                 .then((response) => {
-                    this.resource.isPrestine = true;
+                    isPrestine.value = true;
                 })
                 .catch((err) => {
                     setErrors(err.response.data.errors);
@@ -74,6 +82,21 @@ export default {
                     // this.load(false);
                 });
         });
+
+        const parseResourceData = (values) => {
+            let data = new FormData();
+            data.append("_method", "PUT");
+            data.append("firstname", values.firstname);
+            data.append("middlename", values.middlename);
+            data.append("lastname", values.lastname);
+            data.append("email", values.email);
+            data.append("suffixname", values.suffixname);
+            data.append("prefixname", values.prefixname);
+            data.append("mobile_number", values.mobile_number);
+            data.append("username", values.username);
+            data.append("home_address", values.home_address);
+            return data;
+        };
 
         return {
             snackbar,
@@ -98,26 +121,30 @@ export default {
             mobile,
             onSubmit,
             roleValidation,
+            isPrestine,
             settings,
+            setValues,
         };
     },
 
-    // beforeRouteLeave(to, from, next) {
-    //     if (this.isFormPrestine) {
-    //         next();
-    //         console.log("test");
-    //     } else {
-    //         console.log("test2");
-    //         this.askUserBeforeNavigatingAway(next);
-    //     }
-    // },
+    beforeRouteLeave(to, from, next) {
+        console.log(this.isPrestine);
+        // if (this.isFormPrestine) {
+        //     next();
+        //     console.log("test");
+        // } else {
+        //     console.log("test2");
+        //     this.askUserBeforeNavigatingAway(next);
+        // }
+        next();
+    },
 
     computed: {
         isDesktop() {
             return this.mdAndUp;
         },
         isInvalid() {
-            return this.resource.isPrestine || this.resource.loading;
+            return this.isPrestine || this.resource.loading;
         },
         isLoading() {
             return this.resource.loading;
@@ -149,10 +176,8 @@ export default {
                 .get($api.show(id))
                 .then(({ data }) => {
                     this.resource.data = data.data;
+                    this.setValues(data.data);
                     this.resource.loading = false;
-
-                    console.log(data);
-                    console.log(this.resource);
                 })
                 .catch((err) => {
                     this.resource.loading = false;
@@ -163,59 +188,16 @@ export default {
                 });
         },
 
-        parseResourceData(item) {
-            let data = _.clone(item);
-
-            let formData = new FormData(this.$refs["editform-form"].$el);
-
-            data.details = Object.assign(
-                {},
-                data.details,
-                data.details.others || {},
-            );
-            delete data.details.others;
-
-            formData.append("username", data.username);
-            formData.append("email", data.email);
-
-            for (let i in data.details) {
-                let c = data.details[i],
-                    key = c.key,
-                    icon = c.icon,
-                    value =
-                        c.value === undefined ||
-                        c.value === "undefined" ||
-                        c.value === "null" ||
-                        c.value == null
-                            ? ""
-                            : c.value;
-
-                formData.append(`details[${c.key}][key]`, key);
-                formData.append(`details[${c.key}][icon]`, icon);
-                formData.append(`details[${c.key}][value]`, value);
-            }
-
-            data = formData;
-
-            return data;
-        },
-
         submitForm() {
             if (this.isNotFormDisabled) {
-                this.$refs["submit-button"].click();
+                console.log(this.$refs["edit-submit-button"].click());
+                this.$refs["edit-submit-button"].click();
                 window.scrollTo({
                     top: 0,
                     left: 0,
                     behavior: "smooth",
                 });
             }
-        },
-
-        submit(e) {
-            this.load();
-            e.preventDefault();
-            this.alertBox.hide();
-            this.load(false);
         },
 
         askUserBeforeNavigatingAway(next) {
@@ -287,20 +269,20 @@ export default {
 </script>
 <template>
     <admin>
-        <metatag :title="'Add User'"></metatag>
+        <metatag :title="'Show User'"></metatag>
         <template v-slot:appbar>
-            <v-container class="py-0 px-0">
+            <v-container class="py-0 px-0 mr-10">
                 <v-row align="center" justify="space-between">
                     <v-fade-transition>
-                        <v-col
-                            v-if="isNotFormPrestine"
-                            class="py-0"
-                            cols="auto"
-                        >
-                            <v-toolbar-title class="muted--text">
-                                Unsaved changes
-                            </v-toolbar-title>
-                        </v-col>
+                        <!--                        <v-col-->
+                        <!--                            v-if="isNotFormPrestine"-->
+                        <!--                            class="py-0"-->
+                        <!--                            cols="auto"-->
+                        <!--                        >-->
+                        <!--                            <v-toolbar-title class="muted&#45;&#45;text">-->
+                        <!--                                Unsaved changes-->
+                        <!--                            </v-toolbar-title>-->
+                        <!--                        </v-col>-->
                     </v-fade-transition>
                     <v-spacer></v-spacer>
                     <v-col class="py-0" cols="auto">
@@ -313,33 +295,19 @@ export default {
                                 @click="askUserToDiscardUnsavedChanges"
                                 >Discard
                             </v-btn>
-                            <v-badge
-                                bordered
-                                bottom
-                                class="dt-badge"
-                                color="dark"
-                                content="s"
-                                offset-x="20"
-                                offset-y="20"
-                                tile
-                                transition="fade-transition"
+                            <v-btn
+                                ref="submit-button-main"
+                                :disabled="isFormDisabled"
+                                :loading="isLoading"
+                                class="ml-3 mr-0"
+                                color="primary"
+                                large
+                                type="submit"
+                                @click.prevent="submitForm"
                             >
-                                <v-btn
-                                    ref="submit-button-main"
-                                    :disabled="isFormDisabled"
-                                    :loading="isLoading"
-                                    class="ml-3 mr-0"
-                                    color="primary"
-                                    large
-                                    type="submit"
-                                    @click.prevent="submitForm"
-                                >
-                                    <v-icon left
-                                        >mdi-content-save-outline
-                                    </v-icon>
-                                    Save
-                                </v-btn>
-                            </v-badge>
+                                <v-icon left>mdi-content-save-outline</v-icon>
+                                Save
+                            </v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -353,9 +321,13 @@ export default {
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
         >
-            <button ref="submit-button" class="d-none" type="submit"></button>
+            <button
+                ref="edit-submit-button"
+                class="d-none"
+                type="submit"
+            ></button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
-                <template v-slot:title>Users List</template>
+                <template v-slot:title>User Information</template>
             </page-header>
 
             <alert-box></alert-box>
@@ -367,7 +339,6 @@ export default {
                         <v-card-text>
                             <v-row justify="space-between">
                                 <v-col cols="6" md="2">
-                                    <!--                                    append-icon="mdi-chevron-down"-->
                                     <v-select
                                         v-model="resource.data.prefixname"
                                         :disabled="isLoading"
@@ -437,11 +408,7 @@ export default {
                             <v-row align="center">
                                 <v-col cols="12">
                                     <v-text-field
-                                        v-model="
-                                            resource.data.metadata[
-                                                'Phone_Number'
-                                            ].value
-                                        "
+                                        v-model="resource.data.mobile_number"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
@@ -456,11 +423,7 @@ export default {
                             <v-row>
                                 <v-col cols="12">
                                     <v-text-field
-                                        v-model="
-                                            resource.data.details[
-                                                'Home Address'
-                                            ].value
-                                        "
+                                        v-model="resource.data.home_address"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
@@ -483,31 +446,31 @@ export default {
                         :xlAndUp="xlAndUp"
                     ></account-details>
 
-                    <v-card>
-                        <v-card-title class="pb-0">
-                            Additional Background Details
-                        </v-card-title>
-                        <v-card-text>
-                            <!--                            :disabled="true"-->
-                            <repeater
-                                v-model="resource.data.details.others"
-                                :background-details="backgroundDetails"
-                                :dense="settings.fieldIsDense"
-                            ></repeater>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card>-->
+                    <!--                        <v-card-title class="pb-0">-->
+                    <!--                            Additional Background Details-->
+                    <!--                        </v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                                                        :disabled="true"-->
+                    <!--                            <repeater-->
+                    <!--                                v-model="resource.data.details.others"-->
+                    <!--                                :background-details="backgroundDetails"-->
+                    <!--                                :dense="settings.fieldIsDense"-->
+                    <!--                            ></repeater>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-card class="mb-3">
-                        <v-card-title class="pb-0">Photo</v-card-title>
-                        <v-card-text>
-                            <upload-avatar
-                                v-model="resource.data.avatar"
-                                name="photo"
-                            >
-                            </upload-avatar>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card class="mb-3">-->
+                    <!--                        <v-card-title class="pb-0">Photo</v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                            <upload-avatar-->
+                    <!--                                v-model="resource.data.avatar"-->
+                    <!--                                name="photo"-->
+                    <!--                            >-->
+                    <!--                            </upload-avatar>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
 
                     <!--                  :disabled="isLoading"-->
                     <role-picker

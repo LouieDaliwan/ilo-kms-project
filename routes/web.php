@@ -1,22 +1,14 @@
 <?php
 
-use App\Http\Controllers\AssignDGroupLeaderController;
-use App\Http\Controllers\DashboardPageController;
-use App\Http\Controllers\Users\MembersController;
+use App\Http\Controllers\RedirectController;
+use App\Http\Controllers\ShowAppPage;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect('/admin/dashboard'));
-Route::get('/admin/dashboard', [DashboardPageController::class, 'index']);
+Route::get('/', [RedirectController::class, 'dashboard']);
+Route::get('home', [RedirectController::class, 'dashboard'])->name('home');
 
-Route::resource('members', MembersController::class);
-Route::put('/members/{member}/assign-dgroup-leader', AssignDgroupLeaderController::class);
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', [ShowAppPage::class, 'index'])->name('dashboard');
+});
 
-Route::any('/{any?}', [DashboardPageController::class, 'index'])->where('any', '.*');
-
-// Route::get('/login', function(){
-//     return view('login');
-// });
-
-// Route::get('/register', function(){
-//     return view('register');
-// });
+Route::any('/{any?}', [ShowAppPage::class, 'index'])->where('any', '.*');

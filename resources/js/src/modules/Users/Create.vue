@@ -5,33 +5,29 @@ import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
 import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
-import { useSettingsStore } from "@/stores/global/settings.js";
+// import { useSettingsStore } from "@/store/globals/settings.js";
 import User from "./Models/User.js";
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useForm } from "vee-validate";
 import { userSchema } from "./Schema/uservalidation.js";
+import { useRouter } from "vue-router";
 
 export default {
-    data() {
-        return {
-            // resource: new User(),
-        };
-    },
-
     components: {
         AccountDetails,
     },
 
     setup() {
         const resource = ref(new User());
-
+        const isPrestine = ref(false);
+        const router = useRouter();
         const snackbar = useSnackbarStore();
         const dialog = useDialogStore();
         const { mdAndUp, xlAndUp } = useDisplay();
         const alertBox = useAlertBoxStore();
         const successBox = useSuccessBoxStore();
-        const settings = useSettingsStore();
+        // const settings = useSettingsStore();
 
         const { defineComponentBinds, handleSubmit, resetForm, setErrors } =
             useForm({
@@ -51,7 +47,7 @@ export default {
         const password = defineComponentBinds("password", vuetifyConfig);
         const suffix = defineComponentBinds("suffix", vuetifyConfig);
         const prefix = defineComponentBinds("prefix", vuetifyConfig);
-        const mobile = defineComponentBinds("mobile", vuetifyConfig);
+        const mobile = defineComponentBinds("mobile_phone", vuetifyConfig);
         const username = defineComponentBinds("username", vuetifyConfig);
         const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
         const roleValidation = defineComponentBinds("roles", vuetifyConfig);
@@ -69,17 +65,17 @@ export default {
                 .post($api.store(), resource.value, {
                     headers: { "Content-Type": "multipart/form-data" },
                 })
-                .then((response) => {
-                    this.resource.isPrestine = true;
+                .then(({ data }) => {
+                    isPrestine.value = true;
 
                     // this.snackbar.show({
                     //     text: "User created successfully",
                     // });
 
-                    this.$router.push({
+                    router.push({
                         name: "users.show",
                         params: {
-                            id: response.data.data.id,
+                            id: data.id,
                         },
                         query: {
                             success: true,
@@ -109,7 +105,6 @@ export default {
                 })
                 .catch((err) => {
                     setErrors(err.response.data.errors);
-                    // this.form.setErrors(err.response.data.errors);
                 })
                 .finally(() => {
                     // this.load(false);
@@ -123,7 +118,6 @@ export default {
             xlAndUp,
             alertBox,
             successBox,
-            handleSubmit,
             resetForm,
             firstname,
             username,
@@ -139,32 +133,32 @@ export default {
             mobile,
             onSubmit,
             roleValidation,
-            settings,
+            isPrestine,
+            // settings,
         };
     },
 
     beforeRouteLeave(to, from, next) {
-        if (this.isFormPrestine) {
-            next();
-            console.log("test");
-        } else {
-            console.log("test2");
-            this.askUserBeforeNavigatingAway(next);
-        }
+        console.log(this.isPrestine.value);
+        // if (resource.isPrestine) {
+        //     next();
+        // } else {
+        //     this.askUserBeforeNavigatingAway(next);
+        // }
+        next();
     },
-
     computed: {
         isDesktop() {
             return this.mdAndUp;
         },
         isInvalid() {
-            return this.resource.isPrestine || this.resource.loading;
+            return this.isPrestine || this.resource.loading;
         },
         isLoading() {
             return this.resource.loading;
         },
         isFormDisabled() {
-            return this.isInvalid || this.resource.isPrestine;
+            return this.isInvalid || this.isPrestine;
         },
         isNotFormDisabled() {
             return !this.isFormDisabled;
@@ -178,43 +172,6 @@ export default {
     },
 
     methods: {
-        parseResourceData(item) {
-            let data = _.clone(item);
-
-            let formData = new FormData(this.$refs["addform-form"].$el);
-
-            data.details = Object.assign(
-                {},
-                data.details,
-                data.details.others || {},
-            );
-            delete data.details.others;
-
-            formData.append("username", data.username);
-            formData.append("email", data.email);
-
-            for (let i in data.details) {
-                let c = data.details[i],
-                    key = c.key,
-                    icon = c.icon,
-                    value =
-                        c.value === undefined ||
-                        c.value === "undefined" ||
-                        c.value === "null" ||
-                        c.value == null
-                            ? ""
-                            : c.value;
-
-                formData.append(`details[${c.key}][key]`, key);
-                formData.append(`details[${c.key}][icon]`, icon);
-                formData.append(`details[${c.key}][value]`, value);
-            }
-
-            data = formData;
-
-            return data;
-        },
-
         submitForm() {
             if (this.isNotFormDisabled) {
                 this.$refs["submit-button"].click();
@@ -224,14 +181,6 @@ export default {
                     behavior: "smooth",
                 });
             }
-        },
-
-        submit(e) {
-            this.load();
-            e.preventDefault();
-            this.alertBox.hide();
-            console.log("proceed");
-            this.load(false);
         },
 
         askUserBeforeNavigatingAway(next) {
@@ -304,6 +253,7 @@ export default {
 <template>
     <admin>
         <metatag :title="'Add User'"></metatag>
+
         <template v-slot:appbar>
             <v-container class="py-0 px-0">
                 <v-row align="center" justify="space-between">
@@ -320,7 +270,7 @@ export default {
                     </v-fade-transition>
                     <v-spacer></v-spacer>
                     <v-col class="py-0" cols="auto">
-                        <div class="d-flex justify-end">
+                        <div class="d-flex justify-end mr-6">
                             <v-spacer></v-spacer>
                             <v-btn
                                 class="ml-3 mr-0"
@@ -329,37 +279,20 @@ export default {
                                 @click="askUserToDiscardUnsavedChanges"
                                 >Discard
                             </v-btn>
-                            <!--                            v-model="shortkeyCtrlIsPressed"-->
-                            <v-badge
-                                bordered
-                                bottom
-                                class="dt-badge"
-                                color="dark"
-                                content="s"
-                                offset-x="20"
-                                offset-y="20"
-                                tile
-                                transition="fade-transition"
+
+                            <v-btn
+                                ref="submit-button-main"
+                                :disabled="isFormDisabled"
+                                :loading="isLoading"
+                                class="ml-3 mr-0"
+                                color="primary"
+                                large
+                                type="submit"
+                                @click.prevent="submitForm"
                             >
-                                <!--                                v-shortkey.once="['ctrl', 's']"
-@shortkey="submitForm"
--->
-                                <v-btn
-                                    ref="submit-button-main"
-                                    :disabled="isFormDisabled"
-                                    :loading="isLoading"
-                                    class="ml-3 mr-0"
-                                    color="primary"
-                                    large
-                                    type="submit"
-                                    @click.prevent="submitForm"
-                                >
-                                    <v-icon left
-                                        >mdi-content-save-outline
-                                    </v-icon>
-                                    Save
-                                </v-btn>
-                            </v-badge>
+                                <v-icon left>mdi-content-save-outline</v-icon>
+                                Save
+                            </v-btn>
                         </div>
                     </v-col>
                 </v-row>
@@ -418,9 +351,9 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12" md="4">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.firstname"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         label="First Name"
@@ -429,9 +362,9 @@ export default {
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="4">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.middlename"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         hide-details
@@ -443,9 +376,9 @@ export default {
                                 </v-col>
                                 <v-col cols="12" md="4">
                                     <!--                                    :dense="isDense"-->
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.lastname"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         label="Last name"
@@ -457,13 +390,9 @@ export default {
                             </v-row>
                             <v-row align="center">
                                 <v-col cols="12">
+                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
-                                        v-model="
-                                            resource.data.details[
-                                                'Mobile Phone'
-                                            ].value
-                                        "
-                                        :dense="settings.fieldIsDense"
+                                        v-model="resource.data.mobile_phone"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         dense
@@ -476,13 +405,9 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12">
+                                    <!--                                  :dense="settings.fieldIsDense"-->
                                     <v-text-field
-                                        v-model="
-                                            resource.data.details[
-                                                'Home Address'
-                                            ].value
-                                        "
-                                        :dense="settings.fieldIsDense"
+                                        v-model="resource.data.home_address"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         cols="12"
@@ -504,36 +429,36 @@ export default {
                         :xlAndUp="xlAndUp"
                     ></account-details>
 
-                    <v-card>
-                        <v-card-title class="pb-0">
-                            Additional Background Details
-                        </v-card-title>
-                        <v-card-text>
-                            <!--                            :disabled="true"-->
-                            <repeater
-                                v-model="resource.data.details.others"
-                                :background-details="backgroundDetails"
-                                :dense="settings.fieldIsDense"
-                            ></repeater>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card>-->
+                    <!--                        <v-card-title class="pb-0">-->
+                    <!--                            Additional Background Details-->
+                    <!--                        </v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                            &lt;!&ndash;                          :dense="settings.fieldIsDense"&ndash;&gt;-->
+                    <!--                            <repeater-->
+                    <!--                                v-model="resource.data.details.others"-->
+                    <!--                                :background-details="backgroundDetails"-->
+                    <!--                                :disabled="true"-->
+                    <!--                            ></repeater>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
                 </v-col>
                 <v-col cols="12" md="3">
-                    <v-card class="mb-3">
-                        <v-card-title class="pb-0">Photo</v-card-title>
-                        <v-card-text>
-                            <upload-avatar
-                                v-model="resource.data.avatar"
-                                name="photo"
-                            >
-                            </upload-avatar>
-                        </v-card-text>
-                    </v-card>
+                    <!--                    <v-card class="mb-3">-->
+                    <!--                        <v-card-title class="pb-0">Photo</v-card-title>-->
+                    <!--                        <v-card-text>-->
+                    <!--                            <upload-avatar-->
+                    <!--                                v-model="resource.data.avatar"-->
+                    <!--                                name="photo"-->
+                    <!--                            >-->
+                    <!--                            </upload-avatar>-->
+                    <!--                        </v-card-text>-->
+                    <!--                    </v-card>-->
 
                     <!--                  :disabled="isLoading"-->
+                    <!--                        :dense="settings.fieldIsDense"-->
                     <role-picker
                         v-model="resource.data.roles"
-                        :dense="settings.fieldIsDense"
                         :lazyLoad="false"
                         :multiple="false"
                         :roleValidation="roleValidation"

@@ -5,7 +5,7 @@ export default [
         meta: {
             title: "Users",
             icon: "mdi-briefcase-outline",
-            requiresAuth: false,
+            requiresAuth: true,
             sort: 5,
             children: ["users.all", "users.create", "users.trashed"],
         },
@@ -15,7 +15,7 @@ export default [
                 name: "users.all",
                 meta: {
                     title: "List Users",
-                    requiresAuth: false,
+                    requiresAuth: true,
                     sort: 6,
                     children: ["users.all"],
                 },
@@ -25,7 +25,7 @@ export default [
                 name: "users.create",
                 meta: {
                     title: "Add User",
-                    requiresAuth: false,
+                    requiresAuth: true,
                     sort: 7,
                     children: ["users.create"],
                 },
@@ -35,7 +35,7 @@ export default [
                 name: "users.trashed",
                 meta: {
                     title: "Trashed",
-                    requiresAuth: false,
+                    requiresAuth: true,
                     sort: 8,
                     children: ["users.trashed"],
                 },

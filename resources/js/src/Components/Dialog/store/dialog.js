@@ -80,7 +80,6 @@ export const useDialogStore = defineStore("dialog", {
 
         show(payload) {
             this.reset();
-            console.log("show");
             this.prompt(Object.assign(payload, { show: true }));
         },
         hide() {
