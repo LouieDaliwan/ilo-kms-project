@@ -63,9 +63,8 @@ const onSubmit = handleSubmit((values) => {
                 router.push({ name: queryParam });
             })
             .catch((err) => {
-                console.log(err);
-                // if (err.response.status !== 422) return;
-                // setErrors(err.response.data.errors);
+                if (err.response.status !== 422) return;
+                setErrors(err.response.data.errors);
             })
             .finally(() => {
                 load(false);

@@ -1,4 +1,8 @@
 export default {
+    list() {
+        return "/api/v1/wise-participants";
+    },
+
     uploadParticipants() {
         return "/api/v1/upload-wise-participants";
     },

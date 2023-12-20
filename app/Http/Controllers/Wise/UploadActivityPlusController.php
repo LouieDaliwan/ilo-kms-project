@@ -15,10 +15,8 @@ class UploadActivityPlusController extends Controller
      */
     public function __invoke(Request $request)
     {
-//        $request->file('file');
-
         try {
-            Excel::import(new WiseActivityPlusImport, storage_path('app/plus_activity.xlsx'));
+            Excel::import(new WiseActivityPlusImport, $request->file('file')); //storage_path('app/plus_activity.xlsx')
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

@@ -20,10 +20,8 @@ class UploadParticipantsController extends Controller
      */
     public function __invoke(Request $request)
     {
-//      $request->file('file')
-
         try {
-            Excel::import(new WiseParticipantImport, storage_path('app/sample-wise.xlsx'));
+            Excel::import(new WiseParticipantImport, $request->file('file')); //storage_path('app/sample-wise.xlsx')
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

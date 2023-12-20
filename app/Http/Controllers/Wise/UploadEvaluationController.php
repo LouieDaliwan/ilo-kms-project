@@ -15,15 +15,14 @@ class UploadEvaluationController extends Controller
      */
     public function __invoke(Request $request)
     {
-//        $request->file('file');
 
         try {
-            Excel::import(new WiseEvaluationImport, storage_path('app/evaluation.xlsx'));
+            Excel::import(new WiseEvaluationImport, $request->file('file')); //storage_path('app/evaluation.xlsx')
 
             return response()->json([
                 'message' => 'Successfully imported evaluation data.',
             ], 200);
-            
+
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

@@ -11,11 +11,11 @@ const routes = [
         },
         children: [
             {
-                path: "all",
-                name: "wise.all",
+                path: "dashboard",
+                name: "wise.dashboard",
                 component: () => import("../Index.vue"),
                 meta: {
-                    title: "List Wise",
+                    title: "Wise Dashboard",
                     sort: 6,
                     requiresAuth: true,
                     //   permission: 'customers.index',
@@ -23,12 +23,36 @@ const routes = [
                 },
             },
             {
-                path: "upload",
-                name: "wise.upload",
-                component: () => import("../Upload.vue"),
+                path: "participants",
+                name: "wise.participants",
+                component: () => import("../Participants.vue"),
                 meta: {
-                    title: "Upload Wise",
+                    title: "Participants",
                     sort: 7,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "activity-plus",
+                name: "wise.activity-plus",
+                component: () => import("../ActivityPlus.vue"),
+                meta: {
+                    title: "Activity Plus",
+                    sort: 8,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "evaluations",
+                name: "wise.evaluations",
+                component: () => import("../Evaluation.vue"),
+                meta: {
+                    title: "Participants Evaluation",
+                    sort: 9,
                     requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
@@ -39,8 +63,8 @@ const routes = [
                 name: "wise.show",
                 component: () => import("../Show.vue"),
                 meta: {
-                    title: "Show Member",
-                    sort: 8,
+                    title: "Show Participant",
+                    sort: 10,
                     requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
