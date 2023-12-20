@@ -12,4 +12,8 @@ class Evaluation extends Model
     protected $guarded = [];
 
     protected $table = 'wise_participants_evaluation';
+
+    protected $casts = [
+        'evaluation_answers' => 'array',
+    ];
 }
