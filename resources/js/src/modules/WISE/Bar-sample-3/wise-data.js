@@ -11,6 +11,7 @@ export const wiseChartData = {
         borderColor: [
           'rgb(48,61,195)'
         ],
+        barThickness: 40,
         borderWidth: 1
       }]
     },

@@ -25,6 +25,7 @@ const appbar = ref({
 
 
 const userData = ref(null)
+const userInitials = ref(null)
 
 onMounted(async () => {
   await axios
@@ -32,8 +33,36 @@ onMounted(async () => {
     .then(response => {
       userData.value = response.data.data.displayname
     //   console.log(response.data.data)
+
+    // Initials
+
+              //splits words to array
+      let nameArray = response.data.data.displayname.split(" ");
+
+      userInitials.value = '';
+
+      //if it's a single word, return 1st and 2nd character
+      if(nameArray.length === 1) {
+        return nameArray[0].charAt(0) + "" +nameArray[0].charAt(1);
+      }else{
+         userInitials.value = nameArray[0].charAt(0);
+      }
+      //else it's more than one, concat the initials in a loop
+      //we've gotten the first word, get the initial of the last word
+
+
+      //first word
+      for (let i = (nameArray.length - 1); i < nameArray.length; i++){
+        userInitials.value += nameArray[i].charAt(0);
+      }
+     //return capitalized initials
+     return userInitials.value.toUpperCase();
+
+
     })
+console.log(userInitials.value)
 })
+
 </script>
 2
 <template>
@@ -54,8 +83,13 @@ onMounted(async () => {
         <v-spacer></v-spacer>
 
         <user-is-logged-in>
-            <v-menu
+            <!-- <v-menu
                 v-if="$route.name === 'dashboard'"
+                class="d-flex justify-end ml-10"
+                min-width="200px"
+                transition="slide-y-transition"
+            > -->
+            <v-menu
                 class="d-flex justify-end ml-10"
                 min-width="200px"
                 transition="slide-y-transition"
@@ -70,8 +104,8 @@ onMounted(async () => {
                                 <div
                                     class="d-flex justify-space-between align-center ml-10"
                                 >
-                                    <v-avatar color="brown" size="default">
-                                        <span class="text-h6">Lou</span>
+                                    <v-avatar color="#03A9F4" size="default">
+                                        <span class="text-h6">{{ userInitials }}</span>
                                     </v-avatar>
                                     <div class="d-none d-md-block ms-3 me-5 pe-5 ">
                                         <!-- <p
