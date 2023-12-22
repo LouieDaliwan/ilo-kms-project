@@ -38,18 +38,14 @@ const resources = reactive({
             key: "id",
         },
         {
-            title: "Account Name",
+            title: "Fullname",
             align: "left",
             class: "text-no-wrap",
-            key: "displayname",
+            key: "fullname",
         },
+
         {
-            title: "Role",
-            class: "text-no-wrap",
-            key: "role",
-        },
-        {
-            title: "Last Modified",
+            title: "Last Training Date",
             class: "text-no-wrap",
             key: "modified_at",
         },
