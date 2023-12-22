@@ -254,7 +254,7 @@ export default {
     <admin>
         <metatag :title="'Add User'"></metatag>
 
-        <template v-slot:appbar>
+        <!-- <template v-slot:appbar>
             <v-container class="py-0 px-0">
                 <v-row align="center" justify="space-between">
                     <v-fade-transition>
@@ -297,7 +297,7 @@ export default {
                     </v-col>
                 </v-row>
             </v-container>
-        </template>
+        </template> -->
 
         <v-form
             ref="addform-form"
@@ -466,6 +466,16 @@ export default {
                     ></role-picker>
                 </v-col>
             </v-row>
+            <v-btn
+                ref="submit-button-main"
+                :disabled="isFormDisabled"
+                :loading="isLoading"
+                color="primary"
+                large
+                type="submit"
+                @click.prevent="submitForm" block class="mt-2">
+                Submit
+            </v-btn>
         </v-form>
     </admin>
 </template>

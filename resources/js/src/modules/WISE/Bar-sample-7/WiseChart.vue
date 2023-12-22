@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- <canvas width="300" height="300" id="pie-chart"></canvas> -->
-    <canvas id="pie-chart" width="50" options={options} height="50"></canvas>
+    <canvas id="wise-chart7"></canvas>
   </div>
 </template>
 
@@ -17,7 +16,7 @@ export default {
     }
   },
     mounted() {
-    const ctx = document.getElementById('pie-chart');
+    const ctx = document.getElementById('wise-chart7');
     new Chart(ctx, this.WiseChartData);
   }
 }

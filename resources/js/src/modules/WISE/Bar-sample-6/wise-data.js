@@ -5,10 +5,12 @@ export const wiseChartData = {
         datasets: [{
           backgroundColor: "rgb(48,61,195)",
           label: "Labor",
+          barThickness: 40,
           data: [321, null]
         }, {
           backgroundColor: "rgb(250,60,75)",
           label: "Management",
+          barThickness: 40,
           data: [null, 123]
         }]
       },

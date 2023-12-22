@@ -102,7 +102,11 @@ html {
   }
 
 .text-secondary-color {
-    color: #1e2dbe;
+    color: #1e2dbe !important;
+}
+
+.text-tertiary-color {
+    color: #FA3C4B !important;
 }
 
 .dp-name {
@@ -114,6 +118,13 @@ html {
     font-family: "Roboto", sans-serif !important;
 }
 
+.workplan-completion {
+    background-color: #ebf5fd;
+}
+
+.chart-title {
+    height: 4.5rem;
+}
 // .v-list-item {
 //     background-color: #DFE1F5 !important;
 // }
