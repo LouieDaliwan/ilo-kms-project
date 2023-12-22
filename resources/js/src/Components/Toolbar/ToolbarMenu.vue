@@ -121,7 +121,7 @@ export default {
             } else {
                 this.snackbar.show({
                     text: `Select an item
-                 from the list first`,
+                           from the list first`,
                     button: {
                         text: "Okay",
                     },
@@ -165,7 +165,7 @@ export default {
                 this.snackbar.show({
                     text:
                         `Select an item
-               from the list first ` + this.bulkCount,
+                         from the list first ` + this.bulkCount,
                     button: {
                         text: "Okay",
                     },
@@ -206,7 +206,7 @@ export default {
             } else {
                 this.snackbar.show({
                     text: `Select an item
-                 from the list first ${this.bulkCount}`,
+                           from the list first ${this.bulkCount}`,
                     button: {
                         text: "Okay",
                     },
@@ -222,42 +222,29 @@ export default {
             <v-row align="center" justify="space-between">
                 <v-col cols="12" sm="4">
                     <slot name="search">
-                        <v-badge
-                            v-model="isSearching"
-                            :bordered="true"
-                            bottom
-                            class="dt-badge d-block"
-                            color="dark"
-                            content="/"
-                            offset-x="28"
-                            offset-y="28"
-                            tile
-                            transition="fade-transition"
+                        <v-text-field
+                            ref="tablesearch"
+                            :prepend-inner-icon="
+                                isSearching
+                                    ? 'mdi-spin mdi-loading'
+                                    : 'mdi-magnify'
+                            "
+                            autocomplete="off"
+                            background-color="workspace"
+                            class="dt-text-field__search"
+                            clear-icon="mdi-close-circle-outline"
+                            clearable
+                            filled
+                            flat
+                            full-width
+                            hide-details
+                            placeholder="Search..."
+                            single-line
+                            solo
+                            @input="input($event)"
+                            @click:clear="searchInput"
                         >
-                            <v-text-field
-                                ref="tablesearch"
-                                :prepend-inner-icon="
-                                    isSearching
-                                        ? 'mdi-spin mdi-loading'
-                                        : 'mdi-magnify'
-                                "
-                                autocomplete="off"
-                                background-color="workspace"
-                                class="dt-text-field__search"
-                                clear-icon="mdi-close-circle-outline"
-                                clearable
-                                filled
-                                flat
-                                full-width
-                                hide-details
-                                placeholder="Search..."
-                                single-line
-                                solo
-                                @input="input($event)"
-                                @click:clear="searchInput"
-                            >
-                            </v-text-field>
-                        </v-badge>
+                        </v-text-field>
                     </slot>
                 </v-col>
                 <v-col cols="12" sm="auto">

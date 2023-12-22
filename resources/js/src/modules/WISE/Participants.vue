@@ -47,7 +47,7 @@ const resources = reactive({
         {
             title: "Last Training Date",
             class: "text-no-wrap",
-            key: "modified_at",
+            key: "training_date",
         },
         {
             title: "Actions",
