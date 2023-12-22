@@ -12,6 +12,12 @@ const auth = ref({
     password_confirmation: "",
 });
 
+// const btnDisable = ref({
+//     isDisable: true
+// })
+const isDisable = ref(true)
+
+
 const loading = ref(false);
 const showPassword = ref(false);
 const newPassword = ref(false);
@@ -70,6 +76,12 @@ const onSubmit = handleSubmit((values) => {
             load(false);
         });
 });
+
+const onInput = () => {
+        // btnDisable.isDisable.value = false;
+        isDisable.value = false;
+        console.log(isDisable)
+}
 </script>
 
 <template>
@@ -79,7 +91,7 @@ const onSubmit = handleSubmit((values) => {
                 <v-card class="mb-3">
                     <v-card-title class="mb-5">Change Password</v-card-title>
                     <v-card-text>
-                            <v-form :disabled="loading" @submit.prevent="onSubmit">
+                            <v-form :disabled="loading" @submit.prevent="onSubmit" @input="onInput">
                                 <v-text-field
                                     v-model="auth.current_password"
                                     :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -127,9 +139,10 @@ const onSubmit = handleSubmit((values) => {
 
                                 <v-divider class="my-4"></v-divider>
 
+                                    <!-- :disabled="loading" -->
                                 <v-btn
-                                    :disabled="loading"
                                     :loading="loading"
+                                    :disabled="isDisable"
                                     block
                                     color="primary"
                                     type="submit"

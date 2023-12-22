@@ -12,7 +12,13 @@ import { useForm } from "vee-validate";
 import { useInformationSchema } from "../Schema/updateInformationValidation.js";
 
 export default {
+    data() {
+        return {
+            isDisable: true
+        };
+    },
     setup() {
+
         const resource = ref(new User());
 
         const snackbar = useSnackbarStore();
@@ -218,6 +224,10 @@ export default {
                 },
             });
         },
+
+        onInput() {
+            this.isDisable = false;
+        },
     },
 };
 </script>
@@ -227,6 +237,7 @@ export default {
         :disabled="isLoading"
         autocomplete="false"
         enctype="multipart/form-data"
+         @input="onInput"
         @submit.prevent="onSubmit"
     >
         <page-header :back="{ to: { name: 'users.all' }, text: 'Users', }">
@@ -349,6 +360,6 @@ export default {
                 </v-card>
             </v-col>
         </v-row>
-        <v-btn block class="mt-2" color="primary" type="submit">Submit</v-btn>
+        <v-btn block class="mt-2" color="primary" :disabled="isDisable" type="submit">Submit</v-btn>
     </v-form>
 </template>

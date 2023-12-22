@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas id="wise-chart"></canvas>
+    <canvas id="wise-chart" height="40" width="70"></canvas>
   </div>
 </template>
 

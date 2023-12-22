@@ -6,7 +6,7 @@ import ChangePassword from "./ChangePassword.vue";
     <admin>
         <metatag :title="'User Profile'"></metatag>
                 <template v-slot:appbar>
-            <v-container class="py-0 px-0">
+            <!-- <v-container class="py-0 px-0">
                 <v-row align="center" justify="space-between">
                     <v-fade-transition>
                         <v-col
@@ -47,7 +47,7 @@ import ChangePassword from "./ChangePassword.vue";
                         </div>
                     </v-col>
                 </v-row>
-            </v-container>
+            </v-container> -->
         </template>
         <ProfileInformation />
         <ChangePassword />
