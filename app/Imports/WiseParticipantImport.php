@@ -3,14 +3,16 @@
 namespace App\Imports;
 
 use App\Models\Wise\Participant;
-use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class WiseParticipantImport implements ToCollection
 {
     public function collection(Collection $rows)
     {
+        unset($rows[0]);
+
         $rows->each(function($row) {
             Participant::firstOrCreate([
                 'email' => $row[11],
@@ -22,7 +24,7 @@ class WiseParticipantImport implements ToCollection
                 'suffix' => $row[5],
                 'nickname' => $row[6],
                 'email' => $row[11],
-                'ilo_timestamp' => Carbon::parse($row[0])->format('Y-m-d H:i:s'),
+                'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
                 'gender' => $row[7],
                 'age' => $row[8],
                 'position' => $row[9],
@@ -31,9 +33,9 @@ class WiseParticipantImport implements ToCollection
                 'home_address' => $row[13],
                 'type_of_business' => $row[14],
                 'business_sector' => $row[15],
-                'is_business_registered' => $row[16],
+                'is_business_registered' => ($row[16] != 'Yes') || 0,
                 'registered_to' => $row[17],
-                'beneficiary_of_gov_project' => $row[18],
+                'beneficiary_of_gov_project' => ($row[18] != 'Yes') || 0,
                 'government_agency' => $row[19],
             ]);
         });

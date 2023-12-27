@@ -22,6 +22,8 @@ class UploadParticipantsController extends Controller
     {
         try {
             Excel::import(new WiseParticipantImport, $request->file('file')); //storage_path('app/sample-wise.xlsx')
+
+            return 'Successfully uploaded!';
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

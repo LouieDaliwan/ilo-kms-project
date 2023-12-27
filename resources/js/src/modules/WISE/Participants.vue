@@ -3,9 +3,10 @@ import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDisplay } from "vuetify";
-import { computed, onBeforeMount, reactive, watch } from "vue";
+import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
+import PageHeader from "@components/Headers/PageHeader.vue";
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -13,6 +14,12 @@ const { smAndDown } = useDisplay();
 
 const router = useRouter();
 const route = useRoute();
+
+const dialogBox = reactive({ dialog: false });
+
+function uploadModal() {
+    dialogBox.dialog = true;
+}
 
 const resources = reactive({
     loading: false,
@@ -23,7 +30,6 @@ const resources = reactive({
         itemsPerPage: 10,
         sortDesc: [],
         sortBy: [],
-        // rowsPerPage: [5, 10, 15, 20, 50, 100],
     },
     meta: {},
     modes: {
@@ -150,15 +156,7 @@ const optionsChanged = (options) => {
     getPaginatedData(options);
 };
 
-const selected = computed(() => {
-    return resources.selected.map((item) => item.id);
-});
-
-const askUserToDestroyCompany = () => {};
-
-const askUserToDestroyUser = (item) => {};
-
-const goToShowUserPage = (item) => {
+const goToParticipantPage = (item) => {
     router.push({
         name: "users.show",
         params: { id: item.columns.id },
@@ -195,10 +193,6 @@ const search = window._.debounce(function (value) {
     }
 }, 200);
 
-const focusSearchBar = () => {
-    this.$refs["tablesearch"].focus();
-};
-
 const bulkTrashResource = () => {
     let selected = selected;
     axios
@@ -221,6 +215,28 @@ const bulkTrashResource = () => {
             });
         });
 };
+
+const file = ref(null);
+
+const onSubmit = async () => {
+    const formData = new FormData();
+    formData.append("file", file.value);
+
+    await axios
+        .post($api.uploadParticipants(), formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
+        .then(({ data }) => {})
+        .catch((err) => {
+            console.log(err);
+        })
+        .finally(() => {
+            dialogBox.dialog = false;
+            getPaginatedData();
+        });
+};
 </script>
 
 <template>
@@ -228,17 +244,45 @@ const bulkTrashResource = () => {
         <metatag :title="'Participants'"></metatag>
 
         <page-header>
+            <template v-slot:title> WISE Participants</template>
+
             <template v-slot:action>
                 <v-btn
                     :block="!!smAndDown"
-                    :to="{ name: 'users.create' }"
                     color="primary"
                     large
                     rounded
+                    @click="uploadModal"
                 >
-                    <v-icon left>mdi-plus</v-icon>
-                    Upload Participants Data
+                    Upload data
+                    <v-icon class="ms-2" left>mdi-cloud-upload</v-icon>
                 </v-btn>
+                <div class="text-center">
+                    <v-dialog v-model="dialogBox.dialog" width="500">
+                        <v-card>
+                            <v-card-title class="text-h5 grey lighten-2">
+                                Upload a File
+                            </v-card-title>
+
+                            <v-card-text>
+                                <v-file-input
+                                    label="File input"
+                                    show-size
+                                    @change="uploadFile"
+                                ></v-file-input>
+                            </v-card-text>
+
+                            <v-divider></v-divider>
+
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="primary" @click="onSubmit">
+                                    Save
+                                </v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </v-dialog>
+                </div>
             </template>
         </page-header>
 
@@ -304,16 +348,6 @@ const bulkTrashResource = () => {
                                     <v-icon small>mdi-pencil-outline</v-icon>
                                 </v-btn>
                                 <!-- Edit User -->
-
-                                <!-- Move to Trash -->
-                                <v-btn
-                                    class="btn-actions"
-                                    icon
-                                    @click="askUserToDestroyCompany(item)"
-                                >
-                                    <v-icon small>mdi-delete-outline</v-icon>
-                                </v-btn>
-                                <!-- Move to Trash -->
                             </div>
                         </template>
                     </v-data-table-server>

@@ -14,6 +14,12 @@ class Participant extends Model
 
     protected $table = 'wise_participants';
 
+    protected $casts = [
+        'ilo_timestamp' => 'datetime',
+        'is_business_registered' => 'boolean',
+        'beneficiary_of_gov_project' => 'boolean',
+    ];
+
     public function scopeSearch($query, string $terms = null)
     {
         collect(explode(' ',$terms))->each(function($term) use ($query) {

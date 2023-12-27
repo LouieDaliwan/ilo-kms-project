@@ -6,6 +6,7 @@ import { useDisplay } from "vuetify";
 import { computed, onBeforeMount, reactive, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
+import PageHeader from "@components/Headers/PageHeader.vue";
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -232,6 +233,9 @@ const bulkTrashResource = () => {
         <metatag :title="'Users'"></metatag>
 
         <page-header>
+            <page-header>
+                <template v-slot:title>Users</template>
+            </page-header>
             <template v-slot:utilities>
                 <router-link
                     :to="{ name: 'users.trashed' }"
@@ -312,8 +316,11 @@ const bulkTrashResource = () => {
                         <template v-slot:item.action="{ item }">
                             <div class="text-no-wrap">
                                 <!-- Edit User -->
-                                                               <!-- <v-tooltip bottom>-->
-                                <v-btn class="me-0 btn-actions" @click.prevent="goToShowUserPage(item)">
+                                <!-- <v-tooltip bottom>-->
+                                <v-btn
+                                    class="me-0 btn-actions"
+                                    @click.prevent="goToShowUserPage(item)"
+                                >
                                     <v-icon small>mdi-pencil-outline</v-icon>
                                 </v-btn>
                                 <!-- Edit User -->

@@ -242,7 +242,7 @@ export default {
                             single-line
                             solo
                             @input="input($event)"
-                            @click:clear="searchInput"
+                            @click:clear="input($event)"
                         >
                         </v-text-field>
                     </slot>
