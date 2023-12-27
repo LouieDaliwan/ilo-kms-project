@@ -254,11 +254,6 @@ export default {
                         <v-slide-x-reverse-transition>
                             <div v-if="items.bulkCount" class="px-2">
                                 {{ items.bulkCount + " item selected" }}
-                                <!--                                    // $tc(-->
-                                <!--                                    -->
-                                <!--                                  /*      items.bulkCount,-->
-                                <!--                                  */          {number: items.bulkCount})-->
-                                <!--                                    // )-->
                             </div>
                         </v-slide-x-reverse-transition>
                         <v-slide-x-reverse-transition>
@@ -383,12 +378,6 @@ export default {
                                         dense
                                         rounded
                                     >
-                                        <!--                                       v-shortkey="['ctrl', 'shift', 'a']"-->
-                                        <!--                                        @shortkey="-->
-                                        <!--                                        items.toggleBulkEdit =-->
-                                        <!--                                        !items.toggleBulkEdit-->
-                                        <!--                                        v-on="on"-->
-                                        <!--                                        "-->
                                         <v-btn
                                             :value="true"
                                             color="primary"

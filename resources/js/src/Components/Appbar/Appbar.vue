@@ -1,7 +1,7 @@
 <script setup>
 import $api from "../../modules/Auth/routes/api";
 import { useDisplay } from "vuetify";
-import { computed, ref, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
 
 const { mdAndUp } = useDisplay();
@@ -23,46 +23,39 @@ const appbar = ref({
     model: true,
 });
 
-
-const userData = ref(null)
-const userInitials = ref(null)
+const userData = ref(null);
+const userInitials = ref(null);
 
 onMounted(async () => {
-  await axios
-    .get($api.get())
-    .then(response => {
-      userData.value = response.data.data.displayname
-    //   console.log(response.data.data)
+    await axios.get($api.get()).then((response) => {
+        /** Please include this into auth.js -- Louie Daliwan**/
+        userData.value = response.data.data.displayname;
+        //   console.log(response.data.data)
 
-    // Initials
+        // Initials
 
-              //splits words to array
-      let nameArray = response.data.data.displayname.split(" ");
+        //splits words to array
+        let nameArray = response.data.data.displayname.split(" ");
 
-      userInitials.value = '';
+        userInitials.value = "";
 
-      //if it's a single word, return 1st and 2nd character
-      if(nameArray.length === 1) {
-        return nameArray[0].charAt(0) + "" +nameArray[0].charAt(1);
-      }else{
-         userInitials.value = nameArray[0].charAt(0);
-      }
-      //else it's more than one, concat the initials in a loop
-      //we've gotten the first word, get the initial of the last word
+        //if it's a single word, return 1st and 2nd character
+        if (nameArray.length === 1) {
+            return nameArray[0].charAt(0) + "" + nameArray[0].charAt(1);
+        } else {
+            userInitials.value = nameArray[0].charAt(0);
+        }
+        //else it's more than one, concat the initials in a loop
+        //we've gotten the first word, get the initial of the last word
 
-
-      //first word
-      for (let i = (nameArray.length - 1); i < nameArray.length; i++){
-        userInitials.value += nameArray[i].charAt(0);
-      }
-     //return capitalized initials
-     return userInitials.value.toUpperCase();
-
-
-    })
-console.log(userInitials.value)
-})
-
+        //first word
+        for (let i = nameArray.length - 1; i < nameArray.length; i++) {
+            userInitials.value += nameArray[i].charAt(0);
+        }
+        //return capitalized initials
+        return userInitials.value.toUpperCase();
+    });
+});
 </script>
 2
 <template>
@@ -105,9 +98,13 @@ console.log(userInitials.value)
                                     class="d-flex justify-space-between align-center ml-10"
                                 >
                                     <v-avatar color="#03A9F4" size="default">
-                                        <span class="text-h6">{{ userInitials }}</span>
+                                        <span class="text-h6">{{
+                                            userInitials
+                                        }}</span>
                                     </v-avatar>
-                                    <div class="d-none d-md-block ms-3 me-5 pe-5 ">
+                                    <div
+                                        class="d-none d-md-block ms-3 me-5 pe-5"
+                                    >
                                         <!-- <p
                                             class="body-1 mb-0 text--truncate"
                                             v-text="'test'"
@@ -116,8 +113,7 @@ console.log(userInitials.value)
                                             class="muted--text overline"
                                             v-text="'superadmin'"
                                         ></div> -->
-                                        <p class="dp-name"
-                                        >{{ userData }}</p>
+                                        <p class="dp-name">{{ userData }}</p>
                                     </div>
                                 </div>
                             </div>

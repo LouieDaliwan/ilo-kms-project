@@ -191,7 +191,7 @@ const search = window._.debounce(function (value) {
     tabletoolbar.isSearch = false;
     if (resources.searching) {
         getPaginatedData(options, "search");
-        resources.search = false;
+        resources.search = value || "";
     }
 }, 200);
 
@@ -225,21 +225,9 @@ const bulkTrashResource = () => {
 
 <template>
     <admin>
-        <metatag :title="'Users'"></metatag>
+        <metatag :title="'Participants'"></metatag>
 
         <page-header>
-            <template v-slot:utilities>
-                <router-link
-                    :to="{ name: 'users.trashed' }"
-                    class="dt-link text--decoration-none mr-4"
-                    exact
-                    tag="a"
-                >
-                    <v-icon left small>mdi-account-off-outline</v-icon>
-                    Deactivated Users
-                </router-link>
-            </template>
-
             <template v-slot:action>
                 <v-btn
                     :block="!!smAndDown"
@@ -249,25 +237,25 @@ const bulkTrashResource = () => {
                     rounded
                 >
                     <v-icon left>mdi-plus</v-icon>
-                    Add User
+                    Upload Participants Data
                 </v-btn>
             </template>
         </page-header>
 
-        <div v-if="resourcesIsNotEmpty">
-            <v-card>
-                <toolbar-menu
-                    :bulkCount="tabletoolbar.bulkCount"
-                    :isSearch="tabletoolbar.isSearching"
-                    :items="tabletoolbar"
-                    :search="tabletoolbar.searchInput"
-                    bulk
-                    downloadable
-                    trashable
-                    @update:searchInput="search"
-                    @update:trash="bulkTrashResource"
-                >
-                </toolbar-menu>
+        <v-card>
+            <toolbar-menu
+                :bulkCount="tabletoolbar.bulkCount"
+                :isSearch="tabletoolbar.isSearching"
+                :items="tabletoolbar"
+                :search="tabletoolbar.searchInput"
+                bulk
+                downloadable
+                trashable
+                @update:searchInput="search"
+                @update:trash="bulkTrashResource"
+            >
+            </toolbar-menu>
+            <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server
                         v-model:items-per-page="resources.options.itemsPerPage"
@@ -330,23 +318,11 @@ const bulkTrashResource = () => {
                         </template>
                     </v-data-table-server>
                 </v-slide-y-reverse-transition>
-            </v-card>
-        </div>
+            </div>
 
-        <div v-if="resourcesIsEmpty">
-            <toolbar-menu
-                :items.sync="tabletoolbar"
-                @update:search="resources.search"
-            >
-            </toolbar-menu>
-            <empty-state>
-                <template v-slot:actions>
-                    <v-btn :to="{ name: 'users.create' }" color="primary" large>
-                        <v-icon left small>mdi-account-plus-outline</v-icon>
-                        Add user
-                    </v-btn>
-                </template>
-            </empty-state>
-        </div>
+            <div v-if="resourcesIsEmpty">
+                <empty-state></empty-state>
+            </div>
+        </v-card>
     </admin>
 </template>
