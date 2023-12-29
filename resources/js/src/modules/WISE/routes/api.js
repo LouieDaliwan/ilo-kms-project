@@ -5,6 +5,11 @@ export default {
     evaluations() {
         return "/api/v1/wise-evaluations";
     },
+
+    activityReports() {
+        return "/api/v1/wise-activity-plus";
+    },
+
     uploadParticipants() {
         return "/api/v1/upload-wise-participants";
     },

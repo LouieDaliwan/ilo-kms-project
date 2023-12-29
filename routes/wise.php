@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Wise\EvaluationsController;
+use App\Http\Controllers\Wise\FetchActivityPlusController;
 use App\Http\Controllers\Wise\ParticipantsController;
 use App\Http\Controllers\Wise\UploadActivityPlusController;
 use App\Http\Controllers\Wise\UploadEvaluationController;
@@ -12,6 +13,9 @@ Route::get('wise-participants', [ParticipantsController::class, 'index'])
 
 Route::post('upload-wise-participants', UploadParticipantsController::class)
     ->name('upload-wise-participants');
+
+Route::get('wise-activity-plus', FetchActivityPlusController::class)
+    ->name('wise-activity-plus');
 
 Route::post('upload-wise-activity-plus', UploadActivityPlusController::class)
     ->name('upload-wise-activity-plus');
