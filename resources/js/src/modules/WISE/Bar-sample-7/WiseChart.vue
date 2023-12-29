@@ -1,23 +1,35 @@
 <template>
-  <div>
-    <canvas id="wise-chart7"></canvas>
-  </div>
+    <div>
+        <canvas id="wise-chart7" height="40" width="70"></canvas>
+    </div>
 </template>
 
 <script>
-import Chart from 'chart.js/auto';
-import WiseChartData from './wise-data'
+import Chart from "chart.js/auto";
+import WiseChartData from "./wise-data";
 
 export default {
-  name: 'WiseChart',
+    props: ["evaluationData"],
+    name: "WiseChart7",
     data() {
-    return {
-      WiseChartData: WiseChartData
-    }
-  },
+        return {
+            WiseChartData: WiseChartData,
+        };
+    },
     mounted() {
-    const ctx = document.getElementById('wise-chart7');
-    new Chart(ctx, this.WiseChartData);
-  }
-}
+        const ctx = document.getElementById("wise-chart7");
+        new Chart(ctx, this.WiseChartData);
+    },
+    watch: {
+        evaluationData(value) {
+            this.updateChart(_.values(value));
+        },
+    },
+    methods: {
+        updateChart(value) {
+            this.WiseChartData.data.datasets[0].data = value;
+            new Chart(this.ctx, this.WiseChartData);
+        },
+    },
+};
 </script>
