@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas id="wise-chart5" height="40" width="70"></canvas>
+        <canvas id="wise-chart5"></canvas>
     </div>
 </template>
 
@@ -9,8 +9,7 @@ import Chart from "chart.js/auto";
 import WiseChartData from "./wise-data";
 
 export default {
-    props: ["evaluationData"],
-    name: "WiseChart5",
+    name: "WiseChart",
     data() {
         return {
             WiseChartData: WiseChartData,
@@ -19,17 +18,6 @@ export default {
     mounted() {
         const ctx = document.getElementById("wise-chart5");
         new Chart(ctx, this.WiseChartData);
-    },
-    watch: {
-        evaluationData(value) {
-            this.updateChart(_.values(value));
-        },
-    },
-    methods: {
-        updateChart(value) {
-            this.WiseChartData.data.datasets[0].data = value;
-            new Chart(this.ctx, this.WiseChartData);
-        },
     },
 };
 </script>

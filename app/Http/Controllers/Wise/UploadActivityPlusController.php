@@ -17,6 +17,10 @@ class UploadActivityPlusController extends Controller
     {
         try {
             Excel::import(new WiseActivityPlusImport, $request->file('file')); //storage_path('app/plus_activity.xlsx')
+
+            return response()->json([
+                'message' => 'Successfully imported activity report data.',
+            ], 200);
         } catch (Exception $e) {
             return response()->json([
                 'message' => $e->getMessage(),

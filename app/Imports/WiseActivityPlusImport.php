@@ -19,7 +19,7 @@ class WiseActivityPlusImport implements ToCollection
     public function collection(Collection $rows)
     {
         unset($rows[0]);
-
+        
         $data = $rows->toArray();
 
         foreach($data as $key => $row) {
@@ -54,7 +54,7 @@ class WiseActivityPlusImport implements ToCollection
                      'who' => $row[23] ?? null,
                      'when' => $row[24] ?? null,
                  ],
-                 'link' => $row[25] ?? null,
+                 'link_pictures' => $row[25] ?? null,
              ]);
         }
     }

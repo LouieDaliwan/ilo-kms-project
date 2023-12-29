@@ -28,7 +28,6 @@ export default {
     methods: {
         updateChart(value) {
             this.WiseChartData.data.datasets[0].data = value;
-            new Chart(this.ctx, this.WiseChartData);
         },
     },
 };
