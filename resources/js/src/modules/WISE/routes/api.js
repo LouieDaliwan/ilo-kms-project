@@ -2,7 +2,9 @@ export default {
     list() {
         return "/api/v1/wise-participants";
     },
-
+    evaluations() {
+        return "/api/v1/wise-evaluations";
+    },
     uploadParticipants() {
         return "/api/v1/upload-wise-participants";
     },

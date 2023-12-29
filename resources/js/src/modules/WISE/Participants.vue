@@ -218,6 +218,10 @@ const bulkTrashResource = () => {
 
 const file = ref(null);
 
+const uploadFile = (event) => {
+    file.value = event.target.files[0];
+};
+
 const onSubmit = async () => {
     const formData = new FormData();
     formData.append("file", file.value);
@@ -343,7 +347,7 @@ const onSubmit = async () => {
                                 <!-- <v-tooltip bottom>-->
                                 <v-btn
                                     class="me-0 btn-actions"
-                                    @click.prevent="goToShowUserPage(item)"
+                                    @click.prevent="goToParticipantPage(item)"
                                 >
                                     <v-icon small>mdi-pencil-outline</v-icon>
                                 </v-btn>

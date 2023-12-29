@@ -3,11 +3,11 @@
 namespace App\Imports;
 
 use App\Models\Wise\PlusActivityReport;
-use Carbon\Carbon;
 use Domain\Wise\Actions\FindParticipants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class WiseActivityPlusImport implements ToCollection
 {
@@ -26,12 +26,12 @@ class WiseActivityPlusImport implements ToCollection
             $user = FindParticipants::find($row);
 
             PlusActivityReport::create([
-                'ilo_timestamp' => Carbon::parse($row[0])->format('Y-m-d H:i:s'),
+                'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
                 'wise_participant_id' => !is_null($user) ? $user->id :
                     null,
                 'company_name' => $row[5] ?? null,
                  'representation' => $row[2] ?? null,
-                 'date_of_training' => Carbon::parse($row[8])->format('Y-m-d') ?? null,
+                 'date_of_training' => Date::excelToDateTimeObject(intval($row[8]))->format('Y-m-d') ?? null,
                  'venue' => $row[9] ?? null,
                  'action_checklist_type' => $row[10] ?? null,
                  'good_points_identified' => $row[11] ?? null,
@@ -54,6 +54,7 @@ class WiseActivityPlusImport implements ToCollection
                      'who' => $row[23] ?? null,
                      'when' => $row[24] ?? null,
                  ],
+                 'link' => $row[25] ?? null,
              ]);
         }
     }

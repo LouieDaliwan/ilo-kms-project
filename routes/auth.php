@@ -12,18 +12,18 @@ Route::get('/auth-check', fn() => auth()->check() ?
         response()->json(['message' => 'Authenticated', 'auth' => new AuthResources(auth()->user())], 200) :
         response()->json(['message' => 'Unauthenticated'], 401));
 
-    Route::get('/auth/user', function (Request $request) {
-        $user = auth()->user();
-        return json_encode([
-            'auth' => $user,
-            'token' => $user->createToken('auth_token')->plainTextToken,
-        ]);
-    });
+Route::get('/auth/user', function (Request $request) {
+    $user = auth()->user();
+    return json_encode([
+        'auth' => $user,
+        'token' => $user->createToken('auth_token')->plainTextToken,
+    ]);
+});
 
-    Route::get('/auth-profile', AuthProfileController::class);
-    Route::put('/auth-profile', AuthProfileUpdateController::class);
+Route::get('/auth-profile', AuthProfileController::class);
+Route::put('/auth-profile', AuthProfileUpdateController::class);
 
-    Route::get('/roles', function () {
-        return Role::get(['id', 'name']);
-    });
+Route::get('/roles', function () {
+    return Role::get(['id', 'name']);
+});
 

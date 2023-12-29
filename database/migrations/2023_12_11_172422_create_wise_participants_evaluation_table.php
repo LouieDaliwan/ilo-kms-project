@@ -17,10 +17,12 @@ return new class extends Migration
             $table->datetime('ilo_timestamp')->nullable()->index();
             $table->string('employer_or_worker')->index()->nullable();
             $table->longText('location')->nullable();
-            $table->datetime('date_of_training')->nullable()->index();
+            $table->date('date_of_training')->nullable()->index();
             $table->longText('evaluation_answers')->nullable();
             $table->longText('comments');
             $table->timestamps();
+
+            $table->foreign('wise_participant_id')->references('id')->on('wise_participants')->onDelete('cascade');
         });
     }
 

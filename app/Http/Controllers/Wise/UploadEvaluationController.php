@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UploadWiseRequest;
 use App\Imports\WiseEvaluationImport;
 use Exception;
-use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UploadEvaluationController extends Controller
@@ -13,9 +13,8 @@ class UploadEvaluationController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(UploadWiseRequest $request)
     {
-
         try {
             Excel::import(new WiseEvaluationImport, $request->file('file')); //storage_path('app/evaluation.xlsx')
 

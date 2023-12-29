@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Domain\Wise\Actions\FindParticipants;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 
 class WiseEvaluationImport implements ToCollection
@@ -25,9 +26,9 @@ class WiseEvaluationImport implements ToCollection
 
             Evaluation::firstOrCreate([
                 'wise_participant_id' => $user ? $user->id : null,
-                'ilo_timestamp' => Carbon::parse($row[0])->format('Y-m-d H:i:s'),
+                'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
                 'employer_or_worker' => $row[5],
-                'date_of_training' => Carbon::parse($row[6])->format('Y-m-d'),
+                'date_of_training' => Carbon::parse($row[6])->format('Y-m-d') ?? null,
                 'location' => $row[7],
                 'evaluation_answers' => [
                     'The training objectives were met' => $row[8],

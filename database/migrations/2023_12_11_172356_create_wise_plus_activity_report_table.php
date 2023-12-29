@@ -27,6 +27,9 @@ return new class extends Migration
             $table->datetime('date_of_training')->nullable()->index();
             $table->date('ilo_timestamp')->nullable()->index();
             $table->timestamps();
+
+            $table->foreign('wise_participant_id')->references('id')->on('wise_participants')->onDelete('cascade');
+
         });
     }
 
