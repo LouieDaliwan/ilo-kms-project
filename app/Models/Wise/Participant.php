@@ -20,6 +20,16 @@ class Participant extends Model
         'beneficiary_of_gov_project' => 'boolean',
     ];
 
+    public function plusActivityReport()
+    {
+        return $this->hasMany(PlusActivityReport::class, 'wise_participant_id', 'id');
+    }
+
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class, 'wise_participant_id', 'id');
+    }
+
     public function scopeSearch($query, string $terms = null)
     {
         collect(explode(' ',$terms))->each(function($term) use ($query) {

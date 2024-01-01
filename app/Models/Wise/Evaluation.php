@@ -33,4 +33,9 @@ class Evaluation extends Model
     protected $casts = [
         'evaluation_answers' => 'array',
     ];
+
+    public function participant()
+    {
+        return $this->belongsTo(Participant::class, 'wise_participant_id', 'id');
+    }
 }
