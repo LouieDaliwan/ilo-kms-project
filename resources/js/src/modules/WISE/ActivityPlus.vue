@@ -70,16 +70,16 @@ const resources = reactive({
             key: "id",
         },
         {
-            title: "Fullname",
+            title: "Name",
             align: "left",
             class: "text-no-wrap",
-            key: "fullname",
+            key: "company_name",
         },
 
         {
-            title: "Last Training Date",
+            title: "Date Training",
             class: "text-no-wrap",
-            key: "training_date",
+            key: "dateOfTraining",
         },
         {
             title: "Actions",
@@ -122,7 +122,7 @@ const getPaginatedData = (params = null, caller = null) => {
     resources.loading = true;
 
     axios
-        .get(api.list(), { params })
+        .get(api.activityReports(), { params })
         .then((response) => {
             let responseData = response.data;
             resources.data = responseData.data;

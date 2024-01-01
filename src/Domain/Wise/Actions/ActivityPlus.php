@@ -12,9 +12,13 @@ class ActivityPlus
 
     public function __invoke($args = [])
     {
-        $model = PlusActivityReport::query()
-            ->search(request()->get('search'))
-            ->paginate($this->getPerPage());
+        $model = PlusActivityReport::query();
+
+        if(request('from') && request('to')){
+           $model = $model->dateTraining(request('from'), request('to'));
+        }
+
+        $model = $model->paginate($this->getPerPage());
 
         $sorted = $this->sortAndOrder($model);
 
