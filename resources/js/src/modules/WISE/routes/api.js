@@ -2,6 +2,11 @@ export default {
     list() {
         return "/api/v1/wise-participants";
     },
+
+    participant(id = null) {
+        return `/api/v1/wise-participants/${id}`;
+    },
+
     evaluations() {
         return "/api/v1/wise-evaluations";
     },
