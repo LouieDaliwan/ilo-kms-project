@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Models\Wise\PlusActivityReport;
+use App\Models\Wise\ActivityPlusReport;
 use Domain\Wise\Actions\FindParticipants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -19,13 +19,13 @@ class WiseActivityPlusImport implements ToCollection
     public function collection(Collection $rows)
     {
         unset($rows[0]);
-        
+
         $data = $rows->toArray();
 
         foreach($data as $key => $row) {
             $user = FindParticipants::find($row);
 
-            PlusActivityReport::create([
+            ActivityPlusReport::create([
                 'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
                 'wise_participant_id' => !is_null($user) ? $user->id :
                     null,

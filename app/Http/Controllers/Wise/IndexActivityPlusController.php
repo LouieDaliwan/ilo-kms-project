@@ -7,7 +7,7 @@ use App\Http\Resources\ActivityPlusResources;
 use Domain\Wise\Actions\ActivityPlus;
 use Illuminate\Http\Request;
 
-class FetchActivityPlusController extends Controller
+class IndexActivityPlusController extends Controller
 {
     public function __construct(public ActivityPlus $activityPlus)
     {}

@@ -10,6 +10,10 @@ export default {
         return "/api/v1/wise-activity-plus";
     },
 
+    activityReport(id = null) {
+        return `/api/v1/wise-activity-plus/${id}`;
+    },
+
     uploadParticipants() {
         return "/api/v1/upload-wise-participants";
     },

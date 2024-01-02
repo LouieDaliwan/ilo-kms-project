@@ -182,10 +182,10 @@ const optionsChanged = (options) => {
     getPaginatedData(options);
 };
 
-const goToParticipantPage = (item) => {
+const goToActivityPage = (item) => {
     router.push({
-        name: "users.show",
-        params: { id: item.columns.id },
+        name: "wise.show-activity",
+        params: { activity_id: item.columns.id },
     });
 };
 
@@ -347,7 +347,7 @@ const bulkTrashResource = () => {
                                 <!-- <v-tooltip bottom>-->
                                 <v-btn
                                     class="me-0 btn-actions"
-                                    @click.prevent="goToParticipantPage(item)"
+                                    @click.prevent="goToActivityPage(item)"
                                 >
                                     <v-icon small>mdi-pencil-outline</v-icon>
                                 </v-btn>

@@ -22,7 +22,7 @@ class Participant extends Model
 
     public function plusActivityReport()
     {
-        return $this->hasMany(PlusActivityReport::class, 'wise_participant_id', 'id');
+        return $this->hasMany(ActivityPlusReport::class, 'wise_participant_id', 'id');
     }
 
     public function evaluations()

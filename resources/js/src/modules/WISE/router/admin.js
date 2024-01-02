@@ -70,6 +70,18 @@ const routes = [
                     icon: "mdi-book-multiple-variant",
                 },
             },
+            {
+                path: "activity-plus/:activity_id",
+                name: "wise.show-activity",
+                component: () => import("../ShowActivityPlus.vue"),
+                meta: {
+                    title: "Show Activity Plus",
+                    sort: 10,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
         ],
     },
 ];

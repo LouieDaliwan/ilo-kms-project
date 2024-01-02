@@ -5,7 +5,7 @@ namespace App\Models\Wise;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlusActivityReport extends Model
+class ActivityPlusReport extends Model
 {
     use HasFactory;
 

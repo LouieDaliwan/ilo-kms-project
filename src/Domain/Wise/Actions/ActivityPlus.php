@@ -2,17 +2,17 @@
 
 namespace Domain\Wise\Actions;
 
+use App\Models\Wise\ActivityPlusReport;
 use App\Models\Wise\Participant;
-use App\Models\Wise\PlusActivityReport;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ActivityPlus
 {
-    protected string $model = PlusActivityReport::class;
+    protected string $model = ActivityPlusReport::class;
 
     public function __invoke($args = [])
     {
-        $model = PlusActivityReport::query();
+        $model = ActivityPlusReport::query();
 
         if(request('from') && request('to')){
            $model = $model->dateTraining(request('from'), request('to'));
