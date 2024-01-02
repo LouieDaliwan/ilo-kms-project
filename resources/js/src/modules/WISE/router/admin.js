@@ -59,7 +59,7 @@ const routes = [
                 },
             },
             {
-                path: ":id",
+                path: "participants/:id",
                 name: "wise.show",
                 component: () => import("../Show.vue"),
                 meta: {

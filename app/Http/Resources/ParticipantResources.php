@@ -17,6 +17,7 @@ class ParticipantResources extends JsonResource
         return array_merge(parent::toArray($request), [
             'fullname' => $this->fullname,
             'training_date' => !is_null($this->ilo_timestamp) ? $this->ilo_timestamp->toFormattedDateString() : null,
+            'isBusinessRegistered' => $this->is_business_registered ? 'Yes' : 'No',
         ]);
     }
 }
