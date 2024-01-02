@@ -186,6 +186,7 @@ const goToActivityPage = (item) => {
     router.push({
         name: "wise.show-activity",
         params: { activity_id: item.columns.id },
+        // params: { activity_id: item.id },
     });
 };
 
