@@ -11,6 +11,7 @@ onMounted(() => {
     console.log("test");
     getParticipant();
 });
+
 const getParticipant = () => {
     console.log(router.currentRoute.value.params.id);
     axios
@@ -113,10 +114,10 @@ const getParticipant = () => {
                         <v-row>
                             <v-col cols="12" md="4">
                                 <text-field
-                                    v-model="dataParticipant.group_member"
+                                    v-model="dataParticipant.member_of"
                                     :disabled="false"
                                     :label="'Group Member'"
-                                    :name="'group_member'"
+                                    :name="'member_of'"
                                 ></text-field>
                             </v-col>
                             <v-col cols="12" md="4">
