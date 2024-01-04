@@ -10,12 +10,16 @@ class ActivityPlus
 {
     protected string $model = ActivityPlusReport::class;
 
-    public function __invoke($args = [])
+    public function __invoke(array $args = [], string $participant_id = null)
     {
         $model = ActivityPlusReport::query();
 
         if(request('from') && request('to')){
            $model = $model->dateTraining(request('from'), request('to'));
+        }
+
+        if($participant_id){
+            $model = $model->where('wise_participant_id', $participant_id);
         }
 
         $model = $model->paginate($this->getPerPage());

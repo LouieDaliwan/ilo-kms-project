@@ -25,6 +25,11 @@ class WiseEvaluationImport implements ToCollection
             $user = FindParticipants::find($row);
 
             Evaluation::firstOrCreate([
+                    'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
+                    'wise_participant_id' => $user ? $user->id : null,
+                    'employer_or_worker' => $row[5],
+                ],
+                [
                 'wise_participant_id' => $user ? $user->id : null,
                 'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
                 'employer_or_worker' => $row[5],

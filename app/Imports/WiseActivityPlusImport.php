@@ -25,7 +25,11 @@ class WiseActivityPlusImport implements ToCollection
         foreach($data as $key => $row) {
             $user = FindParticipants::find($row);
 
-            ActivityPlusReport::create([
+            ActivityPlusReport::firstOrCreate([
+                'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
+                'wise_participant_id' => !is_null($user) ? $user->id : null,
+                'company_name' => $row[5] ?? null,
+            ],[
                 'ilo_timestamp' => Date::excelToDateTimeObject(intval($row[0]))->format('Y-m-d H:i:s'),
                 'wise_participant_id' => !is_null($user) ? $user->id :
                     null,
