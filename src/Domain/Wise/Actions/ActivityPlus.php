@@ -3,7 +3,6 @@
 namespace Domain\Wise\Actions;
 
 use App\Models\Wise\ActivityPlusReport;
-use App\Models\Wise\Participant;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ActivityPlus
@@ -39,7 +38,7 @@ class ActivityPlus
         $perPage = request()->get('itemsPerPage') == '-1' ? 'all' : request()->get('itemsPerPage');
 
         return strtolower($perPage) === 'all'
-            ? count(Participant::get())
+            ? count(ActivityPlusReport::get())
             : (int) $perPage;
     }
 

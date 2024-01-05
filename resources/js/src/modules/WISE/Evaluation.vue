@@ -3,13 +3,7 @@ import Admin from "@/Components/Layouts/Admin.vue";
 import PageHeader from "@/Components/Headers/PageHeader.vue";
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
-import { computed, onMounted, reactive, ref } from "vue";
-import WiseChart from "./Bar-sample-1/WiseChart.vue";
-import WiseChart2 from "./Bar-sample-2/WiseChart.vue";
-import WiseChart3 from "./Bar-sample-3/WiseChart.vue";
-import WiseChart4 from "./Bar-sample-4/WiseChart.vue";
-import WiseChart5 from "@modules/WISE/Bar-sample-7/WiseChart.vue";
-import WiseChart6 from "@modules/WISE/Bar-sample-8/WiseChart.vue";
+import { onMounted, reactive, ref } from "vue";
 
 const dialogBox = reactive({ dialog: false });
 
@@ -27,14 +21,10 @@ const fetchEvaluation = () => {
     axios
         .get($api.evaluations())
         .then(({ data }) => {
-            evaluationData.value = data;
+            evaluationData.value = data.values;
         })
         .catch((err) => {});
 };
-
-computed(() => {
-    console.log(evaluationData.value);
-});
 
 const { smAndDown } = useDisplay();
 
@@ -126,10 +116,10 @@ const onSubmit = async () => {
                         <div class="chart-title">
                             <p>The training objectives were met</p>
                         </div>
-                        <!-- <WiseChart
-                            :evaluationData="evaluationData.first_question"
-                        /> -->
-                        <WiseChart />
+                        <Bar
+                            :name="'evaluation-chart-1'"
+                            :values="evaluationData.first_question"
+                        />
                     </v-card>
                 </v-col>
                 <v-col>
@@ -141,10 +131,10 @@ const onSubmit = async () => {
                                 to OSH.
                             </p>
                         </div>
-                        <!-- <WiseChart2
-                            :evaluationData="evaluationData.second_question"
-                        /> -->
-                        <WiseChart2 />
+                        <Bar
+                            :name="'evaluation-chart-2'"
+                            :values="evaluationData.second_question"
+                        />
                     </v-card>
                 </v-col>
             </v-row>
@@ -158,10 +148,10 @@ const onSubmit = async () => {
                                 OSH.
                             </p>
                         </div>
-                        <!-- <WiseChart3
-                            :evaluationData="evaluationData.third_question"
-                        /> -->
-                        <WiseChart3 />
+                        <Bar
+                            :name="'evaluation-chart-3'"
+                            :values="evaluationData.third_question"
+                        />
                     </v-card>
                 </v-col>
                 <v-col>
@@ -172,10 +162,11 @@ const onSubmit = async () => {
                                 assessment.
                             </p>
                         </div>
-                        <!-- <WiseChart4
-                            :evaluationData="evaluationData.fourth_question"
-                        /> -->
-                        <WiseChart4 />
+
+                        <Bar
+                            :name="'evaluation-chart-4'"
+                            :values="evaluationData.fourth_question"
+                        />
                     </v-card>
                 </v-col>
             </v-row>
@@ -189,8 +180,9 @@ const onSubmit = async () => {
                                 in the workplace.
                             </p>
                         </div>
-                        <WiseChart5
-                            :evaluationData="evaluationData.fifth_question"
+                        <Bar
+                            :name="'evaluation-chart-5'"
+                            :values="evaluationData.fifth_question"
                         />
                     </v-card>
                 </v-col>
@@ -202,8 +194,9 @@ const onSubmit = async () => {
                                 and informal business.
                             </p>
                         </div>
-                        <WiseChart6
-                            :evaluationData="evaluationData.sixth_question"
+                        <Bar
+                            :name="'evaluation-chart-6'"
+                            :values="evaluationData.sixth_question"
                         />
                     </v-card>
                 </v-col>

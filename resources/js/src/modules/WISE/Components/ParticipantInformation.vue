@@ -12,7 +12,6 @@ onMounted(() => {
 });
 
 const getParticipant = () => {
-    console.log(router.currentRoute.value.params.id);
     axios
         .get($api.participant(router.currentRoute.value.params.id))
         .then(({ data }) => {

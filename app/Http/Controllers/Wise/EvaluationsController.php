@@ -8,50 +8,9 @@ use Illuminate\Http\Request;
 
 class EvaluationsController extends Controller
 {
-    protected array $data = [
-        'first_question' => [
-            'Strongly Disagree' => 0,
-            'Disagree' => 0,
-            'Neutral' => 0,
-            'Agree' => 0,
-            'Strongly Agree' => 0,
-        ],
-        'second_question' => [
-            'Strongly Disagree' => 0,
-            'Disagree' => 0,
-            'Neutral' => 0,
-            'Agree' => 0,
-            'Strongly Agree' => 0,
-        ],
-        'third_question' => [
-            'Strongly Disagree' => 0,
-            'Disagree' => 0,
-            'Neutral' => 0,
-            'Agree' => 0,
-            'Strongly Agree' => 0,
-        ],
-        'fourth_question' => [
-            'Strongly Disagree' => 0,
-            'Disagree' => 0,
-            'Neutral' => 0,
-            'Agree' => 0,
-            'Strongly Agree' => 0,
-        ],
-        'fifth_question' => [
-            'Strongly Disagree' => 0,
-            'Disagree' => 0,
-            'Neutral' => 0,
-            'Agree' => 0,
-            'Strongly Agree' => 0,
-        ],
-        'sixth_question' => [
-            'Strongly Disagree' => 0,
-            'Disagree' => 0,
-            'Neutral' => 0,
-            'Agree' => 0,
-            'Strongly Agree' => 0,
-        ],
-    ];
+    protected array $data = Evaluation::DATA;
+
+    protected array $labels = Evaluation::LABELS;
 
     /**
      * Handle the incoming request.
@@ -69,11 +28,17 @@ class EvaluationsController extends Controller
                 $this->data[Evaluation::SORT_QUESTIONS[$question]][Evaluation::EVALUATION_ANSWERS[$answer]]++;
             }
         }
-        return $this->data;
+        return json_encode(['values' => $this->data]);
     }
 
     protected function query()
     {
-        return Evaluation::get();
+        $query = Evaluation::query();
+
+        if (request()->has('start_date') && request()->has('end_date')) {
+            $query = $query->filterDate(request()->start_date, request()->end_date);
+        }
+
+        return $query->get();
     }
 }
