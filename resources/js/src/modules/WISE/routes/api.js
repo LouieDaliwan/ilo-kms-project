@@ -7,6 +7,14 @@ export default {
         return `/api/v1/wise-participants/${id}`;
     },
 
+    participantActivity(id = null) {
+        return `/api/v1/wise-participants/${id}/activity-plus`;
+    },
+
+    participantEvaluation(id = null) {
+        return `/api/v1/wise-participants/${id}/evaluation`;
+    },
+
     evaluations() {
         return "/api/v1/wise-evaluations";
     },
