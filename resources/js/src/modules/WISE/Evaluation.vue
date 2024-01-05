@@ -126,9 +126,10 @@ const onSubmit = async () => {
                         <div class="chart-title">
                             <p>The training objectives were met</p>
                         </div>
-                        <WiseChart
+                        <!-- <WiseChart
                             :evaluationData="evaluationData.first_question"
-                        />
+                        /> -->
+                        <WiseChart />
                     </v-card>
                 </v-col>
                 <v-col>
@@ -140,9 +141,10 @@ const onSubmit = async () => {
                                 to OSH.
                             </p>
                         </div>
-                        <WiseChart2
+                        <!-- <WiseChart2
                             :evaluationData="evaluationData.second_question"
-                        />
+                        /> -->
+                        <WiseChart2 />
                     </v-card>
                 </v-col>
             </v-row>
@@ -156,9 +158,10 @@ const onSubmit = async () => {
                                 OSH.
                             </p>
                         </div>
-                        <WiseChart3
+                        <!-- <WiseChart3
                             :evaluationData="evaluationData.third_question"
-                        />
+                        /> -->
+                        <WiseChart3 />
                     </v-card>
                 </v-col>
                 <v-col>
@@ -169,9 +172,10 @@ const onSubmit = async () => {
                                 assessment.
                             </p>
                         </div>
-                        <WiseChart4
+                        <!-- <WiseChart4
                             :evaluationData="evaluationData.fourth_question"
-                        />
+                        /> -->
+                        <WiseChart4 />
                     </v-card>
                 </v-col>
             </v-row>

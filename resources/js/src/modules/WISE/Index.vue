@@ -25,31 +25,31 @@ import PieChart from "./Pie-sample/WiseChart.vue";
                 <p>SMEs that have implemented their workplan.</p>
                 <div class="d-flex align-end">
                     <h1 class="text-secondary-color mt-1">3,652</h1>
-                    <p class="text-secondary-color ms-2 me-1">/</p>
-                    <p class="text-secondary-color">10,000</p>
+                    <!-- <p class="text-secondary-color ms-2 me-1">/</p>
+                    <p class="text-secondary-color">10,000</p> -->
                 </div>
-                <v-progress-linear
+                <!-- <v-progress-linear
                     :height="12"
                     bg-color="#303DC3"
                     color="rgb(250,60,75)"
                     model-value="20"
-                ></v-progress-linear>
+                ></v-progress-linear> -->
             </div>
             <div class="mt-15">
                 <v-row class="mt-5">
                     <v-col>
                         <h4 class="text-secondary">Sector</h4>
-                        <h5>3,652 Responses</h5>
+                        <!-- <h5>3,652 Responses</h5> -->
                         <PieChart class="mt-10" />
                     </v-col>
                     <v-col>
                         <h4 class="text-secondary">Gender</h4>
-                        <h5>3,652 Responses</h5>
+                        <!-- <h5>3,652 Responses</h5> -->
                         <WiseChart5 class="mt-10" />
                     </v-col>
                     <v-col>
                         <h4 class="text-secondary">Position</h4>
-                        <h5>3,652 Responses</h5>
+                        <!-- <h5>3,652 Responses</h5> -->
                         <WiseChart6 class="mt-10" />
                     </v-col>
                 </v-row>
