@@ -10,10 +10,25 @@ class Participant extends Model
 {
     use HasFactory, UserAttributes;
 
+    const GENDER = [
+        'Male' => 0,
+        'Female' => 0,
+    ];
+    const SECTOR = [
+         'Agriculture' => 0,
+         'Manufacturing' => 0,
+         'Small Construction' => 0,
+         'Services' => 0,
+         'Others' => 0,
+    ];
+
+    const POSITION = [
+        'Labor' => 0,
+        'Management' => 0,
+    ];
+
     protected $guarded = [];
-
     protected $table = 'wise_participants';
-
     protected $casts = [
         'ilo_timestamp' => 'datetime',
         'is_business_registered' => 'boolean',

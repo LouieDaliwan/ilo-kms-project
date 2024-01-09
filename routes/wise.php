@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Wise\ActivityPlusController;
 use App\Http\Controllers\Wise\EvaluationsController;
+use App\Http\Controllers\Wise\OverallCompletionController;
 use App\Http\Controllers\Wise\ParticipantActivityPlusController;
 use App\Http\Controllers\Wise\ParticipantEvaluationsController;
 use App\Http\Controllers\Wise\ParticipantsController;
@@ -11,6 +12,9 @@ use App\Http\Controllers\Wise\UploadActivityPlusController;
 use App\Http\Controllers\Wise\UploadEvaluationController;
 use App\Http\Controllers\Wise\UploadParticipantsController;
 
+
+Route::get('wise-overall', OverallCompletionController::class)
+    ->name('wise-overall');
 
 Route::get('wise-participants', [ParticipantsController::class, 'index'])
     ->name('wise-participants');

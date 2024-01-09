@@ -1,4 +1,8 @@
 export default {
+    overall() {
+        return "/api/v1/wise-overall";
+    },
+
     list() {
         return "/api/v1/wise-participants";
     },

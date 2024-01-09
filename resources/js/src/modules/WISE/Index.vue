@@ -1,10 +1,6 @@
 <script setup>
 import Admin from "@/Components/Layouts/Admin.vue";
-import PageHeader from "@/Components/Headers/PageHeader.vue";
 import EvaluationData from "./Components/EvaluationData.vue";
-
-import WiseChart5 from "./Bar-sample-5/WiseChart.vue";
-import WiseChart6 from "./Bar-sample-6/WiseChart.vue";
 
 import { onMounted, ref } from "vue";
 import $api from "@modules/WISE/routes/api.js";
@@ -14,9 +10,34 @@ onMounted(() => {
     fetchEvaluation();
 });
 
-const getData = () => {};
-
 const evaluationData = ref([]);
+const overAllData = ref([]);
+
+const labels = ref([
+    "Agriculture",
+    "Manufacturing",
+    "Others",
+    "Small Construction",
+    "Services",
+]);
+
+const sectorValues = ref([0, 0, 0, 0, 0]);
+
+const getData = () => {
+    axios
+        .get($api.overall())
+        .then(({ data }) => {
+            overAllData.value = data;
+            sectorValues.value = [
+                data.sector["Agriculture"],
+                data.sector["Manufacturing"],
+                data.sector["Others"],
+                data.sector["Small Construction"],
+                data.sector["Services"],
+            ];
+        })
+        .catch((err) => {});
+};
 
 const fetchEvaluation = () => {
     axios
@@ -40,25 +61,35 @@ const fetchEvaluation = () => {
                 <h3 class="text-tertiary-color">Workplan Completion</h3>
                 <p>SMEs that have implemented their workplan.</p>
                 <div class="d-flex align-end">
-                    <h1 class="text-secondary-color mt-1">3,652</h1>
+                    <h1 class="text-secondary-color mt-1">
+                        {{ overAllData.total_participants }}
+                    </h1>
                 </div>
             </div>
             <div class="mt-15">
                 <v-row class="mt-5">
                     <v-col>
                         <h4 class="text-secondary">Sector</h4>
-                        <!-- <h5>3,652 Responses</h5> -->
-                        <Pie class="mt-10" />
+                        <Pie
+                            v-if="overAllData"
+                            :labels="labels"
+                            :values="sectorValues"
+                            class="mt-10"
+                        />
                     </v-col>
                     <v-col>
                         <h4 class="text-secondary">Gender</h4>
-                        <!-- <h5>3,652 Responses</h5> -->
-                        <WiseChart5 class="mt-10" />
+                        <Bar
+                            :name="'gender'"
+                            :values="overAllData.gender"
+                        ></Bar>
                     </v-col>
                     <v-col>
                         <h4 class="text-secondary">Position</h4>
-                        <!-- <h5>3,652 Responses</h5> -->
-                        <WiseChart6 class="mt-10" />
+                        <Bar
+                            :name="'position'"
+                            :values="overAllData.position"
+                        ></Bar>
                     </v-col>
                 </v-row>
             </div>
