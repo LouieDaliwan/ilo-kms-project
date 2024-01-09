@@ -12,7 +12,7 @@ export default {
     },
 
     participantEvaluation(id = null) {
-        return `/api/v1/wise-participants/${id}/evaluation`;
+        return `/api/v1/wise-participants/${id}/evaluations`;
     },
 
     evaluations() {

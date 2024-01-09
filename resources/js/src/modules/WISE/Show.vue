@@ -12,7 +12,7 @@ import ActivityPlus from "./Components/ParticipantActivityPlus.vue";
         </page-header>
 
         <Information />
-        <Evaluation />
         <ActivityPlus />
+        <Evaluation />
     </admin>
 </template>
