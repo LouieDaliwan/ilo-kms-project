@@ -7,6 +7,8 @@ import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
+import Swal from 'sweetalert2'
+
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -130,6 +132,11 @@ const getPaginatedData = (params = null, caller = null) => {
             resources.data.map(function (data) {
                 return Object.assign(data, { loading: false });
             });
+            // Swal.fire({
+            // title: "Good job!",
+            // text: "You clicked the button!",
+            // icon: "success"
+            // });
         });
 };
 
@@ -144,6 +151,8 @@ const resourcesIsEmpty = computed(() => {
 const resourcesIsNotEmpty = computed(() => {
     return !resourcesIsEmpty.value;
 });
+
+
 
 const options = reactive({
     per_page: resources.options.itemsPerPage,
@@ -240,6 +249,12 @@ const onSubmit = async () => {
         .finally(() => {
             dialogBox.dialog = false;
             getPaginatedData();
+            Swal.fire({
+            title: "Good job!",
+            text: "You clicked the button!",
+            icon: "success"
+            });
+
         });
 };
 </script>
@@ -304,6 +319,14 @@ const onSubmit = async () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
+            <v-row>
+                <v-col class="d-flex">
+                    <p>From: </p><v-text-field type="date" min="2022-04-10" label="Date"></v-text-field>
+                </v-col>
+                <v-col class="d-flex">
+                    <p>To: </p><v-text-field type="date" label="Date"></v-text-field>
+                </v-col>
+            </v-row>
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server

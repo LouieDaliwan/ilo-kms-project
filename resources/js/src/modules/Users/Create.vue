@@ -305,6 +305,7 @@ export default {
             autocomplete="false"
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
+            class="txtfield-border"
         >
             <button ref="submit-button" class="d-none" type="submit"></button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">

@@ -239,6 +239,7 @@ export default {
         enctype="multipart/form-data"
          @input="onInput"
         @submit.prevent="onSubmit"
+        class="txtfield-border"
     >
         <page-header :back="{ to: { name: 'users.all' }, text: 'Users', }">
             <template v-slot:title>My Profile</template>

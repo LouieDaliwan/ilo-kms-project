@@ -10,6 +10,9 @@ import i18n from "@/plugins/i18n.js";
 import globalComponents from "@/global/components.js";
 import { createPinia } from "pinia";
 
+// import VueSweetalert2 from 'sweetalert2';
+// import 'sweetalert2/dist/sweetalert2.min.css';
+
 const app = createApp(App)
     .use(i18n)
     .use(vuetify)

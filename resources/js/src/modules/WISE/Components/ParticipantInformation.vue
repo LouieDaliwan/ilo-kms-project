@@ -28,7 +28,7 @@ const getParticipant = () => {
 </script>
 
 <template>
-    <v-row>
+    <v-row class="txtfield-border">
         <v-col cols="12" md="12">
             <v-card class="mb-3">
                 <v-card-title>Account Information</v-card-title>
