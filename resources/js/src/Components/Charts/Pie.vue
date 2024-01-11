@@ -15,22 +15,18 @@ import Chart from "chart.js/auto";
 
 export default {
     name: "WiseChart",
+
+    props: ["values", "labels"],
     data() {
         return {
             WiseChartData: {
                 type: "pie",
                 data: {
-                    labels: [
-                        "Agriculture",
-                        "Manufacturing",
-                        "Small Construction",
-                        "Services",
-                        "Others",
-                    ],
+                    labels: this.labels,
                     datasets: [
                         {
                             label: "My First Dataset",
-                            data: [50, 25, 25, 25, 25],
+                            data: this.values,
                             backgroundColor: [
                                 "rgb(48,61,195)",
                                 "rgba(135,233,233,255)",
@@ -61,9 +57,17 @@ export default {
             },
         };
     },
-    mounted() {
-        const ctx = document.getElementById("pie-chart");
-        new Chart(ctx, this.WiseChartData);
+    // mounted() {
+    //     const ctx = document.getElementById("pie-chart");
+    //     new Chart(ctx, this.WiseChartData);
+    // },
+    watch: {
+        values(val) {
+            this.WiseChartData.data.datasets[0].data = val;
+            this.WiseChartData.data.labels = this.labels;
+            const ctx = document.getElementById("pie-chart");
+            new Chart(ctx, this.WiseChartData);
+        },
     },
 };
 </script>

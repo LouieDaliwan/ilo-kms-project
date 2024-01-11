@@ -1,4 +1,8 @@
 export default {
+    overall() {
+        return "/api/v1/wise-overall";
+    },
+
     list() {
         return "/api/v1/wise-participants";
     },
@@ -12,7 +16,7 @@ export default {
     },
 
     participantEvaluation(id = null) {
-        return `/api/v1/wise-participants/${id}/evaluation`;
+        return `/api/v1/wise-participants/${id}/evaluations`;
     },
 
     evaluations() {

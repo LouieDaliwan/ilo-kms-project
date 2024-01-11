@@ -1,22 +1,22 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import $api from "../routes/api.js";
 import { useRouter } from "vue-router";
+import EvaluationData from "@modules/WISE/Components/EvaluationData.vue";
 
 const router = useRouter();
 
-onMounted(() => {
-    console.log("test");
-    console.log($api);
+const evaluationData = ref([]);
 
-    // getActivity();
+onMounted(() => {
+    getEvaluation();
 });
 
 const getEvaluation = () => {
     axios
         .get($api.participantEvaluation(router.currentRoute.value.params.id))
         .then(({ data }) => {
-            console.log(data);
+            evaluationData.value = data.values;
         })
         .catch((error) => {
             console.log(error);
@@ -28,5 +28,8 @@ const getEvaluation = () => {
 </script>
 
 <template>
-    <h1>test</h1>
+    <div>
+        <h1>Evaluation</h1>
+        <evaluation-data :values="evaluationData" />
+    </div>
 </template>

@@ -168,8 +168,8 @@ const optionsChanged = (options) => {
 const goToParticipantPage = (item) => {
     router.push({
         name: "wise.show",
-        // params: { id: item.columns.id },
-        params: { id: item.id },
+        params: { id: item.columns.id },
+        // params: { id: item.id },
     });
 };
 

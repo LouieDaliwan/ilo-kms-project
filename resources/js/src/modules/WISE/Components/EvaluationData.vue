@@ -1,13 +1,7 @@
 <script setup>
-import { defineProps, onMounted, ref } from "vue";
-
-const data = ref([]);
+import { defineProps } from "vue";
 
 defineProps(["values"]);
-
-onMounted(() => {
-    console.log("mounted");
-});
 </script>
 
 <template>
