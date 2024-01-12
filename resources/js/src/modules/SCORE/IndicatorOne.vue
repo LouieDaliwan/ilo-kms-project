@@ -11,7 +11,6 @@ function uploadModal() {
 }
 
 onMounted(() => {
-    console.log("test one");
     fetchIndicatorOneData();
 });
 
@@ -22,7 +21,6 @@ const fetchIndicatorOneData = () => {
         .get($api.indicatorOneData())
         .then(({ data }) => {
             indicatorData.value = data;
-            console.log(data);
         })
         .catch((err) => {});
 };
