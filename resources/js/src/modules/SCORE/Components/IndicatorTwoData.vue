@@ -21,7 +21,7 @@ defineProps(["values"]);
                 <v-col>
                     <h4 class="text-secondary">Gender</h4>
                     <Bar
-                        :name="'gender_indicator_one'"
+                        :name="'gender_indicator_two'"
                         :values="values.gender"
                     ></Bar>
                 </v-col>
@@ -37,7 +37,7 @@ defineProps(["values"]);
                         </p>
                     </div>
                     <Bar
-                        :name="'indicator-one-chart-1'"
+                        :name="'indicator-two-chart-1'"
                         :values="values.first_question"
                     />
                 </v-card>
@@ -51,7 +51,7 @@ defineProps(["values"]);
                         </p>
                     </div>
                     <Bar
-                        :name="'indicator-one-chart-2'"
+                        :name="'indicator-two-chart-2'"
                         :values="values.second_question"
                     />
                 </v-card>
@@ -69,7 +69,7 @@ defineProps(["values"]);
                         </p>
                     </div>
                     <Bar
-                        :name="'indicator-one-chart-3'"
+                        :name="'indicator-two-chart-3'"
                         :values="values.third_question"
                     />
                 </v-card>
