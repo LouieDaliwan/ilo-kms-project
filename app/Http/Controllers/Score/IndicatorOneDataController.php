@@ -24,6 +24,7 @@ class IndicatorOneDataController extends Controller
     {
         $result = [
             'gender' => IndicatorOne::GENDER,
+            'total_count' => 0,
         ];
 
         $datasurvey = IndicatorOne::DATASURVEY;
@@ -32,6 +33,7 @@ class IndicatorOneDataController extends Controller
 
         foreach ($this->query() as $data)
         {
+            $result['total_count']++;
             $result['gender'][$data['gender']]++;
 
             foreach ($data['questions_answer'] as $key => $value)
