@@ -15,10 +15,6 @@ defineProps(["values"]);
         <div class="mt-15">
             <v-row class="mt-5">
                 <v-col>
-                    <h4 class="text-secondary">Sector</h4>
-                    <Pie :labels="['Test1', 'Test2', 'Test3']" class="mt-10" />
-                </v-col>
-                <v-col>
                     <h4 class="text-secondary">Gender</h4>
                     <Bar
                         :name="'gender_indicator_two'"
