@@ -38,6 +38,10 @@ class Auth {
         return this.getUser()["is:superadmin"] || false;
     }
 
+    isAdmin() {
+        return this.getUser()["is:admin"] || false;
+    }
+
     isNotSuperAdmin() {
         return !this.isSuperAdmin();
     }

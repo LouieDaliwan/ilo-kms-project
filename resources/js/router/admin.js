@@ -2,6 +2,7 @@ const routes = [];
 import multiguard from "vue-router-multiguard";
 import isAuthenticated from "@/routes/middleware/isAuthenticated.js";
 import tokenVerifier from "@/routes/middleware/tokenVerifier.js";
+import rolesAndPermissions from "@/routes/middleware/roles-Permissions.js";
 
 Object.values(
     import.meta.glob("../src/modules/*/router/admin.js", { eager: true }),
@@ -18,5 +19,9 @@ export default {
     component: () => import("@/Components/Layouts/Dashboard.vue"),
     meta: { title: "Admin", requiresAuth: true },
     children: routes,
-    beforeEnter: multiguard([isAuthenticated, tokenVerifier]),
+    beforeEnter: multiguard([
+        isAuthenticated,
+        tokenVerifier,
+        rolesAndPermissions,
+    ]),
 };

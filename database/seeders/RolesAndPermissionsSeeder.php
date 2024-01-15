@@ -21,8 +21,19 @@ class RolesAndPermissionsSeeder extends Seeder
                 'can-delete',
                 'can-assign',
                 'can-remove',
+                'can-view'
             ],
-            'User' => [],
+            'Admin' => [
+                'can-view',
+                'can-add',
+                'can-edit',
+                'can-delete',
+                'can-assign',
+                'can-remove',
+            ],
+            'Member' => [
+                'can-view'
+            ]
         ];
 
         foreach ($roles as $role => $permissions) {

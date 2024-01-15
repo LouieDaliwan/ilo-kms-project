@@ -12,13 +12,19 @@ class AdminCredentialsSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'first_name' => 'Superadmin',
-            'last_name' => 'Superadmin',
-            'username' => 'superadmin',
-            'email' => 'superadmin@superadmin.com',
-            'password' => bcrypt('superadmin'),
-            'is_temporary_password' => 0,
-        ]);
+        $user = User::firstOrCreate([
+                'email' => 'superadmin@superadmin.com',
+            ],
+            [
+                'first_name' => 'Superadmin',
+                'last_name' => 'Superadmin',
+                'username' => 'superadmin',
+                'email' => 'superadmin@superadmin.com',
+                'password' => bcrypt('superadmin'),
+                'is_temporary_password' => 0,
+            ]
+        );
+
+        $user->assignRole('Superadmin');
     }
 }
