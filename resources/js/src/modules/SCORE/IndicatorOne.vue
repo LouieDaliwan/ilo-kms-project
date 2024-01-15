@@ -58,7 +58,7 @@ const onSubmit = async () => {
 
 <template>
     <admin>
-        <metatag :title="'Wise Evaluation'"></metatag>
+        <metatag :title="'Score Indicator One'"></metatag>
 
         <page-header>
             <template v-slot:title> Score Indicator One</template>
