@@ -15,16 +15,16 @@ export default [
             ],
         },
         children: [
-            {
-                code: "score.dashboard",
-                name: "score.dashboard",
-                meta: {
-                    title: "Dashboard",
-                    requiresAuth: true,
-                    sort: 6,
-                    children: ["score.dashboard"],
-                },
-            },
+            // {
+            //     code: "score.dashboard",
+            //     name: "score.dashboard",
+            //     meta: {
+            //         title: "Dashboard",
+            //         requiresAuth: true,
+            //         sort: 6,
+            //         children: ["score.dashboard"],
+            //     },
+            // },
             {
                 code: "score.indicator_one",
                 name: "score.indicator_one",
