@@ -2,7 +2,7 @@
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
 import { onMounted, reactive, ref } from "vue";
-import IndicatorOneData from "@modules/SCORE/Components/IndicatorOneData.vue";
+import IndicatorThreeData from "@modules/SCORE/Components/IndicatorThreeData.vue";
 
 const dialogBox = reactive({ dialog: false });
 
@@ -11,14 +11,14 @@ function uploadModal() {
 }
 
 onMounted(() => {
-    fetchIndicatorOneData();
+    fetchIndicatorThreeData();
 });
 
 const indicatorData = ref([]);
 
-const fetchIndicatorOneData = () => {
+const fetchIndicatorThreeData = () => {
     axios
-        .get($api.indicatorOneData())
+        .get($api.indicatorThreeData())
         .then(({ data }) => {
             indicatorData.value = data;
         })
@@ -39,13 +39,13 @@ const onSubmit = async () => {
     formData.append("file", file.value);
 
     await axios
-        .post($api.uploadIndicatorOne(), formData, {
+        .post($api.uploadIndicatorThree(), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         })
         .then(({ data }) => {
-            fetchIndicatorOneData();
+            fetchIndicatorThreeData();
         })
         .catch((err) => {
             console.log(err);
@@ -103,6 +103,6 @@ const onSubmit = async () => {
             </template>
         </page-header>
 
-        <indicator-one-data :values="indicatorData"></indicator-one-data>
+        <indicator-three-data :values="indicatorData"></indicator-three-data>
     </admin>
 </template>
