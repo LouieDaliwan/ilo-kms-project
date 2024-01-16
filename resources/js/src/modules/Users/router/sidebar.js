@@ -30,16 +30,16 @@ export default [
                     children: ["users.create"],
                 },
             },
-            {
-                code: "users.trashed",
-                name: "users.trashed",
-                meta: {
-                    title: "Trashed",
-                    requiresAuth: true,
-                    sort: 8,
-                    children: ["users.trashed"],
-                },
-            },
+            // {
+            //     code: "users.trashed",
+            //     name: "users.trashed",
+            //     meta: {
+            //         title: "Trashed",
+            //         requiresAuth: true,
+            //         sort: 8,
+            //         children: ["users.trashed"],
+            //     },
+            // },
         ],
     },
 ];

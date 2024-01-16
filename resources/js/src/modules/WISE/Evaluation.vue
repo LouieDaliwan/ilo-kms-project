@@ -3,6 +3,24 @@ import EvaluationData from "./Components/EvaluationData.vue";
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
 import { onMounted, reactive, ref } from "vue";
+import { useForm } from "vee-validate";
+import { uploadSchema } from "./Schema/uploadvalidation.js";
+import Swal from 'sweetalert2'
+
+const { defineComponentBinds, resetForm, handleSubmit, setErrors } = useForm({
+        validationSchema: uploadSchema,
+    });
+
+const vuetifyConfig = (state) => ({
+    props: {
+        "error-messages": state.errors,
+    },
+});
+
+
+const upload = defineComponentBinds("file_upload", vuetifyConfig);
+
+const fileUpload = ref([]);
 
 const dialogBox = reactive({ dialog: false });
 
@@ -33,7 +51,7 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
-const onSubmit = async () => {
+const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
 
     formData.append("file", file.value);
@@ -46,14 +64,22 @@ const onSubmit = async () => {
         })
         .then(({ data }) => {
             fetchEvaluation();
+            resetForm()
         })
         .catch((err) => {
             console.log(err);
         })
         .finally(() => {
             dialogBox.dialog = false;
+            fileUpload.value = []
+                Swal.fire({
+                title: "Success!",
+                text: "Wise Participants have been uploaded.",
+                icon: "success",
+                confirmButtonColor:"#1E2DBE"
+                });
         });
-};
+});
 </script>
 
 <template>
@@ -80,23 +106,27 @@ const onSubmit = async () => {
                             <v-card-title class="text-h5 grey lighten-2">
                                 Upload a File
                             </v-card-title>
+                            <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
+                                <v-card-text>
+                                    <v-file-input
+                                        label="File input"
+                                        name="file_upload"
+                                        show-size
+                                        v-bind="upload"
+                                        v-model="fileUpload"
+                                        @change="uploadFile"
+                                    ></v-file-input>
+                                </v-card-text>
 
-                            <v-card-text>
-                                <v-file-input
-                                    label="File input"
-                                    show-size
-                                    @change="uploadFile"
-                                ></v-file-input>
-                            </v-card-text>
+                                <v-divider></v-divider>
 
-                            <v-divider></v-divider>
-
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="onSubmit">
-                                    Upload
-                                </v-btn>
-                            </v-card-actions>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" type="submit">
+                                        Upload
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-form>
                         </v-card>
                     </v-dialog>
                 </div>

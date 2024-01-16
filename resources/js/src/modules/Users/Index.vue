@@ -236,7 +236,8 @@ const bulkTrashResource = () => {
             <page-header>
                 <template v-slot:title>Users</template>
             </page-header>
-            <template v-slot:utilities>
+            <template v-slot:title>List of Users</template>
+            <!-- <template v-slot:utilities>
                 <router-link
                     :to="{ name: 'users.trashed' }"
                     class="dt-link text--decoration-none mr-4"
@@ -246,7 +247,7 @@ const bulkTrashResource = () => {
                     <v-icon left small>mdi-account-off-outline</v-icon>
                     Deactivated Users
                 </router-link>
-            </template>
+            </template> -->
 
             <template v-slot:action>
                 <v-btn
@@ -326,13 +327,13 @@ const bulkTrashResource = () => {
                                 <!-- Edit User -->
 
                                 <!-- Move to Trash -->
-                                <v-btn
+                                <!-- <v-btn
                                     class="btn-actions"
                                     icon
                                     @click="askUserToDestroyCompany(item)"
                                 >
                                     <v-icon small>mdi-delete-outline</v-icon>
-                                </v-btn>
+                                </v-btn> -->
                                 <!-- Move to Trash -->
                             </div>
                         </template>

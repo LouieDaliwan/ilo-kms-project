@@ -10,6 +10,7 @@ import User from "./Models/User.js";
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useForm } from "vee-validate";
+import Swal from "sweetalert2";
 import { userSchema } from "./Schema/uservalidation.js";
 import { useRouter } from "vue-router";
 
@@ -27,7 +28,6 @@ export default {
         const { mdAndUp, xlAndUp } = useDisplay();
         const alertBox = useAlertBoxStore();
         const successBox = useSuccessBoxStore();
-        // const settings = useSettingsStore();
 
         const { defineComponentBinds, handleSubmit, resetForm, setErrors } =
             useForm({
@@ -45,11 +45,11 @@ export default {
         const lastname = defineComponentBinds("lastname", vuetifyConfig);
         const email = defineComponentBinds("email", vuetifyConfig);
         const password = defineComponentBinds("password", vuetifyConfig);
-        const suffix = defineComponentBinds("suffix", vuetifyConfig);
-        const prefix = defineComponentBinds("prefix", vuetifyConfig);
-        const mobile = defineComponentBinds("mobile_phone", vuetifyConfig);
+        const suffix = defineComponentBinds("suffixname", vuetifyConfig);
+        const prefix = defineComponentBinds("prefixname", vuetifyConfig);
+        const mobile = defineComponentBinds("mobile_number", vuetifyConfig);
         const username = defineComponentBinds("username", vuetifyConfig);
-        const homeAddress = defineComponentBinds("homeAddress", vuetifyConfig);
+        const homeAddress = defineComponentBinds("home_address", vuetifyConfig);
         const roleValidation = defineComponentBinds("roles", vuetifyConfig);
         const confirm_password = defineComponentBinds(
             "confirm_password",
@@ -108,6 +108,17 @@ export default {
                 })
                 .finally(() => {
                     // this.load(false);
+                    window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "smooth",
+                    });
+                    Swal.fire({
+                    title: "Success!",
+                    text: "You have successfully added a new user.",
+                    icon: "success",
+                    confirmButtonColor:"#1E2DBE"
+                    });
                 });
         });
 
@@ -254,57 +265,13 @@ export default {
     <admin>
         <metatag :title="'Add User'"></metatag>
 
-        <!-- <template v-slot:appbar>
-            <v-container class="py-0 px-0">
-                <v-row align="center" justify="space-between">
-                    <v-fade-transition>
-                        <v-col
-                            v-if="isNotFormPrestine"
-                            class="py-0"
-                            cols="auto"
-                        >
-                            <v-toolbar-title class="muted--text">
-                                Unsaved changes
-                            </v-toolbar-title>
-                        </v-col>
-                    </v-fade-transition>
-                    <v-spacer></v-spacer>
-                    <v-col class="py-0" cols="auto">
-                        <div class="d-flex justify-end mr-6">
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                class="ml-3 mr-0"
-                                large
-                                text
-                                @click="askUserToDiscardUnsavedChanges"
-                                >Discard
-                            </v-btn>
-
-                            <v-btn
-                                ref="submit-button-main"
-                                :disabled="isFormDisabled"
-                                :loading="isLoading"
-                                class="ml-3 mr-0"
-                                color="primary"
-                                large
-                                type="submit"
-                                @click.prevent="submitForm"
-                            >
-                                <v-icon left>mdi-content-save-outline</v-icon>
-                                Save
-                            </v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </template> -->
-
         <v-form
             ref="addform-form"
             :disabled="isLoading"
             autocomplete="false"
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
+            class="txtfield-border"
         >
             <button ref="submit-button" class="d-none" type="submit"></button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
@@ -320,7 +287,6 @@ export default {
                         <v-card-text>
                             <v-row justify="space-between">
                                 <v-col cols="6" md="2">
-                                    <!--                                    append-icon="mdi-chevron-down"-->
                                     <v-select
                                         v-model="resource.data.prefixname"
                                         :disabled="isLoading"
@@ -351,7 +317,6 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12" md="4">
-                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.firstname"
                                         :disabled="isLoading"
@@ -362,7 +327,6 @@ export default {
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="4">
-                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.middlename"
                                         :disabled="isLoading"
@@ -375,8 +339,6 @@ export default {
                                     </v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="4">
-                                    <!--                                    :dense="isDense"-->
-                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.lastname"
                                         :disabled="isLoading"
@@ -473,7 +435,7 @@ export default {
                 color="primary"
                 large
                 type="submit"
-                @click.prevent="submitForm" block class="mt-2">
+                @click.prevent="onSubmit" block class="mt-2">
                 Submit
             </v-btn>
         </v-form>

@@ -64,7 +64,6 @@ export default {
         );
 
         const onSubmit = handleSubmit((values) => {
-            console.log(values);
             isPrestine.value = false;
 
             axios
@@ -76,10 +75,14 @@ export default {
                 })
                 .catch((err) => {
                     setErrors(err.response.data.errors);
-                    // this.form.setErrors(err.response.data.errors);
                 })
                 .finally(() => {
                     // this.load(false);
+                    window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "smooth",
+                    });
                 });
         });
 
@@ -188,18 +191,6 @@ export default {
                 });
         },
 
-        submitForm() {
-            if (this.isNotFormDisabled) {
-                console.log(this.$refs["edit-submit-button"].click());
-                this.$refs["edit-submit-button"].click();
-                window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
-                });
-            }
-        },
-
         askUserBeforeNavigatingAway(next) {
             this.dialog.show({
                 illustration: () =>
@@ -271,18 +262,9 @@ export default {
     <admin>
         <metatag :title="'Show User'"></metatag>
         <template v-slot:appbar>
-            <v-container class="py-0 px-0 mr-10">
+            <!-- <v-container class="py-0 px-0 mr-10">
                 <v-row align="center" justify="space-between">
                     <v-fade-transition>
-                        <!--                        <v-col-->
-                        <!--                            v-if="isNotFormPrestine"-->
-                        <!--                            class="py-0"-->
-                        <!--                            cols="auto"-->
-                        <!--                        >-->
-                        <!--                            <v-toolbar-title class="muted&#45;&#45;text">-->
-                        <!--                                Unsaved changes-->
-                        <!--                            </v-toolbar-title>-->
-                        <!--                        </v-col>-->
                     </v-fade-transition>
                     <v-spacer></v-spacer>
                     <v-col class="py-0" cols="auto">
@@ -311,7 +293,7 @@ export default {
                         </div>
                     </v-col>
                 </v-row>
-            </v-container>
+            </v-container> -->
         </template>
 
         <v-form
