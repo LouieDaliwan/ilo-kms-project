@@ -3,13 +3,45 @@ import Admin from "@/Components/Layouts/Admin.vue";
 import PageHeader from "@/Components/Headers/PageHeader.vue";
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
-import { computed, onBeforeMount, reactive, ref, watch } from "vue";
+import { computed, onBeforeMount, reactive, ref, watch, onMounted } from "vue";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
+import { useForm } from "vee-validate";
+import { uploadSchema } from "./Schema/uploadvalidation.js";
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import Swal from 'sweetalert2'
+
+
+
+const { defineComponentBinds, resetForm, handleSubmit } = useForm({
+        validationSchema: uploadSchema,
+    });
+
+const vuetifyConfig = (state) => ({
+    props: {
+        "error-messages": state.errors,
+    },
+});
+
+
+const upload = defineComponentBinds("file_upload", vuetifyConfig);
+
+const fileUpload = ref([]);
+
 
 const dialogBox = reactive({ dialog: false });
+
+const date = ref(null);
+
+onMounted(() => {
+  const startDate = new Date();
+//   const endDate = new Date(new Date().setDate(startDate.getDate()));
+  const endDate = new Date();
+  date.value = [startDate, endDate];
+})
 
 function uploadModal() {
     dialogBox.dialog = true;
@@ -21,26 +53,41 @@ const file = ref(null);
 
 const uploadFile = (event) => {
     file.value = event.target.files[0];
+    console.log(file.value)
 };
 
-const onSubmit = async () => {
+// const test = () => {
+//     console.log(fileUpload.value.length)
+// }
+
+const onSubmit =  handleSubmit( async(values) => {
     const formData = new FormData();
     formData.append("file", file.value);
-
     await axios
         .post($api.uploadActivityPlus(), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         })
-        .then(({ data }) => {})
+        .then(({ data }) => {
+        resetForm()
+        })
         .catch((err) => {
             console.log(err);
         })
         .finally(() => {
             dialogBox.dialog = false;
+            getPaginatedData();
+            fileUpload.value = []
+                Swal.fire({
+                title: "Success!",
+                text: "Activity Plus has been uploaded.",
+                icon: "success",
+                confirmButtonColor:"#1E2DBE"
+                });
         });
-};
+});
+
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -268,23 +315,30 @@ const bulkTrashResource = () => {
                             <v-card-title class="text-h5 grey lighten-2">
                                 Upload a File
                             </v-card-title>
-
+                        <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
                             <v-card-text>
                                 <v-file-input
-                                    label="File input"
+                                    label="Upload a File"
+                                    name="file_upload"
                                     show-size
+                                    v-bind="upload"
+                                    v-model="fileUpload"
                                     @change="uploadFile"
                                 ></v-file-input>
                             </v-card-text>
-
                             <v-divider></v-divider>
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="onSubmit">
-                                    Save
+                                <v-btn color="primary" type="submit">
+                                    Upload
                                 </v-btn>
+                                <!-- <v-btn color="primary" type="submit" @click="test">
+                                    Test
+                                </v-btn> -->
+
                             </v-card-actions>
+                        </v-form>
                         </v-card>
                     </v-dialog>
                 </div>
@@ -304,6 +358,11 @@ const bulkTrashResource = () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
+            <v-row>
+                <v-col class="d-flex">
+                     <VueDatePicker class="mb-20" v-model="date" range :teleport="true" position="left" :enable-time-picker="false" />
+                </v-col>
+            </v-row>
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server
