@@ -5,6 +5,7 @@ import { useForm } from "vee-validate";
 import { changePasswordValidation } from "./Schema/changePasswordValidation.js";
 import { useRouter } from "vue-router";
 import $api from "./routes/api.js";
+import Swal from "sweetalert2";
 
 const auth = ref({
     current_password: "",
@@ -74,6 +75,12 @@ const onSubmit = handleSubmit((values) => {
         })
         .finally(() => {
             load(false);
+            Swal.fire({
+            title: "Success!",
+            text: "You have successfully changed your password.",
+            icon: "success",
+            confirmButtonColor:"#1E2DBE"
+            });
         });
 });
 

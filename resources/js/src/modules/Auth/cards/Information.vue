@@ -10,6 +10,7 @@ import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useForm } from "vee-validate";
 import { useInformationSchema } from "../Schema/updateInformationValidation.js";
+import Swal from "sweetalert2";
 
 export default {
     data() {
@@ -75,6 +76,12 @@ export default {
                 })
                 .finally(() => {
                     load(false);
+                    Swal.fire({
+                    title: "Success!",
+                    text: "You have successfully updated your profile.",
+                    icon: "success",
+                    confirmButtonColor:"#1E2DBE"
+                    });
                 });
         });
 
@@ -237,8 +244,9 @@ export default {
         :disabled="isLoading"
         autocomplete="false"
         enctype="multipart/form-data"
-         @input="onInput"
+        @input="onInput"
         @submit.prevent="onSubmit"
+        class="txtfield-border"
     >
         <page-header :back="{ to: { name: 'users.all' }, text: 'Users', }">
             <template v-slot:title>My Profile</template>

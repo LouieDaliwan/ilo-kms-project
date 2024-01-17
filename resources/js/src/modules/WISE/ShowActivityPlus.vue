@@ -43,7 +43,7 @@ onMounted(() => {
             <template v-slot:title>Activity Plus </template>
         </page-header>
 
-        <v-row>
+        <v-row class="txtfield-border">
             <v-col cols="12" md="12">
                 <v-card class="mb-3">
                     <v-card-title>Account Information</v-card-title>
@@ -54,16 +54,19 @@ onMounted(() => {
                                     v-model="activityPlus.company_name"
                                     :disabled="false"
                                     :label="'Company Name'"
+                                    class="mb-3"
                                 ></text-field>
                                 <text-field
                                     v-model="fullname"
                                     :disabled="false"
                                     :label="'Participant'"
+                                    class="mb-3"
                                 ></text-field>
                                 <text-field
                                     v-model="activityPlus.action_checklist_type"
                                     :disabled="false"
                                     :label="'Action Checklist Type'"
+                                    class="mb-3"
                                 ></text-field>
                             </v-col>
                             <v-col>
@@ -71,16 +74,19 @@ onMounted(() => {
                                     v-model="activityPlus.venue"
                                     :disabled="false"
                                     :label="'Venue'"
+                                    class="mb-3"
                                 ></text-field>
                                 <text-field
                                     v-model="activityPlus.dateOfTraining"
                                     :disabled="false"
                                     :label="'Date of Training'"
+                                    class="mb-3"
                                 ></text-field>
                                 <text-field
                                     v-model="activityPlus.link_pictures"
                                     :disabled="false"
                                     :label="'Link Pictures'"
+                                    class="mb-3"
                                 ></text-field>
                             </v-col>
                         </v-row>

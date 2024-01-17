@@ -3,10 +3,31 @@ import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDisplay } from "vuetify";
-import { computed, onBeforeMount, reactive, ref, watch } from "vue";
+import { computed, onBeforeMount, reactive, ref, watch, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
+import { useForm } from "vee-validate";
+import { uploadSchema } from "./Schema/uploadvalidation.js";
+import Swal from 'sweetalert2'
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
+
+const { defineComponentBinds, resetForm, handleSubmit, setErrors } = useForm({
+        validationSchema: uploadSchema,
+    });
+
+const vuetifyConfig = (state) => ({
+    props: {
+        "error-messages": state.errors,
+    },
+});
+
+
+const upload = defineComponentBinds("file_upload", vuetifyConfig);
+
+const fileUpload = ref([]);
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -16,6 +37,16 @@ const router = useRouter();
 const route = useRoute();
 
 const dialogBox = reactive({ dialog: false });
+
+const date = ref(null);
+
+onMounted(() => {
+  const startDate = new Date();
+//   const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+  const endDate = new Date();
+  date.value = [startDate, endDate];
+})
+
 
 function uploadModal() {
     dialogBox.dialog = true;
@@ -130,6 +161,11 @@ const getPaginatedData = (params = null, caller = null) => {
             resources.data.map(function (data) {
                 return Object.assign(data, { loading: false });
             });
+            // Swal.fire({
+            // title: "Good job!",
+            // text: "You clicked the button!",
+            // icon: "success"
+            // });
         });
 };
 
@@ -145,6 +181,8 @@ const resourcesIsNotEmpty = computed(() => {
     return !resourcesIsEmpty.value;
 });
 
+
+
 const options = reactive({
     per_page: resources.options.itemsPerPage,
     page: resources.options.page,
@@ -159,8 +197,8 @@ const optionsChanged = (options) => {
 const goToParticipantPage = (item) => {
     router.push({
         name: "wise.show",
-        params: { id: item.columns.id },
-        // params: { id: item.id },
+        // params: { id: item.columns.id },
+        params: { id: item.id },
     });
 };
 
@@ -223,7 +261,7 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
-const onSubmit = async () => {
+const onSubmit = handleSubmit( async () => {
     const formData = new FormData();
     formData.append("file", file.value);
 
@@ -233,15 +271,25 @@ const onSubmit = async () => {
                 "Content-Type": "multipart/form-data",
             },
         })
-        .then(({ data }) => {})
+        .then(({ data }) => {
+            resetForm()
+        })
         .catch((err) => {
             console.log(err);
         })
         .finally(() => {
             dialogBox.dialog = false;
             getPaginatedData();
+            fileUpload.value = []
+                Swal.fire({
+                title: "Success!",
+                text: "Wise Participants have been uploaded.",
+                icon: "success",
+                confirmButtonColor:"#1E2DBE"
+                });
+
         });
-};
+});
 </script>
 
 <template>
@@ -269,28 +317,32 @@ const onSubmit = async () => {
                                 Upload a File
                             </v-card-title>
 
-                            <v-card-text>
-                                <v-file-input
-                                    label="File input"
-                                    show-size
-                                    @change="uploadFile"
-                                ></v-file-input>
-                            </v-card-text>
+                            <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
+                                <v-card-text>
+                                    <v-file-input
+                                        label="File input"
+                                        name="file_upload"
+                                        show-size
+                                        v-bind="upload"
+                                        v-model="fileUpload"
+                                        @change="uploadFile"
+                                    ></v-file-input>
+                                </v-card-text>
 
-                            <v-divider></v-divider>
+                                <v-divider></v-divider>
 
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" @click="onSubmit">
-                                    Save
-                                </v-btn>
-                            </v-card-actions>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn color="primary" type="submit">
+                                        Upload
+                                    </v-btn>
+                                </v-card-actions>
+                            </v-form>
                         </v-card>
                     </v-dialog>
                 </div>
             </template>
         </page-header>
-
         <v-card>
             <toolbar-menu
                 :bulkCount="tabletoolbar.bulkCount"
@@ -304,6 +356,11 @@ const onSubmit = async () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
+            <v-row>
+                <v-col class="d-flex">
+                     <VueDatePicker class="mb-20" v-model="date" range :teleport="true" position="left" :enable-time-picker="false" />
+                </v-col>
+            </v-row>
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server
