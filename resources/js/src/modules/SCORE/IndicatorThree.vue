@@ -3,6 +3,7 @@ import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
 import { onMounted, reactive, ref } from "vue";
 import IndicatorThreeData from "@modules/SCORE/Components/IndicatorThreeData.vue";
+import IndicatorThreeComments from "@modules/SCORE/Components/IndicatorThreeComments.vue";
 
 const dialogBox = reactive({ dialog: false });
 
@@ -104,5 +105,7 @@ const onSubmit = async () => {
         </page-header>
 
         <indicator-three-data :values="indicatorData"></indicator-three-data>
+
+        <indicator-three-comments></indicator-three-comments>
     </admin>
 </template>

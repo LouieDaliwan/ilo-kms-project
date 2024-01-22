@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Score\FetchCommentsIndicatorThreeController;
 use App\Http\Controllers\Score\FetchCommentsIndicatorTwoController;
 use App\Http\Controllers\Score\IndicatorOneDataController;
 use App\Http\Controllers\Score\IndicatorThreeDataController;
@@ -25,8 +26,12 @@ Route::get('/score-indicator-two-comments', FetchCommentsIndicatorTwoController:
 Route::post('/upload-score-indicator-two', UploadIndicatorTwoController::class)
     ->name('upload-score-indicator-two');
 
+
 Route::get('/score-indicator-three-data', IndicatorThreeDataController::class)
     ->name('indicator-three-data');
+
+Route::get('/score-indicator-three-comments', FetchCommentsIndicatorThreeController::class)
+    ->name('indicator-three-comments');
 
 Route::post('/upload-score-indicator-three', UploadIndicatorThreeController::class)
     ->name('upload-score-indicator-three');
