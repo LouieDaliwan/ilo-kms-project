@@ -10,7 +10,6 @@ import PageHeader from "@components/Headers/PageHeader.vue";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
 import Swal from "sweetalert2";
-import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 
 const { defineComponentBinds, resetForm, handleSubmit, setErrors } = useForm({
@@ -36,14 +35,7 @@ const route = useRoute();
 
 const dialogBox = reactive({ dialog: false });
 
-const date = ref(null);
-
-onMounted(() => {
-    const startDate = new Date();
-    //   const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
-    const endDate = new Date();
-    date.value = [startDate, endDate];
-});
+onMounted(() => {});
 
 function uploadModal() {
     dialogBox.dialog = true;
@@ -66,7 +58,7 @@ const resources = reactive({
     selected: [],
     headers: [
         {
-            id: "Batch Code",
+            title: "Batch Code",
             align: "left",
             class: "text-no-wrap",
             key: "batch_code",
@@ -77,18 +69,42 @@ const resources = reactive({
             class: "text-no-wrap",
             key: "name",
         },
-
         {
-            title: "Last Training Date",
+            title: "Agency",
             class: "text-no-wrap",
-            key: "training_date",
+            key: "agency",
         },
         {
-            title: "Actions",
+            title: "Agency Location",
             align: "center",
             sortable: false,
             class: "muted--text text-no-wrap",
-            key: "action",
+            key: "agency_location",
+        },
+        {
+            title: "No. of Planned TOE",
+            class: "text-no-wrap",
+            key: "no_of_planned_toe",
+        },
+        {
+            title: "Estimated MSME to be trained",
+            class: "text-no-wrap",
+            key: "estimated_msme_to_be_trained",
+        },
+        {
+            title: "No. of TOE conducted activity report",
+            class: "text-no-wrap",
+            key: "no_of_toe_conducted_activity_report",
+        },
+        {
+            title: "No. MSME trained",
+            class: "text-no-wrap",
+            key: "no_msme_trained",
+        },
+        {
+            title: "Remarks",
+            class: "text-no-wrap",
+            key: "remarks",
         },
     ],
     data: [],
@@ -158,11 +174,6 @@ const getPaginatedData = (params = null, caller = null) => {
             resources.data.map(function (data) {
                 return Object.assign(data, { loading: false });
             });
-            // Swal.fire({
-            // title: "Good job!",
-            // text: "You clicked the button!",
-            // icon: "success"
-            // });
         });
 };
 
@@ -187,14 +198,6 @@ const options = reactive({
 
 const optionsChanged = (options) => {
     getPaginatedData(options);
-};
-
-const goToParticipantPage = (item) => {
-    router.push({
-        name: "wise.show",
-        // params: { id: item.columns.id },
-        params: { id: item.id },
-    });
 };
 
 watch(
@@ -227,29 +230,6 @@ const search = window._.debounce(function (value) {
     }
 }, 200);
 
-const bulkTrashResource = () => {
-    let selected = selected;
-    axios
-        .delete($api.destroy(null), { data: { id: selected } })
-        .then(({ data }) => {
-            getPaginatedData(null, "bulkTrashResource");
-            tabletoolbar.toggleTrash = false;
-            tabletoolbar.toggleBulkEdit = false;
-            dialogStore.hide();
-            snackbarStore.show({
-                text: `User successfully deactivated ${tabletoolbar.bulkCount}`,
-            });
-        })
-        .catch((err) => {
-            dialogStore.error({
-                width: 400,
-                buttons: { cancel: { show: false } },
-                title: "Whoops! An error occured",
-                text: err.response.data.message,
-            });
-        });
-};
-
 const file = ref(null);
 
 const uploadFile = (event) => {
@@ -268,20 +248,26 @@ const onSubmit = handleSubmit(async () => {
         })
         .then(({ data }) => {
             resetForm();
-        })
-        .catch((err) => {
-            console.log(err);
-        })
-        .finally(() => {
-            dialogBox.dialog = false;
-            getPaginatedData();
-            fileUpload.value = [];
             Swal.fire({
                 title: "Success!",
                 text: "Wise Participants have been uploaded.",
                 icon: "success",
                 confirmButtonColor: "#1E2DBE",
             });
+        })
+        .catch((err) => {
+            console.log(err);
+            Swal.fire({
+                title: "Error!",
+                text: "There's Error Occurred Please Try Again",
+                icon: "error",
+                confirmButtonColor: "#1E2DBE",
+            });
+        })
+        .finally(() => {
+            dialogBox.dialog = false;
+            getPaginatedData();
+            fileUpload.value = [];
         });
 });
 </script>
@@ -350,21 +336,9 @@ const onSubmit = handleSubmit(async () => {
                 downloadable
                 trashable
                 @update:searchInput="search"
-                @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
-            <v-row>
-                <v-col class="d-flex">
-                    <VueDatePicker
-                        v-model="date"
-                        :enable-time-picker="false"
-                        :teleport="true"
-                        class="mb-20"
-                        position="left"
-                        range
-                    />
-                </v-col>
-            </v-row>
+
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server

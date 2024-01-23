@@ -1,9 +1,9 @@
 export default {
     list() {
-        return "/api/v1/agencies";
+        return "/api/v1/siyb-agencies";
     },
 
     uploadAgency() {
-        return "/api/v1/upload-status-agency";
+        return "/api/v1/upload-siyb-status-agency";
     },
 };
