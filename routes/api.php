@@ -4,7 +4,8 @@ use App\Http\Controllers\Users\UsersController;
 
 $routes = [
     '/wise.php',
-    '/score.php'
+    '/score.php',
+    '/siyb.php',
 ];
 
 Route::group(['middleware' => config('fortify.middleware', ['auth:sanctum'])], function () use($routes) {
