@@ -7,7 +7,7 @@ export default [
             icon: "mdi-briefcase-outline",
             requiresAuth: true,
             sort: 5,
-            children: ["siyb.agency"],
+            children: ["siyb.agency", "siyb.summary"],
         },
         children: [
             // {
@@ -24,10 +24,20 @@ export default [
                 code: "siyb.agency",
                 name: "siyb.agency",
                 meta: {
-                    title: "SIYB Agency",
+                    title: "List Agency",
                     requiresAuth: true,
                     sort: 7,
                     children: ["siyb.agency"],
+                },
+            },
+            {
+                code: "siyb.summary",
+                name: "siyb.summary",
+                meta: {
+                    title: "Summary",
+                    requiresAuth: true,
+                    sort: 8,
+                    children: ["siyb.summar"],
                 },
             },
         ],

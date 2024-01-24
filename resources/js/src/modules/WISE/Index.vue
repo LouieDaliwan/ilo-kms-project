@@ -73,6 +73,7 @@ const fetchEvaluation = () => {
                         <Pie
                             v-if="overAllData"
                             :labels="labels"
+                            :name="'wise-sector'"
                             :values="sectorValues"
                             class="mt-10"
                         />

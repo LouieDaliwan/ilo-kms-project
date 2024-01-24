@@ -111,12 +111,9 @@ const resources = reactive({
 });
 
 const tabletoolbar = reactive({
-    bulkCount: 0,
     isSearching: false,
     searchInput: "",
     listGridView: false,
-    toggleBulkEdit: false,
-    toggleTrash: false,
     verticaldiv: false,
 });
 
@@ -207,20 +204,6 @@ watch(
     },
 );
 
-watch(
-    () => resources.selected,
-    (newValue) => {
-        tabletoolbar.bulkCount = newValue.length;
-    },
-);
-
-watch(
-    () => tabletoolbar.toggleBulkEdit,
-    (newValue) => {
-        resources.selected = [];
-    },
-);
-
 const search = window._.debounce(function (value) {
     resources.search = value || "";
     tabletoolbar.isSearch = false;
@@ -256,7 +239,6 @@ const onSubmit = handleSubmit(async () => {
             });
         })
         .catch((err) => {
-            console.log(err);
             Swal.fire({
                 title: "Error!",
                 text: "There's Error Occurred Please Try Again",

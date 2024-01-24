@@ -18,6 +18,10 @@ class Participant extends Model
          'Agriculture' => 0,
          'Manufacturing' => 0,
          'Small Construction' => 0,
+         'Indigenous People' => 0,
+         'PWD' => 0,
+         'Informal Sector' => 0,
+         'Youth' => 0,
          'Services' => 0,
          'Others' => 0,
     ];

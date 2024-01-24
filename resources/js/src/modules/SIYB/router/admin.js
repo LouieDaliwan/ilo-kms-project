@@ -1,7 +1,7 @@
 const routes = [
     {
         path: "/admin/siyb",
-        name: "auth-profile",
+        name: "siyb",
         redirect: { name: "siyb.agency" },
         component: () => import("@root/App.vue"),
         meta: {
@@ -18,6 +18,18 @@ const routes = [
                 meta: {
                     title: "List Agencies",
                     sort: 6,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "summary",
+                name: "siyb.summary",
+                component: () => import("../Summary.vue"),
+                meta: {
+                    title: "Summary",
+                    sort: 7,
                     requiresAuth: true,
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
