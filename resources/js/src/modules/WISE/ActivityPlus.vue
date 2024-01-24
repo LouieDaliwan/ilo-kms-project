@@ -16,7 +16,7 @@ import Swal from 'sweetalert2'
 
 
 
-const { defineComponentBinds, resetForm, handleSubmit } = useForm({
+const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
         validationSchema: uploadSchema,
     });
 
@@ -30,7 +30,6 @@ const vuetifyConfig = (state) => ({
 const upload = defineComponentBinds("file_upload", vuetifyConfig);
 
 const fileUpload = ref([]);
-
 
 const dialogBox = reactive({ dialog: false });
 
@@ -53,11 +52,12 @@ const file = ref(null);
 
 const uploadFile = (event) => {
     file.value = event.target.files[0];
-    console.log(file.value)
+    // console.log(file.value)
 };
 
 // const test = () => {
 //     console.log(fileUpload.value.length)
+//     console.log(meta.value.valid)
 // }
 
 const onSubmit =  handleSubmit( async(values) => {
@@ -210,6 +210,10 @@ onBeforeMount(() => {
     changeOptionsFromRouterQueries();
 });
 
+const isDisabledComputed = computed(() => {
+    return meta.value.valid;
+});
+
 const resourcesIsEmpty = computed(() => {
     return window._.isEmpty(resources.data) && !resources.loading;
 });
@@ -312,13 +316,16 @@ const bulkTrashResource = () => {
                 <div class="text-center">
                     <v-dialog v-model="dialogBox.dialog" width="500">
                         <v-card>
-                            <v-card-title class="text-h5 grey lighten-2">
-                                Upload a File
-                            </v-card-title>
+                            <div class="bg-blue-lighten-5">
+                                <v-card-title class="text-secondary-color font-weight-bold">
+                                    UPLOAD DATA
+                                </v-card-title>
+                            </div>
+                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
                         <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
                             <v-card-text>
                                 <v-file-input
-                                    label="Upload a File"
+                                    label="Upload Data"
                                     name="file_upload"
                                     show-size
                                     v-bind="upload"
@@ -330,10 +337,10 @@ const bulkTrashResource = () => {
 
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="primary" type="submit">
+                                <v-btn color="primary" :disabled="!isDisabledComputed" type="submit">
                                     Upload
                                 </v-btn>
-                                <!-- <v-btn color="primary" type="submit" @click="test">
+                                <!-- <v-btn color="primary" @click="test">
                                     Test
                                 </v-btn> -->
 

@@ -78,14 +78,14 @@ const fetchEvaluation = () => {
                         />
                     </v-col>
                     <v-col>
-                        <h4 class="text-secondary">Gender</h4>
+                        <h4 class="text-secondary mb-9">Gender</h4>
                         <Bar
                             :name="'gender'"
                             :values="overAllData.gender"
                         ></Bar>
                     </v-col>
                     <v-col>
-                        <h4 class="text-secondary">Position</h4>
+                        <h4 class="text-secondary mb-9">Position</h4>
                         <Bar
                             :name="'position'"
                             :values="overAllData.position"

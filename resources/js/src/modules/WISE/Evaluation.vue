@@ -2,12 +2,12 @@
 import EvaluationData from "./Components/EvaluationData.vue";
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, computed } from "vue";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
 import Swal from 'sweetalert2'
 
-const { defineComponentBinds, resetForm, handleSubmit, setErrors } = useForm({
+const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
         validationSchema: uploadSchema,
     });
 
@@ -80,6 +80,10 @@ const onSubmit = handleSubmit(async () => {
                 });
         });
 });
+
+const isDisabledComputed = computed(() => {
+    return meta.value.valid;
+});
 </script>
 
 <template>
@@ -103,9 +107,12 @@ const onSubmit = handleSubmit(async () => {
                 <div class="text-center">
                     <v-dialog v-model="dialogBox.dialog" width="500">
                         <v-card>
-                            <v-card-title class="text-h5 grey lighten-2">
-                                Upload a File
-                            </v-card-title>
+                            <div class="bg-blue-lighten-5">
+                                <v-card-title class="text-secondary-color font-weight-bold">
+                                    UPLOAD DATA
+                                </v-card-title>
+                            </div>
+                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
                             <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
                                 <v-card-text>
                                     <v-file-input
@@ -122,7 +129,7 @@ const onSubmit = handleSubmit(async () => {
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" type="submit">
+                                    <v-btn color="primary" :disabled="!isDisabledComputed" type="submit">
                                         Upload
                                     </v-btn>
                                 </v-card-actions>
