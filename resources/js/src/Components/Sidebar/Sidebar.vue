@@ -9,12 +9,15 @@ export default {
     data() {
         return {
             drawer: true,
+            navDrawer: false,
+
         };
     },
 
     setup() {
-        const { mdAndUp } = useDisplay();
-        return { mdAndUp };
+        const { mdAndUp, mdAndDown } = useDisplay();
+        return { mdAndUp, mdAndDown };
+
     },
 
     computed: {
@@ -47,26 +50,51 @@ export default {
             "update",
             "show",
         ]),
+
+        sideBarToggle(e) {
+            const sidebar = useSidebarStore();
+            sidebar.$patch((state) => {
+                state.sideBarData.model = true;
+                // state.sideBarData.model = !state.sideBarData.model;
+            });
+
+            sidebar.toggle({ model: sidebar.sideBarData.model });
+            // console.log(sidebar.sideBarData.model)
+
+        },
     },
+    mounted () {
+      console.log(this.mdAndUp+"geron")
+      if (this.$vuetify.display.mobile) {
+        this.drawer = false
+      }
+      else {
+        this.drawer = true
+      }
+    },
+
 };
 </script>
 
 <template>
     <v-navigation-drawer
-        v-model="sidebarModel"
+        :model-value="sidebarModel"
         :expand-on-hover="sidebar.mini"
-        :permanent="true"
+        :permanent="this.mdAndUp"
         app
         class="dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
         fixed
         location="left"
-    >
-        <brand class="my-3"></brand>
+        temporary
 
-        <menus></menus>
+    >
+
+            <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
+            <brand class="my-3"></brand>
+            <menus></menus>
 
         <!-- Sidebar Footer -->
-        <template v-slot:append>
+        <template v-slot:append >
             <div class="px-4 py-2 d-flex justify-space-between align-center">
                 <div class="white--text">
                     <small>
@@ -76,5 +104,7 @@ export default {
                 </div>
             </div>
         </template>
+
     </v-navigation-drawer>
+
 </template>

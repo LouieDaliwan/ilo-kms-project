@@ -62,7 +62,7 @@ onMounted(async () => {
     <v-app-bar
         v-if="appbar.model"
         :elevation="2"
-        :height="mdAndUp ? 83 : null"
+
         :model-value="appbar.model"
         app
         scroll-behavior="hide"
