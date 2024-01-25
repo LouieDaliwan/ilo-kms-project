@@ -10,7 +10,7 @@ import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
-import VueDatePicker from '@vuepic/vue-datepicker';
+// import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import Swal from 'sweetalert2'
 
@@ -60,6 +60,10 @@ const uploadFile = (event) => {
 //     console.log(meta.value.valid)
 // }
 
+const clearData = () => {
+    resetForm()
+}
+
 const onSubmit =  handleSubmit( async(values) => {
     const formData = new FormData();
     formData.append("file", file.value);
@@ -81,7 +85,7 @@ const onSubmit =  handleSubmit( async(values) => {
             fileUpload.value = []
                 Swal.fire({
                 title: "Success!",
-                text: "Activity Plus has been uploaded.",
+                text: "Data has been uploaded.",
                 icon: "success",
                 confirmButtonColor:"#1E2DBE"
                 });
@@ -330,6 +334,7 @@ const bulkTrashResource = () => {
                                     show-size
                                     v-bind="upload"
                                     v-model="fileUpload"
+                                    @click:clear="clearData"
                                     @change="uploadFile"
                                 ></v-file-input>
                             </v-card-text>
@@ -365,11 +370,11 @@ const bulkTrashResource = () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
-            <v-row>
+            <!-- <v-row>
                 <v-col class="d-flex">
                      <VueDatePicker class="mb-20" v-model="date" range :teleport="true" position="left" :enable-time-picker="false" />
                 </v-col>
-            </v-row>
+            </v-row> -->
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server

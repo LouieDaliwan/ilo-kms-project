@@ -10,7 +10,7 @@ import PageHeader from "@components/Headers/PageHeader.vue";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
 import Swal from 'sweetalert2'
-import VueDatePicker from '@vuepic/vue-datepicker';
+// import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
 
@@ -287,7 +287,7 @@ const onSubmit = handleSubmit( async () => {
             fileUpload.value = []
                 Swal.fire({
                 title: "Success!",
-                text: "Wise Participants have been uploaded.",
+                text: "Data has been uploaded.",
                 icon: "success",
                 confirmButtonColor:"#1E2DBE"
                 });
@@ -362,11 +362,11 @@ const onSubmit = handleSubmit( async () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
-            <v-row>
+            <!-- <v-row>
                 <v-col class="d-flex">
                      <VueDatePicker class="mb-20" v-model="date" range :teleport="true" position="left" :enable-time-picker="false" />
                 </v-col>
-            </v-row>
+            </v-row> -->
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server

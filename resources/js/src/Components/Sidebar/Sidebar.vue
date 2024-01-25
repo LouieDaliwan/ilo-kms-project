@@ -64,7 +64,6 @@ export default {
         },
     },
     mounted () {
-      console.log(this.mdAndUp+"geron")
       if (this.$vuetify.display.mobile) {
         this.drawer = false
       }

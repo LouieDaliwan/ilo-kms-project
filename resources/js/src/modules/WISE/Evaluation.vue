@@ -74,7 +74,7 @@ const onSubmit = handleSubmit(async () => {
             fileUpload.value = []
                 Swal.fire({
                 title: "Success!",
-                text: "Wise Participants have been uploaded.",
+                text: "Data has been uploaded.",
                 icon: "success",
                 confirmButtonColor:"#1E2DBE"
                 });
