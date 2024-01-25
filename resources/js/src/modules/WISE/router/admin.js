@@ -82,6 +82,42 @@ const routes = [
                     icon: "mdi-book-multiple-variant",
                 },
             },
+            {
+                path: "indicator-one",
+                name: "wise.indicator_one",
+                component: () => import("../IndicatorOne.vue"),
+                meta: {
+                    title: "Wise Indicator One",
+                    sort: 7,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "indicator-two",
+                name: "wise.indicator_two",
+                component: () => import("../IndicatorTwo.vue"),
+                meta: {
+                    title: "Wise Indicator Two",
+                    sort: 7,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "indicator-three",
+                name: "wise.indicator_three",
+                component: () => import("../IndicatorThree.vue"),
+                meta: {
+                    title: "Wise Indicator Three",
+                    sort: 7,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
         ],
     },
 ];

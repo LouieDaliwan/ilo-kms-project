@@ -24,21 +24,6 @@ export default {
     <admin>
         <meta-tag :title="'Dashboard'"></meta-tag>
 
-        <page-header>
-            <template v-slot:action>
-                <v-btn
-                    :block="!!smAndDown"
-                    :to="{ name: 'users.all' }"
-                    color="primary"
-                    large
-                    rounded
-                >
-                    <v-icon left small
-                        >mdi-file-document-box-search-outline
-                    </v-icon>
-                    {{ "All Users" }}
-                </v-btn>
-            </template>
-        </page-header>
+        <page-header></page-header>
     </admin>
 </template>

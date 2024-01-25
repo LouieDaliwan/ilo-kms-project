@@ -40,4 +40,36 @@ export default {
     uploadEvaluation() {
         return "/api/v1/upload-wise-evaluation";
     },
+
+    indicatorOneData() {
+        return "/api/v1/wise-indicator-one-data";
+    },
+
+    uploadIndicatorOne() {
+        return "/api/v1/upload-wise-indicator-one";
+    },
+
+    indicatorTwoData() {
+        return "/api/v1/wise-indicator-two-data";
+    },
+
+    indicatorTwoComments() {
+        return "/api/v1/wise-indicator-two-comments";
+    },
+
+    uploadIndicatorTwo() {
+        return "/api/v1/upload-wise-indicator-two";
+    },
+
+    indicatorThreeData() {
+        return "/api/v1/wise-indicator-three-data";
+    },
+
+    indicatorThreeComments() {
+        return "/api/v1/wise-indicator-three-comments";
+    },
+
+    uploadIndicatorThree() {
+        return "/api/v1/upload-wise-indicator-three";
+    },
 };

@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Score;
+namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
-use App\Models\Score\IndicatorOne;
+use App\Models\Score\IndicatorThree;
 use Illuminate\Http\Request;
 
-class IndicatorOneDataController extends Controller
+class IndicatorThreeDataController extends Controller
 {
+    protected string $model = IndicatorThree::class;
     /**
      * Handle the incoming request.
      */
@@ -16,19 +17,16 @@ class IndicatorOneDataController extends Controller
         return $this->fetchData();
     }
 
-    /**
-     * Fetch data from database.
-     * @return array
-     */
+
     protected function fetchData() : array
     {
         $result = [
-            'gender' => IndicatorOne::GENDER,
+            'gender' => $this->model::GENDER,
             'total_count' => 0,
         ];
 
-        $datasurvey = IndicatorOne::DATASURVEY;
-        $labelAnswers = IndicatorOne::LABELANSWERS;
+        $datasource = $this->model::DATASURVEY;
+        $labelAnswers = $this->model::LABELANSWERS;
 
 
         foreach ($this->query() as $data)
@@ -38,16 +36,18 @@ class IndicatorOneDataController extends Controller
 
             foreach ($data['questions_answer'] as $key => $value)
             {
-                $datasurvey[$key][$labelAnswers[(string) $value]]++;
+                if(key_exists($key, $datasource)) {
+                    $datasource[$key][$labelAnswers[(string) $value]]++;
+                }
             }
         }
 
-        return array_merge($result, $datasurvey);
+        return array_merge($result, $datasource);
     }
 
     protected function query()
     {
-        $query = IndicatorOne::query();
+        $query = $this->model::query();
 
         if (request('from') && request('to')) {
             $query = $query->whereBetween('created_at', [request('from'), request('to')]);
