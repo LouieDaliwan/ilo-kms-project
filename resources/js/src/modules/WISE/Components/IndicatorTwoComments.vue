@@ -9,20 +9,16 @@ const offset = ref(0);
 const limit = ref(5);
 
 const loadMore = () => {
-    /** This is only for this demo, you could
-     * replace the following with code to hit
-     * an endpoint to pull in more data. **/
     loading.value = true;
     setTimeout((e) => {
         axios
-            .get($api.indicatorThreeComments(), {
+            .get($api.indicatorTwoComments(), {
                 params: {
                     offset: offset.value,
                     limit: limit.value,
                 },
             })
             .then(({ data }) => {
-                console.log(data);
                 items.value.length === 0
                     ? (items.value = data)
                     : items.value.push(...data);
@@ -64,7 +60,8 @@ onMounted(() => {
                 <div v-for="item in items">
                     <v-card>
                         <v-card-title>
-                            I know my rights related to OSH
+                            I know my legal duties and responsibilities related
+                            to OSH as an employer
                         </v-card-title>
 
                         <v-card-text>
@@ -74,31 +71,12 @@ onMounted(() => {
 
                     <v-card>
                         <v-card-title>
-                            I know my duties related to OSH
+                            I am able to carry out my legal duties and
+                            responsibilities related to OSH as an employer
                         </v-card-title>
 
                         <v-card-text>
                             {{ item.second_question_comment }}
-                        </v-card-text>
-                    </v-card>
-
-                    <v-card>
-                        <v-card-title>
-                            I am able to use my rights related to OSH
-                        </v-card-title>
-
-                        <v-card-text>
-                            {{ item.third_question_comment }}
-                        </v-card-text>
-                    </v-card>
-
-                    <v-card>
-                        <v-card-title>
-                            I am able to carry out my duties related to OSH
-                        </v-card-title>
-
-                        <v-card-text>
-                            {{ item.fourth_question_comment }}
                         </v-card-text>
                     </v-card>
                 </div>

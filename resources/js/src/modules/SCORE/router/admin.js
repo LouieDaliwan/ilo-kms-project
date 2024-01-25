@@ -22,42 +22,6 @@ const routes = [
                     icon: "mdi-book-multiple-variant",
                 },
             },
-            {
-                path: "indicator-one",
-                name: "score.indicator_one",
-                component: () => import("../IndicatorOne.vue"),
-                meta: {
-                    title: "Score Indicator One",
-                    sort: 7,
-                    requiresAuth: true,
-                    //   permission: 'customers.index',
-                    icon: "mdi-book-multiple-variant",
-                },
-            },
-            {
-                path: "indicator-two",
-                name: "score.indicator_two",
-                component: () => import("../IndicatorTwo.vue"),
-                meta: {
-                    title: "Score Indicator Two",
-                    sort: 7,
-                    requiresAuth: true,
-                    //   permission: 'customers.index',
-                    icon: "mdi-book-multiple-variant",
-                },
-            },
-            {
-                path: "indicator-three",
-                name: "score.indicator_three",
-                component: () => import("../IndicatorThree.vue"),
-                meta: {
-                    title: "Score Indicator Three",
-                    sort: 7,
-                    requiresAuth: true,
-                    //   permission: 'customers.index',
-                    icon: "mdi-book-multiple-variant",
-                },
-            },
         ],
     },
 ];

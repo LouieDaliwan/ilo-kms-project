@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Score;
+namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
 use App\Imports\ScoreIndicatorTwoImport;

@@ -12,6 +12,9 @@ export default [
                 "wise.participants",
                 "wise.activity-plus",
                 "wise.evaluations",
+                "wise.indicator_one",
+                "wise.indicator_two",
+                "wise.indicator_three",
             ],
         },
         children: [
@@ -53,6 +56,36 @@ export default [
                     requiresAuth: true,
                     sort: 9,
                     children: ["wise.evaluations"],
+                },
+            },
+            {
+                code: "wise.indicator_one",
+                name: "wise.indicator_one",
+                meta: {
+                    title: "Wise Indicator One",
+                    requiresAuth: true,
+                    sort: 7,
+                    children: ["wise.indicator_one"],
+                },
+            },
+            {
+                code: "wise.indicator_two",
+                name: "wise.indicator_two",
+                meta: {
+                    title: "Wise Indicator Two",
+                    requiresAuth: true,
+                    sort: 8,
+                    children: ["wise.indicator_two"],
+                },
+            },
+            {
+                code: "wise.indicator_three",
+                name: "wise.indicator_three",
+                meta: {
+                    title: "Wise Indicator Three",
+                    requiresAuth: true,
+                    sort: 9,
+                    children: ["wise.indicator_three"],
                 },
             },
         ],

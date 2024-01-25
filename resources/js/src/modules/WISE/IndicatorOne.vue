@@ -2,8 +2,7 @@
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
 import { onMounted, reactive, ref } from "vue";
-import IndicatorThreeData from "@modules/SCORE/Components/IndicatorThreeData.vue";
-import IndicatorThreeComments from "@modules/SCORE/Components/IndicatorThreeComments.vue";
+import IndicatorOneData from "@modules/WISE/Components/IndicatorOneData.vue";
 
 const dialogBox = reactive({ dialog: false });
 
@@ -12,14 +11,14 @@ function uploadModal() {
 }
 
 onMounted(() => {
-    fetchIndicatorThreeData();
+    fetchIndicatorOneData();
 });
 
 const indicatorData = ref([]);
 
-const fetchIndicatorThreeData = () => {
+const fetchIndicatorOneData = () => {
     axios
-        .get($api.indicatorThreeData())
+        .get($api.indicatorOneData())
         .then(({ data }) => {
             indicatorData.value = data;
         })
@@ -40,13 +39,13 @@ const onSubmit = async () => {
     formData.append("file", file.value);
 
     await axios
-        .post($api.uploadIndicatorThree(), formData, {
+        .post($api.uploadIndicatorOne(), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         })
         .then(({ data }) => {
-            fetchIndicatorThreeData();
+            fetchIndicatorOneData();
         })
         .catch((err) => {
             console.log(err);
@@ -59,10 +58,10 @@ const onSubmit = async () => {
 
 <template>
     <admin>
-        <metatag :title="'Score Indicator Three'"></metatag>
+        <metatag :title="'Score Indicator One'"></metatag>
 
         <page-header>
-            <template v-slot:title> Score Indicator Three</template>
+            <template v-slot:title> Score Indicator One</template>
 
             <template v-slot:action>
                 <v-btn
@@ -104,8 +103,6 @@ const onSubmit = async () => {
             </template>
         </page-header>
 
-        <indicator-three-data :values="indicatorData"></indicator-three-data>
-
-        <indicator-three-comments></indicator-three-comments>
+        <indicator-one-data :values="indicatorData"></indicator-one-data>
     </admin>
 </template>

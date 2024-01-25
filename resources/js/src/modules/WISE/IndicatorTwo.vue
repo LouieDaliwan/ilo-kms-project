@@ -2,7 +2,8 @@
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
 import { onMounted, reactive, ref } from "vue";
-import IndicatorOneData from "@modules/SCORE/Components/IndicatorOneData.vue";
+import IndicatorTwoData from "@modules/WISE/Components/IndicatorTwoData.vue";
+import IndicatorTwoComments from "@modules/WISE/Components/IndicatorTwoComments.vue";
 
 const dialogBox = reactive({ dialog: false });
 
@@ -11,14 +12,14 @@ function uploadModal() {
 }
 
 onMounted(() => {
-    fetchIndicatorOneData();
+    fetchIndicatorTwoData();
 });
 
 const indicatorData = ref([]);
 
-const fetchIndicatorOneData = () => {
+const fetchIndicatorTwoData = () => {
     axios
-        .get($api.indicatorOneData())
+        .get($api.indicatorTwoData())
         .then(({ data }) => {
             indicatorData.value = data;
         })
@@ -39,13 +40,13 @@ const onSubmit = async () => {
     formData.append("file", file.value);
 
     await axios
-        .post($api.uploadIndicatorOne(), formData, {
+        .post($api.uploadIndicatorTwo(), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         })
         .then(({ data }) => {
-            fetchIndicatorOneData();
+            fetchIndicatorTwoData();
         })
         .catch((err) => {
             console.log(err);
@@ -58,10 +59,10 @@ const onSubmit = async () => {
 
 <template>
     <admin>
-        <metatag :title="'Score Indicator One'"></metatag>
+        <metatag :title="'Score Indicator Two'"></metatag>
 
         <page-header>
-            <template v-slot:title> Score Indicator One</template>
+            <template v-slot:title> Score Indicator Two</template>
 
             <template v-slot:action>
                 <v-btn
@@ -103,6 +104,8 @@ const onSubmit = async () => {
             </template>
         </page-header>
 
-        <indicator-one-data :values="indicatorData"></indicator-one-data>
+        <indicator-two-data :values="indicatorData"></indicator-two-data>
+
+        <indicator-two-comments></indicator-two-comments>
     </admin>
 </template>

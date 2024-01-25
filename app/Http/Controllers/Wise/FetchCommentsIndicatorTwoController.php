@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Score;
+namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
-use App\Models\Score\IndicatorThree;
+use App\Models\Score\IndicatorTwo;
 use Illuminate\Http\Request;
 
-class FetchCommentsIndicatorThreeController extends Controller
+class FetchCommentsIndicatorTwoController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
+
     /**
      * Handle the incoming request.
      */
@@ -21,7 +19,7 @@ class FetchCommentsIndicatorThreeController extends Controller
 
     protected function fetchComments()
     {
-        return IndicatorThree::query()
+        return IndicatorTwo::query()
             ->select(['questions_answer'])
             ->skip(request('offset'))
             ->take(request('limit'))
@@ -29,8 +27,7 @@ class FetchCommentsIndicatorThreeController extends Controller
                 return [
                     'first_question_comment' => $item->questions_answer['first_question_comment'] ?? 'N/A',
                     'second_question_comment' => $item->questions_answer['second_question_comment'] ?? 'N/A',
-                    'third_question_comment' => $item->questions_answer['third_question_comment'] ?? 'N/A',
-                    'fourth_question_comment' => $item->questions_answer['fourth_question_comment'] ?? 'N/A',
                 ];
             });
-    }}
+    }
+}

@@ -2,8 +2,8 @@
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
 import { onMounted, reactive, ref } from "vue";
-import IndicatorTwoData from "@modules/SCORE/Components/IndicatorTwoData.vue";
-import IndicatorTwoComments from "@modules/SCORE/Components/IndicatorTwoComments.vue";
+import IndicatorThreeData from "@modules/WISE/Components/IndicatorThreeData.vue";
+import IndicatorThreeComments from "@modules/WISE/Components/IndicatorThreeComments.vue";
 
 const dialogBox = reactive({ dialog: false });
 
@@ -12,14 +12,14 @@ function uploadModal() {
 }
 
 onMounted(() => {
-    fetchIndicatorTwoData();
+    fetchIndicatorThreeData();
 });
 
 const indicatorData = ref([]);
 
-const fetchIndicatorTwoData = () => {
+const fetchIndicatorThreeData = () => {
     axios
-        .get($api.indicatorTwoData())
+        .get($api.indicatorThreeData())
         .then(({ data }) => {
             indicatorData.value = data;
         })
@@ -40,13 +40,13 @@ const onSubmit = async () => {
     formData.append("file", file.value);
 
     await axios
-        .post($api.uploadIndicatorTwo(), formData, {
+        .post($api.uploadIndicatorThree(), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         })
         .then(({ data }) => {
-            fetchIndicatorTwoData();
+            fetchIndicatorThreeData();
         })
         .catch((err) => {
             console.log(err);
@@ -59,10 +59,10 @@ const onSubmit = async () => {
 
 <template>
     <admin>
-        <metatag :title="'Score Indicator Two'"></metatag>
+        <metatag :title="'Score Indicator Three'"></metatag>
 
         <page-header>
-            <template v-slot:title> Score Indicator Two</template>
+            <template v-slot:title> Score Indicator Three</template>
 
             <template v-slot:action>
                 <v-btn
@@ -104,8 +104,8 @@ const onSubmit = async () => {
             </template>
         </page-header>
 
-        <indicator-two-data :values="indicatorData"></indicator-two-data>
+        <indicator-three-data :values="indicatorData"></indicator-three-data>
 
-        <indicator-two-comments></indicator-two-comments>
+        <indicator-three-comments></indicator-three-comments>
     </admin>
 </template>
