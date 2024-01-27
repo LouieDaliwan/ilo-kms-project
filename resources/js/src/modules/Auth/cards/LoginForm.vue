@@ -51,7 +51,7 @@ const onSubmit = handleSubmit((values) => {
                     "isTemporaryPassword",
                     isTemporaryPassword,
                 );
-                localStorage.setItem("auth", Object.entries(data.auth));
+                localStorage.setItem("auth", JSON.stringify(data.auth));
                 localStorage.setItem("two_factor", data.two_factor);
                 localStorage.setItem("auth_token", data.token);
 

@@ -49,56 +49,64 @@ export default {
             </template>
 
             <template v-else-if="parent.children">
-                <v-list-group
-                    :key="i"
-                    :prepend-icon="parent.meta.icon"
-                    :value="parent.name"
-                    no-action
-                >
-                    <template v-slot:activator="{ props }">
-                        <v-list-item
-                            :title="parent.meta.title"
-                            v-bind="props"
-                        ></v-list-item>
-                    </template>
+                <can :code="parent.meta.roles">
+                    <v-list-group
+                        :key="i"
+                        :prepend-icon="parent.meta.icon"
+                        :value="parent.name"
+                        no-action
+                    >
+                        <template v-slot:activator="{ props }">
+                            <v-list-item
+                                :title="parent.meta.title"
+                                v-bind="props"
+                            ></v-list-item>
+                        </template>
 
-                    <template v-for="(submenu, j) in parent.children">
-                        <v-divider
-                            v-if="submenu.meta.divider"
-                            :key="i"
-                        ></v-divider>
-                        <template v-else>
-                            <template v-if="submenu.children"></template>
-                            <template v-else-if="submenu.meta.divider">
-                                <v-divider :key="i"></v-divider>
-                            </template>
-
+                        <template v-for="(submenu, j) in parent.children">
+                            <v-divider
+                                v-if="submenu.meta.divider"
+                                :key="i"
+                            ></v-divider>
                             <template v-else>
-                                <v-list-item
-                                    :key="j"
-                                    :exact="inactive(submenu)"
-                                    :prepend-icon="submenu.meta.icon"
-                                    :target="
-                                        submenu.meta.external ? '_blank' : null
-                                    "
-                                    :title="submenu.meta.title"
-                                    :to="{ name: submenu.name }"
-                                    class="font-weight-bold white--text"
-                                ></v-list-item>
+                                <template v-if="submenu.children"></template>
+                                <template v-else-if="submenu.meta.divider">
+                                    <v-divider :key="i"></v-divider>
+                                </template>
+
+                                <template v-else>
+                                    <can :code="submenu.meta.roles">
+                                        <v-list-item
+                                            :key="j"
+                                            :exact="inactive(submenu)"
+                                            :prepend-icon="submenu.meta.icon"
+                                            :target="
+                                                submenu.meta.external
+                                                    ? '_blank'
+                                                    : null
+                                            "
+                                            :title="submenu.meta.title"
+                                            :to="{ name: submenu.name }"
+                                            class="font-weight-bold white--text"
+                                        ></v-list-item>
+                                    </can>
+                                </template>
                             </template>
                         </template>
-                    </template>
-                </v-list-group>
+                    </v-list-group>
+                </can>
             </template>
 
             <template v-else>
-                <v-list-item
-                    :key="i"
-                    :prepend-icon="parent.meta.icon"
-                    :title="parent.meta.title"
-                    :to="{ name: parent.name }"
-                    class="font-weight-bold"
-                ></v-list-item>
+                <can :code="parent.meta.roles">
+                    <v-list-item
+                        :key="i"
+                        :prepend-icon="parent.meta.icon"
+                        :title="parent.meta.title"
+                        :to="{ name: parent.name }"
+                        class="font-weight-bold"
+                    ></v-list-item>
+                </can>
             </template>
         </template>
 

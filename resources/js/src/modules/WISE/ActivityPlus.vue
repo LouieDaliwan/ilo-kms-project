@@ -3,29 +3,26 @@ import Admin from "@/Components/Layouts/Admin.vue";
 import PageHeader from "@/Components/Headers/PageHeader.vue";
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
-import { computed, onBeforeMount, reactive, ref, watch, onMounted } from "vue";
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from "vue";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
-import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
-import Swal from 'sweetalert2'
-
-
+import VueDatePicker from "@vuepic/vue-datepicker";
+import "@vuepic/vue-datepicker/dist/main.css";
+import Swal from "sweetalert2";
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
-        validationSchema: uploadSchema,
-    });
+    validationSchema: uploadSchema,
+});
 
 const vuetifyConfig = (state) => ({
     props: {
         "error-messages": state.errors,
     },
 });
-
 
 const upload = defineComponentBinds("file_upload", vuetifyConfig);
 
@@ -36,11 +33,11 @@ const dialogBox = reactive({ dialog: false });
 const date = ref(null);
 
 onMounted(() => {
-  const startDate = new Date();
-//   const endDate = new Date(new Date().setDate(startDate.getDate()));
-  const endDate = new Date();
-  date.value = [startDate, endDate];
-})
+    const startDate = new Date();
+    //   const endDate = new Date(new Date().setDate(startDate.getDate()));
+    const endDate = new Date();
+    date.value = [startDate, endDate];
+});
 
 function uploadModal() {
     dialogBox.dialog = true;
@@ -60,7 +57,7 @@ const uploadFile = (event) => {
 //     console.log(meta.value.valid)
 // }
 
-const onSubmit =  handleSubmit( async(values) => {
+const onSubmit = handleSubmit(async (values) => {
     const formData = new FormData();
     formData.append("file", file.value);
     await axios
@@ -70,7 +67,7 @@ const onSubmit =  handleSubmit( async(values) => {
             },
         })
         .then(({ data }) => {
-        resetForm()
+            resetForm();
         })
         .catch((err) => {
             console.log(err);
@@ -78,16 +75,15 @@ const onSubmit =  handleSubmit( async(values) => {
         .finally(() => {
             dialogBox.dialog = false;
             getPaginatedData();
-            fileUpload.value = []
-                Swal.fire({
+            fileUpload.value = [];
+            Swal.fire({
                 title: "Success!",
                 text: "Activity Plus has been uploaded.",
                 icon: "success",
-                confirmButtonColor:"#1E2DBE"
-                });
+                confirmButtonColor: "#1E2DBE",
+            });
         });
 });
-
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -236,8 +232,8 @@ const optionsChanged = (options) => {
 const goToActivityPage = (item) => {
     router.push({
         name: "wise.show-activity",
-        // params: { activity_id: item.columns.id },
-        params: { activity_id: item.id },
+        params: { activity_id: item.columns.id },
+        // params: { activity_id: item.id },
     });
 };
 
@@ -317,35 +313,47 @@ const bulkTrashResource = () => {
                     <v-dialog v-model="dialogBox.dialog" width="500">
                         <v-card>
                             <div class="bg-blue-lighten-5">
-                                <v-card-title class="text-secondary-color font-weight-bold">
+                                <v-card-title
+                                    class="text-secondary-color font-weight-bold"
+                                >
                                     UPLOAD DATA
                                 </v-card-title>
                             </div>
-                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
-                        <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
-                            <v-card-text>
-                                <v-file-input
-                                    label="Upload Data"
-                                    name="file_upload"
-                                    show-size
-                                    v-bind="upload"
-                                    v-model="fileUpload"
-                                    @change="uploadFile"
-                                ></v-file-input>
-                            </v-card-text>
-                            <v-divider></v-divider>
+                            <small
+                                class="font-italic font-weight-thin pt-3 pb-2 px-5"
+                                >Please make sure that the fields on the excel
+                                file are in order and correct.</small
+                            >
+                            <v-form
+                                enctype="multipart/form-data"
+                                @submit.prevent="onSubmit"
+                            >
+                                <v-card-text>
+                                    <v-file-input
+                                        v-model="fileUpload"
+                                        label="Upload Data"
+                                        name="file_upload"
+                                        show-size
+                                        v-bind="upload"
+                                        @change="uploadFile"
+                                    ></v-file-input>
+                                </v-card-text>
+                                <v-divider></v-divider>
 
-                            <v-card-actions>
-                                <v-spacer></v-spacer>
-                                <v-btn color="primary" :disabled="!isDisabledComputed" type="submit">
-                                    Upload
-                                </v-btn>
-                                <!-- <v-btn color="primary" @click="test">
-                                    Test
-                                </v-btn> -->
-
-                            </v-card-actions>
-                        </v-form>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        :disabled="!isDisabledComputed"
+                                        color="primary"
+                                        type="submit"
+                                    >
+                                        Upload
+                                    </v-btn>
+                                    <!-- <v-btn color="primary" @click="test">
+                                        Test
+                                    </v-btn> -->
+                                </v-card-actions>
+                            </v-form>
                         </v-card>
                     </v-dialog>
                 </div>
@@ -367,7 +375,14 @@ const bulkTrashResource = () => {
             </toolbar-menu>
             <v-row>
                 <v-col class="d-flex">
-                     <VueDatePicker class="mb-20" v-model="date" range :teleport="true" position="left" :enable-time-picker="false" />
+                    <VueDatePicker
+                        v-model="date"
+                        :enable-time-picker="false"
+                        :teleport="true"
+                        class="mb-20"
+                        position="left"
+                        range
+                    />
                 </v-col>
             </v-row>
             <div v-if="resourcesIsNotEmpty">

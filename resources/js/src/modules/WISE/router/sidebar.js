@@ -7,6 +7,7 @@ export default [
             icon: "mdi-briefcase-outline",
             requiresAuth: true,
             sort: 5,
+            roles: ["Superadmin", "Member"],
             children: [
                 "wise.dashboard",
                 "wise.participants",
@@ -26,6 +27,7 @@ export default [
                     requiresAuth: true,
                     sort: 6,
                     children: ["wise.dashboard"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
             {
@@ -36,6 +38,7 @@ export default [
                     requiresAuth: true,
                     sort: 7,
                     children: ["wise.participants"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
             {
@@ -46,6 +49,7 @@ export default [
                     requiresAuth: true,
                     sort: 8,
                     children: ["wise.activity-plus"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
             {
@@ -56,6 +60,7 @@ export default [
                     requiresAuth: true,
                     sort: 9,
                     children: ["wise.evaluations"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
             {
@@ -66,6 +71,7 @@ export default [
                     requiresAuth: true,
                     sort: 7,
                     children: ["wise.indicator_one"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
             {
@@ -76,6 +82,7 @@ export default [
                     requiresAuth: true,
                     sort: 8,
                     children: ["wise.indicator_two"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
             {
@@ -86,6 +93,7 @@ export default [
                     requiresAuth: true,
                     sort: 9,
                     children: ["wise.indicator_three"],
+                    roles: ["Superadmin", "Member"],
                 },
             },
         ],

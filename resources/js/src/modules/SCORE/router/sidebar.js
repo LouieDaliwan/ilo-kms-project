@@ -7,6 +7,7 @@
 //             icon: "mdi-briefcase-outline",
 //             requiresAuth: true,
 //             sort: 5,
+//             roles: ['Superadmin', 'Member'],
 //             children: [
 //                 "score.dashboard",
 //                 "score.indicator_one",
@@ -23,6 +24,7 @@
 //                     requiresAuth: true,
 //                     sort: 6,
 //                     children: ["score.dashboard"],
+//                     roles: ['Superadmin', 'Member'],
 //                 },
 //             },
 //         ],
