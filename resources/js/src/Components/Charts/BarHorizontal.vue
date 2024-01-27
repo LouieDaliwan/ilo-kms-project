@@ -20,7 +20,9 @@ export default {
         this.initChart();
     },
     watch: {
-        values() {
+        values(val) {
+            console.log("test");
+            this.chart.data.labels = this.labels;
             this.chart.data.datasets[0].data = this.values;
             this.chart.data.datasets[1].data = this.values2;
             this.chart.update();
@@ -33,15 +35,15 @@ export default {
                 new Chart(ctx, {
                     type: "bar",
                     data: {
-                        labels: ["DTI", "DOLE", "TESDA", "NCC"],
+                        labels: this.labels,
                         datasets: [
                             {
-                                label: "Planned TOE's",
-                                data: [65, 59, 80, 100],
+                                label: "Planned",
+                                data: this.values,
                             },
                             {
-                                label: "Conduct TOE's",
-                                data: [100, 29, 82, 39],
+                                label: "Conducted",
+                                data: this.values2,
                             },
                         ],
                     },
