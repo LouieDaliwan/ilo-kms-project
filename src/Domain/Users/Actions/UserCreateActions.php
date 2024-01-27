@@ -11,7 +11,7 @@ class UserCreateActions
     {
        $attributes['details']['Mobile Phone']['value'] = $attributes['mobile_phone'] ?? null;
        $attributes['details']['Home Address']['value'] = $attributes['home_address'] ?? null;
-       
+
         try {
             $user = User::firstOrCreate([
                 'first_name' => $attributes['firstname'],
@@ -24,7 +24,9 @@ class UserCreateActions
                 'gender' => $attributes['details']['Gender']['value'] ?? null,
                 'photo' => $attributes['photo'] ?? null,
                 'metadata' => $attributes['details'],
+                'password' => $attributes['password'],
             ]);
+
 
             $user->assignRole($attributes['roles']);
 
