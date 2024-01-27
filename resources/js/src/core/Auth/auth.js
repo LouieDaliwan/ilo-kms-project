@@ -16,7 +16,7 @@ class Auth {
     }
 
     getUser() {
-        return JSON.parse(window.localStorage.getItem("user") || "{}");
+        return JSON.parse(window.localStorage.getItem("auth") || "{}");
     }
 
     getId() {
@@ -35,15 +35,19 @@ class Auth {
     }
 
     isSuperAdmin() {
-        return this.getUser()["is:superadmin"] || false;
+        return this.role() === "Superadmin" || false;
     }
 
     isAdmin() {
-        return this.getUser()["is:admin"] || false;
+        return this.role() === "Admin" || false;
     }
 
     isNotSuperAdmin() {
         return !this.isSuperAdmin();
+    }
+
+    role() {
+        return this.getUser().roles[0].name || "";
     }
 }
 

@@ -40,6 +40,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $with = [
+        'roles',
+    ];
+
     /**
      * The attributes that should be cast.
      *
@@ -51,7 +55,7 @@ class User extends Authenticatable
         'metadata' => 'array',
         'is_temporary_password' => 'boolean',
     ];
-    
+
     public function saveRemarks(User $author, string $remarks)
     {
         return $this->remarks()->create([
