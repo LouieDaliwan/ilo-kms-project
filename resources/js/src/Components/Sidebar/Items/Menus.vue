@@ -33,7 +33,7 @@ export default {
     <v-list
         v-model:opened="open"
         :nav="true"
-        class="secondary workspace-x py-6"
+        class="secondary workspace-x pb-9"
         dark
         @update:opened="open = $event.slice(-1)"
     >

@@ -12,7 +12,10 @@
     @vite('resources/sass/app.scss')
 </head>
 <body class="antialiased w-full">
+@include('header-footer.header')
 <div id="app"></div>
+@include('header-footer.footer')
+
 
 @vite('resources/js/app.js')
 </body>

@@ -85,15 +85,17 @@ export default {
         fixed
         location="left"
         temporary
+        style="top: 9rem;"
 
     >
 
             <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
-            <brand class="my-3"></brand>
+            <!-- <brand class="my-3"></brand> -->
+            <h4 class="ms-4 py-6">Context</h4>
             <menus></menus>
 
         <!-- Sidebar Footer -->
-        <template v-slot:append >
+        <!-- <template v-slot:append >
             <div class="px-4 py-2 d-flex justify-space-between align-center">
                 <div class="white--text">
                     <small>
@@ -102,7 +104,7 @@ export default {
                     </small>
                 </div>
             </div>
-        </template>
+        </template> -->
 
     </v-navigation-drawer>
 

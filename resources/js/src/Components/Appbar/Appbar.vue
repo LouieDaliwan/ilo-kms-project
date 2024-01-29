@@ -65,8 +65,9 @@ onMounted(async () => {
 
         :model-value="appbar.model"
         app
-        scroll-behavior="hide"
+
         scroll-threshold="10"
+        style="top: 9rem"
     >
         <v-app-bar-nav-icon
             color="muted"

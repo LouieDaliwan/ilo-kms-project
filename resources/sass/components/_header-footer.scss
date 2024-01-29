@@ -1,0 +1,50 @@
+.ilo-header {
+    position: sticky;
+    top: 0;
+    z-index: 1003;
+
+    .mini-header {
+        background-color: #151F85;
+        .white--text {
+            color: #FFFFFF;
+            caret-color: #FFFFFF;
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.ilo-footer {
+    background-color: #230050;
+    position: relative;
+    bottom: 0;
+    z-index: 9999;
+
+    .mini-header {
+        a {
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    // .main-header {
+
+    // }
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.v-navigation-drawer__scrim {
+    z-index: 1002 !important;
+}
