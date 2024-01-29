@@ -35,7 +35,7 @@ class Auth {
     }
 
     checkRoles(roles) {
-        return _.includes(roles, this.role());
+        return window._.includes(roles, this.role());
     }
 
     isSuperAdmin() {

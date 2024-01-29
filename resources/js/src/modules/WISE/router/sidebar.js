@@ -67,7 +67,7 @@ export default [
                 code: "wise.indicator_one",
                 name: "wise.indicator_one",
                 meta: {
-                    title: "Wise Indicator One",
+                    title: "Workplace MSME",
                     requiresAuth: true,
                     sort: 7,
                     children: ["wise.indicator_one"],
@@ -78,7 +78,7 @@ export default [
                 code: "wise.indicator_two",
                 name: "wise.indicator_two",
                 meta: {
-                    title: "Wise Indicator Two",
+                    title: "Regional MSME",
                     requiresAuth: true,
                     sort: 8,
                     children: ["wise.indicator_two"],
@@ -89,7 +89,7 @@ export default [
                 code: "wise.indicator_three",
                 name: "wise.indicator_three",
                 meta: {
-                    title: "Wise Indicator Three",
+                    title: "Strengthened Awareness of MSMEs",
                     requiresAuth: true,
                     sort: 9,
                     children: ["wise.indicator_three"],

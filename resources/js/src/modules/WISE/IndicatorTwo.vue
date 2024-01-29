@@ -59,10 +59,10 @@ const onSubmit = async () => {
 
 <template>
     <admin>
-        <metatag :title="'Score Indicator Two'"></metatag>
+        <metatag :title="'Regional MSME'"></metatag>
 
         <page-header>
-            <template v-slot:title> Score Indicator Two</template>
+            <template v-slot:title>Regional MSME</template>
 
             <template v-slot:action>
                 <v-btn
