@@ -34,6 +34,10 @@ class Auth {
         );
     }
 
+    checkRoles(roles) {
+        return _.includes(roles, this.role());
+    }
+
     isSuperAdmin() {
         return this.role() === "Superadmin" || false;
     }

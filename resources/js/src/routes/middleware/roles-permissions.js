@@ -1,7 +1,7 @@
 import $auth from "@/core/Auth/auth";
 
 export default function permissions(to, from, next) {
-    if (!to.meta.authenticatable) {
+    if (!to.meta.requiresAuth) {
         return next();
     }
 
@@ -9,11 +9,21 @@ export default function permissions(to, from, next) {
         return next();
     }
 
+    console.log("after superadmin");
+
     if ($auth.isAdmin()) {
         return next();
     }
 
+    console.log("after admin");
+
     if (to.name && $auth.hasPermission(to.name)) {
+        return next();
+    }
+
+    console.log("after permission");
+
+    if (to.meta.roles && $auth.checkRoles(to.meta.roles)) {
         return next();
     }
 

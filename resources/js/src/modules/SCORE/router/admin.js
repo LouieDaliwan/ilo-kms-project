@@ -8,6 +8,7 @@ const routes = [
             sort: 6,
             requiresAuth: true,
             icon: "mdi-book-multiple-variant",
+            roles: ["Superadmin", "Member"],
         },
         children: [
             {
@@ -19,6 +20,7 @@ const routes = [
                     sort: 6,
                     requiresAuth: true,
                     //   permission: 'customers.index',
+                    roles: ["Superadmin", "Member"],
                     icon: "mdi-book-multiple-variant",
                 },
             },

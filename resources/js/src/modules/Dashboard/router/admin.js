@@ -9,6 +9,7 @@ export default [
             sort: 0,
             requiresAuth: true,
             permission: false,
+            roles: ["Superadmin", "Member"],
             // icon: 'dashboard',
         },
     },
@@ -19,6 +20,7 @@ export default [
             sort: 1,
             divider: true,
             height: 2,
+            roles: ["Superadmin", "Member"],
         },
     },
 ];
