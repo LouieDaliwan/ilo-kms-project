@@ -3,7 +3,7 @@ import $api from "./routes/api";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDisplay } from "vuetify";
-import { computed, onBeforeMount, reactive, ref, watch, onMounted } from "vue";
+import { computed, onBeforeMount, onMounted, reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
@@ -15,15 +15,14 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
-        validationSchema: uploadSchema,
-    });
+    validationSchema: uploadSchema,
+});
 
 const vuetifyConfig = (state) => ({
     props: {
         "error-messages": state.errors,
     },
 });
-
 
 const upload = defineComponentBinds("file_upload", vuetifyConfig);
 
@@ -41,12 +40,11 @@ const dialogBox = reactive({ dialog: false });
 const date = ref(null);
 
 onMounted(() => {
-  const startDate = new Date();
-//   const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
-  const endDate = new Date();
-  date.value = [startDate, endDate];
-})
-
+    const startDate = new Date();
+    //   const endDate = new Date(new Date().setDate(startDate.getDate() + 7));
+    const endDate = new Date();
+    date.value = [startDate, endDate];
+});
 
 function uploadModal() {
     dialogBox.dialog = true;
@@ -185,8 +183,6 @@ const resourcesIsNotEmpty = computed(() => {
     return !resourcesIsEmpty.value;
 });
 
-
-
 const options = reactive({
     per_page: resources.options.itemsPerPage,
     page: resources.options.page,
@@ -201,8 +197,8 @@ const optionsChanged = (options) => {
 const goToParticipantPage = (item) => {
     router.push({
         name: "wise.show",
-        // params: { id: item.columns.id },
-        params: { id: item.id },
+        params: { id: item.columns.id },
+        // params: { id: item.id },
     });
 };
 
@@ -265,7 +261,7 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
-const onSubmit = handleSubmit( async () => {
+const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
     formData.append("file", file.value);
 
@@ -276,7 +272,7 @@ const onSubmit = handleSubmit( async () => {
             },
         })
         .then(({ data }) => {
-            resetForm()
+            resetForm();
         })
         .catch((err) => {
             console.log(err);
@@ -284,14 +280,13 @@ const onSubmit = handleSubmit( async () => {
         .finally(() => {
             dialogBox.dialog = false;
             getPaginatedData();
-            fileUpload.value = []
-                Swal.fire({
+            fileUpload.value = [];
+            Swal.fire({
                 title: "Success!",
                 text: "Data has been uploaded.",
                 icon: "success",
-                confirmButtonColor:"#1E2DBE"
-                });
-
+                confirmButtonColor: "#1E2DBE",
+            });
         });
 });
 </script>
@@ -318,19 +313,28 @@ const onSubmit = handleSubmit( async () => {
                     <v-dialog v-model="dialogBox.dialog" width="500">
                         <v-card>
                             <div class="bg-blue-lighten-5">
-                                <v-card-title class="text-secondary-color font-weight-bold">
+                                <v-card-title
+                                    class="text-secondary-color font-weight-bold"
+                                >
                                     UPLOAD DATA
                                 </v-card-title>
                             </div>
-                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
-                            <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
+                            <small
+                                class="font-italic font-weight-thin pt-3 pb-2 px-5"
+                                >Please make sure that the fields on the excel
+                                file are in order and correct.</small
+                            >
+                            <v-form
+                                enctype="multipart/form-data"
+                                @submit.prevent="onSubmit"
+                            >
                                 <v-card-text>
                                     <v-file-input
+                                        v-model="fileUpload"
                                         label="File input"
                                         name="file_upload"
                                         show-size
                                         v-bind="upload"
-                                        v-model="fileUpload"
                                         @change="uploadFile"
                                     ></v-file-input>
                                 </v-card-text>
@@ -339,7 +343,11 @@ const onSubmit = handleSubmit( async () => {
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" :disabled="!isDisabledComputed" type="submit">
+                                    <v-btn
+                                        :disabled="!isDisabledComputed"
+                                        color="primary"
+                                        type="submit"
+                                    >
                                         Upload
                                     </v-btn>
                                 </v-card-actions>
@@ -364,7 +372,14 @@ const onSubmit = handleSubmit( async () => {
             </toolbar-menu>
             <!-- <v-row>
                 <v-col class="d-flex">
-                     <VueDatePicker class="mb-20" v-model="date" range :teleport="true" position="left" :enable-time-picker="false" />
+                    <VueDatePicker
+                        v-model="date"
+                        :enable-time-picker="false"
+                        :teleport="true"
+                        class="mb-20"
+                        position="left"
+                        range
+                    />
                 </v-col>
             </v-row> -->
             <div v-if="resourcesIsNotEmpty">

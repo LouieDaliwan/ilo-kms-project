@@ -3,6 +3,7 @@ import $api from "../../modules/Auth/routes/api";
 import { useDisplay } from "vuetify";
 import { computed, onMounted, ref } from "vue";
 import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
+import $auth from "@/core/Auth/auth.js";
 
 const { mdAndUp } = useDisplay();
 const sidebar = useSidebarStore();
@@ -28,6 +29,7 @@ const userInitials = ref(null);
 
 onMounted(async () => {
     await axios.get($api.get()).then((response) => {
+        const auth = $auth;
         /** Please include this into auth.js -- Louie Daliwan**/
         userData.value = response.data.data.displayname;
         //   console.log(response.data.data)
@@ -62,7 +64,6 @@ onMounted(async () => {
     <v-app-bar
         v-if="appbar.model"
         :elevation="2"
-
         :model-value="appbar.model"
         app
 

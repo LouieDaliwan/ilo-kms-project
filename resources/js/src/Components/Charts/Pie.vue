@@ -17,8 +17,6 @@ export default {
 
     watch: {
         values(val) {
-            console.log(this.val);
-            console.log(this.name);
             this.chart.data.datasets[0].data = this.values;
             this.chart.update();
         },
@@ -33,7 +31,6 @@ export default {
                         labels: this.labels,
                         datasets: [
                             {
-                                label: "My First Dataset",
                                 data: this.values,
                                 backgroundColor: [
                                     "rgb(48,61,195)",
