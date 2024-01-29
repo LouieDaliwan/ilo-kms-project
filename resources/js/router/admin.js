@@ -1,8 +1,10 @@
-const routes = [];
+import newMemberVerifier from "@/routes/middleware/newMemberVerifier.js";
 import multiguard from "vue-router-multiguard";
 import isAuthenticated from "@/routes/middleware/isAuthenticated.js";
 import tokenVerifier from "@/routes/middleware/tokenVerifier.js";
 import rolesAndPermissions from "@/routes/middleware/roles-Permissions.js";
+
+const routes = [];
 
 Object.values(
     import.meta.glob("../src/modules/*/router/admin.js", { eager: true }),
@@ -21,6 +23,7 @@ export default {
     children: routes,
     beforeEnter: multiguard([
         isAuthenticated,
+        newMemberVerifier,
         tokenVerifier,
         rolesAndPermissions,
     ]),
