@@ -8,6 +8,7 @@ const routes = [
             title: "SIYB",
             sort: 6,
             requiresAuth: true,
+            roles: ["Superadmin", "Member"],
             icon: "mdi-book-multiple-variant",
         },
         children: [
@@ -19,7 +20,8 @@ const routes = [
                     title: "List Agencies",
                     sort: 6,
                     requiresAuth: true,
-                    //   permission: 'customers.index',
+                    //   permission: 'customers.index'
+                    roles: ["Superadmin", "Member"],
                     icon: "mdi-book-multiple-variant",
                 },
             },
@@ -31,6 +33,7 @@ const routes = [
                     title: "Summary",
                     sort: 7,
                     requiresAuth: true,
+                    roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
                     icon: "mdi-book-multiple-variant",
                 },

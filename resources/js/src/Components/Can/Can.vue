@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from "vue";
 import $auth from "@/core/Auth/auth.js";
 
 const props = defineProps(["code"]);
