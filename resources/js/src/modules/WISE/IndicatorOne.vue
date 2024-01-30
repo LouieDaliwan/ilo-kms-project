@@ -87,10 +87,10 @@ const isDisabledComputed = computed(() => {
 
 <template>
     <admin>
-        <metatag :title="'Score Indicator One'"></metatag>
+        <metatag :title="'Workplace MSME'"></metatag>
 
         <page-header>
-            <template v-slot:title> Score Indicator One</template>
+            <template v-slot:title>Workplace MSME</template>
 
             <template v-slot:action>
                 <v-btn
