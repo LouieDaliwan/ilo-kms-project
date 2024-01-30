@@ -1,4 +1,4 @@
-<div class="ilo-footer">
+<div class="ilo-footer d-md-block d-none">
     <div class="mini-header d-flex justify-space-between py-3 px-5">
         <div class="py-0">
             <small class="text-white">

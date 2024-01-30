@@ -10,17 +10,11 @@ import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
-<<<<<<< HEAD
 // import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import Swal from 'sweetalert2'
 
 
-=======
-import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
-import Swal from "sweetalert2";
->>>>>>> d52be467a8e4ab5eff4d7333835d6d1529dffc6d
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
     validationSchema: uploadSchema,

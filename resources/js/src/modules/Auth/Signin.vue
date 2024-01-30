@@ -6,7 +6,7 @@ const { smAndDown } = useDisplay();
 </script>
 
 <template>
-    <section>
+    <section class="mt-10">
         <v-row align="center" justify="center">
             <v-col :pa-5="!!smAndDown" cols="12" md="6">
                 <v-row align="center" justify="center">

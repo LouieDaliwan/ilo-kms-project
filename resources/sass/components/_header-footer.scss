@@ -1,7 +1,7 @@
 .ilo-header {
     position: sticky;
     top: 0;
-    z-index: 1003;
+    z-index: 1006;
 
     .mini-header {
         background-color: #151F85;
@@ -43,8 +43,4 @@
 .img-fluid {
     max-width: 100%;
     height: auto;
-}
-
-.v-navigation-drawer__scrim {
-    z-index: 1002 !important;
 }

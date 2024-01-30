@@ -11,10 +11,10 @@ export const useInformationSchema = yup.object({
     username: yup.string().required().label("Username"),
     mobile_number: yup
         .string()
-        .required()
+        .notRequired()
         .matches(/^[0-9]+$/, "Must be only digits")
         .min(10)
         .max(11)
         .label("Mobile Number"),
-    home_address: yup.string().required().label("Home Address"),
+    home_address: yup.string().notRequired().label("Home Address"),
 });

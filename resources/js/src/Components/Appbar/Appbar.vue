@@ -5,7 +5,7 @@ import { computed, onMounted, ref } from "vue";
 import { useSidebarStore } from "@components/Sidebar/store/sidebar.js";
 import $auth from "@/core/Auth/auth.js";
 
-const { mdAndUp } = useDisplay();
+const { mdAndUp, lgAndUp } = useDisplay();
 const sidebar = useSidebarStore();
 
 const sideBarToggle = () => {
@@ -68,11 +68,12 @@ onMounted(async () => {
         app
 
         scroll-threshold="10"
-        style="top: 9rem"
+        :style="mdAndUp ? 'top: 8.9rem' : 'top:0'"
     >
         <v-app-bar-nav-icon
             color="muted"
             @click="sideBarToggle()"
+            style="border: 0; box-shadow: none;"
         ></v-app-bar-nav-icon>
 
         <v-spacer></v-spacer>

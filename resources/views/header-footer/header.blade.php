@@ -1,4 +1,4 @@
-<div class="ilo-header">
+<div class="ilo-header d-md-block d-none">
     <div class="mini-header px-5">
         <div class="py-0">
           <small>
@@ -26,4 +26,4 @@
         </div>
     </div>
 </div>
-<div class="bg-white" style="height: 1rem; position: relative; z-index:1003; position: sticky; top: 8rem;"></div>
+{{-- <div class="bg-white" style="height: 1rem; position: relative; z-index:1003; position: sticky; top: 8rem;"></div> --}}

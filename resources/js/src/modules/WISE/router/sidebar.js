@@ -4,7 +4,7 @@ export default [
         name: "wise",
         meta: {
             title: "WISE",
-            icon: "mdi-briefcase-outline",
+            icon: "mdi-semantic-web",
             requiresAuth: true,
             sort: 5,
             roles: ["Superadmin", "Member"],

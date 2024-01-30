@@ -14,8 +14,8 @@ export default {
     },
 
     setup() {
-        const { mdAndUp, mdAndDown } = useDisplay();
-        return { mdAndUp, mdAndDown };
+        const { mdAndUp, mdAndDown, lgAndUp } = useDisplay();
+        return { mdAndUp, mdAndDown, lgAndUp };
     },
 
     computed: {
@@ -59,12 +59,7 @@ export default {
         },
     },
     mounted () {
-      if (this.$vuetify.display.mobile) {
-        this.drawer = false
-      }
-      else {
-        this.drawer = true
-      }
+      console.log(this.lgAndUp)
     },
 };
 </script>
@@ -73,19 +68,18 @@ export default {
     <v-navigation-drawer
         :expand-on-hover="sidebar.mini"
         :model-value="sidebarModel"
-        :permanent="this.mdAndUp"
+        :permanent="this.lgAndUp"
         app
-        class="dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
-        fixed
+        class="sidebar-reset dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
         location="left"
         temporary
-        style="top: 9rem;"
+
 
     >
 
             <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
             <!-- <brand class="my-3"></brand> -->
-            <h4 class="ms-4 py-6">Context</h4>
+            <h4 class="ms-4 py-5">Content</h4>
             <menus></menus>
 
         <!-- Sidebar Footer -->
