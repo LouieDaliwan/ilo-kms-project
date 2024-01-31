@@ -120,7 +120,6 @@ export default {
     },
 
     beforeRouteLeave(to, from, next) {
-        console.log(isPrestine.value);
         // if (resource.isPrestine) {
         //     next();
         // } else {
