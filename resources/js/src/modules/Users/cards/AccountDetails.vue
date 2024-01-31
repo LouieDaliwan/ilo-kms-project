@@ -10,6 +10,12 @@ export default {
         "confirm_password",
         "xlAndUp",
     ],
+    watch: {
+        modelValue(val) {
+            console.log(val);
+            this.resource = val;
+        },
+    },
 
     computed: {
         resource: {

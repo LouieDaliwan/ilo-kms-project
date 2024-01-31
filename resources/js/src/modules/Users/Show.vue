@@ -83,6 +83,9 @@ export default {
                         left: 0,
                         behavior: "smooth",
                     });
+
+                    resource.data.password = "";
+                    resource.data.password_confirmation = "";
                 });
         });
 
@@ -193,9 +196,6 @@ export default {
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
         >
-            <button ref="edit-submit-button" type="submit" @click="onSubmit">
-                test
-            </button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
                 <template v-slot:title>User Information</template>
             </page-header>

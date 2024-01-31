@@ -1,17 +1,10 @@
 <script setup>
-import { computed, onBeforeMount, onMounted, reactive, watch } from "vue";
+import { computed, onBeforeMount, reactive, watch } from "vue";
 import $api from "../routes/api.js";
 import { useRoute, useRouter } from "vue-router";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { VDataTableServer } from "vuetify/labs/components";
-
-onMounted(() => {
-    console.log("test");
-    console.log($api);
-
-    // getActivity();
-});
 
 const dialogStore = useDialogStore();
 const snackbarStore = useSnackbarStore();
@@ -28,7 +21,9 @@ const resources = reactive({
         sortDesc: [],
         sortBy: [],
     },
-    meta: {},
+    meta: {
+        total: 0,
+    },
     modes: {
         bulkedit: false,
     },

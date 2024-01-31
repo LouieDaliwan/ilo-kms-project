@@ -18,12 +18,8 @@ const getEvaluation = () => {
         .then(({ data }) => {
             evaluationData.value = data.values;
         })
-        .catch((error) => {
-            console.log(error);
-        })
-        .finally(() => {
-            console.log("Finally");
-        });
+        .catch((error) => {})
+        .finally(() => {});
 };
 </script>
 

@@ -11,10 +11,8 @@ import { VDataTableServer } from "vuetify/labs/components";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
 // import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
-import Swal from 'sweetalert2'
-
-
+import "@vuepic/vue-datepicker/dist/main.css";
+import Swal from "sweetalert2";
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
     validationSchema: uploadSchema,
@@ -60,10 +58,10 @@ const uploadFile = (event) => {
 // }
 
 const clearData = () => {
-    resetForm()
-}
+    resetForm();
+};
 
-const onSubmit =  handleSubmit( async(values) => {
+const onSubmit = handleSubmit(async (values) => {
     const formData = new FormData();
     formData.append("file", file.value);
     await axios
@@ -106,7 +104,9 @@ const resources = reactive({
         sortDesc: [],
         sortBy: [],
     },
-    meta: {},
+    meta: {
+        total: 0,
+    },
     modes: {
         bulkedit: false,
     },
@@ -325,20 +325,27 @@ const bulkTrashResource = () => {
                                     UPLOAD DATA
                                 </v-card-title>
                             </div>
-                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
-                        <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
-                            <v-card-text>
-                                <v-file-input
-                                    label="Upload Data"
-                                    name="file_upload"
-                                    show-size
-                                    v-bind="upload"
-                                    v-model="fileUpload"
-                                    @click:clear="clearData"
-                                    @change="uploadFile"
-                                ></v-file-input>
-                            </v-card-text>
-                            <v-divider></v-divider>
+                            <small
+                                class="font-italic font-weight-thin pt-3 pb-2 px-5"
+                                >Please make sure that the fields on the excel
+                                file are in order and correct.</small
+                            >
+                            <v-form
+                                enctype="multipart/form-data"
+                                @submit.prevent="onSubmit"
+                            >
+                                <v-card-text>
+                                    <v-file-input
+                                        v-model="fileUpload"
+                                        label="Upload Data"
+                                        name="file_upload"
+                                        show-size
+                                        v-bind="upload"
+                                        @change="uploadFile"
+                                        @click:clear="clearData"
+                                    ></v-file-input>
+                                </v-card-text>
+                                <v-divider></v-divider>
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -349,9 +356,6 @@ const bulkTrashResource = () => {
                                     >
                                         Upload
                                     </v-btn>
-                                    <!-- <v-btn color="primary" @click="test">
-                                        Test
-                                    </v-btn> -->
                                 </v-card-actions>
                             </v-form>
                         </v-card>

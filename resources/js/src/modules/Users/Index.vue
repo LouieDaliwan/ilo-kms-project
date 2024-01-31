@@ -26,7 +26,9 @@ const resources = reactive({
         sortBy: [],
         // rowsPerPage: [5, 10, 15, 20, 50, 100],
     },
-    meta: {},
+    meta: {
+        total: 0,
+    },
     modes: {
         bulkedit: false,
     },
@@ -237,17 +239,6 @@ const bulkTrashResource = () => {
                 <template v-slot:title>Users</template>
             </page-header>
             <template v-slot:title>List of Users</template>
-            <!-- <template v-slot:utilities>
-                <router-link
-                    :to="{ name: 'users.trashed' }"
-                    class="dt-link text--decoration-none mr-4"
-                    exact
-                    tag="a"
-                >
-                    <v-icon left small>mdi-account-off-outline</v-icon>
-                    Deactivated Users
-                </router-link>
-            </template> -->
 
             <template v-slot:action>
                 <v-btn

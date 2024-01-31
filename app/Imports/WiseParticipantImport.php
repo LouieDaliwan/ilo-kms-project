@@ -14,6 +14,9 @@ class WiseParticipantImport implements ToCollection
         unset($rows[0]);
 
         $rows->each(function($row) {
+            if ($row[0] == "") {
+                return;
+            }
             Participant::firstOrCreate([
                 'email' => $row[11],
                 'last_name' => $row[2]

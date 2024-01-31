@@ -18,12 +18,8 @@ const getParticipant = () => {
             dataParticipant.value = data.data;
             fullname.value = dataParticipant.value.fullname;
         })
-        .catch((error) => {
-            console.log(error);
-        })
-        .finally(() => {
-            console.log("Finally");
-        });
+        .catch((error) => {})
+        .finally(() => {});
 };
 </script>
 

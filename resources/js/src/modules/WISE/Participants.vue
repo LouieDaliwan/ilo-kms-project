@@ -9,10 +9,9 @@ import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 // import VueDatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css'
-
+import "@vuepic/vue-datepicker/dist/main.css";
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
     validationSchema: uploadSchema,
@@ -60,7 +59,9 @@ const resources = reactive({
         sortDesc: [],
         sortBy: [],
     },
-    meta: {},
+    meta: {
+        total: 0,
+    },
     modes: {
         bulkedit: false,
     },
@@ -262,8 +263,8 @@ const uploadFile = (event) => {
 };
 
 const clearData = () => {
-    resetForm()
-}
+    resetForm();
+};
 
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
@@ -339,8 +340,8 @@ const onSubmit = handleSubmit(async () => {
                                         name="file_upload"
                                         show-size
                                         v-bind="upload"
-                                        @click:clear="clearData"
                                         @change="uploadFile"
+                                        @click:clear="clearData"
                                     ></v-file-input>
                                 </v-card-text>
 
