@@ -6,8 +6,6 @@ export const userSchema = yup.object({
     email: yup.string().email().nullable().label("Email"),
     suffixname: yup.string().nullable().label("Suffix"),
     prefixname: yup.string().nullable().label("Prefix"),
-    avatar: yup.object().label("Avatar"),
-    backgroundDetails: yup.array().nullable().label("Background Details"),
     username: yup.string().nullable().label("Username"),
     mobile_number: yup
         .string()

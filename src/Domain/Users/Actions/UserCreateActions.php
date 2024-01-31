@@ -9,7 +9,7 @@ class UserCreateActions
 {
     public function __invoke($attributes)
     {
-       $attributes['details']['Mobile Phone']['value'] = $attributes['mobile_phone'] ?? null;
+       $attributes['details']['Mobile Phone']['value'] = $attributes['mobile_number'] ?? null;
        $attributes['details']['Home Address']['value'] = $attributes['home_address'] ?? null;
 
         try {

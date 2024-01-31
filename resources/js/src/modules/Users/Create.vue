@@ -55,10 +55,6 @@ export default {
             "confirm_password",
             vuetifyConfig,
         );
-        const backgroundDetails = defineComponentBinds(
-            "backgroundDetails",
-            vuetifyConfig,
-        );
 
         const onSubmit = handleSubmit((values) => {
             axios
@@ -67,10 +63,6 @@ export default {
                 })
                 .then(({ data }) => {
                     isPrestine.value = true;
-
-                    // this.snackbar.show({
-                    //     text: "User created successfully",
-                    // });
 
                     router.push({
                         name: "users.show",
@@ -82,42 +74,21 @@ export default {
                         },
                     });
 
-                    // this.successBox.show({
-                    //     text: `Updated User ${response.data.data.displayname}`,
-                    //     buttons: {
-                    //         show: {
-                    //             code: "users.show",
-                    //             to: {
-                    //                 name: "users.show",
-                    //                 params: { id: response.data.data.id },
-                    //             },
-                    //             icon: "mdi-account-search-outline",
-                    //             text: "View Details",
-                    //         },
-                    //         create: {
-                    //             code: "users.create",
-                    //             to: { name: "users.create" },
-                    //             icon: "mdi-account-plus-outline",
-                    //             text: "Add New User",
-                    //         },
-                    //     },
-                    // });
-                })
-                .catch((err) => {
-                    setErrors(err.response.data.errors);
-                })
-                .finally(() => {
-                    // this.load(false);
-                    window.scrollTo({
-                        top: 0,
-                        left: 0,
-                        behavior: "smooth",
-                    });
                     Swal.fire({
                         title: "Success!",
                         text: "You have successfully added a new user.",
                         icon: "success",
                         confirmButtonColor: "#1E2DBE",
+                    });
+                })
+                .catch((err) => {
+                    setErrors(err.response.data.errors);
+                })
+                .finally(() => {
+                    window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: "smooth",
                     });
                 });
         });
@@ -135,7 +106,6 @@ export default {
             lastname,
             suffix,
             prefix,
-            backgroundDetails,
             email,
             resource,
             password,
@@ -150,7 +120,7 @@ export default {
     },
 
     beforeRouteLeave(to, from, next) {
-        console.log(this.isPrestine.value);
+        console.log(isPrestine.value);
         // if (resource.isPrestine) {
         //     next();
         // } else {
@@ -183,17 +153,6 @@ export default {
     },
 
     methods: {
-        submitForm() {
-            if (this.isNotFormDisabled) {
-                this.$refs["submit-button"].click();
-                window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
-                });
-            }
-        },
-
         askUserBeforeNavigatingAway(next) {
             this.dialog.show({
                 illustration: () =>
@@ -245,18 +204,6 @@ export default {
 
         load(val = true) {
             this.resource.loading = val;
-        },
-    },
-    watch: {
-        "resource.data": {
-            handler(val) {
-                this.resource.isPrestine = false;
-                // this.resource.hasErrors = this.$refs.addform.flags.invalid;
-                if (!this.resource.hasErrors) {
-                    this.alertBox.hide();
-                }
-            },
-            deep: true,
         },
     },
 };
@@ -353,12 +300,12 @@ export default {
                             <v-row align="center">
                                 <v-col cols="12">
                                     <v-text-field
-                                        v-model="resource.data.mobile_phone"
+                                        v-model="resource.data.mobile_number"
                                         :disabled="isLoading"
                                         class="dt-text-field"
                                         dense
                                         label="Mobile Phone"
-                                        name="mobile_phone"
+                                        name="mobile_number"
                                         outlined
                                         v-bind="mobile"
                                     ></v-text-field>

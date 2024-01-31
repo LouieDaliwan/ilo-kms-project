@@ -33,7 +33,7 @@ class UsersController extends Controller
 
     public function update(Request $request, $id)
     {
-        return new UserResource((new UserUpdateActions)($id, $request->get('data')));
+        return new UserResource((new UserUpdateActions)($id, $request->all()));
     }
 
     public function destroy($id)

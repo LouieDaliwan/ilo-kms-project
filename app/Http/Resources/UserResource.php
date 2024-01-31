@@ -18,7 +18,7 @@ class UserResource extends JsonResource
 
         return collect(array_merge($user, [
             'firstname' => $this->first_name,
-            'middlename' => $this->middle_name,
+            'middlename' => $this->middle_name ?? '',
             'lastname' => $this->last_name,
             'displayname' => $this->fullname,
             'email' => $this->email,

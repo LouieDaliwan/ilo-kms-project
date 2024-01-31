@@ -16,7 +16,7 @@ export default class User {
             email: "",
             password: "",
             password_confirmation: "",
-            mobile_phone: "",
+            mobile_number: "",
             home_address: "",
             photo: "",
             modified: "",

@@ -1,16 +1,13 @@
 <script>
 import $api from "./routes/api.js";
 import AccountDetails from "./cards/AccountDetails.vue";
-import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
-import { useDialogStore } from "@components/Dialog/store/dialog.js";
-import { useAlertBoxStore } from "@components/Alert/store/alertbox.js";
-import { useSuccessBoxStore } from "@components/Alert/store/successbox.js";
-import { useSettingsStore } from "@/store/globals/settings.js";
 import User from "./Models/User.js";
 import { ref } from "vue";
 import { useDisplay } from "vuetify";
 import { useForm } from "vee-validate";
 import { userSchema } from "./Schema/uservalidation.js";
+import { useRouter } from "vue-router";
+import Swal from "sweetalert2";
 
 export default {
     components: {
@@ -20,12 +17,8 @@ export default {
     setup() {
         const resource = ref(new User());
         const isPrestine = ref(false);
-        const snackbar = useSnackbarStore();
-        const dialog = useDialogStore();
         const { mdAndUp, xlAndUp } = useDisplay();
-        const alertBox = useAlertBoxStore();
-        const successBox = useSuccessBoxStore();
-        const settings = useSettingsStore();
+        const router = useRouter();
 
         const {
             defineComponentBinds,
@@ -58,20 +51,27 @@ export default {
             "confirm_password",
             vuetifyConfig,
         );
-        const backgroundDetails = defineComponentBinds(
-            "backgroundDetails",
-            vuetifyConfig,
-        );
 
         const onSubmit = handleSubmit((values) => {
             isPrestine.value = false;
 
             axios
-                .post($api.update(), parseResourceData(values), {
-                    headers: { "Content-Type": "multipart/form-data" },
-                })
+                .post(
+                    $api.update(router.currentRoute.value.params.id),
+                    parseResourceData(values),
+                    {
+                        headers: { "Content-Type": "multipart/form-data" },
+                    },
+                )
                 .then((response) => {
                     isPrestine.value = true;
+
+                    Swal.fire({
+                        title: "Success!",
+                        text: "Successfully Update.",
+                        icon: "success",
+                        confirmButtonColor: "#1E2DBE",
+                    });
                 })
                 .catch((err) => {
                     setErrors(err.response.data.errors);
@@ -98,16 +98,15 @@ export default {
             data.append("mobile_number", values.mobile_number);
             data.append("username", values.username);
             data.append("home_address", values.home_address);
+            data.append("password", values.password);
+            data.append("confirm_password", values.confirm_password);
+            data.append("roles", values.roles);
             return data;
         };
 
         return {
-            snackbar,
-            dialog,
             mdAndUp,
             xlAndUp,
-            alertBox,
-            successBox,
             handleSubmit,
             resetForm,
             firstname,
@@ -115,7 +114,6 @@ export default {
             lastname,
             suffix,
             prefix,
-            backgroundDetails,
             email,
             resource,
             password,
@@ -125,21 +123,8 @@ export default {
             onSubmit,
             roleValidation,
             isPrestine,
-            settings,
             setValues,
         };
-    },
-
-    beforeRouteLeave(to, from, next) {
-        console.log(this.isPrestine);
-        // if (this.isFormPrestine) {
-        //     next();
-        //     console.log("test");
-        // } else {
-        //     console.log("test2");
-        //     this.askUserBeforeNavigatingAway(next);
-        // }
-        next();
     },
 
     computed: {
@@ -189,55 +174,6 @@ export default {
                 .finally(() => {
                     this.resource.loading = false;
                 });
-        },
-
-        askUserBeforeNavigatingAway(next) {
-            this.dialog.show({
-                illustration: () =>
-                    import("@components/Icons/WorkingDeveloperIcon.vue"),
-                title: "Unsaved changes will be lost",
-                text: "You have unsaved changes on this page. If you navigate away from this page, data will not be recovered.",
-                buttons: {
-                    cancel: {
-                        text: "Go Back",
-                        callback: () => {
-                            this.dialog.hide();
-                        },
-                    },
-                    action: {
-                        text: "Discard",
-                        callback: () => {
-                            next();
-                            this.dialog.hide();
-                        },
-                    },
-                },
-            });
-        },
-
-        askUserToDiscardUnsavedChanges() {
-            this.dialog.show({
-                illustration: () =>
-                    import("@/components/Icons/WorkingDeveloperIcon.vue"),
-                title: "Discard changes?",
-                text: "You have unsaved changes on this page. If you navigate away from this page, data will not be recovered.",
-                buttons: {
-                    cancel: {
-                        text: "Cancel",
-                        callback: () => {
-                            this.dialog.hide();
-                        },
-                    },
-                    action: {
-                        text: "Discard",
-                        callback: () => {
-                            this.resource.isPrestine = true;
-                            this.dialog.hide();
-                            this.$router.replace({ name: "users.all" });
-                        },
-                    },
-                },
-            });
         },
 
         load(val = true) {
@@ -307,10 +243,10 @@ export default {
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model="resource.data.firstname"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         :value="resource.data.firstname"
                                         class="dt-text-field"
+                                        dense
                                         label="First Name"
                                         outlined
                                         v-bind="firstname"
@@ -319,10 +255,10 @@ export default {
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model="resource.data.middlename"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         :value="resource.data.middlename"
                                         class="dt-text-field"
+                                        dense
                                         hide-details
                                         label="Middle Name"
                                         name="middlename"
@@ -333,10 +269,10 @@ export default {
                                 <v-col cols="12" md="4">
                                     <v-text-field
                                         v-model="resource.data.lastname"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         :value="resource.data.lastname"
                                         class="dt-text-field"
+                                        dense
                                         label="Last name"
                                         name="lastname"
                                         outlined
@@ -348,7 +284,6 @@ export default {
                                 <v-col cols="12">
                                     <v-text-field
                                         v-model="resource.data.mobile_number"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         :value="resource.data.mobile_number"
                                         class="dt-text-field"
@@ -364,11 +299,11 @@ export default {
                                 <v-col cols="12">
                                     <v-text-field
                                         v-model="resource.data.home_address"
-                                        :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
                                         :value="resource.data.home_address"
                                         class="dt-text-field"
                                         cols="12"
+                                        dense
                                         label="Home Address"
                                         v-bind="homeAddress"
                                     >
@@ -389,7 +324,6 @@ export default {
                 <v-col cols="12" md="3">
                     <role-picker
                         v-model="resource.data.roles"
-                        :dense="settings.fieldIsDense"
                         :lazyLoad="false"
                         :multiple="false"
                         :roleValidation="roleValidation"
@@ -399,13 +333,10 @@ export default {
             </v-row>
             <v-btn
                 ref="update-button-main"
-                :disabled="isFormDisabled"
-                :loading="isLoading"
                 block
                 class="mt-2"
                 color="primary"
                 large
-                type="submit"
                 @click.prevent="onSubmit"
             >
                 Update

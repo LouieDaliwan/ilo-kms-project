@@ -58,9 +58,6 @@ export default {
             sidebar.toggle({ model: sidebar.sideBarData.model });
         },
     },
-    mounted () {
-      console.log(this.lgAndUp)
-    },
 };
 </script>
 
@@ -73,14 +70,11 @@ export default {
         class="sidebar-reset dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
         location="left"
         temporary
-
-
     >
-
-            <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
-            <brand class="d-md-none d-block"></brand>
-            <!-- <h4 class="ms-4 py-5">Content</h4> -->
-            <menus></menus>
+        <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
+        <brand class="d-md-none d-block"></brand>
+        <!-- <h4 class="ms-4 py-5">Content</h4> -->
+        <menus></menus>
 
         <!-- Sidebar Footer -->
         <!-- <template v-slot:append >
@@ -93,6 +87,5 @@ export default {
                 </div>
             </div>
         </template> -->
-
     </v-navigation-drawer>
 </template>
