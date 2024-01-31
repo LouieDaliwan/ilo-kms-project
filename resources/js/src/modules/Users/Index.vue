@@ -47,7 +47,7 @@ const resources = reactive({
         {
             title: "Role",
             class: "text-no-wrap",
-            key: "role",
+            key: "roles",
         },
         {
             title: "Last Modified",

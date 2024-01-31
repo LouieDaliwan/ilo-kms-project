@@ -27,6 +27,7 @@ class UserResource extends JsonResource
             'home_address' => $this->metadata['Home Address']['value'] ??  null,
             'isTemporaryPassword' => $this->is_temporary_password,
             'roles' => $this->roles->pluck('name')->toArray()[0] ?? null,
+            'modified_at' => $this->updated_at->toFormattedDateString(),
             'username' => $this->username,
             'avatar' => $this->avatar
         ]))->toArray();
