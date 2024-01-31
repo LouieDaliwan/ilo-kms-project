@@ -23,14 +23,6 @@ class RolesAndPermissionsSeeder extends Seeder
                 'can-remove',
                 'can-view'
             ],
-            'Admin' => [
-                'can-view',
-                'can-add',
-                'can-edit',
-                'can-delete',
-                'can-assign',
-                'can-remove',
-            ],
             'Member' => [
                 'can-view'
             ]
