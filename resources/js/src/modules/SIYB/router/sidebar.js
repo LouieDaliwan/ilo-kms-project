@@ -4,7 +4,7 @@ export default [
         name: "siyb",
         meta: {
             title: "SIYB",
-            icon: "mdi-briefcase-outline",
+            icon: "mdi-briefcase",
             requiresAuth: true,
             sort: 5,
             roles: ["Superadmin", "Member"],

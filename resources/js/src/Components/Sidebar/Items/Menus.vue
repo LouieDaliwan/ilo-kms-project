@@ -33,7 +33,7 @@ export default {
     <v-list
         v-model:opened="open"
         :nav="true"
-        class="secondary workspace-x py-6"
+        class="secondary workspace-x pb-9 sidebar-title"
         dark
         @update:opened="open = $event.slice(-1)"
     >
@@ -43,7 +43,7 @@ export default {
             </template>
 
             <template v-else-if="parent.meta.subheader">
-                <v-list-subheader :key="i" class="text--muted text-capitalize">
+                <v-list-subheader :key="i" class="text--muted text-capitalize d-none">
                     {{ parent.meta.title }}
                 </v-list-subheader>
             </template>
@@ -60,6 +60,7 @@ export default {
                             <v-list-item
                                 :title="parent.meta.title"
                                 v-bind="props"
+                                class="text-secondary-menu"
                             ></v-list-item>
                         </template>
 
@@ -87,7 +88,7 @@ export default {
                                             "
                                             :title="submenu.meta.title"
                                             :to="{ name: submenu.name }"
-                                            class="font-weight-bold white--text"
+                                            class="font-weight-bold white--text text-secondary-menu font-weight-bold"
                                         ></v-list-item>
                                     </can>
                                 </template>
@@ -104,7 +105,7 @@ export default {
                         :prepend-icon="parent.meta.icon"
                         :title="parent.meta.title"
                         :to="{ name: parent.name }"
-                        class="font-weight-bold"
+                        class="font-weight-bold text-secondary-menu font-weight-bold"
                     ></v-list-item>
                 </can>
             </template>

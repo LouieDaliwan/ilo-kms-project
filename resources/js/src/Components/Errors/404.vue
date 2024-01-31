@@ -1,5 +1,5 @@
 <template>
-    <v-app v-cloak class="dovetail-app" footer toolbar>
+    <v-app v-cloak class="dovetail-app mt-12" footer toolbar>
         <v-slide-y-transition mode="out-in">
             <v-container fill-height>
                 <v-col cols="12">
@@ -11,17 +11,17 @@
                             offset-md="1"
                         >
                             <open-map-icon
-                                class="primary--text"
+                                class="text-primary"
                             ></open-map-icon>
                         </v-col>
 
                         <v-col class="order-md-1" cols="12" md="5">
                             <div class="text-center">
-                                <h3 class="text-uppercase muted--text mb-5">
+                                <h3 class="text-uppercase text-muted mb-5">
                                     <strong>404 Error</strong>
                                 </h3>
                                 <h2 class="mb-2">There's no page here 😭</h2>
-                                <p class="muted--text mb-5">
+                                <p class="text-muted mb-5">
                                     Looks like you ended up here by accident?
                                 </p>
 

@@ -9,9 +9,10 @@ import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
-import Swal from "sweetalert2";
-import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
+import Swal from 'sweetalert2'
+// import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
     validationSchema: uploadSchema,
@@ -260,6 +261,10 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
+const clearData = () => {
+    resetForm()
+}
+
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
     formData.append("file", file.value);
@@ -282,7 +287,7 @@ const onSubmit = handleSubmit(async () => {
             fileUpload.value = [];
             Swal.fire({
                 title: "Success!",
-                text: "Wise Participants have been uploaded.",
+                text: "Data has been uploaded.",
                 icon: "success",
                 confirmButtonColor: "#1E2DBE",
             });
@@ -334,6 +339,7 @@ const onSubmit = handleSubmit(async () => {
                                         name="file_upload"
                                         show-size
                                         v-bind="upload"
+                                        @click:clear="clearData"
                                         @change="uploadFile"
                                     ></v-file-input>
                                 </v-card-text>
@@ -369,7 +375,7 @@ const onSubmit = handleSubmit(async () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
-            <v-row>
+            <!-- <v-row>
                 <v-col class="d-flex">
                     <VueDatePicker
                         v-model="date"
@@ -380,7 +386,7 @@ const onSubmit = handleSubmit(async () => {
                         range
                     />
                 </v-col>
-            </v-row>
+            </v-row> -->
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server

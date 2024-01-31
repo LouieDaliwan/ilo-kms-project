@@ -100,9 +100,9 @@ const onSubmit = handleSubmit((values) => {
         ></v-text-field>
 
         <!-- Forgot Password -->
-        <a class="text-decoration-none" href="javascript:void(0)">
+        <!-- <a class="text-decoration-none" href="javascript:void(0)">
             <div class="text-end my-4 mb-3">I forgot my password</div>
-        </a>
+        </a> -->
         <!-- Forgot Password -->
         <v-btn
             :disabled="loading"

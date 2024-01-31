@@ -4,7 +4,7 @@ export default [
         name: "users",
         meta: {
             title: "Users",
-            icon: "mdi-briefcase-outline",
+            icon: "mdi-account-settings",
             requiresAuth: true,
             sort: 5,
             roles: ["Superadmin"],

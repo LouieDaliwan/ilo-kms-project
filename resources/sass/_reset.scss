@@ -105,6 +105,11 @@ html {
     color: #1e2dbe !important;
 }
 
+.text-secondary-menu {
+    color: #1e2dbe !important;
+    font-weight: 800 !important;
+}
+
 .text-tertiary-color {
     color: #FA3C4B !important;
 }
@@ -140,4 +145,38 @@ html {
 // v-list-item v-list-item--active v-list-item--link v-list-item--nav v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text v-list-group__header
 
 // v-list-item v-list-item--active v-list-item--link v-list-item--nav v-list-item--prepend v-theme--light v-list-item--density-default v-list-item--one-line v-list-item--rounded v-list-item--variant-text font-weight-bold white--text
+
+.sidebar-title .v-list-item-title {
+    font-weight: 700 !important;
+    font-family: 'Overpass', sans-serif;
+}
+
+// .sidebar-reset {
+//     z-index: 1 !important;
+// }
+
+// .v-navigation-drawer__scrim {
+//     z-index: 1002 !important;
+// }
+@media only screen and (min-width: 960px) {
+    .v-navigation-drawer__content {
+        margin-top: 9.8rem;
+    }
+  }
+
+
+
+
+// Mobile
+.sidebar-reset {
+    z-index: 1005 !important
+}
+
+.v-navigation-drawer__scrim {
+    z-index: 1002 !important;
+}
+
+.mdi-play::before {
+    font-size: 1.3rem !important;
+}
 
