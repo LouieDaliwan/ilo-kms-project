@@ -6,7 +6,7 @@ defineProps(["values"]);
 
 <template>
     <div class="mt-10">
-        <h3 class="text-tertiary-color">SCORE Assessment</h3>
+        <h3 class="text-tertiary-color">WISE Assessment</h3>
         <p>
             The percentage of workers reporting an improved understanding of
             their rights and duties related to OSH issues.

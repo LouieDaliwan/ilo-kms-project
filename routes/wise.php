@@ -54,11 +54,11 @@ Route::get('wise-evaluations', EvaluationsController::class)
 Route::post('upload-wise-evaluation', UploadEvaluationController::class)
     ->name('upload-wise-evaluation');
 
-Route::get('/score-indicator-one-data', IndicatorOneDataController::class)
+Route::get('/wise-indicator-one-data', IndicatorOneDataController::class)
     ->name('indicator-one-data');
 
-Route::post('/upload-score-indicator-one', UploadIndicatorOneController::class)
-    ->name('upload-score-indicator-one');
+Route::post('/upload-wise-indicator-one', UploadIndicatorOneController::class)
+    ->name('upload-wise-indicator-one');
 
 
 Route::get('/wise-indicator-two-data', IndicatorTwoDataController::class)

@@ -244,57 +244,11 @@ export default {
             this.resource.loading = val;
         },
     },
-    watch: {
-        "resource.data": {
-            handler(val) {
-                this.resource.isPrestine = false;
-                // this.resource.hasErrors = this.$refs.addform.flags.invalid;
-                if (!this.resource.hasErrors) {
-                    this.alertBox.hide();
-                }
-            },
-            deep: true,
-        },
-    },
 };
 </script>
 <template>
     <admin>
         <metatag :title="'Show User'"></metatag>
-        <template v-slot:appbar>
-            <!-- <v-container class="py-0 px-0 mr-10">
-                <v-row align="center" justify="space-between">
-                    <v-fade-transition>
-                    </v-fade-transition>
-                    <v-spacer></v-spacer>
-                    <v-col class="py-0" cols="auto">
-                        <div class="d-flex justify-end">
-                            <v-spacer></v-spacer>
-                            <v-btn
-                                class="ml-3 mr-0"
-                                large
-                                text
-                                @click="askUserToDiscardUnsavedChanges"
-                                >Discard
-                            </v-btn>
-                            <v-btn
-                                ref="submit-button-main"
-                                :disabled="isFormDisabled"
-                                :loading="isLoading"
-                                class="ml-3 mr-0"
-                                color="primary"
-                                large
-                                type="submit"
-                                @click.prevent="submitForm"
-                            >
-                                <v-icon left>mdi-content-save-outline</v-icon>
-                                Save
-                            </v-btn>
-                        </div>
-                    </v-col>
-                </v-row>
-            </v-container> -->
-        </template>
 
         <v-form
             ref="editform-form"
@@ -303,11 +257,9 @@ export default {
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
         >
-            <button
-                ref="edit-submit-button"
-                class="d-none"
-                type="submit"
-            ></button>
+            <button ref="edit-submit-button" type="submit" @click="onSubmit">
+                test
+            </button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
                 <template v-slot:title>User Information</template>
             </page-header>
