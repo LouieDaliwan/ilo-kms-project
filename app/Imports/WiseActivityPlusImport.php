@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Wise\ActivityPlusReport;
+use Carbon\Carbon;
 use Domain\Wise\Actions\FindParticipants;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -45,7 +46,7 @@ class WiseActivityPlusImport implements ToCollection
                 null,
             'company_name' => $row[5] ?? null,
             'representation' => $row[2] ?? null,
-            'date_of_training' => Date::excelToDateTimeObject(intval($row[8]))->format('Y-m-d') ?? null,
+            'date_of_training' => Carbon::parse($row[8])->format('Y-m-d') ?? null,
             'venue' => $row[9] ?? null,
             'action_checklist_type' => $row[10] ?? null,
             'good_points_identified' => $row[11] ?? null,
