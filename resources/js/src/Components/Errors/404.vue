@@ -31,7 +31,7 @@
                                     color="primary"
                                     exact
                                     large
-                                    v-text="trans('Return to your dashboard')"
+                                    v-text="'Return to your dashboard'"
                                 ></v-btn>
 
                                 <!-- <superadmin-only></superadmin-only> -->

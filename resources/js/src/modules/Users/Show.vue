@@ -79,9 +79,9 @@ export default {
                 .finally(() => {
                     // this.load(false);
                     window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
+                        top: 0,
+                        left: 0,
+                        behavior: "smooth",
                     });
                 });
         });
@@ -325,6 +325,7 @@ export default {
                                         v-model="resource.data.prefixname"
                                         :disabled="isLoading"
                                         :items="['Mr.', 'Ms.', 'Mrs.']"
+                                        :value="resource.data.prefixname"
                                         background-color="selects"
                                         class="dt-text-field"
                                         dense
@@ -339,6 +340,7 @@ export default {
                                     <v-text-field
                                         v-model="resource.data.suffixname"
                                         :disabled="isLoading"
+                                        :value="resource.data.suffixname"
                                         class="dt-text-field"
                                         dense
                                         hide-details
@@ -355,6 +357,7 @@ export default {
                                         v-model="resource.data.firstname"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
+                                        :value="resource.data.firstname"
                                         class="dt-text-field"
                                         label="First Name"
                                         outlined
@@ -366,6 +369,7 @@ export default {
                                         v-model="resource.data.middlename"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
+                                        :value="resource.data.middlename"
                                         class="dt-text-field"
                                         hide-details
                                         label="Middle Name"
@@ -379,6 +383,7 @@ export default {
                                         v-model="resource.data.lastname"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
+                                        :value="resource.data.lastname"
                                         class="dt-text-field"
                                         label="Last name"
                                         name="lastname"
@@ -393,6 +398,7 @@ export default {
                                         v-model="resource.data.mobile_number"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
+                                        :value="resource.data.mobile_number"
                                         class="dt-text-field"
                                         dense
                                         label="Mobile Phone"
@@ -408,6 +414,7 @@ export default {
                                         v-model="resource.data.home_address"
                                         :dense="settings.fieldIsDense"
                                         :disabled="isLoading"
+                                        :value="resource.data.home_address"
                                         class="dt-text-field"
                                         cols="12"
                                         label="Home Address"
@@ -418,7 +425,6 @@ export default {
                             </v-row>
                         </v-card-text>
                     </v-card>
-
                     <account-details
                         v-model="resource"
                         :confirm_password="confirm_password"
@@ -427,34 +433,8 @@ export default {
                         :username="username"
                         :xlAndUp="xlAndUp"
                     ></account-details>
-
-                    <!--                    <v-card>-->
-                    <!--                        <v-card-title class="pb-0">-->
-                    <!--                            Additional Background Details-->
-                    <!--                        </v-card-title>-->
-                    <!--                        <v-card-text>-->
-                    <!--                                                        :disabled="true"-->
-                    <!--                            <repeater-->
-                    <!--                                v-model="resource.data.details.others"-->
-                    <!--                                :background-details="backgroundDetails"-->
-                    <!--                                :dense="settings.fieldIsDense"-->
-                    <!--                            ></repeater>-->
-                    <!--                        </v-card-text>-->
-                    <!--                    </v-card>-->
                 </v-col>
                 <v-col cols="12" md="3">
-                    <!--                    <v-card class="mb-3">-->
-                    <!--                        <v-card-title class="pb-0">Photo</v-card-title>-->
-                    <!--                        <v-card-text>-->
-                    <!--                            <upload-avatar-->
-                    <!--                                v-model="resource.data.avatar"-->
-                    <!--                                name="photo"-->
-                    <!--                            >-->
-                    <!--                            </upload-avatar>-->
-                    <!--                        </v-card-text>-->
-                    <!--                    </v-card>-->
-
-                    <!--                  :disabled="isLoading"-->
                     <role-picker
                         v-model="resource.data.roles"
                         :dense="settings.fieldIsDense"
@@ -465,6 +445,19 @@ export default {
                     ></role-picker>
                 </v-col>
             </v-row>
+            <v-btn
+                ref="update-button-main"
+                :disabled="isFormDisabled"
+                :loading="isLoading"
+                block
+                class="mt-2"
+                color="primary"
+                large
+                type="submit"
+                @click.prevent="onSubmit"
+            >
+                Update
+            </v-btn>
         </v-form>
     </admin>
 </template>

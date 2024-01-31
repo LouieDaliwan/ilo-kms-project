@@ -109,15 +109,15 @@ export default {
                 .finally(() => {
                     // this.load(false);
                     window.scrollTo({
-                    top: 0,
-                    left: 0,
-                    behavior: "smooth",
+                        top: 0,
+                        left: 0,
+                        behavior: "smooth",
                     });
                     Swal.fire({
-                    title: "Success!",
-                    text: "You have successfully added a new user.",
-                    icon: "success",
-                    confirmButtonColor:"#1E2DBE"
+                        title: "Success!",
+                        text: "You have successfully added a new user.",
+                        icon: "success",
+                        confirmButtonColor: "#1E2DBE",
                     });
                 });
         });
@@ -269,9 +269,9 @@ export default {
             ref="addform-form"
             :disabled="isLoading"
             autocomplete="false"
+            class="txtfield-border"
             enctype="multipart/form-data"
             @submit.prevent="onSubmit"
-            class="txtfield-border"
         >
             <button ref="submit-button" class="d-none" type="submit"></button>
             <page-header :back="{ to: { name: 'users.all' }, text: 'Users' }">
@@ -352,7 +352,6 @@ export default {
                             </v-row>
                             <v-row align="center">
                                 <v-col cols="12">
-                                    <!--                                        :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.mobile_phone"
                                         :disabled="isLoading"
@@ -367,7 +366,6 @@ export default {
                             </v-row>
                             <v-row>
                                 <v-col cols="12">
-                                    <!--                                  :dense="settings.fieldIsDense"-->
                                     <v-text-field
                                         v-model="resource.data.home_address"
                                         :disabled="isLoading"
@@ -390,35 +388,8 @@ export default {
                         :username="username"
                         :xlAndUp="xlAndUp"
                     ></account-details>
-
-                    <!--                    <v-card>-->
-                    <!--                        <v-card-title class="pb-0">-->
-                    <!--                            Additional Background Details-->
-                    <!--                        </v-card-title>-->
-                    <!--                        <v-card-text>-->
-                    <!--                            &lt;!&ndash;                          :dense="settings.fieldIsDense"&ndash;&gt;-->
-                    <!--                            <repeater-->
-                    <!--                                v-model="resource.data.details.others"-->
-                    <!--                                :background-details="backgroundDetails"-->
-                    <!--                                :disabled="true"-->
-                    <!--                            ></repeater>-->
-                    <!--                        </v-card-text>-->
-                    <!--                    </v-card>-->
                 </v-col>
                 <v-col cols="12" md="3">
-                    <!--                    <v-card class="mb-3">-->
-                    <!--                        <v-card-title class="pb-0">Photo</v-card-title>-->
-                    <!--                        <v-card-text>-->
-                    <!--                            <upload-avatar-->
-                    <!--                                v-model="resource.data.avatar"-->
-                    <!--                                name="photo"-->
-                    <!--                            >-->
-                    <!--                            </upload-avatar>-->
-                    <!--                        </v-card-text>-->
-                    <!--                    </v-card>-->
-
-                    <!--                  :disabled="isLoading"-->
-                    <!--                        :dense="settings.fieldIsDense"-->
                     <role-picker
                         v-model="resource.data.roles"
                         :lazyLoad="false"
@@ -432,10 +403,13 @@ export default {
                 ref="submit-button-main"
                 :disabled="isFormDisabled"
                 :loading="isLoading"
+                block
+                class="mt-2"
                 color="primary"
                 large
                 type="submit"
-                @click.prevent="onSubmit" block class="mt-2">
+                @click.prevent="onSubmit"
+            >
                 Submit
             </v-btn>
         </v-form>

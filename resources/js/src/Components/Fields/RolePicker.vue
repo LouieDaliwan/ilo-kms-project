@@ -97,6 +97,7 @@ export default {
                 :items="roles"
                 :label="`Select role ${multiple ? 2 : 1})`"
                 :multiple="multiple"
+                :value="role"
                 background-color="selects"
                 class="dt-text-field"
                 hint="Select Role"

@@ -50,6 +50,7 @@ export default {
                     <v-text-field
                         v-model="resource.data.email"
                         :dense="isDense"
+                        :value="resource.data.email"
                         class="dt-text-field"
                         label="Email address"
                         name="email"
@@ -64,6 +65,7 @@ export default {
                     <v-text-field
                         v-model="resource.data.username"
                         :dense="isDense"
+                        :value="resource.data.username"
                         autocomplete="off"
                         class="dt-text-field"
                         label="Username"
