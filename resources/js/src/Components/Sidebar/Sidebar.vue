@@ -14,8 +14,8 @@ export default {
     },
 
     setup() {
-        const { mdAndUp, mdAndDown } = useDisplay();
-        return { mdAndUp, mdAndDown };
+        const { mdAndUp, mdAndDown, lgAndUp } = useDisplay();
+        return { mdAndUp, mdAndDown, lgAndUp };
     },
 
     computed: {
@@ -58,12 +58,8 @@ export default {
             sidebar.toggle({ model: sidebar.sideBarData.model });
         },
     },
-    mounted() {
-        if (this.$vuetify.display.mobile) {
-            this.drawer = false;
-        } else {
-            this.drawer = true;
-        }
+    mounted () {
+      console.log(this.lgAndUp)
     },
 };
 </script>
@@ -72,19 +68,22 @@ export default {
     <v-navigation-drawer
         :expand-on-hover="sidebar.mini"
         :model-value="sidebarModel"
-        :permanent="this.mdAndUp"
+        :permanent="this.lgAndUp"
         app
-        class="dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
-        fixed
+        class="sidebar-reset dt-sidebar secondary workspace-x v-navigation-drawer v-navigation-drawer--fixed v-navigation-drawer--floating v-navigation-drawer--custom-mini-variant v-navigation-drawer--open theme--light sidebar"
         location="left"
         temporary
+
+
     >
-        <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
-        <brand class="my-3"></brand>
-        <menus></menus>
+
+            <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
+            <brand class="d-md-none d-block"></brand>
+            <!-- <h4 class="ms-4 py-5">Content</h4> -->
+            <menus></menus>
 
         <!-- Sidebar Footer -->
-        <template v-slot:append>
+        <!-- <template v-slot:append >
             <div class="px-4 py-2 d-flex justify-space-between align-center">
                 <div class="white--text">
                     <small>
@@ -93,6 +92,7 @@ export default {
                     </small>
                 </div>
             </div>
-        </template>
+        </template> -->
+
     </v-navigation-drawer>
 </template>

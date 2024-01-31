@@ -6,7 +6,7 @@ const { smAndDown } = useDisplay();
 </script>
 
 <template>
-    <section>
+    <section class="mt-10">
         <v-row align="center" justify="center">
             <v-col :pa-5="!!smAndDown" cols="12" md="6">
                 <v-row align="center" justify="center">
@@ -21,14 +21,14 @@ const { smAndDown } = useDisplay();
                             </v-fade-transition>
                         </v-card-text>
 
-                        <p class="text-center muted--text mt-5">
+                        <!-- <p class="text-center muted--text mt-5">
                         <small>
                             By logging in, you agree to our
                             <a href="javascript:void(0)"
                             >Privacy Policy</a
                             ></small
                         >
-                        </p>
+                        </p> -->
                     </v-col>
                 </v-row>
             </v-col>

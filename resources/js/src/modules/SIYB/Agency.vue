@@ -8,11 +8,11 @@ import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
 import { useForm } from "vee-validate";
-import { uploadSchema } from "./Schema/uploadvalidation.js";
+import { uploadSchema } from "../WISE/Schema/uploadvalidation";
 import Swal from "sweetalert2";
 import "@vuepic/vue-datepicker/dist/main.css";
 
-const { defineComponentBinds, resetForm, handleSubmit, setErrors } = useForm({
+const { defineComponentBinds, resetForm, handleSubmit, setErrors, meta } = useForm({
     validationSchema: uploadSchema,
 });
 
@@ -219,6 +219,10 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
+const clearData = () => {
+    resetForm()
+}
+
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
     formData.append("file", file.value);
@@ -250,7 +254,17 @@ const onSubmit = handleSubmit(async () => {
             dialogBox.dialog = false;
             getPaginatedData();
             fileUpload.value = [];
+            Swal.fire({
+                title: "Success!",
+                text: "Data has been uploaded.",
+                icon: "success",
+                confirmButtonColor: "#1E2DBE",
+            });
         });
+});
+
+const isDisabledComputed = computed(() => {
+    return meta.value.valid;
 });
 </script>
 
@@ -275,32 +289,40 @@ const onSubmit = handleSubmit(async () => {
                 <div class="text-center">
                     <v-dialog v-model="dialogBox.dialog" width="500">
                         <v-card>
-                            <v-card-title class="text-h5 grey lighten-2">
-                                Upload a File
-                            </v-card-title>
-
-                            <v-form
-                                enctype="multipart/form-data"
-                                @submit.prevent="onSubmit"
-                            >
-                                <v-card-text>
-                                    <v-file-input
-                                        v-model="fileUpload"
-                                        label="File input"
-                                        name="file_upload"
-                                        show-size
-                                        v-bind="upload"
-                                        @change="uploadFile"
-                                    ></v-file-input>
-                                </v-card-text>
-
-                                <v-divider></v-divider>
+                            <div class="bg-blue-lighten-5">
+                                <v-card-title
+                                    class="text-secondary-color font-weight-bold"
+                                >
+                                    UPLOAD DATA
+                                </v-card-title>
+                            </div>
+                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
+                        <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
+                            <v-card-text>
+                                <v-file-input
+                                    label="Upload Data"
+                                    name="file_upload"
+                                    show-size
+                                    v-bind="upload"
+                                    v-model="fileUpload"
+                                    @click:clear="clearData"
+                                    @change="uploadFile"
+                                ></v-file-input>
+                            </v-card-text>
+                            <v-divider></v-divider>
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" type="submit">
+                                    <v-btn
+                                        :disabled="!isDisabledComputed"
+                                        color="primary"
+                                        type="submit"
+                                    >
                                         Upload
                                     </v-btn>
+                                    <!-- <v-btn color="primary" @click="test">
+                                        Test
+                                    </v-btn> -->
                                 </v-card-actions>
                             </v-form>
                         </v-card>

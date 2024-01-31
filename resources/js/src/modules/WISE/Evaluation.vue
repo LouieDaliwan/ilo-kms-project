@@ -51,6 +51,10 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
+const clearData = () => {
+    resetForm()
+}
+
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
 
@@ -74,7 +78,7 @@ const onSubmit = handleSubmit(async () => {
             fileUpload.value = []
                 Swal.fire({
                 title: "Success!",
-                text: "Wise Participants have been uploaded.",
+                text: "Data has been uploaded.",
                 icon: "success",
                 confirmButtonColor:"#1E2DBE"
                 });
@@ -121,6 +125,7 @@ const isDisabledComputed = computed(() => {
                                         show-size
                                         v-bind="upload"
                                         v-model="fileUpload"
+                                        @click:clear="clearData"
                                         @change="uploadFile"
                                     ></v-file-input>
                                 </v-card-text>

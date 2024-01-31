@@ -10,9 +10,11 @@ import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "./Schema/uploadvalidation.js";
-import VueDatePicker from "@vuepic/vue-datepicker";
-import "@vuepic/vue-datepicker/dist/main.css";
-import Swal from "sweetalert2";
+// import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import Swal from 'sweetalert2'
+
+
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
     validationSchema: uploadSchema,
@@ -57,7 +59,11 @@ const uploadFile = (event) => {
 //     console.log(meta.value.valid)
 // }
 
-const onSubmit = handleSubmit(async (values) => {
+const clearData = () => {
+    resetForm()
+}
+
+const onSubmit =  handleSubmit( async(values) => {
     const formData = new FormData();
     formData.append("file", file.value);
     await axios
@@ -78,7 +84,7 @@ const onSubmit = handleSubmit(async (values) => {
             fileUpload.value = [];
             Swal.fire({
                 title: "Success!",
-                text: "Activity Plus has been uploaded.",
+                text: "Data has been uploaded.",
                 icon: "success",
                 confirmButtonColor: "#1E2DBE",
             });
@@ -319,26 +325,20 @@ const bulkTrashResource = () => {
                                     UPLOAD DATA
                                 </v-card-title>
                             </div>
-                            <small
-                                class="font-italic font-weight-thin pt-3 pb-2 px-5"
-                                >Please make sure that the fields on the excel
-                                file are in order and correct.</small
-                            >
-                            <v-form
-                                enctype="multipart/form-data"
-                                @submit.prevent="onSubmit"
-                            >
-                                <v-card-text>
-                                    <v-file-input
-                                        v-model="fileUpload"
-                                        label="Upload Data"
-                                        name="file_upload"
-                                        show-size
-                                        v-bind="upload"
-                                        @change="uploadFile"
-                                    ></v-file-input>
-                                </v-card-text>
-                                <v-divider></v-divider>
+                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
+                        <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
+                            <v-card-text>
+                                <v-file-input
+                                    label="Upload Data"
+                                    name="file_upload"
+                                    show-size
+                                    v-bind="upload"
+                                    v-model="fileUpload"
+                                    @click:clear="clearData"
+                                    @change="uploadFile"
+                                ></v-file-input>
+                            </v-card-text>
+                            <v-divider></v-divider>
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
@@ -373,7 +373,7 @@ const bulkTrashResource = () => {
                 @update:trash="bulkTrashResource"
             >
             </toolbar-menu>
-            <v-row>
+            <!-- <v-row>
                 <v-col class="d-flex">
                     <VueDatePicker
                         v-model="date"
@@ -384,7 +384,7 @@ const bulkTrashResource = () => {
                         range
                     />
                 </v-col>
-            </v-row>
+            </v-row> -->
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">
                     <v-data-table-server

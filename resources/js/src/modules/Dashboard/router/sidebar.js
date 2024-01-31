@@ -5,7 +5,7 @@ export default [
             title: "Dashboard",
             sort: 0,
             requiresAuth: false,
-            icon: "mdi-view-dashboard-outline",
+            icon: "mdi-view-dashboard",
             permission: false,
             roles: ["Superadmin", "Member"],
         },

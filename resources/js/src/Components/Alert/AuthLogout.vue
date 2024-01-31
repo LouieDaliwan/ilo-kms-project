@@ -29,6 +29,7 @@ export default {
             window.addEventListener(event, this.resetTimer);
         }, this);
         this.setTimers();
+        this.authEmpty();
     },
     destroyed() {
         this.events.forEach(function (event) {
@@ -57,6 +58,11 @@ export default {
             clearTimeout(this.logoutTimer);
             this.setTimers();
         },
+        authEmpty: function () {
+            if (localStorage.getItem("auth") === "") {
+                return this.logoutUser()
+            }
+        }
     },
 };
 </script>
