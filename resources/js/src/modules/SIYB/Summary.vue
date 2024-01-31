@@ -91,8 +91,8 @@ const getData = () => {
                     />
                 </v-col>
             </v-row>
-            <v-row class="mt-5">
-                <v-col>
+            <v-row class="mt-12">
+                <v-col cols="12" md="6">
                     <h4 class="text-secondary">
                         <p>Training of Entrepreneurs</p>
                     </h4>
@@ -104,7 +104,7 @@ const getData = () => {
                         :values2="entrepeneurDataConducted"
                     />
                 </v-col>
-                <v-col>
+                <v-col cols="12" md="6">
                     <h4 class="text-secondary">
                         <p>Training of MSME's</p>
                     </h4>

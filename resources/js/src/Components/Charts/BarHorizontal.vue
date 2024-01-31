@@ -40,10 +40,14 @@ export default {
                             {
                                 label: "Planned",
                                 data: this.values,
+                                backgroundColor: ["rgb(48,61,195)"],
+                                borderColor: ["rgb(48,61,195)"],
                             },
                             {
                                 label: "Conducted",
                                 data: this.values2,
+                                backgroundColor: ["rgb(135,233,233)"],
+                                borderColor: ["rgb(135,233,233)"],
                             },
                         ],
                     },
