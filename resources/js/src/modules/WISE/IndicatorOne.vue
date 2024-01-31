@@ -1,22 +1,21 @@
 <script setup>
 import { useDisplay } from "vuetify";
 import $api from "./routes/api.js";
-import { onMounted, reactive, ref, computed } from "vue";
-import IndicatorOneData from "@modules/SCORE/Components/IndicatorOneData.vue";
+import { computed, onMounted, reactive, ref } from "vue";
+import IndicatorOneData from "./Components/IndicatorOneData.vue";
 import { useForm } from "vee-validate";
 import { uploadSchema } from "../WISE/Schema/uploadvalidation";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 const { defineComponentBinds, resetForm, handleSubmit, meta } = useForm({
-        validationSchema: uploadSchema,
-    });
+    validationSchema: uploadSchema,
+});
 
 const vuetifyConfig = (state) => ({
     props: {
         "error-messages": state.errors,
     },
 });
-
 
 const upload = defineComponentBinds("file_upload", vuetifyConfig);
 
@@ -70,13 +69,13 @@ const onSubmit = handleSubmit(async () => {
         })
         .finally(() => {
             dialogBox.dialog = false;
-            fileUpload.value = []
-                Swal.fire({
+            fileUpload.value = [];
+            Swal.fire({
                 title: "Success!",
                 text: "Data has been uploaded.",
                 icon: "success",
-                confirmButtonColor:"#1E2DBE"
-                });
+                confirmButtonColor: "#1E2DBE",
+            });
         });
 });
 
@@ -107,19 +106,28 @@ const isDisabledComputed = computed(() => {
                     <v-dialog v-model="dialogBox.dialog" width="500">
                         <v-card>
                             <div class="bg-blue-lighten-5">
-                                <v-card-title class="text-secondary-color font-weight-bold">
+                                <v-card-title
+                                    class="text-secondary-color font-weight-bold"
+                                >
                                     UPLOAD DATA
                                 </v-card-title>
                             </div>
-                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
-                            <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
+                            <small
+                                class="font-italic font-weight-thin pt-3 pb-2 px-5"
+                                >Please make sure that the fields on the excel
+                                file are in order and correct.</small
+                            >
+                            <v-form
+                                enctype="multipart/form-data"
+                                @submit.prevent="onSubmit"
+                            >
                                 <v-card-text>
                                     <v-file-input
+                                        v-model="fileUpload"
                                         label="File input"
                                         name="file_upload"
                                         show-size
                                         v-bind="upload"
-                                        v-model="fileUpload"
                                         @change="uploadFile"
                                     ></v-file-input>
                                 </v-card-text>
@@ -128,7 +136,11 @@ const isDisabledComputed = computed(() => {
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>
-                                    <v-btn color="primary" :disabled="!isDisabledComputed" type="submit">
+                                    <v-btn
+                                        :disabled="!isDisabledComputed"
+                                        color="primary"
+                                        type="submit"
+                                    >
                                         Upload
                                     </v-btn>
                                 </v-card-actions>
