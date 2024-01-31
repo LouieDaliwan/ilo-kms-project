@@ -261,6 +261,10 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
+const clearData = () => {
+    resetForm()
+}
+
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
     formData.append("file", file.value);
@@ -335,6 +339,7 @@ const onSubmit = handleSubmit(async () => {
                                         name="file_upload"
                                         show-size
                                         v-bind="upload"
+                                        @click:clear="clearData"
                                         @change="uploadFile"
                                     ></v-file-input>
                                 </v-card-text>

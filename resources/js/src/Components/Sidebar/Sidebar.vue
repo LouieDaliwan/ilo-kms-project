@@ -78,8 +78,8 @@ export default {
     >
 
             <div v-if="mdAndDown" v-click-outside="sideBarToggle"></div>
-            <!-- <brand class="my-3"></brand> -->
-            <h4 class="ms-4 py-5">Content</h4>
+            <brand class="d-md-none d-block"></brand>
+            <!-- <h4 class="ms-4 py-5">Content</h4> -->
             <menus></menus>
 
         <!-- Sidebar Footer -->

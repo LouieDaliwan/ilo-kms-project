@@ -12,9 +12,9 @@ defineProps(["values"]);
             their rights and duties related to OSH issues.
         </p>
         <v-row class="mt-5">
-            <v-col>
+            <v-col md="6">
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>The training objectives were met</p>
                     </div>
                     <Bar
@@ -23,9 +23,9 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             As an employer, I have an improved understanding of
                             my legal duties and responsibilities related to OSH.
@@ -39,9 +39,9 @@ defineProps(["values"]);
             </v-col>
         </v-row>
         <v-row class="mt-5">
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             As a worker, I have an improved understanding of my
                             legal duties and responsibilities related to OSH.
@@ -53,9 +53,9 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I have learned how to conduct hazard and risk
                             assessment.
@@ -70,9 +70,9 @@ defineProps(["values"]);
             </v-col>
         </v-row>
         <v-row class="mt-5">
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I have acquired new knowledge on how to prevent and
                             mitigate COVID-19 and other health hazards in the
@@ -85,9 +85,9 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I will recommend this training to other MSMEs and
                             informal business.

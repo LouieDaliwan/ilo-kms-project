@@ -51,6 +51,10 @@ const uploadFile = (event) => {
     file.value = event.target.files[0];
 };
 
+const clearData = () => {
+    resetForm()
+}
+
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
 
@@ -121,6 +125,7 @@ const isDisabledComputed = computed(() => {
                                         show-size
                                         v-bind="upload"
                                         v-model="fileUpload"
+                                        @click:clear="clearData"
                                         @change="uploadFile"
                                     ></v-file-input>
                                 </v-card-text>
