@@ -26,7 +26,7 @@ defineProps(["values"]);
         <v-row class="mt-5">
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I know my legal duties and responsibilities related
                             to OSH as an employer
@@ -40,7 +40,7 @@ defineProps(["values"]);
             </v-col>
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I am able to carry out my legal duties and
                             responsibilities related to OSH as an employer
