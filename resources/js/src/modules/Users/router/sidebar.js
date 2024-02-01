@@ -17,7 +17,7 @@ export default [
                 meta: {
                     title: "List Users",
                     requiresAuth: true,
-                    sort: 6,
+                    sort: 1,
                     roles: ["Superadmin"],
                     children: ["users.all"],
                 },
@@ -28,7 +28,7 @@ export default [
                 meta: {
                     title: "Add User",
                     requiresAuth: true,
-                    sort: 7,
+                    sort: 2,
                     roles: ["Superadmin"],
                     children: ["users.create"],
                 },

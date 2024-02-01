@@ -6,7 +6,7 @@ const routes = [
         component: () => import("@root/App.vue"),
         meta: {
             title: "SIYB",
-            sort: 6,
+            sort: 3,
             requiresAuth: true,
             roles: ["Superadmin", "Member"],
             icon: "mdi-book-multiple-variant",

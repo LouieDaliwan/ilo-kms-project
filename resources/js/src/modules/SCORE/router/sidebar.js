@@ -6,7 +6,7 @@ export default [
             title: "SCORE",
             icon: "mdi-calculator-variant",
             requiresAuth: true,
-            sort: 5,
+            sort: 2,
             roles: ["Superadmin", "Member"],
             children: ["score.dashboard"],
         },

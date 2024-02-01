@@ -6,7 +6,7 @@ export default [
             title: "WISE",
             icon: "mdi-semantic-web",
             requiresAuth: true,
-            sort: 5,
+            sort: 4,
             roles: ["Superadmin", "Member"],
             children: [
                 "wise.dashboard",
@@ -25,7 +25,7 @@ export default [
                 meta: {
                     title: "Dashboard",
                     requiresAuth: true,
-                    sort: 6,
+                    sort: 1,
                     children: ["wise.dashboard"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -36,7 +36,7 @@ export default [
                 meta: {
                     title: "Participants",
                     requiresAuth: true,
-                    sort: 7,
+                    sort: 2,
                     children: ["wise.participants"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -47,7 +47,7 @@ export default [
                 meta: {
                     title: "Activity Plus",
                     requiresAuth: true,
-                    sort: 8,
+                    sort: 3,
                     children: ["wise.activity-plus"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -58,7 +58,7 @@ export default [
                 meta: {
                     title: "Participants Evaluation",
                     requiresAuth: true,
-                    sort: 9,
+                    sort: 4,
                     children: ["wise.evaluations"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -69,7 +69,7 @@ export default [
                 meta: {
                     title: "Workplace MSME",
                     requiresAuth: true,
-                    sort: 7,
+                    sort: 5,
                     children: ["wise.indicator_one"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -80,7 +80,7 @@ export default [
                 meta: {
                     title: "Regional MSME",
                     requiresAuth: true,
-                    sort: 8,
+                    sort: 6,
                     children: ["wise.indicator_two"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -91,7 +91,7 @@ export default [
                 meta: {
                     title: "Strengthened Awareness of MSMEs",
                     requiresAuth: true,
-                    sort: 9,
+                    sort: 7,
                     children: ["wise.indicator_three"],
                     roles: ["Superadmin", "Member"],
                 },
