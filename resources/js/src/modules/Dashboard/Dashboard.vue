@@ -23,7 +23,12 @@ export default {
 <template>
     <admin>
         <meta-tag :title="'Dashboard'"></meta-tag>
-
+        <h1 class="text-primary text-center mt-5">
+            Welcome to ILO Dashboard
+        </h1>
+        <v-container class="text-center mt-8">
+            <img alt="ilo logo" class="img-fluid" :src="'/images/welcome-img.png'"/>
+        </v-container>
         <page-header></page-header>
     </admin>
 </template>

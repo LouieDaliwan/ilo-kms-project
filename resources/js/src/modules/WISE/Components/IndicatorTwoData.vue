@@ -14,8 +14,8 @@ defineProps(["values"]);
 
         <div class="mt-15">
             <v-row class="mt-5">
-                <v-col>
-                    <h4 class="text-secondary">Gender</h4>
+                <v-col cols="12" md="8">
+                    <h4 class="text-secondary mb-5">Gender</h4>
                     <Bar
                         :name="'gender_indicator_two'"
                         :values="values.gender"
@@ -55,20 +55,24 @@ defineProps(["values"]);
         </v-row>
         <v-row class="mt-5">
             <v-col>
-                <v-card class="pa-5">
-                    <div class="chart-title">
-                        <p>
-                            Can you note any concrete example(s) of an
-                            initiative you took towards better execution of your
-                            OSH-related duties/responsibilities as an employer
-                            in the last two years?
-                        </p>
-                    </div>
-                    <Bar
-                        :name="'indicator-two-chart-3'"
-                        :values="values.third_question"
-                    />
-                </v-card>
+                <v-row>
+                    <v-col cols="12" md="9">
+                        <v-card class="pa-5">
+                            <div class="chart-title mb-5">
+                                <p>
+                                    Can you note any concrete example(s) of an
+                                    initiative you took towards better execution of your
+                                    OSH-related duties/responsibilities as an employer
+                                    in the last two years?
+                                </p>
+                            </div>
+                                <Bar
+                                    :name="'indicator-two-chart-3'"
+                                    :values="values.third_question"
+                                />
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-col>
         </v-row>
     </div>

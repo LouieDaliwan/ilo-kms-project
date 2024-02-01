@@ -2,7 +2,7 @@
     <v-app v-cloak class="dovetail-app" footer toolbar>
         <v-slide-y-transition mode="out-in">
             <v-container fill-height>
-                <v-col cols="12" class="mt-12">
+                <v-col cols="12">
                     <v-row align="center" justify="center">
                         <v-col
                             class="d-none d-md-flex order-md-2"
