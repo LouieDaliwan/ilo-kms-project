@@ -12,21 +12,10 @@ defineProps(["values"]);
             their rights and duties related to OSH issues.
         </p>
 
-        <div class="mt-15">
-            <v-row class="mt-5">
-                <v-col cols="12" md="8">
-                    <h4 class="text-secondary mb-5">Gender</h4>
-                    <Bar
-                        :name="'gender_indicator_two'"
-                        :values="values.gender"
-                    ></Bar>
-                </v-col>
-            </v-row>
-        </div>
         <v-row class="mt-5">
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I know my legal duties and responsibilities related
                             to OSH as an employer
@@ -40,7 +29,7 @@ defineProps(["values"]);
             </v-col>
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I am able to carry out my legal duties and
                             responsibilities related to OSH as an employer
@@ -53,6 +42,19 @@ defineProps(["values"]);
                 </v-card>
             </v-col>
         </v-row>
+        <div class="mt-5">
+            <v-row class="mt-5">
+                <v-col cols="12" md="8">
+                    <v-card class="pa-5">
+                    <h4 class="text-secondary mb-5">Gender</h4>
+                        <Bar
+                            :name="'gender_indicator_two'"
+                            :values="values.gender"
+                        ></Bar>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </div>
         <v-row class="mt-5">
             <v-col>
                 <v-row>

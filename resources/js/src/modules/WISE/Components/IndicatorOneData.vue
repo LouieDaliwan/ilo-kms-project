@@ -56,7 +56,7 @@ defineProps(["values"]);
         <v-row class="mt-5">
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             The instructor provided clear information, answered
                             questions, was approachable, and encouraged
@@ -71,7 +71,7 @@ defineProps(["values"]);
             </v-col>
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             The practical tools, learning materials and
                             takeaways shared in the training contributed to its
@@ -89,7 +89,7 @@ defineProps(["values"]);
         <v-row class="mt-12">
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>
                             I am going to use at least one of the aspects I
                             learned during the training in my work
@@ -103,7 +103,7 @@ defineProps(["values"]);
             </v-col>
             <v-col>
                 <v-card class="pa-5">
-                    <div class="chart-title">
+                    <div class="chart-title mb-8">
                         <p>I would recommend this training to others</p>
                     </div>
                     <Bar
