@@ -6,7 +6,7 @@ export default [
             title: "FinED",
             icon: "mdi-account-settings",
             requiresAuth: true,
-            sort: 1,
+            sort: 4,
             roles: ["Superadmin"],
             children: ["fin-ed.about"],
         },

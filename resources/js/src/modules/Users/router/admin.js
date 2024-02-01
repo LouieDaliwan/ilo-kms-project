@@ -17,7 +17,7 @@ const routes = [
                 component: () => import("../Index.vue"),
                 meta: {
                     title: "List Users",
-                    sort: 6,
+                    sort: 1,
                     requiresAuth: true,
                     roles: ["Superadmin"],
                     //   permission: 'customers.index',
@@ -30,7 +30,7 @@ const routes = [
                 component: () => import("../Create.vue"),
                 meta: {
                     title: "Create Member",
-                    sort: 7,
+                    sort: 2,
                     requiresAuth: true,
                     roles: ["Superadmin"],
                     //   permission: 'customers.index',
@@ -43,7 +43,7 @@ const routes = [
                 component: () => import("../Show.vue"),
                 meta: {
                     title: "Show Member",
-                    sort: 8,
+                    sort: 3,
                     requiresAuth: true,
                     roles: ["Superadmin"],
                     //   permission: 'customers.index',
@@ -56,7 +56,7 @@ const routes = [
                 component: () => import("../Trashed.vue"),
                 meta: {
                     title: "Show Trashed",
-                    sort: 9,
+                    sort: 4,
                     requiresAuth: true,
                     roles: ["Superadmin"],
                     //   permission: 'customers.index',

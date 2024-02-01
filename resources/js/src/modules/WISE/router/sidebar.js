@@ -6,7 +6,7 @@ export default [
             title: "WISE",
             icon: "mdi-semantic-web",
             requiresAuth: true,
-            sort: 4,
+            sort: 1,
             roles: ["Superadmin", "Member"],
             children: [
                 "wise.dashboard",

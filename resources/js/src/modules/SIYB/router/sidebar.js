@@ -6,7 +6,7 @@ export default [
             title: "SIYB",
             icon: "mdi-briefcase",
             requiresAuth: true,
-            sort: 2,
+            sort: 3,
             roles: ["Superadmin", "Member"],
             children: ["siyb.about", "siyb.agency", "siyb.summary"],
         },
