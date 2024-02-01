@@ -14,8 +14,8 @@ defineProps(["values"]);
 
         <div class="mt-15">
             <v-row class="mt-5">
-                <v-col>
-                    <h4 class="text-secondary">Gender</h4>
+                <v-col cols="12" md="8">
+                    <h4 class="text-secondary mb-5">Gender</h4>
                     <Bar
                         :name="'gender_indicator_one'"
                         :values="values.gender"

@@ -113,7 +113,7 @@ const resources = reactive({
     selected: [],
     headers: [
         {
-            id: "ID No.",
+            title: "ID No.",
             align: "left",
             class: "text-no-wrap",
             key: "id",
@@ -435,7 +435,7 @@ const bulkTrashResource = () => {
                                     class="me-0 btn-actions"
                                     @click.prevent="goToActivityPage(item)"
                                 >
-                                    <v-icon small>mdi-pencil-outline</v-icon>
+                                    <v-icon small>mdi-page-next-outline</v-icon>
                                 </v-btn>
                                 <!-- Edit User -->
                             </div>

@@ -12,11 +12,37 @@ const routes = [
         },
         children: [
             {
-                path: "dashboard",
-                name: "score.dashboard",
-                component: () => import("../Index.vue"),
+                path: "davao",
+                name: "score.davao",
+                component: () => import("../Davao.vue"),
                 meta: {
-                    title: "Score Dashboard",
+                    title: "Davao",
+                    sort: 6,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    roles: ["Superadmin", "Member"],
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "tagaytay",
+                name: "score.tagaytay",
+                component: () => import("../Tagaytay.vue"),
+                meta: {
+                    title: "Tagaytay",
+                    sort: 6,
+                    requiresAuth: true,
+                    //   permission: 'customers.index',
+                    roles: ["Superadmin", "Member"],
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "manila",
+                name: "score.manila",
+                component: () => import("../Manila.vue"),
+                meta: {
+                    title: "Manila",
                     sort: 6,
                     requiresAuth: true,
                     //   permission: 'customers.index',

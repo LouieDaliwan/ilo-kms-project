@@ -48,9 +48,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="container">
-        <h1>Comments in Training</h1>
-        <div class="list-group-wrapper">
+    <v-card class="pa-5 mt-10">
+        <h2 class="text-tertiary-color">Comments in Training</h2>
+        <div class="list-group-wrapper mt-3">
             <transition name="fade">
                 <div v-show="loading" class="loading">
                     <span class="fa fa-spinner fa-spin"></span> Loading
@@ -82,7 +82,7 @@ onMounted(() => {
                 </div>
             </ul>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <style scoped>

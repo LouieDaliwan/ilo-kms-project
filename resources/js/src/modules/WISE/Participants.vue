@@ -68,7 +68,7 @@ const resources = reactive({
     selected: [],
     headers: [
         {
-            id: "ID No.",
+            title: "ID No.",
             align: "left",
             class: "text-no-wrap",
             key: "id",
@@ -434,7 +434,7 @@ const onSubmit = handleSubmit(async () => {
                                     class="me-0 btn-actions"
                                     @click.prevent="goToParticipantPage(item)"
                                 >
-                                    <v-icon small>mdi-pencil-outline</v-icon>
+                                    <v-icon small>mdi-page-next-outline</v-icon>
                                 </v-btn>
                                 <!-- Edit User -->
                             </div>

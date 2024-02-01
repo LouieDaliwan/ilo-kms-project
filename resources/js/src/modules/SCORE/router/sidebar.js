@@ -4,7 +4,7 @@ export default [
         name: "score",
         meta: {
             title: "SCORE",
-            icon: "mdi-briefcase-outline",
+            icon: "mdi-calculator-variant",
             requiresAuth: true,
             sort: 5,
             roles: ["Superadmin", "Member"],
@@ -12,13 +12,35 @@ export default [
         },
         children: [
             {
-                code: "score.dashboard",
-                name: "score.dashboard",
+                code: "score.davao",
+                name: "score.davao",
                 meta: {
-                    title: "Dashboard",
+                    title: "Davao",
                     requiresAuth: true,
                     sort: 6,
-                    children: ["score.dashboard"],
+                    children: ["score.davao"],
+                    roles: ["Superadmin", "Member"],
+                },
+            },
+            {
+                code: "score.tagaytay",
+                name: "score.tagaytay",
+                meta: {
+                    title: "Tagaytay",
+                    requiresAuth: true,
+                    sort: 6,
+                    children: ["score.tagaytay"],
+                    roles: ["Superadmin", "Member"],
+                },
+            },
+            {
+                code: "score.manila",
+                name: "score.manila",
+                meta: {
+                    title: "Manila",
+                    requiresAuth: true,
+                    sort: 6,
+                    children: ["score.manila"],
                     roles: ["Superadmin", "Member"],
                 },
             },

@@ -1,7 +1,11 @@
-<script setup></script>
+<script setup>
+import Header from "./Header.vue"
+import Footer from "./Footer.vue"
+</script>
 
 <template>
     <v-app v-cloak class="dovetail-app" footer toolbar>
+        <Header />
         <!-- Main Content -->
         <router-view v-slot="{ Component, route }">
             <v-slide-y-reverse-transition
@@ -18,5 +22,6 @@
             </v-slide-y-reverse-transition>
         </router-view>
         <!-- Main Content -->
+        <Footer />
     </v-app>
 </template>
