@@ -13,12 +13,25 @@ const routes = [
         },
         children: [
             {
+                path: "about",
+                name: "siyb.about",
+                component: () => import("../About.vue"),
+                meta: {
+                    title: "SIYB About",
+                    sort: 1,
+                    requiresAuth: true,
+                    roles: ["Superadmin", "Members"],
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
                 path: "agency",
                 name: "siyb.agency",
                 component: () => import("../Agency.vue"),
                 meta: {
                     title: "List Agencies",
-                    sort: 6,
+                    sort: 2,
                     requiresAuth: true,
                     //   permission: 'customers.index'
                     roles: ["Superadmin", "Member"],
@@ -31,7 +44,7 @@ const routes = [
                 component: () => import("../Summary.vue"),
                 meta: {
                     title: "Summary",
-                    sort: 7,
+                    sort: 3,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',

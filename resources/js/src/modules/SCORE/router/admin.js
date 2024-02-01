@@ -12,12 +12,25 @@ const routes = [
         },
         children: [
             {
+                path: "about",
+                name: "score.about",
+                component: () => import("../About.vue"),
+                meta: {
+                    title: "SCORE About",
+                    sort: 1,
+                    requiresAuth: true,
+                    roles: ["Superadmin", "Members"],
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
                 path: "davao",
                 name: "score.davao",
                 component: () => import("../Davao.vue"),
                 meta: {
                     title: "Davao",
-                    sort: 6,
+                    sort: 2,
                     requiresAuth: true,
                     //   permission: 'customers.index',
                     roles: ["Superadmin", "Member"],
@@ -30,7 +43,7 @@ const routes = [
                 component: () => import("../Tagaytay.vue"),
                 meta: {
                     title: "Tagaytay",
-                    sort: 6,
+                    sort: 3,
                     requiresAuth: true,
                     //   permission: 'customers.index',
                     roles: ["Superadmin", "Member"],
@@ -43,7 +56,7 @@ const routes = [
                 component: () => import("../Manila.vue"),
                 meta: {
                     title: "Manila",
-                    sort: 6,
+                    sort: 4,
                     requiresAuth: true,
                     //   permission: 'customers.index',
                     roles: ["Superadmin", "Member"],

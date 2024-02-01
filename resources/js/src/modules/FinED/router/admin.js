@@ -16,7 +16,7 @@ const routes = [
                 name: "fin-ed.about",
                 component: () => import("../About.vue"),
                 meta: {
-                    title: "About",
+                    title: "FinED About",
                     sort: 1,
                     requiresAuth: true,
                     roles: ["Superadmin", "Members"],

@@ -8,16 +8,32 @@ export default [
             requiresAuth: true,
             sort: 2,
             roles: ["Superadmin", "Member"],
-            children: ["score.dashboard"],
+            children: [
+                "score.about",
+                "score.davao",
+                "score.tagaytay",
+                "score.manila",
+            ],
         },
         children: [
+            {
+                code: "score.about",
+                name: "score.about",
+                meta: {
+                    title: "About",
+                    requiresAuth: true,
+                    sort: 1,
+                    roles: ["Superadmin", "Members"],
+                    children: ["score.about"],
+                },
+            },
             {
                 code: "score.davao",
                 name: "score.davao",
                 meta: {
                     title: "Davao",
                     requiresAuth: true,
-                    sort: 6,
+                    sort: 2,
                     children: ["score.davao"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -28,7 +44,7 @@ export default [
                 meta: {
                     title: "Tagaytay",
                     requiresAuth: true,
-                    sort: 6,
+                    sort: 3,
                     children: ["score.tagaytay"],
                     roles: ["Superadmin", "Member"],
                 },
@@ -39,7 +55,7 @@ export default [
                 meta: {
                     title: "Manila",
                     requiresAuth: true,
-                    sort: 6,
+                    sort: 4,
                     children: ["score.manila"],
                     roles: ["Superadmin", "Member"],
                 },

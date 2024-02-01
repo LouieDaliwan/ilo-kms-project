@@ -8,9 +8,20 @@ export default [
             requiresAuth: true,
             sort: 2,
             roles: ["Superadmin", "Member"],
-            children: ["siyb.agency", "siyb.summary"],
+            children: ["siyb.about", "siyb.agency", "siyb.summary"],
         },
         children: [
+            {
+                code: "fin-ed.about",
+                name: "fin-ed.about",
+                meta: {
+                    title: "About",
+                    requiresAuth: true,
+                    sort: 1,
+                    roles: ["Superadmin", "Members"],
+                    children: ["siyb.about"],
+                },
+            },
             // {
             //     code: "score.dashboard",
             //     name: "score.dashboard",
@@ -27,7 +38,7 @@ export default [
                 meta: {
                     title: "List Agency",
                     requiresAuth: true,
-                    sort: 7,
+                    sort: 2,
                     roles: ["Superadmin", "Member"],
                     children: ["siyb.agency"],
                 },
@@ -38,7 +49,7 @@ export default [
                 meta: {
                     title: "Summary",
                     requiresAuth: true,
-                    sort: 8,
+                    sort: 3,
                     children: ["siyb.summary"],
                     roles: ["Superadmin", "Member"],
                 },

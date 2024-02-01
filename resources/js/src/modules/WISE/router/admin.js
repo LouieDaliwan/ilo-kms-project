@@ -12,12 +12,25 @@ const routes = [
         },
         children: [
             {
+                path: "about",
+                name: "wise.about",
+                component: () => import("../About.vue"),
+                meta: {
+                    title: "WISE About",
+                    sort: 1,
+                    requiresAuth: true,
+                    roles: ["Superadmin", "Members"],
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
                 path: "dashboard",
                 name: "wise.dashboard",
                 component: () => import("../Index.vue"),
                 meta: {
                     title: "Wise Dashboard",
-                    sort: 6,
+                    sort: 2,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -30,7 +43,7 @@ const routes = [
                 component: () => import("../Participants.vue"),
                 meta: {
                     title: "Participants",
-                    sort: 7,
+                    sort: 3,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -43,7 +56,7 @@ const routes = [
                 component: () => import("../ActivityPlus.vue"),
                 meta: {
                     title: "Activity Plus",
-                    sort: 8,
+                    sort: 4,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -56,7 +69,7 @@ const routes = [
                 component: () => import("../Evaluation.vue"),
                 meta: {
                     title: "Participants Evaluation",
-                    sort: 9,
+                    sort: 5,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -69,7 +82,7 @@ const routes = [
                 component: () => import("../Show.vue"),
                 meta: {
                     title: "Show Participant",
-                    sort: 10,
+                    sort: 6,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -82,7 +95,7 @@ const routes = [
                 component: () => import("../ShowActivityPlus.vue"),
                 meta: {
                     title: "Show Activity Plus",
-                    sort: 10,
+                    sort: 7,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -95,7 +108,7 @@ const routes = [
                 component: () => import("../IndicatorOne.vue"),
                 meta: {
                     title: "Wise Indicator One",
-                    sort: 7,
+                    sort: 8,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -108,7 +121,7 @@ const routes = [
                 component: () => import("../IndicatorTwo.vue"),
                 meta: {
                     title: "Wise Indicator Two",
-                    sort: 7,
+                    sort: 9,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
@@ -121,7 +134,7 @@ const routes = [
                 component: () => import("../IndicatorThree.vue"),
                 meta: {
                     title: "Wise Indicator Three",
-                    sort: 7,
+                    sort: 10,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
                     //   permission: 'customers.index',
