@@ -3,6 +3,7 @@
 
 use App\Http\Controllers\SIYB\AgencySummaryDataController;
 use App\Http\Controllers\SIYB\ListAgenciesController;
+use App\Http\Controllers\SIYB\UploadClientsController;
 use App\Http\Controllers\SIYB\UploadStatusAgencyController;
 
 Route::get('/siyb-agencies', ListAgenciesController::class)
@@ -13,3 +14,6 @@ Route::post('/upload-siyb-status-agency', UploadStatusAgencyController::class)
 
 Route::get('/siyb-agency-summary-data', AgencySummaryDataController::class)
     ->name('siyb-agency-summary-data');
+
+Route::post("/upload-siyb-clients", UploadClientsController::class)
+    ->name('upload-siyb-clients');
