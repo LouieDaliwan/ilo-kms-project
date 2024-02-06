@@ -16,4 +16,9 @@ class Client extends Model
     protected $casts = [
         'metadata' => 'array'
     ];
+
+    public function responses()
+    {
+        return $this->hasMany(ClientResponse::class, 'siyb_client_id', 'id');
+    }
 }

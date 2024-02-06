@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('siyb_clients', function (Blueprint $table) {
             $table->id();
-            $table->unsginedBigInteger('agency_id')->index();
+            $table->bigInteger('agency_id')->unsigned()->index();
             $table->string('first_name')->index();
             $table->string('middle_name')->index()->nullable();
             $table->string('last_name')->index();

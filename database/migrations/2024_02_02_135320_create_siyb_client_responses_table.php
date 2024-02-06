@@ -6,14 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    protected string $tableName = 'siyb_client_responses';
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('siyb_client_responses', function (Blueprint $table) {
+        Schema::create($this->tableName, function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('siyb_client_id')->index();
+            $table->bigInteger('siyb_client_id')->unsigned()->index()->references('id')->on('siyb_clients');
             $table->longText('metadata')->nullable();
             $table->timestamps();
         });
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('client_responses');
+        Schema::dropIfExists($this->tableName);
     }
 };

@@ -17,4 +17,9 @@ class Agency extends Model
             ->orWhere('name', 'like', '%' . $search . '%')
             ->orWhere('batch_code', 'like', '%' . $search . '%');
     }
+
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'agency_id', 'id');
+    }
 }
