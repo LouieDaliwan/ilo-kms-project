@@ -8,7 +8,12 @@ export default [
             requiresAuth: true,
             sort: 3,
             roles: ["Superadmin", "Member"],
-            children: ["siyb.about", "siyb.agency", "siyb.summary"],
+            children: [
+                "siyb.about",
+                "siyb.agency",
+                "siyb.summary",
+                "siyb.clients",
+            ],
         },
         children: [
             {
@@ -51,6 +56,17 @@ export default [
                     requiresAuth: true,
                     sort: 3,
                     children: ["siyb.summary"],
+                    roles: ["Superadmin", "Member"],
+                },
+            },
+            {
+                code: "siyb.clients",
+                name: "siyb.clients",
+                meta: {
+                    title: "Clients",
+                    requiresAuth: true,
+                    sort: 3,
+                    children: ["siyb.clients"],
                     roles: ["Superadmin", "Member"],
                 },
             },

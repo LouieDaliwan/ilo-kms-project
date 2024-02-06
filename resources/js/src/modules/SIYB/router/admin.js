@@ -51,6 +51,32 @@ const routes = [
                     icon: "mdi-book-multiple-variant",
                 },
             },
+            {
+                path: "clients",
+                name: "siyb.clients",
+                component: () => import("../Client/Index.vue"),
+                meta: {
+                    title: "Clients",
+                    sort: 3,
+                    requiresAuth: true,
+                    roles: ["Superadmin", "Member"],
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "clients:id",
+                name: "siyb.client-profile",
+                component: () => import("../Client/Profile.vue"),
+                meta: {
+                    title: "Client Profile",
+                    sort: 4,
+                    requiresAuth: true,
+                    roles: ["Superadmin", "Member"],
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
         ],
     },
 ];
