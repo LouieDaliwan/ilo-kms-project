@@ -12,6 +12,9 @@ class ClientResponse extends Model
     protected $table = 'siyb_client_responses';
 
     protected $guarded = [];
+    protected $casts = [
+        'metadata' => 'array',
+    ];
 
     public function client()
     {

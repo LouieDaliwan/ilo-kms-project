@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->id();
             $table->bigInteger('siyb_client_id')->unsigned()->index()->references('id')->on('siyb_clients');
+            $table->dateTime('timestamp')->index()->nullable();
             $table->longText('metadata')->nullable();
             $table->timestamps();
         });

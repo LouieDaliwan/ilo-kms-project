@@ -228,7 +228,7 @@ const onSubmit = handleSubmit(async () => {
     formData.append("file", file.value);
 
     await axios
-        .post($api.uploadAgency(), formData, {
+        .post($api.uploadClients(), formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -237,7 +237,7 @@ const onSubmit = handleSubmit(async () => {
             resetForm();
             Swal.fire({
                 title: "Success!",
-                text: "Wise Participants have been uploaded.",
+                text: "SIYB Clients have been uploaded.",
                 icon: "success",
                 confirmButtonColor: "#1E2DBE",
             });
