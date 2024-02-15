@@ -1,8 +1,12 @@
 <script>
 import Header from "./Header.vue"
 import Footer from "./Footer.vue"
+import Appbar from "@/Components/Appbar/Appbar.vue";
 export default {
     name: "Blank",
+        components: {
+        Appbar,
+    },
 };
 </script>
 
@@ -16,6 +20,9 @@ export default {
         <sidebar></sidebar>
 
         <router-view v-slot="{ Component, route }">
+            <appbar>
+                <slot name="appbar"></slot>
+            </appbar>
             <v-slide-y-reverse-transition
                 class="d-flex align-center justify-center"
                 mode="out-in"
