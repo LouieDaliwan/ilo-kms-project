@@ -211,7 +211,7 @@ const bulkTrashResource = () => {
 
 <template>
     <div>
-        <h1>Activity Plus Report</h1>
+        <h2 class="text-primary mt-8 mb-3">Activity Plus Report</h2>
         <v-card>
             <div v-if="resourcesIsNotEmpty">
                 <v-slide-y-reverse-transition mode="out-in">

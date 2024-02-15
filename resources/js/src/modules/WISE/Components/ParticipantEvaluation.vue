@@ -25,7 +25,7 @@ const getEvaluation = () => {
 
 <template>
     <div>
-        <h1>Evaluation</h1>
+        <h2 class="text-primary mt-8">Evaluation</h2>
         <evaluation-data :values="evaluationData" />
     </div>
 </template>

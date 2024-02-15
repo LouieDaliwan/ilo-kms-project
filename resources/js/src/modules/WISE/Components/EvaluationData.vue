@@ -5,13 +5,13 @@ defineProps(["values"]);
 </script>
 
 <template>
-    <div class="mt-10">
+    <div class="mt-3">
         <h3 class="text-tertiary-color">OSH Knowledge Assessment</h3>
         <p>
             The percentage of workers reporting an improved understanding of
             their rights and duties related to OSH issues.
         </p>
-        <v-row class="mt-5">
+        <v-row class="mt-4">
             <v-col md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
