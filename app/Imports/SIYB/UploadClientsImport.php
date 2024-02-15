@@ -17,11 +17,7 @@ class UploadClientsImport implements ToCollection
     {
         unset($rows[0]);
 
-        $data = $rows->toArray();
-
-        foreach($data as $key => $row) {
-            $this->store($row);
-        }
+        collect($rows->toArray())->each(fn($row, $key) => $this->store($row));
     }
 
     /**

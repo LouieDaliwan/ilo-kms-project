@@ -58,53 +58,48 @@ const resources = reactive({
     selected: [],
     headers: [
         {
-            title: "Batch Code",
+            title: "ID No.",
             align: "left",
             class: "text-no-wrap",
-            key: "batch_code",
+            key: "id",
         },
         {
             title: "Name",
             align: "left",
             class: "text-no-wrap",
-            key: "name",
+            key: "fullname",
         },
         {
-            title: "Agency",
+            title: "Gender",
             class: "text-no-wrap",
-            key: "agency",
+            key: "gender",
         },
         {
-            title: "Agency Location",
+            title: "Age",
             align: "center",
             sortable: false,
             class: "muted--text text-no-wrap",
-            key: "agency_location",
+            key: "age",
         },
         {
-            title: "No. of Planned TOE",
+            title: "High Education",
             class: "text-no-wrap",
-            key: "no_of_planned_toe",
+            key: "high_education",
         },
         {
-            title: "Estimated MSME to be trained",
+            title: "Trainer",
             class: "text-no-wrap",
-            key: "estimated_msme_to_be_trained",
+            key: "trainer",
         },
         {
-            title: "No. of TOE conducted activity report",
+            title: "Location",
             class: "text-no-wrap",
-            key: "no_of_toe_conducted_activity_report",
+            key: "location",
         },
         {
-            title: "No. MSME trained",
+            title: "Trainer Batch Code",
             class: "text-no-wrap",
-            key: "no_msme_trained",
-        },
-        {
-            title: "Remarks",
-            class: "text-no-wrap",
-            key: "remarks",
+            key: "trainer_batch_code",
         },
     ],
     data: [],
@@ -137,7 +132,7 @@ const getPaginatedData = (params = null, caller = null) => {
     resources.loading = true;
 
     axios
-        .get(api.list(), { params })
+        .get(api.listClients(), { params })
         .then((response) => {
             let responseData = response.data;
             resources.data = responseData.data;
