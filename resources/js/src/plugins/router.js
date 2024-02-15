@@ -28,6 +28,11 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
         // next({ params: { lang: 'en', from: window.location.pathname } })
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            // behavior: "smooth",
+        });
     }
 });
 

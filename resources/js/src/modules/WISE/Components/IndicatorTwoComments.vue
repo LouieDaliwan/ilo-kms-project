@@ -48,7 +48,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <v-card class="pa-5 mt-10">
+    <div class="pa-5 mt-10 workplan-completion rounded">
         <h2 class="text-tertiary-color">Comments in Training</h2>
         <div class="list-group-wrapper mt-3">
             <transition name="fade">
@@ -58,31 +58,31 @@ onMounted(() => {
             </transition>
             <ul id="infinite-list" class="list-group">
                 <div v-for="item in items">
-                    <v-card>
+                    <v-card class="mb-1">
                         <v-card-title>
-                            I know my legal duties and responsibilities related
-                            to OSH as an employer
+                            <p>I know my legal duties and responsibilities related
+                            to OSH as an employer</p>
                         </v-card-title>
 
                         <v-card-text>
-                            {{ item.first_question_comment }}
+                            <small class="text-muted">{{ item.first_question_comment }}</small>
                         </v-card-text>
                     </v-card>
 
-                    <v-card>
+                    <v-card class="mb-1">
                         <v-card-title>
-                            I am able to carry out my legal duties and
-                            responsibilities related to OSH as an employer
+                            <p>I am able to carry out my legal duties and
+                            responsibilities related to OSH as an employer</p>
                         </v-card-title>
 
                         <v-card-text>
-                            {{ item.second_question_comment }}
+                            <small class="text-muted">{{ item.second_question_comment }}</small>
                         </v-card-text>
                     </v-card>
                 </div>
             </ul>
         </div>
-    </v-card>
+    </div>
 </template>
 
 <style scoped>
@@ -105,7 +105,7 @@ body {
 .list-group {
     overflow: auto;
     height: 100vh;
-    border: 2px solid #dce4ec;
+    /* border: 2px solid #dce4ec; */
     border-radius: 5px;
 }
 

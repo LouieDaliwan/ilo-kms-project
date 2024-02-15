@@ -1,10 +1,11 @@
 <template>
     <div>
-        <v-slide-y-transition mode="out-in">
+        <!-- <v-slide-y-transition mode="out-in">
             <appbar>
                 <slot name="appbar"></slot>
             </appbar>
-        </v-slide-y-transition>
+            window.scrollTo(0, 0);
+        </v-slide-y-transition> -->
 
         <v-main style="min-height: 100vh">
             <div class="mb-12">

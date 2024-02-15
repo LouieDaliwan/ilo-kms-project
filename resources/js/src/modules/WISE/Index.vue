@@ -56,7 +56,7 @@ const fetchEvaluation = () => {
         <page-header>
             <template v-slot:title> WISE Dashboard</template>
         </page-header>
-        <div class="workplan-completion rounded pa-6">
+        <div class="workplan-completion rounded pa-6 mb-10">
             <div>
                 <h3 class="text-tertiary-color">Workplan Completion</h3>
                 <p>SMEs that have implemented their workplan.</p>

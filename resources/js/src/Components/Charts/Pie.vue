@@ -56,6 +56,12 @@ export default {
                             legend: {
                                 display: true,
                                 position: "bottom",
+                                paddingTop: 20,
+                                    labels: {
+                                    padding: 35,
+                                    usePointStyle: true,
+                                    fontFamily: "Overpass, sans-serif",
+                                    },
                             },
                         },
                     },
