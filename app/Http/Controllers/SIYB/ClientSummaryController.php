@@ -3,13 +3,18 @@
 namespace App\Http\Controllers\SIYB;
 
 use App\Http\Controllers\Controller;
-use Domain\SIYB\Actions\ClientList;
+use Domain\SIYB\Actions\ClientSummary;
 
 class ClientSummaryController extends Controller
 {
-    public function __construct(public ClientList $clientList) {}
+    /**
+     * @param  ClientSummary  $clientSummary
+     */
+    public function __construct(public ClientSummary $clientSummary) {}
+
+
     public function __invoke()
     {
-        return ($this->clientList)();
+        return ($this->clientSummary)();
     }
 }

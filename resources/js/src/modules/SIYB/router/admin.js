@@ -28,7 +28,7 @@ const routes = [
             {
                 path: "agency",
                 name: "siyb.agency",
-                component: () => import("../Agency.vue"),
+                component: () => import("../Agency/Index.vue"),
                 meta: {
                     title: "List Agencies",
                     sort: 2,
@@ -41,9 +41,9 @@ const routes = [
             {
                 path: "summary",
                 name: "siyb.summary",
-                component: () => import("../Summary.vue"),
+                component: () => import("../Agency/Summary.vue"),
                 meta: {
-                    title: "Summary",
+                    title: "Agent Summary",
                     sort: 3,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],
@@ -70,6 +70,19 @@ const routes = [
                 component: () => import("../Client/Profile.vue"),
                 meta: {
                     title: "Client Profile",
+                    sort: 4,
+                    requiresAuth: true,
+                    roles: ["Superadmin", "Member"],
+                    //   permission: 'customers.index',
+                    icon: "mdi-book-multiple-variant",
+                },
+            },
+            {
+                path: "clients-summary",
+                name: "siyb.clients-summary",
+                component: () => import("../Client/Summary.vue"),
+                meta: {
+                    title: "Client Summary",
                     sort: 4,
                     requiresAuth: true,
                     roles: ["Superadmin", "Member"],

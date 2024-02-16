@@ -52,7 +52,7 @@ export default [
                 code: "siyb.summary",
                 name: "siyb.summary",
                 meta: {
-                    title: "Summary",
+                    title: "Agency Summary",
                     requiresAuth: true,
                     sort: 3,
                     children: ["siyb.summary"],
@@ -67,6 +67,17 @@ export default [
                     requiresAuth: true,
                     sort: 3,
                     children: ["siyb.clients"],
+                    roles: ["Superadmin", "Member"],
+                },
+            },
+            {
+                code: "siyb.clients-summary",
+                name: "siyb.clients-summary",
+                meta: {
+                    title: "Clients Summary",
+                    requiresAuth: true,
+                    sort: 3,
+                    children: ["siyb.clients-summary"],
                     roles: ["Superadmin", "Member"],
                 },
             },
