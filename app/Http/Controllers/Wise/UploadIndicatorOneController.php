@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
-use App\Imports\ScoreIndicatorOneImport;
+use App\Imports\Wise\IndicatorOneImport;
 use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,7 +16,7 @@ class UploadIndicatorOneController extends Controller
     public function __invoke(Request $request)
     {
         try {
-            Excel::import(new ScoreIndicatorOneImport, $request->file('file')); //storage_path('app/plus_activity.xlsx')
+            Excel::import(new IndicatorOneImport, $request->file('file')); //storage_path('app/plus_activity.xlsx')
 
             return response()->json([
                 'message' => 'Successfully imported indicator one data.',

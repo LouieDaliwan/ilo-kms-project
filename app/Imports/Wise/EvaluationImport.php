@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports;
+namespace App\Imports\Wise;
 
 use App\Models\Wise\Evaluation;
 use Carbon\Carbon;
@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 
-class WiseEvaluationImport implements ToCollection
+class EvaluationImport implements ToCollection
 {
     /**
     * @param array $row

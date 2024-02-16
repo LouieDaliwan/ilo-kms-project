@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Imports;
+namespace App\Imports\Wise;
 
 use App\Models\Wise\Participant;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class WiseParticipantImport implements ToCollection
+class ParticipantImport implements ToCollection
 {
     public function collection(Collection $rows)
     {

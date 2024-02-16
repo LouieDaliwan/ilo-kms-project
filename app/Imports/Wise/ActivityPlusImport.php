@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Imports;
+namespace App\Imports\Wise;
 
 use App\Models\Wise\ActivityPlusReport;
 use Carbon\Carbon;
@@ -10,7 +10,7 @@ use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class WiseActivityPlusImport implements ToCollection
+class ActivityPlusImport implements ToCollection
 {
     /**
     * @param array $row

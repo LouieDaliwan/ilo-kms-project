@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Imports;
+namespace App\Imports\Wise;
 
 use App\Models\Score\IndicatorThree;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ScoreIndicatorThreeImport implements ToCollection
+class IndicatorThreeImport implements ToCollection
 {
     /**
      * @param Collection $rows

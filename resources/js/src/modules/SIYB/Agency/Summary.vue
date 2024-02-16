@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
-import $api from "./routes/api.js";
+import $api from "../routes/api.js";
 import BarHorizontal from "@components/Charts/BarHorizontal.vue";
 
 onMounted(() => {

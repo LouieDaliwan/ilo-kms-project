@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Imports;
+namespace App\Imports\SIYB;
 
 use App\Models\SIYB\Agency;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 
-class SIYBStatusAgencyImport implements ToCollection
+class StatusAgencyImport implements ToCollection
 {
     /**
     * @param Collection $collection

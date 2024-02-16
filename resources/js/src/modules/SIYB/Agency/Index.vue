@@ -1,5 +1,5 @@
 <script setup>
-import $api from "./routes/api";
+import $api from "../routes/api.js";
 import { useDialogStore } from "@components/Dialog/store/dialog.js";
 import { useSnackbarStore } from "@components/Snackbar/store/snackbar.js";
 import { useDisplay } from "vuetify";
@@ -8,13 +8,14 @@ import { useRoute, useRouter } from "vue-router";
 import { VDataTableServer } from "vuetify/labs/components";
 import PageHeader from "@components/Headers/PageHeader.vue";
 import { useForm } from "vee-validate";
-import { uploadSchema } from "../WISE/Schema/uploadvalidation";
+import { uploadSchema } from "../../WISE/Schema/uploadvalidation.js";
 import Swal from "sweetalert2";
 import "@vuepic/vue-datepicker/dist/main.css";
 
-const { defineComponentBinds, resetForm, handleSubmit, setErrors, meta } = useForm({
-    validationSchema: uploadSchema,
-});
+const { defineComponentBinds, resetForm, handleSubmit, setErrors, meta } =
+    useForm({
+        validationSchema: uploadSchema,
+    });
 
 const vuetifyConfig = (state) => ({
     props: {
@@ -220,8 +221,8 @@ const uploadFile = (event) => {
 };
 
 const clearData = () => {
-    resetForm()
-}
+    resetForm();
+};
 
 const onSubmit = handleSubmit(async () => {
     const formData = new FormData();
@@ -296,20 +297,27 @@ const isDisabledComputed = computed(() => {
                                     UPLOAD DATA
                                 </v-card-title>
                             </div>
-                            <small class="font-italic font-weight-thin pt-3 pb-2 px-5">Please make sure that the fields on the excel file are in order and correct.</small>
-                        <v-form enctype="multipart/form-data" @submit.prevent="onSubmit">
-                            <v-card-text>
-                                <v-file-input
-                                    label="Upload Data"
-                                    name="file_upload"
-                                    show-size
-                                    v-bind="upload"
-                                    v-model="fileUpload"
-                                    @click:clear="clearData"
-                                    @change="uploadFile"
-                                ></v-file-input>
-                            </v-card-text>
-                            <v-divider></v-divider>
+                            <small
+                                class="font-italic font-weight-thin pt-3 pb-2 px-5"
+                                >Please make sure that the fields on the excel
+                                file are in order and correct.</small
+                            >
+                            <v-form
+                                enctype="multipart/form-data"
+                                @submit.prevent="onSubmit"
+                            >
+                                <v-card-text>
+                                    <v-file-input
+                                        v-model="fileUpload"
+                                        label="Upload Data"
+                                        name="file_upload"
+                                        show-size
+                                        v-bind="upload"
+                                        @change="uploadFile"
+                                        @click:clear="clearData"
+                                    ></v-file-input>
+                                </v-card-text>
+                                <v-divider></v-divider>
 
                                 <v-card-actions>
                                     <v-spacer></v-spacer>

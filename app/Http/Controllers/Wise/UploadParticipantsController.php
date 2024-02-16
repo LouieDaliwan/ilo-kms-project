@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UploadWiseRequest;
-use App\Imports\WiseParticipantImport;
+use App\Imports\Wise\ParticipantImport;
 use Exception;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -16,7 +16,7 @@ class UploadParticipantsController extends Controller
     public function __invoke(UploadWiseRequest $request)
     {
         try {
-            Excel::import(new WiseParticipantImport, $request->file('file')); //storage_path('app/sample-wise.xlsx')
+            Excel::import(new ParticipantImport, $request->file('file')); //storage_path('app/sample-wise.xlsx')
 
             return response()->json([
                 'message' => 'Successfully imported evaluation data.',

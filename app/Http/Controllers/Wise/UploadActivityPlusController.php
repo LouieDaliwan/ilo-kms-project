@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Wise;
 
 use App\Http\Controllers\Controller;
-use App\Imports\WiseActivityPlusImport;
+use App\Imports\Wise\ActivityPlusImport;
 use Exception;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -16,7 +16,7 @@ class UploadActivityPlusController extends Controller
     public function __invoke(Request $request)
     {
         try {
-            Excel::import(new WiseActivityPlusImport, $request->file('file')); //storage_path('app/plus_activity.xlsx')
+            Excel::import(new ActivityPlusImport, $request->file('file')); //storage_path('app/plus_activity.xlsx')
 
             return response()->json([
                 'message' => 'Successfully imported activity report data.',
