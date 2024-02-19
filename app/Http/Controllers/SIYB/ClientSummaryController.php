@@ -4,7 +4,7 @@ namespace App\Http\Controllers\SIYB;
 
 use App\Http\Controllers\Controller;
 use Domain\SIYB\Actions\ClientSummary;
-x
+
 class ClientSummaryController extends Controller
 {
     /**
