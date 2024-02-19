@@ -9,7 +9,7 @@ const businessStart = ref({
 
 <template>
     <div class="mt-10">
-        <h1>Business Starters</h1>
+        <h1>Exist Business Owners</h1>
 
         <v-row class="mt-5">
             <v-col>
