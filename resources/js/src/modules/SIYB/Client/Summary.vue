@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, provide, ref } from "vue";
+import { onMounted, ref } from "vue";
 import $api from "../routes/api.js";
 import BusinessStarters from "../Components/BusinessStarters.vue";
 import EntryForm from "../Components/EntryForm.vue";
@@ -7,14 +7,12 @@ import ExistingBusinessOwners from "../Components/ExistingBusinessOwners.vue";
 
 const components = [BusinessStarters, EntryForm, ExistingBusinessOwners];
 
-provide("admin", ref(true));
-
 const tab = ref(null);
+const dataSummary = ref(null);
 
 const getData = async () => {
     const response = await axios.get($api.summaryClients(), {});
-    const data = await response.data;
-    console.log(data);
+    dataSummary.value = await response.data;
 };
 
 onMounted(() => {
@@ -40,9 +38,12 @@ onMounted(() => {
                 <v-tab :value="2">Entry Form</v-tab>
                 <v-tab :value="3">Existing Owners</v-tab>
             </v-tabs>
-            <v-window v-model="tab">
+            <v-window v-if="dataSummary" v-model="tab">
                 <v-window-item v-for="n in 3" :key="n" :value="n">
-                    <component :is="components[n - 1]" />
+                    <component
+                        :is="components[n - 1]"
+                        :dataSummary="dataSummary"
+                    />
                 </v-window-item>
             </v-window>
         </div>

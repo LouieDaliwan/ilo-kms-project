@@ -1,10 +1,24 @@
-<script setup>
-import { ref } from "vue";
+<script>
+export default {
+    props: ["dataSummary"],
 
-const businessStart = ref({
-    Yes: 20,
-    No: 30,
-});
+    data() {
+        return {
+            businessStart: this.dataSummary.businessStart,
+        };
+    },
+
+    watch: {
+        dataSummary() {
+            console.log("test");
+            this.businessStart = this.dataSummary.businessStart;
+        },
+    },
+
+    mounted() {
+        console.log(this.dataSummary);
+    },
+};
 </script>
 
 <template>
@@ -14,19 +28,31 @@ const businessStart = ref({
         <v-row class="mt-5">
             <v-col>
                 <h4>Do you have a concrete and feasible business idea</h4>
-                <Bar :name="'starters-1'" :values="businessStart" />
+                <Bar
+                    v-if="dataSummary"
+                    :name="'starters-1'"
+                    :values="businessStart.concrete_feasible_business_idea"
+                />
             </v-col>
 
             <v-col>
                 <h4>Do you have a business plan</h4>
-                <Bar :name="'starters-2'" :values="businessStart" />
+                <Bar
+                    v-if="dataSummary"
+                    :name="'starters-2'"
+                    :values="businessStart.do_you_have_a_business_plan"
+                />
             </v-col>
         </v-row>
 
         <v-row class="mt-5">
             <v-col>
                 <h4>Have you sold anything online?</h4>
-                <Bar :name="'starters-3'" :values="businessStart" />
+                <Bar
+                    v-if="dataSummary"
+                    :name="'starters-3'"
+                    :values="businessStart.sold_anything_online"
+                />
             </v-col>
 
             <v-col>
@@ -34,7 +60,11 @@ const businessStart = ref({
                     In your new business to be started, do you plan to sell
                     online?
                 </h4>
-                <Bar :name="'starters-4'" :values="businessStart" />
+                <Bar
+                    v-if="dataSummary"
+                    :name="'starters-4'"
+                    :values="businessStart.sell_online"
+                />
             </v-col>
         </v-row>
 
@@ -44,7 +74,11 @@ const businessStart = ref({
                     In your new business to be started, do you plan to use
                     e-wallets and digital financial services?
                 </h4>
-                <Bar :name="'starters-5'" :values="businessStart" />
+                <Bar
+                    v-if="dataSummary"
+                    :name="'starters-5'"
+                    :values="businessStart.digital_financial_services"
+                />
             </v-col>
 
             <v-col>
@@ -52,7 +86,11 @@ const businessStart = ref({
                     In your new business to be started, do you plan to use
                     digital tools/apps to manage the business operations?
                 </h4>
-                <Bar :name="'starters-6'" :values="businessStart" />
+                <Bar
+                    v-if="dataSummary"
+                    :name="'starters-6'"
+                    :values="businessStart.digital_tools_apps"
+                />
             </v-col>
         </v-row>
     </div>
