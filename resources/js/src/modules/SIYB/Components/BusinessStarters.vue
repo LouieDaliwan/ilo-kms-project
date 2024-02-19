@@ -1,23 +1,10 @@
 <script setup>
 import { ref } from "vue";
-import BarHorizontal from "@components/Charts/BarHorizontal.vue";
 
-const labelGender = ref(["Male", "Female"]);
-const labelAge = ref(["16-25", "26-35", "36-45", "46-60", "60>"]);
-const labelGadgets = ref([
-    "Desktop Computer",
-    "Tablet",
-    "Laptop",
-    "Smartphone",
-]);
-
-const labelConnection = ref([
-    "Constant high-speed connection",
-    "Constant but low-speed or unstable connection",
-    "Buy load as needed",
-    "Connect through providers outside household",
-    "No internet at all",
-]);
+const businessStart = ref({
+    Yes: 20,
+    No: 30,
+});
 </script>
 
 <template>
@@ -26,52 +13,46 @@ const labelConnection = ref([
 
         <v-row class="mt-5">
             <v-col>
-                <h4 class="text-secondary">
-                    <p>Gender</p>
-                </h4>
-                <Pie
-                    :labels="labelGender"
-                    :name="'siyb-client-gender'"
-                    :values="totalTOE"
-                    class="mt-10"
-                />
+                <h4>Do you have a concrete and feasible business idea</h4>
+                <Bar :name="'business-connection-1'" :values="businessStart" />
             </v-col>
+
             <v-col>
-                <h4 class="text-secondary">
-                    <p>Age</p>
-                </h4>
-                <Pie
-                    :labels="labelAge"
-                    :name="'siyb-client-age'"
-                    :values="totalMSME"
-                    class="mt-10"
-                />
+                <h4>Do you have a business plan</h4>
+                <Bar :name="'business-connection-2'" :values="businessStart" />
             </v-col>
         </v-row>
-        <v-row class="mt-12">
-            <v-col cols="12" md="6">
-                <h4 class="text-secondary">
-                    <p>Training of Entrepreneurs</p>
-                </h4>
-                <BarHorizontal
-                    v-if="entrepeneurLabel.length > 0"
-                    :labels="entrepeneurLabel"
-                    :name="'toe-bar'"
-                    :values="entrepeneurDataPlanned"
-                    :values2="entrepeneurDataConducted"
-                />
+
+        <v-row class="mt-5">
+            <v-col>
+                <h4>Have you sold anything online?</h4>
+                <Bar :name="'business-connection-3'" :values="businessStart" />
             </v-col>
-            <v-col cols="12" md="6">
-                <h4 class="text-secondary">
-                    <p>Training of MSME's</p>
+
+            <v-col>
+                <h4>
+                    In your new business to be started, do you plan to sell
+                    online?
                 </h4>
-                <BarHorizontal
-                    v-if="msmeLabel.length > 0"
-                    :labels="msmeLabel"
-                    :name="'msme-bar'"
-                    :values="msmeDataPlanned"
-                    :values2="msmeDataConducted"
-                />
+                <Bar :name="'business-connection-2'" :values="businessStart" />
+            </v-col>
+        </v-row>
+
+        <v-row class="mt-5">
+            <v-col>
+                <h4>
+                    In your new business to be started, do you plan to use
+                    e-wallets and digital financial services?
+                </h4>
+                <Bar :name="'business-connection-4'" :values="businessStart" />
+            </v-col>
+
+            <v-col>
+                <h4>
+                    In your new business to be started, do you plan to use
+                    digital tools/apps to manage the business operations?
+                </h4>
+                <Bar :name="'business-connection-5'" :values="businessStart" />
             </v-col>
         </v-row>
     </div>
