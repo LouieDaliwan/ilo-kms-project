@@ -19,7 +19,8 @@ class Client extends Model
     ];
 
     protected $with = [
-        'agency'
+        'agency',
+        'responses'
     ];
 
     public function responses()
