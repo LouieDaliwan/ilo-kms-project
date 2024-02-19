@@ -14,19 +14,19 @@ const businessStart = ref({
         <v-row class="mt-5">
             <v-col>
                 <h4>Do you have a concrete and feasible business idea</h4>
-                <Bar :name="'business-connection-1'" :values="businessStart" />
+                <Bar :name="'starters-1'" :values="businessStart" />
             </v-col>
 
             <v-col>
                 <h4>Do you have a business plan</h4>
-                <Bar :name="'business-connection-2'" :values="businessStart" />
+                <Bar :name="'starters-2'" :values="businessStart" />
             </v-col>
         </v-row>
 
         <v-row class="mt-5">
             <v-col>
                 <h4>Have you sold anything online?</h4>
-                <Bar :name="'business-connection-3'" :values="businessStart" />
+                <Bar :name="'starters-3'" :values="businessStart" />
             </v-col>
 
             <v-col>
@@ -34,7 +34,7 @@ const businessStart = ref({
                     In your new business to be started, do you plan to sell
                     online?
                 </h4>
-                <Bar :name="'business-connection-2'" :values="businessStart" />
+                <Bar :name="'starters-4'" :values="businessStart" />
             </v-col>
         </v-row>
 
@@ -44,7 +44,7 @@ const businessStart = ref({
                     In your new business to be started, do you plan to use
                     e-wallets and digital financial services?
                 </h4>
-                <Bar :name="'business-connection-4'" :values="businessStart" />
+                <Bar :name="'starters-5'" :values="businessStart" />
             </v-col>
 
             <v-col>
@@ -52,7 +52,7 @@ const businessStart = ref({
                     In your new business to be started, do you plan to use
                     digital tools/apps to manage the business operations?
                 </h4>
-                <Bar :name="'business-connection-5'" :values="businessStart" />
+                <Bar :name="'starters-6'" :values="businessStart" />
             </v-col>
         </v-row>
     </div>
