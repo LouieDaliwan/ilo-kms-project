@@ -3,13 +3,33 @@
 namespace Domain\SIYB\Actions;
 
 use App\Models\SIYB\Client;
+use Domain\SIYB\Support\BusinessStart;
+use Domain\SIYB\Support\EntryForm;
+
 
 class ClientSummary
 {
+    use EntryForm, BusinessStart;
+
     protected string $model = Client::class;
 
-    public function __invoke()
+    public function __invoke() : array
     {
-        return [];
+        $query = $this->model::get();
+
+        $entryForm = $this->entryForm;
+        $businessStart = $this->businessStartData;
+
+        foreach ($query as $client) {
+            $latestResponse = $client->responses()->latest()->first()->metadata;
+            $entryForm = $this->entryForm($client, $latestResponse, $entryForm);
+            $businessStart = $this->businessStart($latestResponse, $businessStart);
+        }
+
+        return [
+            'entryForm' => $entryForm,
+            'businessStart' => $businessStart,
+        ];
     }
+    
 }
