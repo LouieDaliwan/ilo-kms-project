@@ -18,14 +18,18 @@ export default {
     },
     mounted() {
         this.initChart();
+        this.updateChart();
     },
     watch: {
         values() {
-            this.chart.data.datasets[0].data = this.values;
-            this.chart.update();
+            this.updateChart();
         },
     },
     methods: {
+        updateChart() {
+            this.chart.data.datasets[0].data = this.values;
+            this.chart.update();
+        },
         initChart() {
             const ctx = document.getElementById(this.name);
             this.chart = shallowRef(

@@ -7,17 +7,6 @@ export default {
             businessStart: this.dataSummary.businessStart,
         };
     },
-
-    watch: {
-        dataSummary() {
-            console.log("test");
-            this.businessStart = this.dataSummary.businessStart;
-        },
-    },
-
-    mounted() {
-        console.log(this.dataSummary);
-    },
 };
 </script>
 
@@ -29,7 +18,6 @@ export default {
             <v-col>
                 <h4>Do you have a concrete and feasible business idea</h4>
                 <Bar
-                    v-if="dataSummary"
                     :name="'starters-1'"
                     :values="businessStart.concrete_feasible_business_idea"
                 />

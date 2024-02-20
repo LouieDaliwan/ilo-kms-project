@@ -86,11 +86,18 @@ trait BusinessOwners
             'N/A or Never' => 0,
         ],
         'plans_existing_future_business' => [
-            'Remain with / strengthen same business' => 0,
-            'Start new business, replacing old one' => 0,
-            'Start new business activities in addition to existing one' => 0,
+            'Strength' => 0,
+            'Replace Old' => 0,
+            'Add Activities' => 0,
             'Don’t know' => 0,
         ]
+    ];
+
+    protected array $plansExistingData = [
+        'Remain with / strengthen same business' => 'Strength',
+        'Start new business, replacing old one' => 'Replace Old',
+        'Start new business activities in addition to existing one' => 'Add Activities',
+        'Don’t know' => 'Don’t know',
     ];
 
     protected function businessOwners($latestResponse, $businessOwnersData): array
@@ -150,7 +157,7 @@ trait BusinessOwners
         }
 
         if(!is_null($latestResponse['plans_for_your_existing_business_in_the_near_future'])) {
-            $businessOwnersData['plans_existing_future_business'][$latestResponse['plans_for_your_existing_business_in_the_near_future']] += 1;
+            $businessOwnersData['plans_existing_future_business'][$this->plansExistingData[$latestResponse['plans_for_your_existing_business_in_the_near_future']]] += 1;
         }
 
         return $businessOwnersData;

@@ -42,6 +42,7 @@ onMounted(() => {
                 <v-window-item v-for="n in 3" :key="n" :value="n">
                     <component
                         :is="components[n - 1]"
+                        v-if="dataSummary"
                         :dataSummary="dataSummary"
                     />
                 </v-window-item>

@@ -4,6 +4,14 @@ namespace Domain\SIYB\Support;
 
 trait  EntryForm
 {
+    protected array $listConnection = [
+        'Constant high-speed connection (e.g., fiber, broadband,  cable or Wi-Fi)' => 'high-speed connection',
+        'Constant but low-speed or unstable connection' => 'low-speed connection',
+        'Buys prepaid data allowance as needed' => 'prepaid data allowance',
+        'Connects through providers outside household (e.g., internet café, free wifi)'=> 'outside provider',
+        'no internet at all' => 'no internet',
+    ];
+
     protected array $entryForm = [
         'gender' => [
             'Male' => 0,
@@ -23,11 +31,11 @@ trait  EntryForm
             'Desktop' => 0,
         ],
         'connection' => [
-            'Constant high-speed connection (e.g., fiber, broadband,  cable or Wi-Fi)' => 0,
-            'Constant but low-speed or unstable connection' => 0,
-            'Buys prepaid data allowance as needed' => 0,
-            'Connects through providers outside household (e.g., internet café, free wifi)'=>0,
-            'no internet at all' => 0,
+            'high-speed connection' => 0,
+            'low-speed connection' => 0,
+            'prepaid data allowance' => 0,
+            'outside provider'=>0,
+            'no internet' => 0,
         ]
     ];
 
@@ -35,7 +43,7 @@ trait  EntryForm
     {
         $entryForm['gender'][$client->gender] += 1;
         $entryForm['age'][$client->age] += 1;
-        $entryForm['connection'][$latestResponse['level_of_internet_access_do_you_currently_have']] += 1;
+        $entryForm['connection'][$this->listConnection[$latestResponse['level_of_internet_access_do_you_currently_have']]] += 1;
         $entryForm['digitalDevices'][explode(",",$latestResponse['digital_devices_do_you_have'])[0]] += 1;
 
         return $entryForm;
