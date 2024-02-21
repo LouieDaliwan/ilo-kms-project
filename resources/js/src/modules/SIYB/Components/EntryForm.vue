@@ -13,7 +13,7 @@ export default {
 
 <template>
     <div class="mt-10">
-        <h1>Entry Form</h1>
+        <h3 class="text-tertiary-color">Entry Form</h3>
 
         <v-row class="mt-5">
             <v-col>
@@ -37,9 +37,9 @@ export default {
                 />
             </v-col>
         </v-row>
-        <v-row class="mt-5">
+        <v-row class="mt-9">
             <v-col>
-                <h4>Which digital devices do you have?</h4>
+                <h4 class="chart-title">Which digital devices do you have?</h4>
                 <Bar
                     :name="'entry-form-digital-1'"
                     :values="entryForm.digitalDevices"
@@ -47,7 +47,7 @@ export default {
             </v-col>
 
             <v-col>
-                <h4>What level of internet access do you currently have?</h4>
+                <h4 class="chart-title">What level of internet access do you currently have?</h4>
                 <Bar
                     :name="'entry-form-internet-2'"
                     :values="entryForm.connection"

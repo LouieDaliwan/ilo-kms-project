@@ -13,7 +13,7 @@ defineProps(["values"]);
         </p>
 
         <v-row class="mt-5">
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
                         <p>
@@ -27,7 +27,7 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
                         <p>
@@ -61,11 +61,14 @@ defineProps(["values"]);
                     <v-col cols="12" md="9">
                         <v-card class="pa-5">
                             <div class="chart-title mb-5">
-                                <p>
+                                <!-- <p>
                                     Can you note any concrete example(s) of an
                                     initiative you took towards better execution of your
                                     OSH-related duties/responsibilities as an employer
                                     in the last two years?
+                                </p> -->
+                                <p>
+                                    Can you note any concrete example(s) of an
                                 </p>
                             </div>
                                 <Bar

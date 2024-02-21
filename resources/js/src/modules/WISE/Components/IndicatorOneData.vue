@@ -13,7 +13,7 @@ defineProps(["values"]);
         </p>
 
         <v-row class="mt-5">
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title">
                         <p>
@@ -27,7 +27,7 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title">
                         <p>
@@ -43,7 +43,7 @@ defineProps(["values"]);
             </v-col>
         </v-row>
         <v-row class="mt-5">
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
                         <p>
@@ -58,7 +58,7 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
                         <p>
@@ -76,7 +76,7 @@ defineProps(["values"]);
             </v-col>
         </v-row>
         <v-row class="mt-12">
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
                         <p>
@@ -90,7 +90,7 @@ defineProps(["values"]);
                     />
                 </v-card>
             </v-col>
-            <v-col>
+            <v-col cols="12" md="6">
                 <v-card class="pa-5">
                     <div class="chart-title mb-8">
                         <p>I would recommend this training to others</p>

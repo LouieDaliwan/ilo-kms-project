@@ -21,7 +21,6 @@ export default {
     },
     watch: {
         values(val) {
-            console.log("test");
             this.chart.data.labels = this.labels;
             this.chart.data.datasets[0].data = this.values;
             this.chart.data.datasets[1].data = this.values2;
