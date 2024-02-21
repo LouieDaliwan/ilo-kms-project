@@ -68,7 +68,7 @@ const fetchEvaluation = () => {
             </div>
             <div class="mt-15">
                 <v-row class="mt-5">
-                    <v-col>
+                    <v-col cols="12" md="4">
                         <h4 class="text-secondary">Sector</h4>
                         <Pie
                             v-if="overAllData"
@@ -78,14 +78,14 @@ const fetchEvaluation = () => {
                             class="mt-10"
                         />
                     </v-col>
-                    <v-col>
+                    <v-col cols="12" md="4">
                         <h4 class="text-secondary mb-9">Gender</h4>
                         <Bar
                             :name="'gender'"
                             :values="overAllData.gender"
                         ></Bar>
                     </v-col>
-                    <v-col>
+                    <v-col cols="12" md="4">
                         <h4 class="text-secondary mb-9">Position</h4>
                         <Bar
                             :name="'position'"

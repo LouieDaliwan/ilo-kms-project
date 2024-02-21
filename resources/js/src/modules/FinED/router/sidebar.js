@@ -4,7 +4,7 @@ export default [
         name: "fin-ed",
         meta: {
             title: "FinED",
-            icon: "mdi-account-settings",
+            icon: "mdi-all-inclusive-box",
             requiresAuth: true,
             sort: 4,
             roles: ["Superadmin"],

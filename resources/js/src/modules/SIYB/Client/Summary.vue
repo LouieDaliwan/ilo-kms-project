@@ -32,7 +32,7 @@ onMounted(() => {
             <v-tabs
                 v-model="tab"
                 align-tabs="center"
-                color="deep-purple-accent-4"
+                color="primary"
             >
                 <v-tab :value="1">Business Starters</v-tab>
                 <v-tab :value="2">Entry Form</v-tab>
